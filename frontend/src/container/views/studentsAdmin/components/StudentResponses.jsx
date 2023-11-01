@@ -33,7 +33,7 @@ const StudentResponses = () => {
     }
     else {
 
-      axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'user_id': localStorage.getItem('user_id')
@@ -77,7 +77,7 @@ const StudentResponses = () => {
 
     let formName = path.replaceAll('-', " ");
 
-    const url = `https://somaiyaawards.somaiya.edu/admin/students-admin/data/${path}`;
+    const url = `https://apisomaiyaawards.somaiya.edu/students-admin/data/${path}`;
 
     axios.get(url, {
       headers: {

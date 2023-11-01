@@ -32,7 +32,7 @@ const ResearchResponses = () => {
         }
         else {
 
-            axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+            axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'user_id': localStorage.getItem('user_id')
@@ -72,7 +72,7 @@ const ResearchResponses = () => {
                 })
         }
 
-        const url = 'https://somaiyaawards.somaiya.edu/admin/research-admin/data/research'
+        const url = 'https://apisomaiyaawards.somaiya.edu/research-admin/data/research'
         axios.get(url, {
             headers: {
                 'user_id': localStorage.getItem('user_id'),

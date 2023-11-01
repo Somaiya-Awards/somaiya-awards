@@ -37,7 +37,7 @@ const ScoreCard = () => {
 
         if (window.location.href.split('/')[4] === 'teaching') {
 
-            axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/teaching/scorecard', {
+            axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/teaching/scorecard', {
                 headers: {
                     'user_id': localStorage.getItem('user_id'),
                     'x-access-token': localStorage.getItem('token'),
@@ -76,7 +76,7 @@ const ScoreCard = () => {
 
         else {
 
-            axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/non-teaching/scorecard', {
+            axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/non-teaching/scorecard', {
                 headers: {
                     'user_id': localStorage.getItem('user_id'),
                     'x-access-token': localStorage.getItem('token'),

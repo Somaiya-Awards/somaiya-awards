@@ -27,7 +27,7 @@ const ResetPassword = () => {
 
     const handleClick = ()=>{
         
-        axios.post( `https://somaiyaawards.somaiya.edu/admin/auth/${id}/${token}`, credentials)
+        axios.post( `https://apisomaiyaawards.somaiya.edu/auth/${id}/${token}`, credentials)
         .then((res)=>{
             console.log(res);
             setConfirmation(true)
@@ -45,7 +45,7 @@ const ResetPassword = () => {
      */
 
     useEffect(() => {
-        axios.get(`https://somaiyaawards.somaiya.edu/admin/auth/${id}/${token}`)
+        axios.get(`https://apisomaiyaawards.somaiya.edu/auth/${id}/${token}`)
             .then((res) => {
                 setAuthorized(res.data.authorized)
                 console.log(res);

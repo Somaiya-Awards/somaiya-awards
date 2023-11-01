@@ -33,7 +33,7 @@ const SportsResponses = () => {
         }
         else {
 
-            axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+            axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'user_id': localStorage.getItem('user_id')
@@ -93,7 +93,7 @@ const SportsResponses = () => {
                 navigate('/sports-admin')
         }
 
-        const url = `https://somaiyaawards.somaiya.edu/admin/sports-admin/data/${path}`
+        const url = `https://apisomaiyaawards.somaiya.edu/sports-admin/data/${path}`
 
         axios.get(url, {
             headers: {
