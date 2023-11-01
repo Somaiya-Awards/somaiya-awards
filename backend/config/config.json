@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": "<password>",
+    "username": "somaiya_awards",
+    "password": "somaiya_awards",
     "database": "somaiya_awards",
     "host": "localhost",
     "dialect": "mysql"
