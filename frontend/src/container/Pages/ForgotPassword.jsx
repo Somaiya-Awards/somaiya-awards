@@ -25,7 +25,7 @@ const ForgotPassword = () => {
         }
         else{
 
-            await axios.post('https://somaiyaawards.somaiya.edu/admin/auth/forgot-password', email)
+            await axios.post('https://apisomaiyaawards.somaiya.edu/auth/forgot-password', email)
             .then((res) => {
                 console.log(res);
                 setEmail({})

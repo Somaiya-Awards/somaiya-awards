@@ -110,7 +110,7 @@ const ManageUsers = () => {
       }
       else {
 
-        await axios.post('https://somaiyaawards.somaiya.edu/admin/auth/register', credentials)
+        await axios.post('https://apisomaiyaawards.somaiya.edu/auth/register', credentials)
           .then((res) => {
             console.log(res);
             setCredentials({})
@@ -164,7 +164,7 @@ const ManageUsers = () => {
     }
     else {
 
-      axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'user_id': localStorage.getItem('user_id')

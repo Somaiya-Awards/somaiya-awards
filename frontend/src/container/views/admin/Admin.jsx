@@ -42,7 +42,7 @@ const Admin = () => {
             navigate('/auth/login')
         }
 
-        axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+        axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
             headers: {
                 'x-access-token': localStorage.getItem('token'),
                 'user_id': localStorage.getItem('user_id')
@@ -86,7 +86,7 @@ const Admin = () => {
     const loadDashboardData = () => {
 
         // all Counts
-        axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/count/all', {
+        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/all', {
             headers: {
                 'user_id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -100,7 +100,7 @@ const Admin = () => {
             })
 
         // 15 days Count
-        axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/count/15', {
+        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/15', {
             headers: {
                 'user_id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -114,7 +114,7 @@ const Admin = () => {
             })
 
         // institution Wise count 
-        axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/count/institution-wise', {
+        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/institution-wise', {
             headers: {
                 'user_id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -129,7 +129,7 @@ const Admin = () => {
 
          // group Wise count
 
-         axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/count/group', {
+         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/group', {
             headers: {
                 'user_id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),

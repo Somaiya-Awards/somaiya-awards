@@ -12,10 +12,10 @@ const Results = () => {
 
     let data;
 
-    axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/results', {})
+    axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/results', {})
       .then((res) => {
 
-        let url = `https://somaiyaawards.somaiya.edu/admin${res.data.data[0].result.split('data')[1]}`
+        let url = `https://apisomaiyaawards.somaiya.edu${res.data.data[0].result.split('data')[1]}`
 
         axios.get(url, { responseType: "arraybuffer" })
           .then((res) => {

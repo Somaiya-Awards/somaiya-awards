@@ -33,7 +33,7 @@ const Review = () => {
         }
         else {
 
-            axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
+            axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'user_id': localStorage.getItem('user_id')
@@ -93,7 +93,7 @@ const Review = () => {
                 navigate('/ieac')
         }
 
-        const url = `https://somaiyaawards.somaiya.edu/admin/hoi/data/${pathLabel}`;
+        const url = `https://apisomaiyaawards.somaiya.edu/hoi/data/${pathLabel}`;
 
         axios.get(url, {
             headers: {
@@ -130,7 +130,7 @@ const Review = () => {
         })
             .then((res) => {
                 if (res.isConfirmed == true) {
-                    axios.post(`https://somaiyaawards.somaiya.edu/admin/ieac/data/${path}`, data, {
+                    axios.post(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`, data, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                             'user_id': localStorage.getItem('user_id'),

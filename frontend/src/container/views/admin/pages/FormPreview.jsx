@@ -16,7 +16,7 @@ const FormPreview = () => {
   useEffect(() => {
     const formType = window.location.href.split('/')[4];
     const applicationID = window.location.href.split('/')[6];
-    const url = `https://somaiyaawards.somaiya.edu/admin/admin/data/${formType}/preview`;
+    const url = `https://apisomaiyaawards.somaiya.edu/admin/data/${formType}/preview`;
 
     setTitle(formType)
     switch (formType) {
@@ -79,7 +79,7 @@ const FormPreview = () => {
               </label>
               {formInfo.find((item) => item._name === key)?.type === 'file' ? (
                 <a
-                  href={`https://somaiyaawards.somaiya.edu/admin${data[key].split("data")[1]}`}
+                  href={`https://apisomaiyaawards.somaiya.edu${data[key].split("data")[1]}`}
                   target="_blank"
                   download
                   className="bg-red-700 px-4 py-2 rounded-xl font-Poppins text-white my-3 mb-9"
