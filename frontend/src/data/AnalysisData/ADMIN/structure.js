@@ -74,7 +74,7 @@ const columns01: GridColDef[] = [
     { field: 'q_38', headerName: 'What are the significant contributions made by your institution to the support functions eg HR, IT, Sports, Security, PR, AR etc', width: 200 },
     {
         field: 'supportings', headerName: 'Supportings', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" target='_blank' download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" target='_blank' download>Download</a>;
         }
     },
     {
@@ -129,12 +129,12 @@ const columns02: GridColDef[] = [
     { field: 'national_awards_won_count', headerName: 'National Awards Won Count', width: 200 },
     {
         field: 'evidence_of_research', headerName: 'Evidence of Research', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
         field: 'evidence_of_data_provided', headerName: 'Evidence of Data Provided', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     { field: 'confirmation_of_trueData', headerName: 'Confirmation of True Data', width: 200 },
@@ -187,7 +187,7 @@ const columns03: GridColDef[] = [
     },
     {
         field: 'supportings', headerName: 'Supportings', width: 200, renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
@@ -240,12 +240,12 @@ const columns04: GridColDef[] = [
     { field: 'q_20', headerName: 'Score the candidate on his/her/their general impression in terms of honesty, integrity, conduct and ability to get along with the superiors colleagues, students', width: 100 },
     {
         field: 'data_evidence', headerName: 'Data Evidence', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
         field: 'profile_photograph', headerName: 'Profile Photograph', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
@@ -276,7 +276,7 @@ const columns04: GridColDef[] = [
     },
     {
         field: 'ieacApprovedFile', headerName: 'IEAC Approved File', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
@@ -331,12 +331,12 @@ const columns05: GridColDef[] = [
     { field: 'q_24', headerName: 'Accuracy & Dependability', width: 100 },
     {
         field: 'proof_docs', headerName: 'Proof Docs', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
         field: 'nominee_photograph', headerName: 'Nominee Photograph', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
@@ -367,7 +367,7 @@ const columns05: GridColDef[] = [
 
     {
         field: 'ieacApprovedFile', headerName: 'IEAC Approved File', width: 200, renderCell: (params) => {
-            return <a href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
@@ -556,7 +556,7 @@ const columns10: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -565,7 +565,7 @@ const columns10: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -659,7 +659,7 @@ const columns11: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -668,7 +668,7 @@ const columns11: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -858,7 +858,7 @@ const columns12: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -867,7 +867,7 @@ const columns12: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 300,
         renderCell: (params) => {
-            return <a target="_blank" href={`http://localhost:5001/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`https://somaiyaawards.somaiya.edu/admin/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },

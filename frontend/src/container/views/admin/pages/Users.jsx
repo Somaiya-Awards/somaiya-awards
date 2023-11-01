@@ -63,7 +63,7 @@ const Users = () => {
                 if (res.isConfirmed) {
 
                     // delete query
-                    axios.delete('http://localhost:5001/admin/data/delete-user', {
+                    axios.delete('https://somaiyaawards.somaiya.edu/admin/admin/data/delete-user', {
                         data: { userId: params.row.id },
                         headers: {
                             'x-access-token': localStorage.getItem('token'),
@@ -103,7 +103,7 @@ const Users = () => {
             navigate('/auth/login')
         }
 
-        axios.get('http://localhost:5001/auth/validate', {
+        axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
             headers: {
                 'x-access-token': localStorage.getItem('token'),
                 'user_id': localStorage.getItem('user_id')
@@ -116,7 +116,7 @@ const Users = () => {
                     setAuthorized(res.data['authorized'])
                     setLoading(false);
 
-                    axios.get('http://localhost:5001/admin/data/users', {
+                    axios.get('https://somaiyaawards.somaiya.edu/admin/admin/data/users', {
                         headers: {
                             'user_id': localStorage.getItem('user_id'),
                             'x-access-token': localStorage.getItem('token'),

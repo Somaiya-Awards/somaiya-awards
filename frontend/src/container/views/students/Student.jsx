@@ -51,7 +51,7 @@ const Student = () => {
         }
         else {
 
-            axios.get('http://localhost:5001/auth/validate', {
+            axios.get('https://somaiyaawards.somaiya.edu/admin/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'user_id': localStorage.getItem('user_id')
