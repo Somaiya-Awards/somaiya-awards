@@ -42,6 +42,7 @@ const userLogin = asyncHandler(async (req, res) => {
 
         const token = jwt.sign({ email_id: user.email_id, id: user.id }, secret, { expiresIn: '2d' });
 
+        authLogger.info(`I am here`)
         authLogger.info(`${user.email_id} logged in successfully`)
         res.status(200).json({
             token: token,
