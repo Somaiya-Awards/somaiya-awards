@@ -323,6 +323,8 @@ const submitForm_03 = asyncHandler(async (req, res) => {
 //@access private
 
 const submitForm_04 = asyncHandler(async (req, res) => {
+    console.log('Debug 1')
+    console.log(req)
 
     const { somaiya_mail_id, awards_category } = req.body
 
@@ -338,7 +340,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
             ],
         },
     });
-
+    console.log('Debug 2')
     if (existingTeachingEntry) {
         res.status(400).json({
             message: "A duplicate entry already exists for this year, email, and awards category.",
@@ -347,7 +349,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         });
         return;
     }
-
+    console.log('Debug 3')
     const {
         email_id,
         faculty_name,
@@ -380,7 +382,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
 
     const data_evidence = req.files.data_evidence[0].path
     const profile_photograph = req.files.profile_photograph[0].path
-
+    console.log('Debug 4')
     const result = await Teaching.create({
         email_id: email_id,
         faculty_name: faculty_name,
@@ -414,7 +416,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         data_evidence: data_evidence,
         profile_photograph: profile_photograph,
     });
-
+    console.log('Debug 5')
 
     if (!result) {
 
@@ -423,13 +425,13 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         formLogger.info(`Failed to save teaching form filled by client ${req.ip}`)
         throw new Error("Failed to accept your response")
     }
-
+    console.log('Debug 6')
     formLogger.info(`Teaching form filled by client ${req.ip}`)
     res.status(200).json({
         message: "Form submitted successfully",
         submitted: true
     })
-
+    console.log('Debug 7')
 })
 
 
