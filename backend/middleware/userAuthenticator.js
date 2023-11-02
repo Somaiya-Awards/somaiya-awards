@@ -6,6 +6,8 @@ const userAuthenticator = asyncHandler( async (req,res,next)=>{
     const token = req.headers['x-access-token']
     const user_id = req.headers['user_id']
 
+    console.log(req.headers)
+
     console.log('user_id '+user_id)
     console.log('token '+token)
 
