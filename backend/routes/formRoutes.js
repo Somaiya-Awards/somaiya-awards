@@ -66,7 +66,13 @@ router.route('/sports').post(
 );
 
 
-router.route('/teaching').post(submitForm_04);
+router.route('/teaching').post(
+    upload04.fields([
+        { name: 'data_evidence', maxCount: 1 },
+        { name: 'profile_photograph', maxCount: 1 }
+    ]),
+    submitForm_04
+);
 
 router.route('/non-teaching').post(
     upload05.fields([
