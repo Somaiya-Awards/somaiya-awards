@@ -35,7 +35,7 @@ const userLogin = asyncHandler(async (req, res) => {
     const dbPassword = user['password']
 
     const result = await bcrypt.compare(user_password, dbPassword)
-
+    authLogger.info(`I am before if`)
     if (result) {
 
         const secret = process.env.JWT_SECRET + user.password
