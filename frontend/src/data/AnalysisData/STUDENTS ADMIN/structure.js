@@ -28,7 +28,7 @@ const handleStudentsChange = (params, event) => {
       .then((res) => {
         if (res.isConfirmed == true) {
           //axios put
-          axios.put(`https://apisomaiyaawards.somaiya.edu/students-admin/data/update`, data, {
+          axios.put(`/students-admin/data/update`, data, {
             headers: {
               'x-user-id': localStorage.getItem('user_id'),
               'x-access-token': localStorage.getItem('token'),
@@ -78,7 +78,7 @@ const columns01: GridColDef = [
   },
   {
     field: 'supportings', headerName: 'Supportings', width: 200, renderCell: (params) => {
-      return <a target="_blank" href={`https://apisomaiyaawards.somaiya.edu/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+      return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
     }
   },
 ];

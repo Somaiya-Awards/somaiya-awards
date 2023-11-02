@@ -32,7 +32,7 @@ const ResearchResponses = () => {
         }
         else {
 
-            axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+            axios.get('/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'x-user-id': localStorage.getItem('user_id'),
@@ -72,7 +72,7 @@ const ResearchResponses = () => {
                 })
         }
 
-        const url = 'https://apisomaiyaawards.somaiya.edu/research-admin/data/research'
+        const url = '/research-admin/data/research'
         axios.get(url, {
             headers: {
                 'x-user-id': localStorage.getItem('user_id'),
