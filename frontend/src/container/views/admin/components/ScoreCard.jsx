@@ -39,9 +39,9 @@ const ScoreCard = () => {
 
             axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/teaching/scorecard', {
                 headers: {
-                    'user_id': localStorage.getItem('user_id'),
+                    'x-user-id': localStorage.getItem('user_id'),
                     'x-access-token': localStorage.getItem('token'),
-                    'applicationid': window.location.href.split('/scorecard/')[1],
+                    'x-application-id': window.location.href.split('/scorecard/')[1],
                 }
             })
                 .then((res) => {
@@ -78,9 +78,9 @@ const ScoreCard = () => {
 
             axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/non-teaching/scorecard', {
                 headers: {
-                    'user_id': localStorage.getItem('user_id'),
+                    'x-user-id': localStorage.getItem('user_id'),
                     'x-access-token': localStorage.getItem('token'),
-                    'applicationid': window.location.href.split('/scorecard/')[1],
+                    'x-application-id': window.location.href.split('/scorecard/')[1],
                 }
             })
                 .then((res) => {

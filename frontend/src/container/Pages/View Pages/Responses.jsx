@@ -47,7 +47,7 @@ const Responses = () => {
       axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
-          'user_id': localStorage.getItem('user_id')
+          'x-user-id': localStorage.getItem('user_id'),
         }
       })
         .then((res) => {
@@ -156,7 +156,7 @@ const Responses = () => {
 
     axios.get(`https://apisomaiyaawards.somaiya.edu/admin/data/forms/${path}`, {
       headers: {
-        'user_id': localStorage.getItem('user_id'),
+        'x-user-id': localStorage.getItem('user_id'),
         'x-access-token': localStorage.getItem('token'),
       }
     })
@@ -178,7 +178,7 @@ const Responses = () => {
 
     axios.get(`https://apisomaiyaawards.somaiya.edu/admin/data/jury-summary/${path}`, {
       headers: {
-        'user_id': localStorage.getItem('user_id'),
+        'x-user-id': localStorage.getItem('user_id'),
         'x-access-token': localStorage.getItem('token')
       }
     })
