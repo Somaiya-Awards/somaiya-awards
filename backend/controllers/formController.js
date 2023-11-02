@@ -323,7 +323,6 @@ const submitForm_03 = asyncHandler(async (req, res) => {
 //@access private
 
 const submitForm_04 = asyncHandler(async (req, res) => {
-    formLogger.info(`Submit teaching form...`)
     const { somaiya_mail_id, awards_category } = req.body
 
     const currentYear = new Date().getFullYear();
