@@ -28,7 +28,7 @@ const Hoi = () => {
     }
     else {
 
-      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+      axios.get('/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'x-user-id': localStorage.getItem('user_id'),

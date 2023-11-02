@@ -114,7 +114,7 @@ const Forms = (props) => {
       // axios post 
 
       const formType = window.location.href.split('/forms/')[1]
-      const postUrl = `https://apisomaiyaawards.somaiya.edu/forms/${formType}`
+      const postUrl = `/forms/${formType}`
 
       if (formType === 'feedback-01' || formType === 'feedback-02' || formType === 'feedback-03' || formType === 'feedback-04' || formType === 'feedback-05') {
 

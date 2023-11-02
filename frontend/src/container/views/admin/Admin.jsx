@@ -42,7 +42,7 @@ const Admin = () => {
             navigate('/auth/login')
         }
 
-        axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+        axios.get('/auth/validate', {
             headers: {
                 'x-access-token': localStorage.getItem('token'),
                 'x-user-id': localStorage.getItem('user_id'),
@@ -86,7 +86,7 @@ const Admin = () => {
     const loadDashboardData = () => {
 
         // all Counts
-        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/all', {
+        axios.get('/admin/data/count/all', {
             headers: {
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -100,7 +100,7 @@ const Admin = () => {
             })
 
         // 15 days Count
-        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/15', {
+        axios.get('/admin/data/count/15', {
             headers: {
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -114,7 +114,7 @@ const Admin = () => {
             })
 
         // institution Wise count 
-        axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/institution-wise', {
+        axios.get('/admin/data/count/institution-wise', {
             headers: {
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
@@ -129,7 +129,7 @@ const Admin = () => {
 
          // group Wise count
 
-         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/group', {
+         axios.get('/admin/data/count/group', {
             headers: {
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
