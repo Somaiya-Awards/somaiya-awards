@@ -88,7 +88,7 @@ const Admin = () => {
         // all Counts
         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/all', {
             headers: {
-                'user_id': localStorage.getItem('user_id'),
+                // 'user_id': localStorage.getItem('user_id'),
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
             }
