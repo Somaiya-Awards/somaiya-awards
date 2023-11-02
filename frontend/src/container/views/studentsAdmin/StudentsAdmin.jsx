@@ -48,7 +48,7 @@ const StudentsAdmin = () => {
       axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
-          'user_id': localStorage.getItem('user_id')
+          'x-user-id': localStorage.getItem('user_id'),
         }
       })
         .then((res) => {

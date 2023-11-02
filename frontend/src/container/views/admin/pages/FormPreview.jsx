@@ -47,8 +47,8 @@ const FormPreview = () => {
     axios.get(url, {
       headers: {
         'x-access-token': localStorage.getItem('token'),
-        'user_id': localStorage.getItem('user_id'),
-        'applicationid': applicationID,
+        'x-user-id': localStorage.getItem('user_id'),
+        'x-application-id': applicationID,
       },
     })
       .then((res) => {

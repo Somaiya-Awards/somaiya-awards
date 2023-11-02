@@ -45,7 +45,7 @@ const Admin = () => {
         axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
             headers: {
                 'x-access-token': localStorage.getItem('token'),
-                'user_id': localStorage.getItem('user_id')
+                'x-user-id': localStorage.getItem('user_id'),
             }
         })
             .then((res) => {
@@ -88,7 +88,6 @@ const Admin = () => {
         // all Counts
         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/all', {
             headers: {
-                // 'user_id': localStorage.getItem('user_id'),
                 'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
             }
@@ -103,7 +102,7 @@ const Admin = () => {
         // 15 days Count
         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/15', {
             headers: {
-                'user_id': localStorage.getItem('user_id'),
+                'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
             }
         })
@@ -117,7 +116,7 @@ const Admin = () => {
         // institution Wise count 
         axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/institution-wise', {
             headers: {
-                'user_id': localStorage.getItem('user_id'),
+                'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
             }
         })
@@ -132,7 +131,7 @@ const Admin = () => {
 
          axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/count/group', {
             headers: {
-                'user_id': localStorage.getItem('user_id'),
+                'x-user-id': localStorage.getItem('user_id'),
                 'x-access-token': localStorage.getItem('token'),
             }
         })

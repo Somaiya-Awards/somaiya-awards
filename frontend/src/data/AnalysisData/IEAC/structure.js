@@ -58,7 +58,7 @@ const handleResearchChange = (params, event) => {
                     //axios put
                     axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`, data, {
                         headers: {
-                            'user_id': localStorage.getItem('user_id'),
+                            'x-user-id': localStorage.getItem('user_id'),
                             'x-access-token': localStorage.getItem('token'),
                         }
                     })
@@ -108,7 +108,7 @@ const handleSportsChange = (params,event)=>{
                     //axios put
                     axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`, data, {
                         headers: {
-                            'user_id': localStorage.getItem('user_id'),
+                            'x-user-id': localStorage.getItem('user_id'),
                             'x-access-token': localStorage.getItem('token'),
                         }
                     })
@@ -195,7 +195,7 @@ const handleTeachRecommend = (params, event) => {
                 axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`,data,{
                     headers:{
                         'x-access-token':localStorage.getItem('token'),
-                        'user_id': localStorage.getItem('user_id')
+                        'x-user-id': localStorage.getItem('user_id'),
                     }
                 })
                 .then((res)=>{
@@ -284,7 +284,7 @@ const handleTeachNotRecommend = (params, event) => {
                 axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`,data,{
                     headers:{
                         'x-access-token':localStorage.getItem('token'),
-                        'user_id': localStorage.getItem('user_id')
+                        'x-user-id': localStorage.getItem('user_id'),
                     }
                 })
                 .then((res)=>{
@@ -367,7 +367,7 @@ const handleNonTeachRecommend = (params,event)=>{
                 axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`,data,{
                     headers:{
                         'x-access-token':localStorage.getItem('token'),
-                        'user_id': localStorage.getItem('user_id')
+                        'x-user-id': localStorage.getItem('user_id'),
                     }
                 })
                 .then((res)=>{
@@ -451,7 +451,7 @@ const handleNonTeachNotRecommend = (params,event)=>{
                 axios.put(`https://apisomaiyaawards.somaiya.edu/ieac/data/${path}`,data,{
                     headers:{
                         'x-access-token':localStorage.getItem('token'),
-                        'user_id': localStorage.getItem('user_id')
+                        'x-user-id': localStorage.getItem('user_id'),
                     }
                 })
                 .then((res)=>{

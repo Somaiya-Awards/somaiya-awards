@@ -30,7 +30,7 @@ const handleStudentsChange = (params, event) => {
           //axios put
           axios.put(`https://apisomaiyaawards.somaiya.edu/students-admin/data/update`, data, {
             headers: {
-              'user_id': localStorage.getItem('user_id'),
+              'x-user-id': localStorage.getItem('user_id'),
               'x-access-token': localStorage.getItem('token'),
             }
           })

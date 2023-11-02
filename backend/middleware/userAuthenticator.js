@@ -2,18 +2,12 @@ const asyncHandler = require("express-async-handler");
 // const { authLogger } = require('logger');
 
 const userAuthenticator = asyncHandler( async (req,res,next)=>{
-    // authLogger.info(`I am here 1`)
     const token = req.headers['x-access-token']
     const user_id = req.headers['x-user-id']
     // const user_id = req.headers['user_id']
 
-    console.log(req.headers)
-
-    console.log('user_id '+user_id)
-    console.log('token '+token)
-
-    // authLogger.info(`user_id ${user_id}`)
-    // authLogger.info(`token ${token}`)
+    // console.log('user_id '+user_id)
+    // console.log('token '+token)
     
     /**if something breaks remove this if statement due to token or userID while TESTING */
     if(!token || !user_id){

@@ -1506,7 +1506,8 @@ const getTeachingScoreCardData = asyncHandler(async (req, res) => {
 
     let hoiScore = 0
     let ieacScore = 0
-    const applicationID = req.headers.applicationid;
+    // const applicationID = req.headers.applicationid;
+    const applicationID = req.headers['x-application-id'];
 
     const applicationData = await Teaching.findOne({ where: { id: applicationID } });
 
@@ -1667,7 +1668,7 @@ const getNonTeachingScoreCardData = asyncHandler(async (req, res) => {
     const studentValidFeedbacks = [];
     const peerValidFeedbacks = [];
 
-    const applicationID = req.headers.applicationid;
+    const applicationID = req.headers['x-application-id'];
 
     // get data from db
 
@@ -1893,7 +1894,7 @@ const getFormPreviewData = asyncHandler(async (req, res) => {
 
 
     const formType = req.params.formtype
-    const applicationID = req.headers.applicationid
+    const applicationID = req.headers['x-application-id']
 
     let application;
 
