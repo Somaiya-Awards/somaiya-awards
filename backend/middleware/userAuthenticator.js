@@ -2,10 +2,10 @@ const asyncHandler = require("express-async-handler");
 const { authLogger } = require('logger');
 
 const userAuthenticator = asyncHandler( async (req,res,next)=>{
-
+    authLogger.info(`I am here`)
     const token = req.headers['x-access-token']
     const user_id = req.headers['user_id']
-    
+
     authLogger.info(`user_id ${user_id}`)
     authLogger.info(`token ${token}`)
     
