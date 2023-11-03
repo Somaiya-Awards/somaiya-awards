@@ -80,8 +80,8 @@ const FormCards = () => {
                     />
                 </div>
                 {
-                    group.includes(3) || group.includes(4)
-                        ?
+                    // group.includes(3) || group.includes(4)
+                    //     ?
                         <>
                             <div>
                                 <FormCard
@@ -92,8 +92,8 @@ const FormCards = () => {
                                 />
                             </div>
                         </>
-                        :
-                        null
+                        // :
+                        // null
                 }
                 <div>
                     <FormCard
