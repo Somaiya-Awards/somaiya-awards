@@ -21,84 +21,81 @@ const { request } = require("express");
 
 /**Global Info */
 const institutionArray = [
-  "K J Somaiya College of Arts and Commerce",
-  "S K Somaiya Vinay Mandir Junior College",
-  "K J Somaiya College of Science and Commerce",
-  "S K Somaiya College of  Arts, Science and Commerce",
-  "K J Somaiya College of Engineering",
-  "K J Somaiya Institute of Management",
-  "K J Somaiya College of Education",
-  "K J Somaiya Polytechnic",
-  "Somaiya Vidyavihar University",
-  "K J Somaiya Institute of Technology",
-  "K J Somaiya Bharatiya Sanskriti Peetham",
-  "S K Somaiya Vinay Mandir (Primary Section)",
-  "K J Somaiya Centre for Buddhist Studies",
-  "K J Somaiya Centre for Studies In Jainism",
-  "Department of Library and Information Science",
-  "Maya Somaiya School of Music and Performing Arts",
-  "S K Somaiya College",
-  "K J Somaiya Institute of Dharma Studies",
-  "Somaiya Sports Academy",
-  "Somaiya Institute for Research and Consultancy",
-  "Somaiya School of Design",
-  "Research Innovation Incubation Design Labs",
-  "Somaiya Vidyavihar",
-  "The Somaiya School",
-  "K J Somaiya English Medium School",
-  "K.J.Somaiya Secondary School,Nareshwadi",
-  "Shri Sharda English Medium School",
-  "Somaiya Vidya Mandir - Laxmiwadi",
-  "Somaiya Vidya Mandir - Sakarwadi",
-  "Somaiya Shishu Niketan Primary School",
-  "Somaiya Vinaymandir High School",
-  "K J Somaiya Hospital and Research Centre",
-  "K J Somaiya Medical College and Research Centre",
-  "K J Somaiya College of Physiotherapy",
-  "K J Somaiya College of Nursing",
-  "K J Somaiya School of Nursing",
-  "K J Somaiya Medical Trust",
-  "Maganlal Mehta Charitable Trust",
-  "Dummy Institute",
-  "K J Somaiya Private Industrial Training Institute",
-  "SMT Sakarbai K Somaiya Junior College of Education",
+  'K J Somaiya College of Arts and Commerce',
+  'S K Somaiya Vinay Mandir Junior College',
+  'K J Somaiya College of Science and Commerce',
+  'S K Somaiya College of  Arts, Science and Commerce',
+  'K J Somaiya College of Engineering',
+  'K J Somaiya Institute of Management',
+  'K J Somaiya College of Education',
+  'K J Somaiya Polytechnic',
+  'Somaiya Vidyavihar University',
+  'K J Somaiya Institute of Technology',
+  'S K Somaiya Vinay Mandir (Primary Section)',
+  'Department of Library and Information Science',
+  'Maya Somaiya School of Music and Performing Arts',
+  'S K Somaiya College',
+  'K J Somaiya Institute of Dharma Studies',
+  'Somaiya Sports Academy',
+  'Somaiya Institute for Research and Consultancy',
+  'Somaiya School of Design',
+  'Research Innovation Incubation Design Labs',
+  'Somaiya Vidyavihar',
+  'The Somaiya School',
+  'K J Somaiya English Medium School',
+  'K.J.Somaiya Secondary School,Nareshwadi',
+  'Shri Sharda English Medium School',
+  'Somaiya Vidya Mandir - Laxmiwadi',
+  'Somaiya Vidya Mandir - Sakarwadi',
+  'Somaiya Shishu Niketan Primary School',
+  'Somaiya Vinaymandir High School',
+  'K J Somaiya Hospital and Research Centre',
+  'K J Somaiya Medical College and Research Centre',
+  'K J Somaiya College of Physiotherapy',
+  'K J Somaiya College of Nursing',
+  'K J Somaiya School of Nursing',
+  'K J Somaiya Medical Trust',
+  'K J Somaiya Private Industrial Training Institute',
+  'SMT Sakarbai K Somaiya Junior College of Education',
 ];
 
 const grouping = {
-  "The Somaiya School": [1, 2],
-  "S. K. Somaiya Prathmik Shala": [1],
-  "S K Somaiya Vinay Mandir High School": [1, 2],
-  "Somaiya Vidyamandir- Sakarwadi": [1, 2],
-  "Shri Sharda English Medium School Kopargaon": [1, 2],
-  "Somaiya Vidya Mandir- Laxmiwadi": [1, 2],
-  "Somaiya Shishu Niketan Primary School- Sameerwadi": [1],
-  "Somaiya Vinaymandir High School- Sameerwadi": [1, 2],
-  "KJ Somaiya English Medium School Sameerwadi": [1, 2],
-  "Nareshwadi Learning Centre- Dahanu": [1, 2],
-  "SK Somaiya Vinay Mandir High School, Mumbai": [1, 2],
-  "KJ Somaiya Junior College of Arts, Commerce and Science": [2],
-  "SK Somaiya Vinay Mandir Junior College, Mumbai": [2],
-  "KJ Somaiya Private Industrial Training Institute": [2],
-  "Smt. Sakarben Somaiya Junior College of Education (DEd)": [2],
-  "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar": [
-    3,
-  ],
-  "KJ Somaiya College of Engineering": [3],
-  "KJ Somaiya Institute of Management": [3],
-  "KJ Somaiya Polytechnic College": [3],
-  "KJ Somaiya College of Arts and Commerce": [3],
-  "KJ Somaiya College of Science and Commerce": [3],
-  "K.J Somaiya College of Comprehensive College of Education, Training and Research":
-    [3],
-  "KJ Somaiya Bhartiya Sanskriti Peetham": [3],
-  "KJ Somaiya Centre for Buddhish Studies": [3],
-  "KJ Somaiya Centre for Studies in Jainism": 1,
-  "KJ Somaiya Medical College and Research Centre": [4],
-  "KJ Somaiya College of Physiotherapy": [4],
-  "KJ Somaiya School and College of Nursing": [4],
+  "K J Somaiya College of Arts and Commerce": [3],
+  "S K Somaiya Vinay Mandir Junior College": [2],
+  "K J Somaiya College of Science and Commerce": [3],
+  "S K Somaiya College of  Arts, Science and Commerce": [3],
+  "K J Somaiya College of Engineering": [3],
+  "K J Somaiya Institute of Management": [3],
+  "K J Somaiya College of Education": [3],
+  "K J Somaiya Polytechnic": [3],
+  "Somaiya Vidyavihar University": [3],
+  "K J Somaiya Institute of Technology": [3],
+  "S K Somaiya Vinay Mandir (Primary Section)": [3],
+  "Department of Library and Information Science": [3],
+  "Maya Somaiya School of Music and Performing Arts": [3],
+  "S K Somaiya College": [3],
+  "K J Somaiya Institute of Dharma Studies": [3],
   "Somaiya Sports Academy": [3],
-  "SK Somaiya College (SVU)": [3],
-  "SK Somaiya College of Arts, Science and Commerce (MU)": [3],
+  "Somaiya Institute for Research and Consultancy": [3],
+  "Somaiya School of Design": [3],
+  "Research Innovation Incubation Design Labs": [3],
+  "Somaiya Vidyavihar": [5],
+  "The Somaiya School": [1],
+  "K J Somaiya English Medium School": [1],
+  "K.J.Somaiya Secondary School,Nareshwadi": [1],
+  "Shri Sharda English Medium School": [1],
+  "Somaiya Vidya Mandir - Laxmiwadi": [1],
+  "Somaiya Vidya Mandir - Sakarwadi": [1],
+  "Somaiya Shishu Niketan Primary School": [1],
+  "Somaiya Vinaymandir High School": [2],
+  "K J Somaiya Hospital and Research Centre": [4],
+  "K J Somaiya Medical College and Research Centre": [4],
+  "K J Somaiya College of Physiotherapy": [4],
+  "K J Somaiya College of Nursing": [4],
+  "K J Somaiya School of Nursing": [4],
+  "K J Somaiya Medical Trust": [5],
+  "K J Somaiya Private Industrial Training Institute": [3],
+  "SMT Sakarbai K Somaiya Junior College of Education": [4]
 };
 
 /**
@@ -557,6 +554,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
       group: "D",
       formsFilled: 0,
     },
+    {
+      group: "E",
+      formsFilled: 0,
+    }
   ];
 
   // institute forms
@@ -580,6 +581,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
 
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
+          break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
           break;
       }
     }
@@ -607,6 +612,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
           break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
+          break;
       }
     }
   }
@@ -632,6 +641,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
 
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
+          break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
           break;
       }
     }
@@ -659,6 +672,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
           break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
+          break;
       }
     }
   }
@@ -685,6 +702,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
           break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
+          break;
       }
     }
   }
@@ -710,6 +731,10 @@ const getGroupWiseCount = asyncHandler(async (req, res) => {
 
         case 4:
           groupCount[3].formsFilled = groupCount[3].formsFilled + 1;
+          break;
+
+        case 5:
+          groupCount[4].formsFilled = groupCount[4].formsFilled + 1;
           break;
       }
     }
