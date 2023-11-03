@@ -543,6 +543,68 @@ const nonTeachingRecFileHandler = asyncHandler( async(req,res)=>{
 
 });
 
+//@desc get nominated faculty names for particular college
+//@route GET sports-admin/data/nominated-coach-names
+//@access PRIVATE
+
+const getNominatedTeacherNames = asyncHandler( async(req,res)=>{
+
+    let names = []
+
+    const institute_name = req.headers['institute_name']
+
+    const result = await Teaching.findAll({
+        where: {
+            [Op.and]: [
+                {institute_name: institute_name},
+                {ieacApproved: true},
+                Sequelize.literal('YEAR(createdAt) = YEAR(CURDATE())'),
+            ],
+        },
+    })
+
+    for ( const feedback of result ){
+
+        names.push(feedback.faculty_name)
+    }
+
+    res.status(200).json({
+        data: names
+    })
+})
+
+
+//@desc get nominated faculty names for particular college
+//@route GET sports-admin/data/nominated-coach-names
+//@access PRIVATE
+
+const getNominatedStaffNames = asyncHandler( async(req,res)=>{
+
+    let names = []
+
+    const institute_name = req.headers['institute_name']
+
+    const result = await NonTeaching.findAll({
+        where: {
+            [Op.and]: [
+                {institute_name: institute_name},
+                {ieacApproved: true},
+                Sequelize.literal('YEAR(createdAt) = YEAR(CURDATE())'),
+            ],
+        },
+    })
+
+    for ( const feedback of result ){
+
+        names.push(feedback.staff_name)
+    }
+
+    res.status(200).json({
+        data: names
+    })
+})
+
+
 module.exports = {
     institutionDataHandler,
     researchDataHandler,
@@ -557,5 +619,7 @@ module.exports = {
     researchRecFileHandler,
     teachingRecFileHandler,
     nonTeachingRecFileHandler,
-    sportsRecFileHandler
+    sportsRecFileHandler,
+    getNominatedStaffNames,
+    getNominatedTeacherNames
 }

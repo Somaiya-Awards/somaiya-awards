@@ -29,7 +29,7 @@ const Login = () => {
 
         if (Object.keys(credentials).length === 2) {
 
-            await axios.post('https://apisomaiyaawards.somaiya.edu/auth/login', credentials)
+            await axios.post('/auth/login', credentials)
                 .then((res) => {
                     console.log(res);
                     if (res.data['authorized']) {

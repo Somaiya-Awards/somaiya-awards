@@ -35,7 +35,7 @@ const Teaching = () => {
     }
     else {
 
-      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+      axios.get('/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'x-user-id': localStorage.getItem('user_id'),
@@ -89,7 +89,7 @@ const Teaching = () => {
 
   const message = `Please score the candidate on a scale of 1 – 5 on the below points, with 1 being the
   lowest score and 5 being the highest- Please attach the relevant documents to support your
-  nomination.`
+  nomination. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.`
 
   const headings = ["Basic Information", "Pedagogical Competence", "Beyond The Classroom", "Professional Development", "Supportings"]
   const limit = headings.length - 1

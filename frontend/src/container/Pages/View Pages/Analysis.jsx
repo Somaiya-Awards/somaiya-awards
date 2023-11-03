@@ -42,7 +42,7 @@ const Analysis = () => {
                 setColumns(columns06)
         }
 
-        const url = `https://apisomaiyaawards.somaiya.edu/hoi/data/${formTitle}`;
+        const url = `/hoi/data/${formTitle}`;
 
         axios.get(url,{
             headers:{

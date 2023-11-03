@@ -30,7 +30,7 @@ const SportsStar = () => {
     }
     else {
 
-      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+      axios.get('/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'x-user-id': localStorage.getItem('user_id'),
@@ -80,7 +80,7 @@ const SportsStar = () => {
 
   const limit = 7
   const headings = ["Basic Information", "Nominee Inspiring P.E Teacher ","Assesment Of Competencies (PART A)" , "Assesment Of Compitencies (PART B)", "Nominee Sports Star - Girl", "Nominee Ratings (GIRL) " , "Nominee Sports Star - Boy","Nominee Ratings (BOY)"]
-  const message = "Please fill all the fields correctly as per your knowledge. Upload a single file under each field of maximum 10MB"
+  const message = "Please fill all the fields correctly as per your knowledge. Upload a single file under each field. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf."
 
 
   return (

@@ -63,7 +63,7 @@ const Users = () => {
                 if (res.isConfirmed) {
 
                     // delete query
-                    axios.delete('https://apisomaiyaawards.somaiya.edu/admin/data/delete-user', {
+                    axios.delete('/admin/data/delete-user', {
                         data: { userId: params.row.id },
                         headers: {
                             'x-access-token': localStorage.getItem('token'),
@@ -103,7 +103,7 @@ const Users = () => {
             navigate('/auth/login')
         }
 
-        axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+        axios.get('/auth/validate', {
             headers: {
                 'x-access-token': localStorage.getItem('token'),
                 'x-user-id': localStorage.getItem('user_id'),
@@ -116,7 +116,7 @@ const Users = () => {
                     setAuthorized(res.data['authorized'])
                     setLoading(false);
 
-                    axios.get('https://apisomaiyaawards.somaiya.edu/admin/data/users', {
+                    axios.get('/admin/data/users', {
                         headers: {
                             'x-user-id': localStorage.getItem('user_id'),
                             'x-access-token': localStorage.getItem('token'),
@@ -179,12 +179,12 @@ const Users = () => {
                         ?
                         <>
                             <SideBar />
-                            <div className='w-full h-screen flex-col'>
+                            <div className='w-full h-screen overflow-y-scroll flex-col'>
 
                                 <div className='p-5 overflow-y-scroll'>
 
                                     <h1 className='text-2xl font-semibold font-Roboto text-red-800'>
-                                        Users
+                                        Users' Details
                                     </h1>
 
                                     <div className='my-3 p-5'>

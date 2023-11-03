@@ -8,45 +8,12 @@ import PasswordValidator from 'password-validator'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { MoonLoader } from 'react-spinners';
-
+import institutes from '../../../data/Institutions/institutes.js'
 
 
 const ManageUsers = () => {
 
-  const institutionOptions = [
-    "The Somaiya School",
-    "S. K. Somaiya Prathmik Shala",
-    "S K Somaiya Vinay Mandir High School",
-    "Somaiya Vidyamandir- Sakarwadi",
-    "Shri Sharda English Medium School Kopargaon",
-    "Somaiya Vidya Mandir- Laxmiwadi",
-    "Somaiya Shishu Niketan Primary School- Sameerwadi",
-    "Somaiya Vinaymandir High School- Sameerwadi",
-    "KJ Somaiya English Medium School Sameerwadi",
-    "Nareshwadi Learning Centre- Dahanu",
-    "SK Somaiya Vinay Mandir High School, Mumbai",
-    "KJ Somaiya Junior College of Arts, Commerce and Science",
-    "SK Somaiya Vinay Mandir Junior College, Mumbai",
-    "KJ Somaiya Private Industrial Training Institute",
-    "Smt. Sakarben Somaiya Junior College of Education (DEd)",
-    "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar",
-    "KJ Somaiya College of Engineering",
-    "KJ Somaiya Institute of Management",
-    "KJ Somaiya Polytechnic College",
-    "KJ Somaiya College of Arts and Commerce",
-    "KJ Somaiya College of Science and Commerce",
-    "K.J Somaiya College of Comprehensive College of Education , Training and Research",
-    "KJ Somaiya Bhartiya Sanskriti Peetham",
-    "KJ Somaiya Centre for Buddhish Studies",
-    "KJ Somaiya Centre for Studies in Jainism",
-    "KJ Somaiya Medical College and Research Centre",
-    "KJ Somaiya College of Physiotherapy",
-    "KJ Somaiya School and College of Nursing",
-    "Somaiya Sports Academy",
-    "SK Somaiya College (SVU)",
-    "SK Somaiya College of Arts, Science and Commerce (MU)"
-  ];
-
+  const institutionOptions = institutes
   // for password checks
 
   const schema = new PasswordValidator()
@@ -110,7 +77,7 @@ const ManageUsers = () => {
       }
       else {
 
-        await axios.post('https://apisomaiyaawards.somaiya.edu/auth/register', credentials)
+        await axios.post('/auth/register', credentials)
           .then((res) => {
             console.log(res);
             setCredentials({})
@@ -164,7 +131,7 @@ const ManageUsers = () => {
     }
     else {
 
-      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+      axios.get('/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'x-user-id': localStorage.getItem('user_id'),
@@ -242,7 +209,7 @@ const ManageUsers = () => {
                         <Field
                           title='Email ID'
                           type='email'
-                          placeholder="trushil.d@somaiya.edu"
+                          placeholder="awards.svv@somaiya.edu"
                           name='user_email_id'
                           value={credentials['user_email_id'] || ''}
                           onChange={handleChange}

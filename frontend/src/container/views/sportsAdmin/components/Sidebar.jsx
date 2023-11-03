@@ -66,7 +66,7 @@ const SideBar = () => {
                             component={<Link to='/sports-admin/responses/inspiring-coach' />}
                         >
                             <p className='text-sm'>
-                                Inspiring Coach
+                                PE Teacher / Coach 
                             </p>
                         </MenuItem>
 
