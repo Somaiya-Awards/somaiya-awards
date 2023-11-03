@@ -87,7 +87,7 @@ const Students = () => {
     ];
 
     const limit =2;
-    const message = "Please upload supporting documents at the end of the form . Upload only single PDF file "
+    const message = "Please upload supporting documents at the end of the form. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf."
 
 
     

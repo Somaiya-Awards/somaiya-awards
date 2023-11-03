@@ -101,7 +101,7 @@ const NonTeaching = () => {
   ]
   const limit = headings.length - 1
   const message = `Please score the candidate on a scale of 1 – 5 on the below points, with 1
-  being the lowest score and 5 the highest`
+  being the lowest score and 5 the highest. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.`
   return (
     <div>
 

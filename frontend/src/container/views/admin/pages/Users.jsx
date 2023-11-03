@@ -184,7 +184,7 @@ const Users = () => {
                                 <div className='p-5 overflow-y-scroll'>
 
                                     <h1 className='text-2xl font-semibold font-Roboto text-red-800'>
-                                        Users
+                                        Users' Details
                                     </h1>
 
                                     <div className='my-3 p-5'>

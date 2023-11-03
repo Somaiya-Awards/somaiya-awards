@@ -118,10 +118,10 @@ const SideBar = () => {
                         </SubMenu>
                     </SubMenu>
                     <MenuItem icon={<PeopleAltRoundedIcon />} component={<Link to='/admin/users' />}>
-                        Users
+                        Users' Details
                     </MenuItem>
                     <MenuItem icon={<GroupAddIcon />} component={<Link to='/admin/manage-users' />}>
-                        Manage Users
+                        Add Users
                     </MenuItem>
                     <MenuItem icon={<CampaignRoundedIcon />} component={<Link to='/admin/announce-result' />}>
                         Announce

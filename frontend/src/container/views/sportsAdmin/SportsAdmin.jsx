@@ -115,7 +115,7 @@ const SportsAdmin = () => {
 
                   <div className='flex items-center justify-between'>
                     <div>
-                      <h2 className='text-xl font-semibold '>
+                      <h2 className='text-2xl font-semibold '>
                         Welcome Sports Admin
                       </h2>
                     </div>
@@ -136,7 +136,7 @@ const SportsAdmin = () => {
                     </div>
                   </div>
 
-                  <h2 className='text-xl font-semibold'>
+                  <h2 className='text-xl font-semibold my-3'>
                     Features
                   </h2>
 

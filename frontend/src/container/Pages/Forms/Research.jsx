@@ -91,7 +91,7 @@ const Research = () => {
 
   const message = `Specify the number here and details to be provided in the document.
   Kindly adhere to the instruction provided in the 'Specific Note' under the Research
-  Meetings head in the document template`
+  Meetings head in the document template. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.`
 
   return (
     <div>

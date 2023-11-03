@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const FeedbackTeachingPeerForm =[
     {
         title: "Name of the Rater",
@@ -58,11 +60,13 @@ const FeedbackTeachingPeerForm =[
         fieldsPerLine:2
     },
     {
-        title: "Name of the teacher to be evaluated:",
+        title: "Name of the teacher to be evaluated",
         _name: "teacher_name",
-        type: "text",
-        requiredStatus : true,
-        hasOptions: false,
+        type: "dropdown",
+        dropdownHiddenItem: 'Select Name of the Nominee',
+        requiredStatus: true,
+        hasOptions: true,
+        options:[] ,
         page: 1,
         fieldsPerLine:2
     },
@@ -176,5 +180,31 @@ const FeedbackTeachingPeerForm =[
         fieldsPerLine:1
     },
 ]
+
+async function fetchNominatedNames() {
+    try {
+        // Make an HTTP request to fetch the data from your backend
+        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-faculty-names',{
+        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-faculty-names',{
+            headers:{
+                'x-access-token':localStorage.getItem('token'),
+                'x-user-id':localStorage.getItem('user_id'),
+                'institute_name': localStorage.getItem('institution')
+            }
+        });
+        
+        // Assuming the backend returns an array of nominated names
+        const nominatedNames = response.data.data;
+
+        // Update the options for "nominee_name"
+        FeedbackTeachingPeerForm.find(field => field._name === "teacher_name").options = nominatedNames;
+    } catch (error) {
+        console.error('Error fetching nominated names:', error);
+    }
+}
+
+// Call the function to fetch and update the options
+fetchNominatedNames();
+
 
 export default FeedbackTeachingPeerForm

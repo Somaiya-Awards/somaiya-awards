@@ -13,7 +13,9 @@ const {
     researchRecFileHandler,
     teachingRecFileHandler,
     nonTeachingRecFileHandler,
-    sportsRecFileHandler} = require('../controllers/ieacController');
+    sportsRecFileHandler,
+    getNominatedTeacherNames,
+    getNominatedStaffNames} = require('../controllers/ieacController');
 const {upload06, upload07, upload08, upload09} =require('../middleware/fileUpload');
 const userAuthenticator = require('../middleware/userAuthenticator');
 
@@ -23,6 +25,9 @@ router.route('/outstanding-institution').get(userAuthenticator, institutionDataH
 // router.route('/sports').get(userAuthenticator,sportsDataHandler);
 router.route('/teaching').get(userAuthenticator,teachingDataHandler);
 router.route('/non-teaching').get(userAuthenticator,nonTeachingDataHandler);
+
+router.route('/nominated-faculty-names').get(userAuthenticator, getNominatedTeacherNames)
+router.route('/nominated-staff-names').get(userAuthenticator, getNominatedStaffNames)
 
 /**PUT Routes */
 
