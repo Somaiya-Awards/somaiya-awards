@@ -551,7 +551,7 @@ const getNominatedTeacherNames = asyncHandler( async(req,res)=>{
 
     let names = []
 
-    const institute_name = req.headers['institute_name']
+    const institute_name = req.headers['x-institute-name']
 
     const result = await Teaching.findAll({
         where: {
@@ -582,7 +582,7 @@ const getNominatedStaffNames = asyncHandler( async(req,res)=>{
 
     let names = []
 
-    const institute_name = req.headers['institute_name']
+    const institute_name = req.headers['x-institute-name']
 
     const result = await NonTeaching.findAll({
         where: {
