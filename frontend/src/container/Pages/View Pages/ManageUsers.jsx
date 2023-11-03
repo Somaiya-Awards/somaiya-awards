@@ -37,8 +37,16 @@ const ManageUsers = () => {
 
   const handleChange = (event) => {
 
-    const { name, value } = event.target
-    setCredentials({ ...credentials, [name]: value })
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+    
+      if (name === 'user_email_id') {
+        
+        setCredentials({ ...credentials, [name]: value.toLowerCase() });
+      } else {
+        setCredentials({ ...credentials, [name]: value });
+      }
+    }
   }
 
   const handleSubmit = async () => {
