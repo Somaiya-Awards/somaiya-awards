@@ -30,7 +30,7 @@ const Students = () => {
         }
         else {
 
-            axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+            axios.get('/auth/validate', {
                 headers: {
                     'x-access-token': localStorage.getItem('token'),
                     'x-user-id': localStorage.getItem('user_id'),
@@ -87,7 +87,7 @@ const Students = () => {
     ];
 
     const limit =2;
-    const message = "Please upload supporting documents at the end of the form . Upload only single PDF file "
+    const message = "Please upload supporting documents at the end of the form. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf."
 
 
     

@@ -30,7 +30,7 @@ const OutstandingInstitution = () => {
     }
     else {
 
-      axios.get('https://apisomaiyaawards.somaiya.edu/auth/validate', {
+      axios.get('/auth/validate', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
           'x-user-id': localStorage.getItem('user_id'),
@@ -71,7 +71,7 @@ const OutstandingInstitution = () => {
     }
   }, [])
 
-  const message = " You may please attach relevant supporting documents in the attachment section at the end of the form. Kindly mention N.A. to the fields not applicable or not relevant."
+  const message = " You may please attach relevant supporting documents in the attachment section at the end of the form. Kindly mention N.A. to the fields not applicable or not relevant. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf."
   const limit = 12;
   const pageHeaders = [
     "Basic Information",

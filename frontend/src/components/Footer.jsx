@@ -45,9 +45,15 @@ const Footer = () => {
           <h2 className="font-bold text-lg"> Under the guidance of</h2>
           <table className="w-[40%] font-m my-2">
             <tr>
-              <td>Dr. Sarita Ambadekar</td>
-              <td>Prof. Abhijit Patil</td>
-              <td>Ms. Aarti Sahitya</td>
+              <td><a href="https://www.linkedin.com/in/sarita-ambadekar-699030146/" target="_blank">
+                Dr. Sarita Ambadekar</a>
+              </td>
+              <td><a href="https://www.linkedin.com/in/abhijit-patil-477a4760/" target="_blank">
+                Prof. Abhijit Patil</a>
+              </td>
+              <td><a href="https://www.linkedin.com/in/aarti-sahitya-01175b128/" target="_blank">
+                Ms. Aarti Sahitya</a>
+              </td>
             </tr>
           </table>
           <br></br>
@@ -55,6 +61,11 @@ const Footer = () => {
           {/* <br></br> */}
           <div className="grid grid-cols-1 md:grid-cols-8 gap-6 my-2">
             
+            <div className=" ">
+              <a href="https://linkedin.com/in/jash-joshi01/" target="_blank">
+                Jash J. Joshi
+              </a>
+            </div>
             <div>
               <a
                 href="https://linkedin.com/in/trushil-dhokiya/"
@@ -71,11 +82,7 @@ const Footer = () => {
                 Hitanshu Gandhi
               </a>
             </div>
-            <div className=" ">
-              <a href="https://linkedin.com/in/jash-joshi01/" target="_blank">
-                Jash J. Joshi
-              </a>
-            </div>
+            
             <div className=" ">
               <a
                 href="https://linkedin.com/in/riya-kapadia-a571401bb/"

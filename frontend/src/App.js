@@ -41,7 +41,11 @@ import ResearchResponses from "./container/views/researchAdmin/pages/ResearchRes
 import Users from "./container/views/admin/pages/Users";
 import Dev from "./container/Pages/Utility/Dev";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
- 
+import axios from 'axios'
+
+axios.defaults.baseURL = 'https://apisomaiyaawards.somaiya.edu' 
+// axios.defaults.baseURL = 'http://localhost:5001'
+
 function App() {
   return (
     <BrowserRouter>
