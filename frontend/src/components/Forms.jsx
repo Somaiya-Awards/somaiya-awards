@@ -303,7 +303,7 @@ const Forms = (props) => {
             ?
             null
             :
-            <div className="text-sm font-Poppins mt-[3rem] bg-red-300  font-bold italic rounded-lg p-3 my-5">
+            <div className="text-md font-Poppins mt-[3rem] bg-red-300  font-bold italic rounded-lg p-3 my-6">
               {props.message}
             </div>
         }

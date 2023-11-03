@@ -1,3 +1,6 @@
+
+import axios from 'axios'
+
 const PeerNonTeachingFeedbackForm = [
     {
         title: "Name of the Rater",
@@ -61,8 +64,11 @@ const PeerNonTeachingFeedbackForm = [
         title: "Name of the Employee to be Evaluated",
         _name: "nominee_name",
         type: "text",
-        requiredStatus : true,
-        hasOptions: false,
+        type: "dropdown",
+        dropdownHiddenItem: 'Select Name of the Nominee',
+        requiredStatus: true,
+        hasOptions: true,
+        options:[] ,
         page: 1,
         fieldsPerLine:2
     },
@@ -171,5 +177,31 @@ const PeerNonTeachingFeedbackForm = [
         fieldsPerLine:1
     },
 ]
+
+
+async function fetchNominatedNames() {
+    try {
+
+        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
+        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-staff-names',{
+            headers:{
+                'x-access-token':localStorage.getItem('token'),
+                'x-user-id':localStorage.getItem('user_id'),
+                'institute_name': localStorage.getItem('institution')
+            }
+        });
+        
+        // Assuming the backend returns an array of nominated names
+        const nominatedNames = response.data.data;
+
+        // Update the options for "nominee_name"
+        PeerNonTeachingFeedbackForm.find(field => field._name === "nominee_name").options = nominatedNames;
+    } catch (error) {
+        console.error('Error fetching nominated names:', error);
+    }
+}
+
+// Call the function to fetch and update the options
+fetchNominatedNames();
 
 export default PeerNonTeachingFeedbackForm;

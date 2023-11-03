@@ -1,6 +1,6 @@
 const express = require('express');
 const userAuthenticator = require('../middleware/userAuthenticator');
-const { sportsStarGirlDataHandler, sportsStarBoyDataHandler, inspiringCoachDataHandler, sportsDataUpdater } = require('../controllers/sportsAdminController');
+const { sportsStarGirlDataHandler, sportsStarBoyDataHandler, inspiringCoachDataHandler, sportsDataUpdater, getNominatedNames } = require('../controllers/sportsAdminController');
 const router = express.Router()
 
 /**GET REQUEST */
@@ -8,11 +8,13 @@ const router = express.Router()
 router.route('/sports-star-girl').get(userAuthenticator,sportsStarGirlDataHandler);
 router.route('/sports-star-boy').get(userAuthenticator,sportsStarBoyDataHandler);
 router.route('/inspiring-coach').get(userAuthenticator,inspiringCoachDataHandler);
+router.route('/nominated-coach-names').get(userAuthenticator, getNominatedNames)
 
 /**
  * PUT REQUEST
  */
 
 router.route('/update').put(userAuthenticator, sportsDataUpdater);
+
 
 module.exports = router

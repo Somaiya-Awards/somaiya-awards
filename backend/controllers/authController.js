@@ -122,7 +122,7 @@ const passwordReset = asyncHandler(async (req, res) => {
     const { user_email } = req.body
 
     const user = await User.findOne({ where: { email_id: user_email } });
-
+    console.log(user)
     if (!user) {
 
         authLogger.error(`User tried to reset password failed (user not found) IP ${req.ip}`)
@@ -137,7 +137,8 @@ const passwordReset = asyncHandler(async (req, res) => {
         id: user.id
     }, secret, { expiresIn: "5m" })
 
-    const link = `http://localhost:3000/auth/${user.id}/${token}`
+    // const link = `http://localhost:3000/auth/${user.id}/${token}`
+    const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`
 
     // // mail the link to user
 
@@ -153,9 +154,9 @@ const passwordReset = asyncHandler(async (req, res) => {
     });
 
     let message = {
-        from: '"Somaiya Awards Server" <somaiya_awards@somaiya.edu>',
+        from: '"Somaiya Awards Server" <awards.svv@gmail.com>',
         to: `{ ${user_email}}`,
-        subject: "Testing",
+        subject: "Request for Password Reset",
         text: `${link}`,
         html: `
                 <h2 style= "background-color: rgb(185,28,28); width:100%;  text-align:center; padding:20px; color:white">

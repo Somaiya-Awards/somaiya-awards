@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const StudentNonTeachingFeedbackForm = [
     {
         title: "Email",
@@ -34,8 +36,11 @@ const StudentNonTeachingFeedbackForm = [
         title: "Name of the Employee",
         _name: "employee_name",
         type: "text",
-        requiredStatus : true,
-        hasOptions: false,
+        type: "dropdown",
+        dropdownHiddenItem: 'Select Name of the Nominee',
+        requiredStatus: true,
+        hasOptions: true,
+        options:[] ,
         page: 2,
         fieldsPerLine:2
     },
@@ -108,5 +113,32 @@ const StudentNonTeachingFeedbackForm = [
         fieldsPerLine:1
     }
 ]
+
+
+async function fetchNominatedNames() {
+    try {
+
+        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
+        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-staff-names',{
+
+            headers:{
+                'x-access-token':localStorage.getItem('token'),
+                'x-user-id':localStorage.getItem('user_id'),
+                'institute_name': localStorage.getItem('institution')
+            }
+        });
+        
+        // Assuming the backend returns an array of nominated names
+        const nominatedNames = response.data.data;
+
+        // Update the options for "nominee_name"
+        StudentNonTeachingFeedbackForm.find(field => field._name === "employee_name").options = nominatedNames;
+    } catch (error) {
+        console.error('Error fetching nominated names:', error);
+    }
+}
+
+// Call the function to fetch and update the options
+fetchNominatedNames();
 
 export default StudentNonTeachingFeedbackForm;
