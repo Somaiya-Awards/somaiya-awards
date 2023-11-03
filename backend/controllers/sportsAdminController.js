@@ -344,7 +344,7 @@ const getNominatedNames = asyncHandler(async (req, res) => {
 
     let names = []
 
-    const institute_name = req.headers['institute_name']
+    const institute_name = req.headers['x-institute-name']
 
     const result = await Sports.findAll({
         where: {
