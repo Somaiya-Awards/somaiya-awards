@@ -3,6 +3,8 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Swal from 'sweetalert2';
 import axios from "axios";
 
+const baseURL = 'https://apisomaiyaawards.somaiya.edu'
+
 /**
  * NOTE 
  * 
@@ -245,7 +247,7 @@ const columns01: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -254,7 +256,7 @@ const columns01: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -339,7 +341,7 @@ const columns02: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -348,7 +350,7 @@ const columns02: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -530,7 +532,7 @@ const columns03: GridColDef[] = [
         headerName: 'Nominee Photo',
         width: 200,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },
@@ -539,7 +541,7 @@ const columns03: GridColDef[] = [
         headerName: 'Nominee Supportings',
         width: 300,
         renderCell: (params) => {
-            return <a target="_blank" href={`/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a target="_blank" href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
 
     },

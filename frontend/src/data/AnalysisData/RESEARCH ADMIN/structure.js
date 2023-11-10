@@ -4,6 +4,8 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Swal from 'sweetalert2';
 import axios from "axios";
 
+const baseURL = 'https://apisomaiyaawards.somaiya.edu'
+
 const handleResearchChange = (params, event) => {
     if (event.target.checked == true) {
 
@@ -87,12 +89,12 @@ const columns01: GridColDef[] = [
     { field: 'national_awards_won_count', headerName: 'National Awards Won Count', width: 250 },
     {
         field: 'evidence_of_research', headerName: 'Evidence of Research', width: 200, renderCell: (params) => {
-            return <a href={`/${params.value != null ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`${baseURL}/${params.value != null ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     {
         field: 'evidence_of_data_provided', headerName: 'Evidence of Data Provided', width: 200, renderCell: (params) => {
-            return <a href={`/${params.value != null ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
+            return <a href={`${baseURL}/${params.value != null ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;
         }
     },
     { field: 'confirmation_of_trueData', headerName: 'Confirmation of True Data', width: 200, },
