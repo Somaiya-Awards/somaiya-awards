@@ -187,7 +187,7 @@ async function fetchNominatedNames() {
             headers:{
                 'x-access-token':localStorage.getItem('token'),
                 'x-user-id':localStorage.getItem('user_id'),
-                'institute_name': localStorage.getItem('institution')
+                'x-institute-name': localStorage.getItem('institution')
             }
         });
         
