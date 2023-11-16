@@ -434,7 +434,7 @@ const Responses = () => {
   }
 
   return (
-    <div>
+    <div className=''>
 
       {
         loading
@@ -452,14 +452,14 @@ const Responses = () => {
           authorized
             ?
             <>
-              <div className='flex flex-row'>
+              <div className='h-screen flex flex-row'>
                 <SideBar />
 
                 <motion.div
                   initial={{ x: '100%' }}
                   animate={{ x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className='flex flex-col p-5 w-full overflow-x-scroll'>
+                  className='flex flex-col p-5 w-full  overflow-x-scroll  overflow-y-scroll'>
 
                   <div className='flex flex-col w-full p-5'>
 
@@ -477,7 +477,7 @@ const Responses = () => {
                         :
                         null
                     }
-                    <div className='my-5'>
+                    <div className='my-5 overflow-y-scroll'>
 
                       <DataGrid
                         rows={rows}
