@@ -177,7 +177,11 @@ const handleTeachRecommend = (params, event) => {
                 if (!scoreA || !scoreB || !scoreC) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
+                if (scoreA>5 || scoreB>5 || scoreC>5){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                }
                 return { scoreA:scoreA, scoreB:scoreB , scoreC: scoreC }
+                
             },
         })
         .then((res)=>{
@@ -265,6 +269,9 @@ const handleTeachNotRecommend = (params, event) => {
                 if (!scoreA || !scoreB || !scoreC) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
+                if (scoreA>5 || scoreB>5 || scoreC>5){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                }
                 return { scoreA:scoreA, scoreB:scoreB , scoreC: scoreC }
             },
         })
@@ -349,6 +356,9 @@ const handleNonTeachRecommend = (params,event)=>{
                 if (!scoreA || !scoreB) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
+                if (scoreA>5 || scoreB>5){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                }
                 return { scoreA:scoreA, scoreB:scoreB }
             },
         })
@@ -431,6 +441,9 @@ const handleNonTeachNotRecommend = (params,event)=>{
                 const scoreB = Swal.getPopup().querySelector('#score-B').value
                 if (!scoreA || !scoreB) {
                   Swal.showValidationMessage(`Please enter all fields !`)
+                }
+                if (scoreA>5 || scoreB>5){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
                 }
                 return { scoreA:scoreA, scoreB:scoreB }
             },
@@ -547,17 +560,17 @@ const columns01: GridColDef[] = [
                 )
         },
     },
-    {
-        field: 'hr_approved', headerName: 'HR Approved', width: 150, renderCell: (params) => {
-            return params.value ?
-                (
-                    <CheckRoundedIcon style={{ color: '#15803d' }} />
-                ) :
-                (
-                    <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
-                )
-        },
-    },
+    // {
+    //     field: 'hr_approved', headerName: 'HR Approved', width: 150, renderCell: (params) => {
+    //         return params.value ?
+    //             (
+    //                 <CheckRoundedIcon style={{ color: '#15803d' }} />
+    //             ) :
+    //             (
+    //                 <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
+    //             )
+    //     },
+    // },
 ];
 
 /**
@@ -641,17 +654,17 @@ const columns02: GridColDef[] = [
                 </input>
         }
     },
-    {
-        field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
-            return params.value ?
-                (
-                    <CheckRoundedIcon style={{ color: '#15803d' }} />
-                ) :
-                (
-                    <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
-                )
-        },
-    },
+    // {
+    //     field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
+    //         return params.value ?
+    //             (
+    //                 <CheckRoundedIcon style={{ color: '#15803d' }} />
+    //             ) :
+    //             (
+    //                 <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
+    //             )
+    //     },
+    // },
 ];
 
 /**@deprecated : Permanently Moved to SPORTS ADMIN */
@@ -727,17 +740,17 @@ const columns03: GridColDef[] = [
                 )
         },
     },
-    {
-        field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
-            return params.value ?
-                (
-                    <CheckRoundedIcon style={{ color: '#15803d' }} />
-                ) :
-                (
-                    <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
-                )
-        },
-    },
+    // {
+    //     field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
+    //         return params.value ?
+    //             (
+    //                 <CheckRoundedIcon style={{ color: '#15803d' }} />
+    //             ) :
+    //             (
+    //                 <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
+    //             )
+    //     },
+    // },
 ];
 
 const columns04: GridColDef[] = [
@@ -819,17 +832,17 @@ const columns04: GridColDef[] = [
                 )
         },
     },
-    {
-        field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
-            return params.value ?
-                (
-                    <CheckRoundedIcon style={{ color: '#15803d' }} />
-                ) :
-                (
-                    <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
-                )
-        },
-    },
+    // {
+    //     field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
+    //         return params.value ?
+    //             (
+    //                 <CheckRoundedIcon style={{ color: '#15803d' }} />
+    //             ) :
+    //             (
+    //                 <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
+    //             )
+    //     },
+    // },
 ];
 
 const columns05: GridColDef[] = [
@@ -915,17 +928,17 @@ const columns05: GridColDef[] = [
                 )
         },
     },
-    {
-        field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
-            return params.value ?
-                (
-                    <CheckRoundedIcon style={{ color: '#15803d' }} />
-                ) :
-                (
-                    <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
-                )
-        },
-    },
+    // {
+    //     field: 'hr_approved', headerName: 'HR Approved', type: 'boolean', width: 150, renderCell: (params) => {
+    //         return params.value ?
+    //             (
+    //                 <CheckRoundedIcon style={{ color: '#15803d' }} />
+    //             ) :
+    //             (
+    //                 <CloseRoundedIcon style={{ color: 'rgb(185,28,28)' }} />
+    //             )
+    //     },
+    // },
 ];
 
 
