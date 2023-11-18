@@ -2,6 +2,7 @@ import React from 'react'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 
 import { Link } from 'react-router-dom';
 
@@ -43,6 +44,14 @@ const SideBar = () => {
                         <p className='text-sm'>
                             Responses
                         </p>
+                    </MenuItem>
+
+
+                    <MenuItem
+                        icon={<SchoolRoundedIcon />}
+                        component={<Link to='/research-admin/tutorial' />}
+                    >
+                        Tutorial
                     </MenuItem>
 
                 </Menu>
