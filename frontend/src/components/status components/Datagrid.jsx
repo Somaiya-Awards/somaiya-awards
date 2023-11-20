@@ -7,7 +7,7 @@ const Datagrid = (props) => {
     const rows: GridRowsProp = props.rows
 
     const columns: GridColDef[] = [
-        { field: 'institute', headerName: 'Institute', width: 200 },
+        { field: 'institute', headerName: 'Institute', width: 400 },
         { field: 'institution_form', headerName: 'Institution Form', width: 150 },
         { field: 'research_form', headerName: 'Research Form', width: 150 },
         { field: 'sports_form', headerName: 'Sports Form', width: 150 },

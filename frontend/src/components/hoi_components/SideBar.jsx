@@ -79,6 +79,13 @@ const SideBar = () => {
             </MenuItem>
 
           </SubMenu>
+
+          <MenuItem
+            icon={<SchoolRoundedIcon />}
+            component={<Link to="/tutorial" />}
+          >
+            Tutorial
+          </MenuItem>
         </Menu>
       </Sidebar>
     </div>
