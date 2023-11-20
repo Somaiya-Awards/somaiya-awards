@@ -74,10 +74,13 @@ const FormPreview = () => {
         <form>
           {Object.keys(data).map((key) => (
             <div key={key} className="mb-4">
+
               <label htmlFor={key} className="block font-semibold text-red-800 mb-2">
                 {formInfo.find((item) => item._name === key)?.title || key}
               </label>
-              {formInfo.find((item) => item._name === key)?.type === 'file' ? (
+
+              {formInfo.find((item) => item._name === key)?.type === 'file' ? 
+              (
                 <a
                   href={`${data[key].split("data")[1]}`}
                   target="_blank"
@@ -86,16 +89,15 @@ const FormPreview = () => {
                 >
                   Download File
                 </a>
-              ) : (
-                <input
-                  type="text"
-                  id={key}
-                  name={key}
-                  value={data[key]}
-                  readOnly
-                  className="block mt-1 p-2 mb-9 border outline-none shadow-lg h-auto rounded w-[50%]"
-                />
-              )}
+              ) 
+              : 
+              (
+                
+                <p className='p-4 shadow-lg w-[70%] h-auto my-5'>
+                {data[key]}
+                </p>
+              )
+              }
             </div>
           ))}
           <button type="button" onClick={handlePrint} className="bg-blue-500 text-white font-semibold px-4 py-2 rounded">

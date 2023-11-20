@@ -126,6 +126,10 @@ const SideBar = () => {
                     <MenuItem icon={<CampaignRoundedIcon />} component={<Link to='/admin/announce-result' />}>
                         Announce
                     </MenuItem>
+                    
+                    <MenuItem icon={<SchoolRoundedIcon />} component={<Link to="/tutorial" />}>
+                        Tutorial
+                    </MenuItem>
                 </Menu>
             </Sidebar>
         </div>

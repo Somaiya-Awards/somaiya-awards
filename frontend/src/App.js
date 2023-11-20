@@ -43,6 +43,8 @@ import Dev from "./container/Pages/Utility/Dev";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
 import axios from 'axios'
 
+import Tutorial from "./components/Tutorial";
+
 axios.defaults.baseURL = 'https://apisomaiyaawards.somaiya.edu' 
 // axios.defaults.baseURL = 'http://localhost:5001'
 
@@ -91,6 +93,8 @@ function App() {
         <Route path="/forms/feedback-04" element={<FeedbackNonTeachingPR />} />
         <Route path="/forms/feedback-05" element={<FeedbackSportsInc />} />
         <Route path="*" element={<PageNotFound />} />
+
+        <Route path="/tutorial" element={<Tutorial/>}/>
       </Routes>
     </BrowserRouter>
   );

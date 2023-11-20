@@ -7,6 +7,8 @@ import DesignServicesRoundedIcon from '@mui/icons-material/DesignServicesRounded
 import ForestRoundedIcon from '@mui/icons-material/ForestRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+
 
 import { Link } from 'react-router-dom';
 
@@ -91,6 +93,14 @@ const SideBar = () => {
                         </MenuItem>
 
                     </SubMenu>
+
+                    <MenuItem
+                        icon={<SchoolRoundedIcon />}
+                        component={<Link to='/tutorial' />}
+                    >
+                            Tutorial
+                    </MenuItem>
+
                 </Menu>
             </Sidebar>
         </div>
