@@ -1926,33 +1926,52 @@ const getTeachingJurySummaryData = asyncHandler(async (req, res) => {
   // calculate scores and add data in respective arrays
 
   for (entry of applications) {
+
     const faculty = {};
     faculty.id = entry.id;
     faculty.faculty_name = entry.faculty_name;
     faculty.institute_name = entry.institute_name;
     faculty.designation = entry.designation;
+
     faculty.applicationScore =
-      (0.4 *
-        (entry.q_01 +
-          entry.q_02 +
-          entry.q_03 +
-          entry.q_04 +
-          entry.q_05 +
-          entry.q_06 +
-          entry.q_07 +
-          entry.q_08 +
-          entry.q_09 +
-          entry.q_11 +
-          entry.q_12 +
-          entry.q_13 +
-          entry.q_14 +
-          entry.q_15 +
-          entry.q_16 +
-          entry.q_17 +
-          entry.q_18 +
-          entry.q_19 +
-          entry.q_20)) /
-      20;
+      (
+        entry.q_01 +
+        entry.q_02 +
+        entry.q_03 +
+        entry.q_04 +
+        entry.q_05 +
+        entry.q_06 +
+        entry.q_07 +
+        entry.q_08 +
+        entry.q_09 +
+        entry.q_10 +
+        entry.q_11 +
+        entry.q_12 +
+        entry.q_13 +
+        entry.q_14 +
+        entry.q_15 +
+        entry.q_16 +
+        entry.q_17 +
+        entry.q_18 +
+        entry.q_19 +
+        entry.q_20
+      )
+
+    faculty.applicationScore = faculty.applicationScore / 20
+
+    const ieacAverageScore = Number(
+      (
+        (Number(entry.ieac_scoreA) +
+          Number(entry.ieac_scoreB) +
+          Number(entry.ieac_scoreC)) /
+        3
+      ).toFixed(2)
+    );
+
+    faculty.applicationScore = (faculty.applicationScore + ieacAverageScore) / 2
+    faculty.applicationScore = 0.4 * faculty.applicationScore
+
+
 
     faculty.groups = grouping[entry.institute_name];
     faculty.ieacApprovedFile = entry.ieacApprovedFile;
@@ -2128,8 +2147,7 @@ const getNonTeachingJurySummaryData = asyncHandler(async (req, res) => {
     employee.ieacApprovedFile = entry.ieacApprovedFile;
     employee.applicationScore = Number(
       (
-        0.4 *
-        ((entry.q_01 +
+        (entry.q_01 +
           entry.q_02 +
           entry.q_03 +
           entry.q_04 +
@@ -2153,9 +2171,23 @@ const getNonTeachingJurySummaryData = asyncHandler(async (req, res) => {
           entry.q_22 +
           entry.q_23 +
           entry.q_24) /
-          24)
+        24
       ).toFixed(2)
     );
+
+
+    const ieac_avg = Number(
+      (
+        (Number(entry.ieac_scoreA) +
+          Number(entry.ieac_scoreB)) /
+        2
+      ).toFixed(2)
+    );
+
+    employee.applicationScore = (employee.applicationScore + ieac_avg) / 2
+    employee.applicationScore = 0.4 * employee.applicationScore
+
+
     employee.feedbackScore = 0;
     employee.totalScore = 0;
     employee.ieacApprovedFile = entry.ieacApprovedFile;
