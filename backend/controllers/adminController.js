@@ -2252,7 +2252,7 @@ const getNonTeachingJurySummaryData = asyncHandler(async (req, res) => {
     );
 
     employee.feedbackScore = Number(
-      (0.6 * ((student_avg + peers_avg) / 2)).toFixed(2)
+      (0.6 * ( student_avg ? (student_avg+ peers_avg)/2 : peers_avg ).toFixed(2))
     );
     employee.totalScore = employee.applicationScore + employee.feedbackScore;
 
