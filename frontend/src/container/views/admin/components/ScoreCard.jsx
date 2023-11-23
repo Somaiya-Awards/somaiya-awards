@@ -207,7 +207,7 @@ const ScoreCard = () => {
 
                                     <h3 className='text-sm my-1'>
                                         <span className='text-red-800 font-semibold'> Final Score : </span>
-                                        <span> {loading ? <Skeleton width={200} /> : 0.6*((apiData.student_avg+ apiData.peers_avg)/2) + 0.4*((apiData.ieac_avg+apiData.hoi_avg)/2) }</span>
+                                        <span> {loading ? <Skeleton width={200} /> : (0.6*((apiData.student_avg+ apiData.peers_avg)/2) + 0.4*((apiData.ieac_avg+apiData.hoi_avg)/2)).toFixed(2) }</span>
                                     </h3>
 
                                 </div>
