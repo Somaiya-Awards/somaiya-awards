@@ -196,7 +196,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -211,7 +211,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -226,7 +226,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2)) }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -241,7 +241,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -272,7 +272,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -287,7 +287,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -302,7 +302,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -317,7 +317,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -332,7 +332,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -347,7 +347,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" },
-                { label: "Total Score", value: "totalScore" },  
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  },  
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -362,7 +362,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" },
-                { label: "Total Score", value: "totalScore" },  
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  },  
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -377,7 +377,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -392,7 +392,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
@@ -407,7 +407,7 @@ const Responses = () => {
                 { label: "Designation", value: "designation" }, 
                 { label: "Application Score (40%)", value: "applicationScore" }, 
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
-                { label: "Total Score", value: "totalScore" }, 
+                { label: "Total Score", value: (row)=> row.totalScore ? Number(Number(row.totalScore).toFixed(2)) : Number((Number(row.applicationScore) + Number(row.feedbackScore)).toFixed(2))  }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
                 { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
