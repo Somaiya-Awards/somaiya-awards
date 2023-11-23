@@ -198,7 +198,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content: res.data.excellence_approved
             },
@@ -213,7 +213,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content: res.data.excellence_notApproved
             },
@@ -228,7 +228,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content: res.data.promising_approved
             },
@@ -243,7 +243,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content: res.data.promising_notApproved
             },
@@ -274,7 +274,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array01
             },
@@ -289,7 +289,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array001
             },
@@ -304,7 +304,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array02
             },
@@ -319,7 +319,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array002
             },
@@ -334,7 +334,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array03
             },
@@ -349,7 +349,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" },
                 { label: "Total Score", value: "totalScore" },  
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array003
             },
@@ -364,7 +364,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" },
                 { label: "Total Score", value: "totalScore" },  
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array04
             },
@@ -379,7 +379,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array004
             },
@@ -394,7 +394,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array05
             },
@@ -409,7 +409,7 @@ const Responses = () => {
                 { label: "Feedback Score (60%)", value: "feedbackScore" }, 
                 { label: "Total Score", value: "totalScore" }, 
                 { label: "Group", value: (row) => row.groups? row.groups[0]: 'null'}, 
-                { label: "File", value: (row)=> backendUrl+row.ieacApprovedFile }
+                { label: "File", value: (row)=> row.ieacApprovedFile ? backendUrl+row.ieacApprovedFile.split('data')[1] : null }
               ],
               content:res.data.array005
             },
