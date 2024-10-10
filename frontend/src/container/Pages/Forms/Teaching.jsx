@@ -91,7 +91,7 @@ const Teaching = () => {
   lowest score and 5 being the highest- Please attach the relevant documents to support your
   nomination. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.`
 
-  const headings = ["Basic Information", "Pedagogical Competence", "Beyond The Classroom", "Professional Development", "Supportings"]
+  const headings = ["Basic Information", "Pedagogical Competence", "Beyond The Classroom", "Professional Development","Achievements", "Supportings"]
   const limit = headings.length - 1
   return (
     <div>

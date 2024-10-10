@@ -328,12 +328,21 @@ const TeachingForm = [
         fieldsPerLine:1
     },
     {
+        title: "Q21. Add your relevant achievements.",
+        _name:"q_21",
+        type: 'textarea',
+        hasOptions : false,
+        requiredStatus : true,
+        page:5,
+        fieldsPerLine:1
+    },
+    {
         title: "Major evidences for the data provided in this form",
         _name: "data_evidence",
         type: "file",
         requiredStatus : true,
         hasOptions: false,
-        page: 5,
+        page: 6,
         fieldsPerLine:1
     },
     {
@@ -342,7 +351,7 @@ const TeachingForm = [
         type: "file",
         requiredStatus : true,
         hasOptions: false,
-        page: 5,
+        page: 6,
         fieldsPerLine:1
     },
 
