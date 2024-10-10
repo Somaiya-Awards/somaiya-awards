@@ -266,6 +266,7 @@ const columns04: GridColDef[] = [
   { field: 'q_18', headerName: 'Has been a guide and mentor to students in their projects & research work, soft skills development and making career choices', width: 100 },
   { field: 'q_19', headerName: 'Is punctual at work and dependable in delivering work assigned to him/her/they', width: 100 },
   { field: 'q_20', headerName: 'Score the candidate on his/her/their general impression in terms of honesty, integrity, conduct and ability to get along with the superiors colleagues', width: 100 },
+  { field: 'q_21', headerName: 'Faculty Achievements', width: 300 },
   {
     field: 'data_evidence', headerName: 'Data Evidence', width: 200, renderCell: (params) => {
       return <a href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;

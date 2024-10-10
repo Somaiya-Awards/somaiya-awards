@@ -375,7 +375,8 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         q_17,
         q_18,
         q_19,
-        q_20 } = req.body
+        q_20,
+        q_21 } = req.body
 
     const data_evidence = req.files.data_evidence[0].path
     const profile_photograph = req.files.profile_photograph[0].path
@@ -410,6 +411,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         q_18: Number(q_18),
         q_19: Number(q_19),
         q_20: Number(q_20),
+        q_21:q_21,
         data_evidence: data_evidence,
         profile_photograph: profile_photograph,
     });
@@ -494,6 +496,9 @@ const submitForm_05 = asyncHandler(async (req, res) => {
         q_22,
         q_23,
         q_24, } = req.body
+
+        console.log(req.body);
+        
 
     const proof_docs = req.files.proof_docs[0].path
     const nominee_photograph = req.files.nominee_photograph[0].path

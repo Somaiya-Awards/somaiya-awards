@@ -177,8 +177,8 @@ const handleTeachRecommend = (params, event) => {
                 if (!scoreA || !scoreB || !scoreC) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
-                if (scoreA>5 || scoreB>5 || scoreC>5){
-                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                if (scoreA>10 || scoreB>10 || scoreC>10){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 10 !`)
                 }
                 return { scoreA:scoreA, scoreB:scoreB , scoreC: scoreC }
                 
@@ -269,8 +269,8 @@ const handleTeachNotRecommend = (params, event) => {
                 if (!scoreA || !scoreB || !scoreC) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
-                if (scoreA>5 || scoreB>5 || scoreC>5){
-                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                if (scoreA>10 || scoreB>10 || scoreC>10){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 10 !`)
                 }
                 return { scoreA:scoreA, scoreB:scoreB , scoreC: scoreC }
             },
@@ -356,8 +356,8 @@ const handleNonTeachRecommend = (params,event)=>{
                 if (!scoreA || !scoreB) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
-                if (scoreA>5 || scoreB>5){
-                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                if (scoreA>10 || scoreB>10){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 10 !`)
                 }
                 return { scoreA:scoreA, scoreB:scoreB }
             },
@@ -442,8 +442,8 @@ const handleNonTeachNotRecommend = (params,event)=>{
                 if (!scoreA || !scoreB) {
                   Swal.showValidationMessage(`Please enter all fields !`)
                 }
-                if (scoreA>5 || scoreB>5){
-                    Swal.showValidationMessage(`Please Enter Score between 1 to 5 !`)
+                if (scoreA>10 || scoreB>10){
+                    Swal.showValidationMessage(`Please Enter Score between 1 to 10 !`)
                 }
                 return { scoreA:scoreA, scoreB:scoreB }
             },
@@ -784,6 +784,7 @@ const columns04: GridColDef[] = [
     { field: 'q_18', headerName: 'Q18', width: 100 },
     { field: 'q_19', headerName: 'Q19', width: 100 },
     { field: 'q_20', headerName: 'Q20', width: 100 },
+    { field: 'q_21', headerName: 'Faculty Achievements', width: 300 },
     {
         field: 'data_evidence', headerName: 'Data Evidence', width: 200, renderCell: (params) => {
             return <a href={`${baseURL}/${params.value ? params.value.split("data")[1] : null}`} className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins" download>Download</a>;

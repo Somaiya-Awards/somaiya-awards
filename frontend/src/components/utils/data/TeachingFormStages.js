@@ -19,6 +19,10 @@ const TeachingFormStages = [
     {
         _id:5,
         value:5
+    },
+    {
+        _id:6,
+        value:6
     }
 ]
 

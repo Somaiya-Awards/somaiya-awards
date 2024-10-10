@@ -51,7 +51,7 @@ const Footer = () => {
               <td><a href="https://www.linkedin.com/in/abhijit-patil-477a4760/" target="_blank">
                 Prof. Abhijit Patil</a>
               </td>
-              <td><a href="https://www.linkedin.com/in/aarti-sahitya-01175b128/" target="_blank">
+              <td><a href="" target="_blank">
                 Ms. Aarti Sahitya</a>
               </td>
             </tr>
@@ -59,13 +59,8 @@ const Footer = () => {
           <br></br>
           <h2 className="font-bold text-lg">Developed by</h2>
           {/* <br></br> */}
-          <div className="grid grid-cols-1 md:grid-cols-8 gap-6 my-2">
+          <div className="grid grid-cols-1  md:grid-cols-4 gap-6 my-2">
             
-            <div className=" ">
-              <a href="https://linkedin.com/in/jash-joshi01/" target="_blank">
-                Jash J. Joshi
-              </a>
-            </div>
             <div>
               <a
                 href="https://linkedin.com/in/trushil-dhokiya/"
@@ -82,42 +77,18 @@ const Footer = () => {
                 Hitanshu Gandhi
               </a>
             </div>
+            <div className=" ">
+              <a href="https://linkedin.com/in/riya-kapadia-a571401bb/" target="_blank">
+                Jash J. Joshi
+              </a>
+            </div>
             
             <div className=" ">
               <a
-                href="https://linkedin.com/in/riya-kapadia-a571401bb/"
+                href="https://linkedin.com/in/jash-joshi01/"
                 target="_blank"
               >
                 Riya Kapadia
-              </a>
-            </div>
-            <div>
-              <a href="https://linkedin.com/in/kushal-harsora" target="_blank">
-                Kushal Harsora
-              </a>
-            </div>
-            <div>
-              <a
-                href="https://linkedin.com/in/swaraj-dusane-35941722b"
-                target="_blank"
-              >
-                Swaraj Dusane
-              </a>
-            </div>
-            <div>
-              <a
-                href="https://linkedin.com/in/yash-chauhan-180031203"
-                target="_blank"
-              >
-                Yash Chauhan
-              </a>
-            </div>
-            <div>
-              <a
-                href="https://linkedin.com/in/yashkumar-dubey-716933222"
-                target="_blank"
-              >
-                Yashkumar Dubey
               </a>
             </div>
           </div>

@@ -145,6 +145,12 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.INTEGER,
             allowNull: false
         },
+        
+        q_21: {
+            type: dataTypes.TEXT,
+            allowNull: false
+        },
+        
 
         data_evidence: {
             type: dataTypes.STRING,

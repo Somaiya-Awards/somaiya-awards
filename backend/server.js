@@ -51,7 +51,7 @@ else {
   app.use(errorHandler);
 
   // server listen and database configuration
-  db.sequelize.sync().then(async (req) => {
+  db.sequelize.sync({alter:true}).then(async (req) => {
     try {
       
       const userCount = await db.User.count();
