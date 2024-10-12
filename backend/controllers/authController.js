@@ -295,6 +295,58 @@ const userValidate = asyncHandler(async (req, res) => {
 })
 
 
+const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
+    const { formData } = req.body; // Expecting an array of user objects
+
+    if (!Array.isArray(formData) || formData.length === 0) {
+        authLogger.error("No user data provided");
+        res.status(400);
+        throw new Error("User data is required and must be an array");
+    }
+
+    const results = [];
+
+    for (const userData of formData) {
+        const { email_id, institution, password, role } = userData;
+
+        if (!email_id || !password) {
+            authLogger.error(`Missing data for user: ${JSON.stringify(userData)}`);
+            continue; // Skip this iteration if required fields are missing
+        }
+
+        const user = await User.findOne({ where: { email_id } });
+
+        if (user) {
+            // User exists, update the user's information
+            user.institution = institution || user.institution; // Update if new value is provided
+            user.role = role || user.role; // Update if new value is provided
+            if (password) {
+                user.password = await bcrypt.hash(password, 10); // Hash new password if provided
+            }
+            await user.save();
+            results.push({ email_id, action: 'updated' });
+            authLogger.info(`User updated: ${email_id}`);
+        } else {
+            // User does not exist, create a new user
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await User.create({
+                email_id,
+                institution,
+                role,
+                password: hashedPassword,
+            });
+            results.push({ email_id, action: 'created' });
+            authLogger.info(`New user created: ${email_id}`);
+        }
+    }
+
+    res.status(200).json({
+        message: "Bulk operation completed successfully",
+        results,
+    });
+});
+
+
 /**
  * Exports
  */
@@ -305,7 +357,8 @@ module.exports = {
     verifyForPasswordReset,
     changePassword,
     userValidate,
-    registerUser
+    registerUser,
+    bulkCreateOrUpdateUsers,
 }
 
 /**

@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { MoonLoader } from 'react-spinners';
 import institutes from '../../../data/Institutions/institutes.js'
-
+import { Dropzone, FileMosaic, ExtFile } from "@files-ui/react";
+import Papa from 'papaparse';
 
 const ManageUsers = () => {
 
@@ -31,21 +32,65 @@ const ManageUsers = () => {
 
   const [loading, setLoading] = useState(true)
   const [authorized, setAuthorized] = useState(false)
+  const [files, setFiles] = React.useState([]);
+
+  const updateFiles = (incomingFiles) => {
+    setFiles(incomingFiles);
+  };
+
+  const removeFile = (id) => {
+    setFiles(files.filter((x) => x.id !== id));
+  };
+
+
+  const handleUpload = async () => {
+
+    const file = files[0].file;
+
+    if (!file) {
+        alert("File is missing or invalid.");
+        return;
+    }
+
+    if (files[0].type !== 'text/csv') {
+      alert("Invalid file type uploaded. Please upload valid file type");
+      return;
+  }
+
+
+    const text = await file.text();
+    const parsedData = Papa.parse(text, {header:true,skipEmptyLines:true,});
+
+
+    const data = {
+        formData: parsedData.data,
+    }
+
+    axios.post('/auth/bulk-create',data).then((res)=>{
+      console.log(res.data);
+      alert(res.data.message)
+      setFiles([])
+    })
+    .catch((err)=>{
+      console.error(err)
+      alert(err)
+    })
+};
 
   const navigate = useNavigate();
 
 
   const handleChange = (event) => {
 
-      const { name, value } = event.target;
-    
-      if (name === 'user_email_id') {
-        
-        setCredentials({ ...credentials, [name]: value.toLowerCase() });
-      } else {
-        setCredentials({ ...credentials, [name]: value });
-      }
-    
+    const { name, value } = event.target;
+
+    if (name === 'user_email_id') {
+
+      setCredentials({ ...credentials, [name]: value.toLowerCase() });
+    } else {
+      setCredentials({ ...credentials, [name]: value });
+    }
+
   }
 
   const handleSubmit = async () => {
@@ -228,7 +273,7 @@ const ManageUsers = () => {
                           type='dropdown'
                           name='user_role'
                           value={credentials['user_role'] || ''}
-                          options={["ADMIN", "IEAC", "HOI", "SPORTS ADMIN", "STUDENTS ADMIN", "RESEARCH ADMIN","STUDENT", "PEER"]}
+                          options={["ADMIN", "IEAC", "HOI", "SPORTS ADMIN", "STUDENTS ADMIN", "RESEARCH ADMIN", "STUDENT", "PEER"]}
                           dropdownHiddenItem='Select Role'
                           onChange={handleChange}
                         />
@@ -270,6 +315,30 @@ const ManageUsers = () => {
                           Create User
                         </div>
                         <ToastContainer />
+                      </div>
+
+                      <div className=' my-10'>
+                        <Dropzone
+                          onChange={updateFiles}
+                          value={files}
+                          className="font-Poppins text-sm"
+                          color="#910904"
+                          accept=".csv"
+                          maxFileSize={5 * 1024 * 1024} // 5MB
+                          maxFiles={1}
+                          actionButtons={{
+                            position: "after",
+                            cleanButton: { style: { backgroundColor: "#ff8175" } },
+                            uploadButton: { style: { textTransform: "uppercase", backgroundColor: "#32a852" }, onClick: handleUpload, label: "Submit" },
+                          }}
+                          footerConfig={{ customMessage: "Only CSV files up to 5MB are allowed" }}
+                          label={"📃 Drop Files here"}
+                          behaviour="replace"
+                        >
+                          {files.map((file) => (
+                            <FileMosaic key={file.id} {...file} onDelete={removeFile} info preview smartImgFit='orientation' />
+                          ))}
+                        </Dropzone>
                       </div>
 
                     </div>
