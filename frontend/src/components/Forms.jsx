@@ -83,9 +83,28 @@ const Forms = (props) => {
   }
 
   const handleSubmit = () => {
-
+    // Check for phone number validation
+    const phoneFields = ['phone_number', 'contact_number'];
+    for (const field of phoneFields) {
+      if (formData[field] && formData[field].length !== 10) {
+        Swal.fire({
+          title: "Invalid Phone Number",
+          text: `${field.replace('_', ' ')} must be exactly 10 digits.`,
+          icon: "warning",
+          backdrop: true,
+          background: 'rgba(255,250,250)',
+          iconColor: 'rgb(185,28,28)',
+          confirmButtonColor: 'rgb(185,28,28)',
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'gradient-button'
+          }
+        });
+        return; // Stop form submission
+      }
+    }
+  
     if (props.data.length !== Object.keys(formData).length) {
-
       Swal.fire({
         title: "Incomplete Form",
         text: "Please fill out the form completely",
@@ -98,92 +117,41 @@ const Forms = (props) => {
         customClass: {
           confirmButton: 'gradient-button'
         }
-      })
-
-      //call a function which returns page of which field first is missing and set it as current page
-
-      const incompletePageNumber =  missingFieldPage()
-      setCurrent(incompletePageNumber -1 )
-    }
-
-    else {
-
-
+      });
+  
+      const incompletePageNumber = missingFieldPage();
+      setCurrent(incompletePageNumber - 1);
+    } else {
       console.log(formData);
-
-      // axios post 
-
-      const formType = window.location.href.split('/forms/')[1]
-      const postUrl = `/forms/${formType}`
-
-      if (formType === 'feedback-01' || formType === 'feedback-02' || formType === 'feedback-03' || formType === 'feedback-04' || formType === 'feedback-05') {
-
-        axios.post(postUrl, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          }
+      const formType = window.location.href.split('/forms/')[1];
+      const postUrl = `/forms/${formType}`;
+  
+      axios.post(postUrl, formData, {
+        headers: {
+          "Content-Type": formType.includes('feedback') ? 'application/json' : 'multipart/form-data',
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          localStorage.removeItem(window.location.href.split('/forms/')[1] + "Data");
+          navigate({
+            pathname: '/forms/cards',
+            search: createSearchParams({
+              submitted: true,
+              title: "Form submitted Successfully"
+            }).toString()
+          });
         })
-          .then((res) => {
-            console.log(res);
-            localStorage.removeItem(window.location.href.split('/forms/')[1] + "Data")
-            navigate({
-              pathname: '/forms/cards',
-              search: createSearchParams({
-                submitted: true,
-                title: "Form submitted Successfully"
-              }).toString()
-            })
-          })
-          .catch((err) => {
-
-            navigate({
-              pathname: '/forms/cards',
-              search: createSearchParams({
-                submitted: false,
-                title: "Form submitted Successfully"
-              }).toString()
-            })
-
-            console.log(err);
-          })
-
-      } else {
-
-        axios.post(postUrl, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          }
-        })
-          .then((res) => {
-            console.log(res);
-
-            localStorage.removeItem(window.location.href.split('/forms/')[1] + "Data")
-            navigate({
-              pathname: '/forms/cards',
-              search: createSearchParams({
-                submitted: true,
-                title: "Form submitted Successfully"
-              }).toString()
-            })
-          })
-          .catch((err) => {
-
-            Swal.fire({
-              text:err.response.data.message,
-              icon:'error'
-            })
-
-            console.log(err);
-          })
-
-      }
-
-
-
+        .catch((err) => {
+          Swal.fire({
+            text: err.response?.data?.message || "Submission failed",
+            icon: 'error'
+          });
+          console.log(err);
+        });
     }
-
-
-  }
+  };
+  
 
 
   const handleFormStageChange = (e) => {
