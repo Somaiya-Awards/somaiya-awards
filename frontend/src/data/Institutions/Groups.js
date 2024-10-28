@@ -34,7 +34,9 @@ const Groups = {
     "K J Somaiya School of Nursing": [4],
     "K J Somaiya Medical Trust": [5],
     "K J Somaiya Private Industrial Training Institute": [3],
-    "SMT Sakarbai K Somaiya Junior College of Education": [4]
+    "SMT Sakarbai K Somaiya Junior College of Education": [4],
+    "School of civilization": [3],
+    "Faculty & Staff Development Centre": [3],
 }
 
 export default Groups;

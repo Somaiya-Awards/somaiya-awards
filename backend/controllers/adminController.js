@@ -57,6 +57,8 @@ const institutionArray = [
   'K J Somaiya Medical Trust',
   'K J Somaiya Private Industrial Training Institute',
   'SMT Sakarbai K Somaiya Junior College of Education',
+  'School of civilization',
+  'Faculty & Staff Development Centre'
 ];
 
 const grouping = {
@@ -95,7 +97,9 @@ const grouping = {
   "K J Somaiya School of Nursing": [4],
   "K J Somaiya Medical Trust": [5],
   "K J Somaiya Private Industrial Training Institute": [3],
-  "SMT Sakarbai K Somaiya Junior College of Education": [4]
+  "SMT Sakarbai K Somaiya Junior College of Education": [4],
+  "School of civilization": [3],
+  "Faculty & Staff Development Centre": [3],
 };
 
 /**
@@ -1356,7 +1360,6 @@ const getTeachingScoreCardData = asyncHandler(async (req, res) => {
   const peersValidFeedbacks = [];
 
   let hoiScore = 0;
-  let ieacScore = 0;
   // const applicationID = req.headers.applicationid;
   const applicationID = req.headers["x-application-id"];
 
@@ -2008,22 +2011,16 @@ const getTeachingJurySummaryData = asyncHandler(async (req, res) => {
     let peersFeedbackScoreSum = 0;
 
     for (feedback of validStudentsFeedbacks) {
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_01);
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_02);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_01);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_02);
       studentFeedbackScoreSum = studentFeedbackScoreSum + feedback.q_03;
       studentFeedbackScoreSum = studentFeedbackScoreSum + feedback.q_04;
       studentFeedbackScoreSum = studentFeedbackScoreSum + feedback.q_05;
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_06);
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_07);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_06);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_07);
       studentFeedbackScoreSum = studentFeedbackScoreSum + feedback.q_08;
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_09);
-      studentFeedbackScoreSum =
-        studentFeedbackScoreSum + textToScore(feedback.q_11);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_09);
+      studentFeedbackScoreSum = studentFeedbackScoreSum + textToScore(feedback.q_11);
     }
 
     for (feedback of validPeersFeedbacks) {

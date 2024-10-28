@@ -172,28 +172,20 @@ const ScoreCard = () => {
                                 </h2>
 
                                 <div className='mt-5'>
-
+                                <h3 className='text-sm my-1'>
+                                        <span className='text-red-800 font-semibold'>Hoi average: </span>
+                                        <span> {loading ? <Skeleton width={200} /> : apiData.hoi_avg}</span>
+                                    </h3>
                                     <h3 className='text-sm my-1'>
-                                        <span className='text-red-800 font-semibold'> Score A : </span>
-                                        <span> {loading ? <Skeleton width={200} /> : apiData.scoreA}</span>
+                                        <span className='text-red-800 font-semibold'>Ieac Average Score: </span>
+                                        <span> {loading ? <Skeleton width={200} /> : apiData.ieac_avg}</span>
+                                    </h3>
+                                    <h3 className='text-sm my-1'>
+                                        <span className='text-red-800 font-semibold'>Application average (40%): </span>
+                                        <span> {loading ? <Skeleton width={200} /> :Math.round(0.4*((apiData.hoi_avg + apiData.ieac_avg )/2)*100)/100}</span>
                                     </h3>
                                     {console.log(apiData)}
-                                    <h3 className='text-sm my-1'>
-                                        <span className='text-red-800 font-semibold'> Score B : </span>
-                                        <span> {loading ? <Skeleton width={200} /> : apiData.scoreB}</span>
-                                    </h3>
-                                    {
-                                        (window.location.href.split('/')[4] === 'teaching')
-                                            ?
-                                            <>
-                                                <h3 className='text-sm my-1'>
-                                                    <span className='text-red-800 font-semibold'> Score C : </span>
-                                                    <span> {loading ? <Skeleton width={200} /> : apiData.scoreC}</span>
-                                                </h3>
-                                            </>
-                                            :
-                                            null
-                                    }
+                                  
 
                                     <h3 className='text-sm my-1'>
                                         <span className='text-red-800 font-semibold'> Average Feedback Students : </span>

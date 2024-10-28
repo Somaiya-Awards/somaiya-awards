@@ -73,7 +73,9 @@ const NonTeachingForm = [
             "KJ Somaiya School and College of Nursing",
             "Somaiya Sports Academy",
             "SK Somaiya College (SVU)",
-            "SK Somaiya College of Arts, Science and Commerce (MU)"
+            "SK Somaiya College of Arts, Science and Commerce (MU)",
+            "School of civilization",
+            "Faculty & Staff Development Centre",
         ],
         page: 1,
         fieldsPerLine: 2
