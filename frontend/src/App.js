@@ -82,11 +82,11 @@ function App() {
         <Route path="/research-admin" element={<ResearchAdmin />} />
         <Route path="/research-admin/responses/research" element={<ResearchResponses />} />
         <Route path="/forms/outstanding-institution" element={<OutstandingInstitution />} />
-        {/* <Route path="/forms/sports" element={<SportsStar />} /> */}
-        {/* <Route path="/forms/research" element={<Research />} /> */}
+        <Route path="/forms/sports" element={<SportsStar />} />
+        <Route path="/forms/research" element={<Research />} />
         <Route path="/forms/teaching" element={<Teaching />} />
         <Route path="/forms/non-teaching" element={<NonTeaching />} />
-        {/* <Route path="/forms/students" element={<Students />} /> */}
+        <Route path="/forms/students" element={<Students />} />
         <Route path="/forms/feedback-01" element={<FeedbackTeachingST />} />
         <Route path="/forms/feedback-02" element={<FeedbackTeachingPR />} />
         <Route path="/forms/feedback-03" element={<FeedbackNonTeachingST />} />

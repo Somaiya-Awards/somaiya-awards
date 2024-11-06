@@ -63,6 +63,8 @@ const FeedbackSportsCoach = [
             "SK Somaiya College of Arts, Science and Commerce (MU)",
             "School of civilization",
             "Faculty & Staff Development Centre",
+            "K J Somaiya junior college of science and commerce",
+            "K J Somaiya junior college of arts and commerce",
         ],
         page: 1,
         fieldsPerLine: 2
@@ -74,7 +76,7 @@ const FeedbackSportsCoach = [
         dropdownHiddenItem: 'Select Name of the Nominee',
         requiredStatus: true,
         hasOptions: true,
-        options:[] ,
+        options: [],
         page: 1,
         fieldsPerLine: 2
     },
@@ -286,15 +288,15 @@ async function fetchNominatedNames() {
     try {
         // Make an HTTP request to fetch the data from your backend
         // const response = await axios.get('http://localhost:5001/sports-admin/data/nominated-coach-names',{
-        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/sports-admin/data/nominated-coach-names',{
-    
-        headers:{
-                'x-access-token':localStorage.getItem('token'),
-                'x-user-id':localStorage.getItem('user_id'),
+        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/sports-admin/data/nominated-coach-names', {
+
+            headers: {
+                'x-access-token': localStorage.getItem('token'),
+                'x-user-id': localStorage.getItem('user_id'),
                 'x-institute-name': localStorage.getItem('institution')
             }
         });
-        
+
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;
 

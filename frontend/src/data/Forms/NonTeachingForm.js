@@ -4,8 +4,8 @@ const NonTeachingForm = [
         _name: "email_id",
         type: "email",
         requiredStatus: true,
-        hasValidations:true,
-        validationType:'email-id',
+        hasValidations: true,
+        validationType: 'email-id',
         hasOptions: false,
         page: 1,
         fieldsPerLine: 2
@@ -38,9 +38,9 @@ const NonTeachingForm = [
         title: "Name of institute",
         _name: "institute_name",
         type: "dropdown",
-        dropdownHiddenItem:'Select your institute',
+        dropdownHiddenItem: 'Select your institute',
         requiredStatus: true,
-        drop_opt:'single',
+        drop_opt: 'single',
         hasOptions: true,
         options: [
             "The Somaiya School",
@@ -75,7 +75,9 @@ const NonTeachingForm = [
             "SK Somaiya College (SVU)",
             "SK Somaiya College of Arts, Science and Commerce (MU)",
             "School of civilization",
-            "Faculty & Staff Development Centre",
+            "Faculty & Staff Development Centre", 
+            "K J Somaiya junior college of science and commerce",
+            "K J Somaiya junior college of arts and commerce",
         ],
         page: 1,
         fieldsPerLine: 2
@@ -104,8 +106,8 @@ const NonTeachingForm = [
         type: "date",
         requiredStatus: true,
         hasOptions: false,
-        hasValidations:true,
-        validationType:'date',
+        hasValidations: true,
+        validationType: 'date',
         page: 1,
         fieldsPerLine: 2
     },
@@ -114,8 +116,8 @@ const NonTeachingForm = [
         _name: "somaiya_email_id",
         type: "email",
         requiredStatus: true,
-        hasValidations:true,
-        validationType:'somaiya-mail-id',
+        hasValidations: true,
+        validationType: 'somaiya-mail-id',
         hasOptions: false,
         page: 1,
         fieldsPerLine: 2
@@ -125,8 +127,8 @@ const NonTeachingForm = [
         _name: "phone_number",
         type: "text",
         requiredStatus: true,
-        hasValidations:true,
-        validationType:'contact-no',
+        hasValidations: true,
+        validationType: 'contact-no',
         hasOptions: false,
         page: 1,
         fieldsPerLine: 2
@@ -138,7 +140,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 2,
         fieldsPerLine: 1
     },
@@ -148,7 +150,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 2,
         fieldsPerLine: 1
     },
@@ -158,7 +160,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 2,
         fieldsPerLine: 1
     },
@@ -168,7 +170,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 2,
         fieldsPerLine: 1
     },
@@ -178,7 +180,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 2,
         fieldsPerLine: 1
     },
@@ -189,7 +191,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 3,
         fieldsPerLine: 1
     },
@@ -199,7 +201,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 3,
         fieldsPerLine: 1
     },
@@ -210,7 +212,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 4,
         fieldsPerLine: 1
     },
@@ -220,7 +222,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 4,
         fieldsPerLine: 1
     },
@@ -230,7 +232,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 4,
         fieldsPerLine: 1
     },
@@ -240,7 +242,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 4,
         fieldsPerLine: 1
     },
@@ -250,7 +252,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 4,
         fieldsPerLine: 1
     },
@@ -261,7 +263,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 5,
         fieldsPerLine: 1
     },
@@ -271,7 +273,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 5,
         fieldsPerLine: 1
     },
@@ -282,7 +284,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 6,
         fieldsPerLine: 1
     },
@@ -292,7 +294,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 6,
         fieldsPerLine: 1
     },
@@ -302,7 +304,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 6,
         fieldsPerLine: 1
     },
@@ -312,7 +314,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 6,
         fieldsPerLine: 1
     },
@@ -322,7 +324,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 6,
         fieldsPerLine: 1
     },
@@ -333,7 +335,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 7,
         fieldsPerLine: 1
     },
@@ -343,7 +345,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 7,
         fieldsPerLine: 1
     },
@@ -353,7 +355,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 7,
         fieldsPerLine: 1
     },
@@ -363,7 +365,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 7,
         fieldsPerLine: 1
     },
@@ -373,7 +375,7 @@ const NonTeachingForm = [
         type: "radio",
         requiredStatus: true,
         hasOptions: true,
-        options: [1,2,3,4,5],
+        options: [1, 2, 3, 4, 5],
         page: 7,
         fieldsPerLine: 1
     },
