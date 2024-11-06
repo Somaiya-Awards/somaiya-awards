@@ -74,6 +74,8 @@ const TeachingForm = [
             "SK Somaiya College of Arts, Science and Commerce (MU)",
             "School of civilization",
             "Faculty & Staff Development Centre",
+            "K J Somaiya junior college of science and commerce",
+            "K J Somaiya junior college of arts and commerce",
         ],
         page: 1,
         fieldsPerLine:2

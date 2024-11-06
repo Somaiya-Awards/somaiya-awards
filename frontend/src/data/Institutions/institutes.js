@@ -37,6 +37,8 @@ const institutes = [
   'SMT Sakarbai K Somaiya Junior College of Education',
   "School of civilization",
   "Faculty & Staff Development Centre",
+  "K J Somaiya junior college of science and commerce",
+  "K J Somaiya junior college of arts and commerce",
 ];
 
 export default institutes
