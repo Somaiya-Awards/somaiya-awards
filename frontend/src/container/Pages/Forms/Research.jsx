@@ -76,7 +76,7 @@ const Research = () => {
    * Data
    */
   const title = "Dr. S.K. Somaiya Award (Excellence In Research)"
-  const awardInfo = `Dr. S. K. Somaiya Award (Excellence in Research) is a one-time research excellence award intending to recognize and honor faculty for 'her/he/their outstanding research achievements in terms of original and review publications, granted research projects, consultancy services, and intellectual assets thus contributing to our vibrant research ecosystem. Nominations for the 2023 awards are open through November 14, 2024. The winners will be awarded in the Research Excellence Award category during the Foundation Day celebration.`
+  const awardInfo = `Dr. S. K. Somaiya Award (Excellence in Research) is a one-time research excellence award intending to recognize and honor faculty for 'her/he/their outstanding research achievements in terms of original and review publications, granted research projects, consultancy services, and intellectual assets thus contributing to our vibrant research ecosystem. The winners will be awarded in the Research Excellence Award category during the Foundation Day celebration.`
 
   const limit = 6
   const headings = [
