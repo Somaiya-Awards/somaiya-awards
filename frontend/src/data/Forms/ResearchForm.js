@@ -309,7 +309,7 @@ const ResearchForm = [
         fieldsPerLine:2
     },
     {
-        title: `Number of International Research awards won between 2018 to ${new Date().getFullYear()}`,
+        title: `Number of International Research awards won in last five years.`,
         _name: "international_awards_won_count",
         type: "number",
         requiredStatus : true,
@@ -318,7 +318,7 @@ const ResearchForm = [
         fieldsPerLine:2
     },
     {
-        title: `Number of National Research awards won between 2018 to ${new Date().getFullYear()}`,
+        title: `Number of National Research awards won in last five years`,
         _name: "national_awards_won_count",
         type: "number",
         requiredStatus : true,
