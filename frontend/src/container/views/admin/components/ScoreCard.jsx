@@ -120,7 +120,7 @@ const ScoreCard = () => {
                 color="bg-[#00008B] text-white" 
               />
               <ScoreHighlight 
-                label="Application Score" 
+                label="Application Score (40%)" 
                 value={scores.applicationScore} 
                 loading={loading} 
                 color="bg-[#8B0000] text-white" 
