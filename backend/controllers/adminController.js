@@ -1971,7 +1971,7 @@ const getTeachingJurySummaryData = asyncHandler(async (req, res) => {
       ).toFixed(2)
     );
 
-    faculty.applicationScore = (faculty.applicationScore + ieacAverageScore) / 2
+    faculty.applicationScore = (faculty.applicationScore + ieacAverageScore/2) / 2
     faculty.applicationScore = 0.4 * faculty.applicationScore
 
 
@@ -2181,7 +2181,7 @@ const getNonTeachingJurySummaryData = asyncHandler(async (req, res) => {
       ).toFixed(2)
     );
 
-    employee.applicationScore = (employee.applicationScore + ieac_avg) / 2
+    employee.applicationScore = (employee.applicationScore + ieac_avg/2) / 2
     employee.applicationScore = 0.4 * employee.applicationScore
 
 
