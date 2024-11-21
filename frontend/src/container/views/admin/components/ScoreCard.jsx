@@ -131,17 +131,17 @@ const ScoreCard = () => {
                             </h2>
                             <div className='space-y-2'>
                                 <ScoreRow 
-                                    label="HOI Average" 
+                                    label="HOI Average (A)" 
                                     value={apiData.hoi_avg} 
                                     loading={loading} 
                                 />
                                 <ScoreRow 
-                                    label="IEAC Average" 
+                                    label="IEAC Average (B)" 
                                     value={apiData.ieac_avg/2} 
                                     loading={loading} 
                                 />
                                 <ApplicationScoreHighlight 
-                                    label="Application Score (40%)" 
+                                    label="Application Score (40% of A+B )" 
                                     value={Math.round(0.4*((apiData.hoi_avg + apiData.ieac_avg/2)/2)*100)/100} 
                                     loading={loading} 
                                 />
@@ -156,7 +156,7 @@ const ScoreCard = () => {
                                     loading={loading} 
                                 />
                                 <FeedbackScoreHighlight 
-                                    label="Feedback Score (60%)" 
+                                    label="360 degree Feedback Score (60%)" 
                                     value={loading ? null : calculateFeedbackScore()} 
                                     loading={loading} 
                                 />
