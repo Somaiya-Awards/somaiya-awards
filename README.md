@@ -5,59 +5,59 @@
 ![Progress Bar](https://progress-bar.dev/100/)
 
 #### Form Section
-- [x] Forms Designing and Implementation
-- [x] Validations and Submission to Database
-- [x] Auto Draft Saving and Progress Checker
-- [x] Pagination and Rebounded Checking
+- [] Forms Designing and Implementation
+- [] Validations and Submission to Database
+- [] Auto Draft Saving and Progress Checker
+- [] Pagination and Rebounded Checking
 
 #### HOI Section
-- [x] HOI View and Security
-- [x] Forms Analysis and Responses
-- [x] Download PDF and CSV
-- [x] Responses URL Security and Authentication
+- [] HOI View and Security
+- [] Forms Analysis and Responses
+- [] Download PDF and CSV
+- [] Responses URL Security and Authentication
 
 #### IEAC Section
-- [x] Implementation and Security
-- [x] Responses View with Export
-- [x] Approval and File Upload
-- [x] Review URL Security and Authentication
+- [] Implementation and Security
+- [] Responses View with Export
+- [] Approval and File Upload
+- [] Review URL Security and Authentication
 
 #### STUDENTS SECTION
-- [x] Implementation and Security
-- [x] Related Forms Filling 
+- [] Implementation and Security
+- [] Related Forms Filling 
 
 #### PEERS SECTION
-- [x] Implementation and Security
-- [x] Related Forms Filling 
+- [] Implementation and Security
+- [] Related Forms Filling 
 
 #### STUDENTS ADMIN
-- [x] Implementation and Security
-- [x] Responses View with Export of Students Form
-- [x] Review URL Security and Authentication
-- [x] Approval of Recommended forms 
+- [] Implementation and Security
+- [] Responses View with Export of Students Form
+- [] Review URL Security and Authentication
+- [] Approval of Recommended forms 
 
 #### SPORTS ADMIN
-- [x] Implementation and Security
-- [x] Responses View with Export of Sports Form
-- [x] Review URL Security and Authentication
-- [x] Approval of Recommended forms 
+- [] Implementation and Security
+- [] Responses View with Export of Sports Form
+- [] Review URL Security and Authentication
+- [] Approval of Recommended forms 
 
 #### RESEARCH ADMIN
-- [x] Implementation and Security
-- [x] Responses View with Export of Research Form
-- [x] Review URL Security and Authentication
-- [x] Approval of Recommended forms 
+- [] Implementation and Security
+- [] Responses View with Export of Research Form
+- [] Review URL Security and Authentication
+- [] Approval of Recommended forms 
 
 #### HR Section
-- [x] Design and Implementation
-- [x] Correct Responses of Approved Applications
-- [x] OverView and Dashboard Correction
-- [x] Feedback Avg Score Integration
-- [x] Managing Users Access 
-- [x] URL Security and Authentication
-___
+- [] Design and Implementation
+- [] Correct Responses of Approved Applications
+- [] OverView and Dashboard Correction
+- [] Feedback Avg Score Integration
+- [] Managing Users Access 
+- [] URL Security and Authentication
+
 ### Documentation
-____
+
 
 #### Introduction
 
@@ -65,9 +65,9 @@ Somaiya Awards system is a full stack web application for all institutes under S
 
 #### Technologies 
 
-- Frontend : ![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=plastic&logo=mui&logoColor=white) ![Three JS](https://img.shields.io/badge/Three.js-000?logo=threedotjs&logoColor=fff&style=plastic)
+- Frontend : ![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=plastic&logo=mui&logoColor=white) ![Three JS](https://img.shields.io/badge/Three.js-000?logo=threedotjs&logoColor=fff&style=plastic) ![TypeScript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
 
-- Backend : ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) 	![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=plastic&logo=express&logoColor=%2361DAFB) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=plastic&logo=Sequelize&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=plastic&logo=JSON%20web%20tokens)
+- Backend : ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) 	![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=plastic&logo=express&logoColor=%2361DAFB) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=plastic&logo=Sequelize&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=plastic&logo=JSON%20web%20tokens) ![TypeScript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
 
 - Database : ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=plastic&logo=mysql&logoColor=white)
 
@@ -129,12 +129,6 @@ Start your backend server
 npm run dev  # to start your backend development server
 npm start    # to start backend production server
 ```
-
-___
-
-#### Contributors
-
-<table><tr><td align="center"><a href="https://github.com/TheOneWith-3j"><img alt="TheOneWith-3j" src="https://avatars.githubusercontent.com/u/98700334?v=4" width="117" /><br />Jash J. Joshi</a></td><td align="center"><a href="https://github.com/trushildhokiya"><img alt="trushildhokiya" src="https://avatars.githubusercontent.com/u/95337251?v=4" width="117" /><br />trushildhokiya</a></td><td align="center"><td align="center"><a href="https://github.com/Hitanshu-Gandhi"><img alt="Hitanshu-Gandhi" src="https://avatars.githubusercontent.com/u/110166138?v=4" width="117" /><br />Hitanshu-Gandhi</a></td></tr></table>
 
 
 
