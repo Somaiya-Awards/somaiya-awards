@@ -2,7 +2,12 @@
 
 ## Progress Report
 
-![Progress Bar](https://progress-bar.dev/100/)
+![Progress Bar](https://progress-bar.xyz/0/)
+++++++++Why-0-Progress++++++++
+  1) No Security (Even in Production)
+  2) TypeScript Rewrite
+  3) Jwt Token only for password reset
+
 
 #### Form Section
 - [] Forms Designing and Implementation
