@@ -80,13 +80,13 @@ Somaiya Awards system is a full stack web application for all institutes under S
 ___
 
 ### Getting Started 
-
+___
 #### Installation
 
 Clone the project
 
 ```bash
-git clone "https://github.com/trushildhokiya/somaiya-awards.git"
+git clone "https://github.com/Alpharius397/Somaiya-Awards.git"
 ```
 
 Open the project directory
@@ -113,18 +113,7 @@ cd backend
 npm install
 ```
 
-Once you are completed installing dependencies in backend , open config folder and edit config.json file. Replace &lt;password&gt; with you actual database password 
-```json
-"password": "<password>",
-"database": "somaiya_awards",
-```
-
-Edit your .env file
-
-```env
-EMAIL_ID = <enter your actual email ID >
-EMAIL_PASSWORD = <Enter your gmail APP key not gmail's password >
-```
+Once you are completed installing dependencies in backend, setup environment by saving the *.template files as *. files and adding necessary credentials.
 
 > **Note**
 > Not editing the env file may not affect your server startup but may cause errors in actions where email is to be sent via backend server (see mailing section below)<br>This video might help you to create App Key if you dont know [Link to Youtube Video](https://www.youtube.com/watch?v=hXiPshHn9Pw)
