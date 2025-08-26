@@ -10,57 +10,9 @@
   3) Jwt Token only for password reset
 
 
-#### Form Section
-- [] Forms Designing and Implementation
-- [] Validations and Submission to Database
-- [] Auto Draft Saving and Progress Checker
-- [] Pagination and Rebounded Checking
+#### TODO
 
-#### HOI Section
-- [] HOI View and Security
-- [] Forms Analysis and Responses
-- [] Download PDF and CSV
-- [] Responses URL Security and Authentication
-
-#### IEAC Section
-- [] Implementation and Security
-- [] Responses View with Export
-- [] Approval and File Upload
-- [] Review URL Security and Authentication
-
-#### STUDENTS SECTION
-- [] Implementation and Security
-- [] Related Forms Filling 
-
-#### PEERS SECTION
-- [] Implementation and Security
-- [] Related Forms Filling 
-
-#### STUDENTS ADMIN
-- [] Implementation and Security
-- [] Responses View with Export of Students Form
-- [] Review URL Security and Authentication
-- [] Approval of Recommended forms 
-
-#### SPORTS ADMIN
-- [] Implementation and Security
-- [] Responses View with Export of Sports Form
-- [] Review URL Security and Authentication
-- [] Approval of Recommended forms 
-
-#### RESEARCH ADMIN
-- [] Implementation and Security
-- [] Responses View with Export of Research Form
-- [] Review URL Security and Authentication
-- [] Approval of Recommended forms 
-
-#### HR Section
-- [] Design and Implementation
-- [] Correct Responses of Approved Applications
-- [] OverView and Dashboard Correction
-- [] Feedback Avg Score Integration
-- [] Managing Users Access 
-- [] URL Security and Authentication
+- [] 
 
 ### Documentation
 
