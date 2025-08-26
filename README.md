@@ -3,6 +3,7 @@
 ## Progress Report
 
 ![Progress Bar](https://progress-bar.xyz/0/)
+
 ++++++++Why-0-Progress++++++++
   1) No Security (Even in Production)
   2) TypeScript Rewrite
