@@ -9,10 +9,23 @@
   2) TypeScript Rewrite
   3) Jwt Token only for password reset
 
+#### DONE
+- [x] Model Rewrite and Optimization
+- [x] Model Type-Safety
+- [x] Middleware Rewrite and Correction
+- [x] Patching Security and implemented Access-Refresh JWT Token   
 
 #### TODO
+- [] Controller Rewrite and Optimization
+- [] Limiting what data is send (Current sends everything -> DANGEROUS)
+- [] Routes Updation
+- [] Frontend Rewrite and Library Updation
+- [] Axios Updation and Customization
+- [] Full-Stack Type Safety
 
-- [] 
+#### MAYBE
+- [] Use tRPC (Pros: More Type Safety, Cons: It has it's own configs and need special routing. TLDR: Route Rewrite v2)
+- [] Make it run actually
 
 ### Documentation
 
