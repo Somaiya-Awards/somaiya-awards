@@ -14,6 +14,8 @@
 - [x] Model Type-Safety
 - [x] Middleware Rewrite and Correction
 - [x] Patching Security and implemented Access-Refresh JWT Token   
+- [x] AuthController and AdminController done 
+- [x] Zod added
 
 #### TODO
 - [ ] Controller Rewrite and Optimization

@@ -4,7 +4,7 @@ export class FeedbackFive extends Model {
     declare id: number;
     declare rater_name: string;
     declare somaiya_mail_id: string;
-    declare institution: string;
+    declare institution_name: string;
     declare nominee_name: string;
     declare q_01: number;
     declare q_02: number;
@@ -39,7 +39,7 @@ export default function FeedbackFiveInit(sequelize: Sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            institution: {
+            institution_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

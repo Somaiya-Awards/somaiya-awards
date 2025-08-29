@@ -1,67 +1,70 @@
-const { where } = require('sequelize');
-const { User } = require('../models')
-const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
-const { userAuthenticator } = require('../middleware/userAuthenticator')
-const { authLogger } = require('../middleware/logger')
-
+import { User } from "../models/tables/User";
+import asyncHandler from "express-async-handler";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import { authLogger } from "../middleware/logger";
+import { UserLogin } from "../zod/auth/login";
+import { setJwtToken } from "../middleware/userAuthenticator";
+import { AccessHeader, RefreshHeader } from "../constants";
+import { Register } from "../zod/auth/register";
+import z from "zod";
+import { resetPassword } from "../zod/auth/password";
 //@desc handle login
 //@route POST /auth/login
 //@access public
 
-const userLogin = asyncHandler(async (req, res) => {
+export const userLogin = asyncHandler(async (req, res) => {
+    const response = UserLogin.safeParse(req.body);
 
-    const { user_email, user_password } = req.body;
-
-    if (!user_email || !user_password) {
-
-        authLogger.error("Email Id or password was not entered")
-        res.status(400)
-        throw new Error("All field are mandatory")
+    if (!response.success) {
+        res.status(400);
+        throw new Error(
+            response.error.issues.map((value) => value.message).join("\n")
+        );
     }
 
-    const user = await User.findOne({ where: { email_id: user_email } })
+    const { user_email, user_password } = response.data;
+
+    const user = await User.findOne({ where: { email_id: user_email } });
 
     if (!user) {
-
-        authLogger.error(`User not found request made by IP address ${req.ip}`)
-        res.status(401)
-        throw new Error("Unauthorized login request")
-
+        authLogger.error(`User not found request made by IP address ${req.ip}`);
+        res.status(401);
+        throw new Error("Unauthorized login request");
     }
 
-    const dbPassword = user['password']
+    const dbPassword = user["password"];
 
-    const result = await bcrypt.compare(user_password, dbPassword)
+    const result = await bcrypt.compare(user_password, dbPassword);
 
     if (result) {
+        let access = setJwtToken(user, "1h");
+        let refresh = setJwtToken(user, "1d");
 
-        const secret = process.env.JWT_SECRET + user.password
+        authLogger.info(`${user.email_id} logged in successfully`);
+        res.cookie(AccessHeader, access, {
+            expires: new Date(Date.now() + 60 * 60 * 1000),
+        });
+        res.cookie(RefreshHeader, refresh, {
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            httpOnly: true,
+        });
 
-        const token = jwt.sign({ email_id: user.email_id, id: user.id }, secret, { expiresIn: '2d' });
-
-        authLogger.info(`${user.email_id} logged in successfully`)
         res.status(200).json({
-            token: token,
-            user_id: user.id,
             authorized: result,
             role: user.role,
-            institution: user.institution
-        })
+            institution: user.institution,
+        });
+    } else {
+        authLogger.error(`User failed to log in ip ${req.ip}`);
+        res.status(401);
+        throw new Error("Incorrect Email or password");
     }
-    else {
-        authLogger.error(`User failed to log in ip ${req.ip}`)
-        res.status(401)
-        throw new Error("Incorrect Email or password")
-    }
-
-})
-
+});
 
 /** User Registration Code */
-// const userLogin = asyncHandler( async (req,res)=>{
+// export const userLogin = asyncHandler( async (req,res)=>{
 
 //     const {user_email , user_password } = req.body;
 
@@ -88,69 +91,99 @@ const userLogin = asyncHandler(async (req, res) => {
 //@route POST /auth/register
 //@access private
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
+    const response = Register.safeParse(req.body);
 
-    const { user_email_id, user_institution, user_password, user_role } = req.body
-
-    const user = await User.findOne({ where: { email_id: user_email_id } })
-
-    if (user) {
-
-        //throw error
-        authLogger.error(`Failed to create usera as user already exists email ID : ${user_email_id}`)
-        res.status(400)
-        throw new Error("User already exists!")
+    if (!response.success) {
+        res.status(400);
+        throw new Error(
+            response.error.issues.map((value) => value.message).join("\n")
+        );
     }
 
-    const hashedPassword = await bcrypt.hash(user_password, 10)
+    const { user_email_id, user_password, user_institution, user_role } =
+        response.data;
 
-    await User.create({ email_id: user_email_id, institution: user_institution, role: user_role, password: hashedPassword })
+    const user = await User.findOne({ where: { email_id: user_email_id } });
 
-    authLogger.info(`New user created email_id : ${user_email_id}`)
+    if (user) {
+        //throw error
+        authLogger.error(
+            `Failed to create usera as user already exists email ID : ${user_email_id}`
+        );
+        res.status(400);
+        throw new Error("User already exists!");
+    }
+
+    const hashedPassword = await bcrypt.hash(user_password, 10);
+
+    await User.create({
+        email_id: user_email_id,
+        institution: user_institution,
+        role: user_role,
+        password: hashedPassword,
+    });
+
+    authLogger.info(`New user created email_id : ${user_email_id}`);
     res.status(200).json({
-        message: "User created successfully"
-    })
-})
-
+        message: "User created successfully",
+    });
+});
 
 //@desc handle password change request
 //@route POST /auth/forgot-password
-//@access public 
+//@access public
 
-const passwordReset = asyncHandler(async (req, res) => {
+export const passwordReset = asyncHandler(async (req, res) => {
+    const response = z.object({ user_email: z.email() }).safeParse(req.body);
 
-    const { user_email } = req.body
-
-    const user = await User.findOne({ where: { email_id: user_email } });
-    console.log(user)
-    if (!user) {
-
-        authLogger.error(`User tried to reset password failed (user not found) IP ${req.ip}`)
-        res.status(400)
-        throw new Error("User not Found ! Please make sure You have entered valid email address")
+    if (!response.success) {
+        res.status(400);
+        throw new Error(
+            response.error.issues.map((value) => value.message).join("\n")
+        );
     }
 
-    const secret = process.env.JWT_RESET_SECRET + user.password
+    const { user_email } = response.data;
 
-    const token = jwt.sign({
-        email: user.email_id,
-        id: user.id
-    }, secret, { expiresIn: "5m" })
+    const user = await User.findOne({
+        where: { email_id: user_email },
+    });
+
+    if (!user) {
+        authLogger.error(
+            `User tried to reset password failed (user not found) IP ${req.ip}`
+        );
+        res.status(400);
+        throw new Error(
+            "User not Found ! Please make sure You have entered valid email address"
+        );
+    }
+
+    const secret = process.env.JWT_RESET_SECRET + user.password;
+
+    const token = jwt.sign(
+        {
+            email: user.email_id,
+            id: user.id,
+        },
+        secret,
+        { expiresIn: "5m" }
+    );
 
     // const link = `http://localhost:3000/auth/${user.id}/${token}`
-    const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`
+    const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`;
 
     // // mail the link to user
 
     let testAccount = await nodemailer.createTestAccount();
 
-
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
             user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD
-        }
+            pass: process.env.EMAIL_PASSWORD,
+        },
     });
 
     let message = {
@@ -176,167 +209,203 @@ const passwordReset = asyncHandler(async (req, res) => {
                     Somaiya Awards Team
                 </p>
             `,
-    }
+    };
 
-    let info = await transporter.sendMail(message, (err, data) => {
+    transporter.sendMail(message, (err) => {
         if (err) {
             console.log(err);
-        }
-        else {
-            console.log('email sent !!')
+        } else {
+            console.log("email sent !!");
         }
     });
 
     console.log(link);
 
-    res.info(`Passord reset mail sent to user : ${user.email_id}`)
     res.status(200).json({
-        message: "Link to reset password has been sent to registered mail ID. Please check your mail"
-    })
-})
+        message:
+            "Link to reset password has been sent to registered mail ID. Please check your mail",
+    });
+});
 
 //@desc verify user to change password
 //@route GET /auth/:id/:token
-//@access private 
+//@access private
 
-const verifyForPasswordReset = asyncHandler(async (req, res) => {
+export const verifyForPasswordReset = asyncHandler(async (req, res) => {
+    const { id, token } = req.params;
 
-    const { id, token } = req.params
-
-    const user = await User.findOne({ where: { id: id } })
+    const user = await User.findOne({ where: { id: id } });
 
     if (!user) {
-
-        authLogger.error(`user not found for password reset verification  ID :${id}`)
-        res.status(401)
-        throw new Error("Unauthorized access !")
+        authLogger.error(
+            `User not found for password reset verification  ID :${id}`
+        );
+        res.status(401);
+        throw new Error("Unauthorized access !");
     }
 
-    const secret = process.env.JWT_RESET_SECRET + user.password
-    const verify = jwt.verify(token, secret)
+    const secret = process.env.JWT_RESET_SECRET + user.password;
+    const verify = jwt.verify(token, secret);
 
     if (verify) {
-
-        authLogger.info(`User verified for password reset user token ${token} id ${id}`)
+        authLogger.info(
+            `User verified for password reset user token ${token} id ${id}`
+        );
         res.status(200).json({
-
-            authorized: true
-        })
+            authorized: true,
+        });
+    } else {
+        authLogger.info(
+            `Reset password access invalid token id ${id} token recieved ${token}`
+        );
+        res.status(401);
+        throw new Error(" Unauthorized access !");
     }
-    else {
-        authLogger.info(`Reset password access invalid token id ${id} token recieved ${token}`)
-        res.status(401)
-        throw new Error(" Unauthorized access !")
-    }
-})
+});
 
 //@desc  change password
 //@route POST /auth/:id/:token
-//@access private 
+//@access private
 
-const changePassword = asyncHandler(async (req, res) => {
+export const changePassword = asyncHandler(async (req, res) => {
+    const { id, token } = req.params;
 
-    const { user_email, user_password_new } = req.body;
+    const user = await User.findOne({ where: { id: id } });
 
-    const { id, token } = req.params
+    if (!user) {
+        authLogger.error(
+            `User not found for password reset verification  ID :${id}`
+        );
+        res.status(401);
+        throw new Error("Unauthorized access !");
+    }
 
-    const user = await User.findOne({ where: { id: id } })
+    const secret = process.env.JWT_RESET_SECRET + user.password;
+    const verify = jwt.verify(token, secret);
 
+    if (verify) {
+        authLogger.info(
+            `User verified for password reset user token ${token} id ${id}`
+        );
+        res.status(200).json({
+            authorized: true,
+        });
+    } else {
+        authLogger.info(
+            `Reset password access invalid token id ${id} token recieved ${token}`
+        );
+        res.status(401);
+        throw new Error(" Unauthorized access !");
+    }
+    const response = resetPassword.safeParse(req.body);
 
-    const hashedPassword = await bcrypt.hash(user_password_new, 10)
+    if (!response.success) {
+        res.status(400);
+        throw new Error(
+            response.error.issues.map((value) => value.message).join("\n")
+        );
+    }
 
-    await user.update({ password: hashedPassword })
+    const { user_password_new } = response.data;
 
-    await user.save()
+    if (!user) {
+        res.status(401);
+        throw new Error("User not found");
+    }
 
-    authLogger.info(` user ${user.email_id} changed password successfully`)
+    const hashedPassword = await bcrypt.hash(user_password_new, 10);
+
+    await user.update({ password: hashedPassword });
+
+    await user.save();
+
+    authLogger.info(`User ${user.email_id} changed password successfully`);
     res.status(200).json({
-        message: "Password changed successfully"
-    })
-})
+        message: "Password changed successfully",
+    });
+});
 
-
-const userValidate = asyncHandler(async (req, res) => {
-
-    const token = res.token
-    const user_id = res.user_id
+/**
+ * @deprecated
+ */
+export const userValidate = asyncHandler(async (req, res) => {
+    const token = res.token;
+    const user_id = res.user_id;
 
     try {
-        const user = await User.findOne({ where: { id: user_id } })
+        const user = await User.findOne({ where: { id: user_id } });
 
         if (!user) {
             // throw error
-            res.status(404)
-            throw new Error(" User not found !")
+            res.status(404);
+            throw new Error(" User not found !");
         }
 
-        const secret = process.env.JWT_SECRET + user.password
+        const secret = process.env.JWT_SECRET + user.password;
 
-        const result = jwt.verify(token, secret)
+        const result = jwt.verify(token, secret);
 
         if (!result) {
             //throw error
 
-            res.status(401)
-            throw new Error("User token invalid. Try logging again")
+            res.status(401);
+            throw new Error("User token invalid. Try logging again");
         }
 
         res.status(200).json({
             authorized: true,
-            role: user.role
-        })
+            role: user.role,
+        });
+    } catch (err) {
+        res.status(401);
+
+        throw new Error("User token invalid. Try logging again");
     }
-    catch (err) {
-        res.status(401)
+});
 
-        throw new Error("User token invalid. Try logging again")
-    }
+export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
+    const response = z
+        .object({ formData: z.array(Register) })
+        .safeParse(req.body);
 
-})
-
-
-const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
-    const { formData } = req.body; // Expecting an array of user objects
-
-    if (!Array.isArray(formData) || formData.length === 0) {
-        authLogger.error("No user data provided");
+    if (!response.success) {
         res.status(400);
-        throw new Error("User data is required and must be an array");
+        throw new Error(
+            response.error.issues.map((value) => value.message).join("\n")
+        );
     }
+
+    const { formData } = response.data;
 
     const results = [];
 
     for (const userData of formData) {
-        const { email_id, institution, password, role } = userData;
+        const { user_email_id, user_institution, user_password, user_role } =
+            userData;
 
-        if (!email_id || !password) {
-            authLogger.error(`Missing data for user: ${JSON.stringify(userData)}`);
-            continue; // Skip this iteration if required fields are missing
-        }
-
-        const user = await User.findOne({ where: { email_id } });
+        const user = await User.findOne({ where: { email_id: user_email_id } });
 
         if (user) {
             // User exists, update the user's information
-            user.institution = institution || user.institution; // Update if new value is provided
-            user.role = role || user.role; // Update if new value is provided
-            if (password) {
-                user.password = await bcrypt.hash(password, 10); // Hash new password if provided
+            user.institution = user_institution || user.institution; // Update if new value is provided
+            user.role = user_role || user.role; // Update if new value is provided
+            if (user_password) {
+                user.password = await bcrypt.hash(user_password, 10); // Hash new password if provided
             }
             await user.save();
-            results.push({ email_id, action: 'updated' });
-            authLogger.info(`User updated: ${email_id}`);
+            results.push({ email_id: user_email_id, action: "updated" });
+            authLogger.info(`User updated: ${user_email_id}`);
         } else {
             // User does not exist, create a new user
-            const hashedPassword = await bcrypt.hash(password, 10);
+            const hashedPassword = await bcrypt.hash(user_password, 10);
             await User.create({
-                email_id,
-                institution,
-                role,
+                email_id: user_email_id,
+                institution: user_institution,
+                role: user_role,
                 password: hashedPassword,
             });
-            results.push({ email_id, action: 'created' });
-            authLogger.info(`New user created: ${email_id}`);
+            results.push({ email_id: user_email_id, action: "created" });
+            authLogger.info(`New user created: ${user_email_id}`);
         }
     }
 
@@ -345,21 +414,6 @@ const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
         results,
     });
 });
-
-
-/**
- * Exports
- */
-
-module.exports = {
-    userLogin,
-    passwordReset,
-    verifyForPasswordReset,
-    changePassword,
-    userValidate,
-    registerUser,
-    bulkCreateOrUpdateUsers,
-}
 
 /**
  * default Credentials for Admin

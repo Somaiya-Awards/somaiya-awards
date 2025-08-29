@@ -5,7 +5,7 @@ export class Teaching extends Model {
     declare email_id: string;
     declare faculty_name: string;
     declare awards_category: string;
-    declare institute_name: string;
+    declare institution_name: string;
     declare department: string;
     declare designation: string;
     declare date_of_appointment: string;
@@ -57,7 +57,7 @@ export default function TeachingInit(sequelize: Sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            institute_name: {
+            institution_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

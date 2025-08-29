@@ -5,7 +5,7 @@ import { User } from "../models/tables/User";
 import { AccessHeader, RefreshHeader } from "../constants";
 import { AuthRequest } from "../types/request";
 
-function getJwtToken(token: string): User | null {
+export function getJwtToken(token: string): User | null {
     try {
         if (!token.startsWith("Bearer "))
             throw new Error("Malformed auth header");
@@ -26,7 +26,7 @@ function getJwtToken(token: string): User | null {
 // This is parse by jwtLib
 type JwtTimeout = "1h" | "1d";
 
-function setJwtToken(user: User, expire: JwtTimeout) {
+export function setJwtToken(user: User, expire: JwtTimeout) {
     let payload: User = user.toJSON();
 
     //@ts-ignore No Password on token
@@ -74,7 +74,12 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
 
     let toCheckToken: User = refresh;
 
-    if (access !== null) toCheckToken = access;
+    if (access !== null) {
+        if (access !== refresh) {
+            req.header.coo;
+        }
+        toCheckToken = access;
+    }
 
     let user = await User.findOne({
         where: { id: toCheckToken.id, email_id: toCheckToken.email_id },

@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model } from "sequelize";
 export class Sports extends Model {
     declare id: number;
     declare email_id: string;
-    declare institute_name: string;
+    declare institution_name: string;
     declare nominee_inspiring_coach: string;
     declare nominee_coach_comments: string;
     declare nominee_coach_photo: string;
@@ -56,7 +56,7 @@ export default function SportsInit(sequelize: Sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            institute_name: {
+            institution_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

@@ -4,7 +4,7 @@ export class Research extends Model {
     declare id: number;
     declare faculty_name: string;
     declare designation: string;
-    declare institution: string;
+    declare institution_name: string;
     declare department: string;
     declare tenure: string;
     declare org_articles_count: number;
@@ -51,7 +51,7 @@ export default function ResearchInit(sequelize: Sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            institution: {
+            institution_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

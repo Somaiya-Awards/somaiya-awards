@@ -1,11 +1,12 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
+import { Role } from "../../types/role";
 
 export class User extends Model {
     declare id: number;
     declare email_id: string;
     declare institution: string;
     declare password: string;
-    declare role: string | null;
+    declare role: Role | null;
 }
 
 export default function UserInit(sequelize: Sequelize) {

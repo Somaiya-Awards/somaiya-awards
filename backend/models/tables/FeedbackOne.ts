@@ -10,12 +10,12 @@ export class FeedbackOne extends Model {
     declare teaching_subject: string;
     declare q_01: string;
     declare q_02: string;
-    declare q_03: string;
-    declare q_04: string;
-    declare q_05: string;
+    declare q_03: number;
+    declare q_04: number;
+    declare q_05: number;
     declare q_06: string;
     declare q_07: string;
-    declare q_08: string;
+    declare q_08: number;
     declare q_09: string;
     declare q_10: string;
     declare q_11: string;

@@ -7,11 +7,11 @@ export class FeedbackThree extends Model {
     declare student_class_and_division: string;
     declare employee_name: string;
     declare employee_designation: string;
-    declare eq_01: string;
-    declare eq_02: string;
-    declare eq_03: string;
-    declare eq_04: string;
-    declare eq_05: string;
+    declare q_01: string;
+    declare q_02: string;
+    declare q_03: string;
+    declare q_04: string;
+    declare q_05: string;
     declare nomination_reason: string;
 }
 

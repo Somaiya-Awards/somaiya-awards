@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model } from "sequelize";
 export class FeedbackTwo extends Model {
     declare id: number;
     declare rater_name: string;
-    declare institute_name: string;
+    declare institution_name: string;
     declare department_name: string;
     declare designation: string;
     declare somaiya_mail_id: string;
@@ -26,7 +26,7 @@ export default function FeedbackTwoInit(sequelize: Sequelize) {
     FeedbackTwo.init(
         {
             rater_name: { type: DataTypes.STRING, allowNull: false },
-            institute_name: { type: DataTypes.STRING, allowNull: false },
+            institution_name: { type: DataTypes.STRING, allowNull: false },
             department_name: { type: DataTypes.STRING, allowNull: false },
             designation: { type: DataTypes.STRING, allowNull: false },
             somaiya_mail_id: { type: DataTypes.STRING, allowNull: false },

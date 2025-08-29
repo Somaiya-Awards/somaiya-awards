@@ -10,26 +10,69 @@ const {
     FeedbackThree,
     FeedbackFour,
     FeedbackFive,
-    Sequelize } = require('../models')
-const { Op } = require('sequelize');
+    Sequelize,
+} = require("../models");
+import { Op } from "sequelize";
 
-const asyncHandler = require('express-async-handler')
-const { formLogger } = require('../middleware/logger');
-
+import asyncHandler from "express-async-handler";
+import { formLogger } from "../middleware/logger";
 
 //@desc handle institution form submission
 //@route POST /forms/outstanding-institution
 //@access private
 const submitForm_01 = asyncHandler(async (req, res) => {
-
     const {
-        email_id, nomination_category, institution_name, established_In,
-        hoi_name, hoi_designation, hoi_joining_date, somaiya_mail_id,
-        contact_number, q_01, q_02, q_03, q_04, q_05, q_06, q_07, q_08, q_09, q_10, q_11, q_12,
-        q_13, q_14, q_15, q_16, q_17, institution_ratings, q_18, q_19, q_20, q_21, q_22, q_23, q_24,
-        q_25, q_26, q_27, q_28, q_29, q_30, q_31, q_32, q_33, q_34, q_35, q_36, q_37, q_38, } = req.body
+        email_id,
+        nomination_category,
+        institution_name,
+        established_In,
+        hoi_name,
+        hoi_designation,
+        hoi_joining_date,
+        somaiya_mail_id,
+        contact_number,
+        q_01,
+        q_02,
+        q_03,
+        q_04,
+        q_05,
+        q_06,
+        q_07,
+        q_08,
+        q_09,
+        q_10,
+        q_11,
+        q_12,
+        q_13,
+        q_14,
+        q_15,
+        q_16,
+        q_17,
+        institution_ratings,
+        q_18,
+        q_19,
+        q_20,
+        q_21,
+        q_22,
+        q_23,
+        q_24,
+        q_25,
+        q_26,
+        q_27,
+        q_28,
+        q_29,
+        q_30,
+        q_31,
+        q_32,
+        q_33,
+        q_34,
+        q_35,
+        q_36,
+        q_37,
+        q_38,
+    } = req.body;
 
-    const supportings = req.file.path
+    const supportings = req.file.path;
 
     const result = await OutstandingInstitution.create({
         email_id: email_id,
@@ -81,31 +124,32 @@ const submitForm_01 = asyncHandler(async (req, res) => {
         q_37: q_37,
         q_38: q_38,
         supportings: supportings,
-    })
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.error(`Failed to accept outstanding Institution form response by client ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.error(
+            `Failed to accept outstanding Institution form response by client ${req.ip}`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Outstanding Institution form filled by client ${req.ip}`)
+    formLogger.info(`Outstanding Institution form filled by client ${req.ip}`);
 
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-})
+        submitted: true,
+    });
+});
 
 //@desc handle research form submission
 //@route POST /forms/research
 //@access private
 
 const submitForm_02 = asyncHandler(async (req, res) => {
-
-    const { faculty_name,
+    const {
+        faculty_name,
         designation,
         department,
         institution,
@@ -137,10 +181,12 @@ const submitForm_02 = asyncHandler(async (req, res) => {
         filed_industrial_designs_count,
         international_awards_won_count,
         national_awards_won_count,
-        confirmation_of_trueData } = req.body
+        confirmation_of_trueData,
+    } = req.body;
 
     const evidence_of_research = req.files.evidence_of_research[0].path;
-    const evidence_of_data_provided = req.files.evidence_of_data_provided[0].path;
+    const evidence_of_data_provided =
+        req.files.evidence_of_data_provided[0].path;
 
     const result = await Research.create({
         faculty_name: faculty_name,
@@ -178,31 +224,27 @@ const submitForm_02 = asyncHandler(async (req, res) => {
         evidence_of_research: evidence_of_research,
         evidence_of_data_provided: evidence_of_data_provided,
         confirmation_of_trueData: confirmation_of_trueData,
-    })
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Failed to save Research form filled by ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(`Failed to save Research form filled by ${req.ip}`);
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Research form filled by client ${req.ip}`)
+    formLogger.info(`Research form filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
+        submitted: true,
+    });
+});
 
 //@desc handle sports form submission
 //@route POST /forms/sports
 //@access private
 
 const submitForm_03 = asyncHandler(async (req, res) => {
-
     const {
         email_id,
         institute_name,
@@ -242,18 +284,19 @@ const submitForm_03 = asyncHandler(async (req, res) => {
         q_26,
         q_27,
         q_28,
+    } = req.body;
 
-    } = req.body
+    const nominee_coach_photo = req.files.nominee_coach_photo[0].path;
+    const nominee_coach_supportings =
+        req.files.nominee_coach_supportings[0].path;
 
-    const nominee_coach_photo = req.files.nominee_coach_photo[0].path
-    const nominee_coach_supportings = req.files.nominee_coach_supportings[0].path
+    const nominee_ss_girl_photo = req.files.nominee_ss_girl_photo[0].path;
+    const nominee_ss_girl_supportings =
+        req.files.nominee_ss_girl_supportings[0].path;
 
-    const nominee_ss_girl_photo = req.files.nominee_ss_girl_photo[0].path
-    const nominee_ss_girl_supportings = req.files.nominee_ss_girl_supportings[0].path
-
-
-    const nominee_ss_boy_photo = req.files.nominee_ss_boy_photo[0].path
-    const nominee_ss_boy_supportings = req.files.nominee_ss_boy_supportings[0].path
+    const nominee_ss_boy_photo = req.files.nominee_ss_boy_photo[0].path;
+    const nominee_ss_boy_supportings =
+        req.files.nominee_ss_boy_supportings[0].path;
 
     const result = await Sports.create({
         email_id: email_id,
@@ -303,27 +346,25 @@ const submitForm_03 = asyncHandler(async (req, res) => {
     });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Failed to save sports form filled by ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(`Failed to save sports form filled by ${req.ip}`);
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Sports form filled by client ${req.ip}`)
+    formLogger.info(`Sports form filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-})
-
+        submitted: true,
+    });
+});
 
 //@desc handle teaching / faculty  form submission
 //@route POST /forms/teaching
 //@access private
 
 const submitForm_04 = asyncHandler(async (req, res) => {
-    const { somaiya_mail_id, awards_category } = req.body
+    const { somaiya_mail_id, awards_category } = req.body;
 
     const currentYear = new Date().getFullYear();
 
@@ -333,16 +374,17 @@ const submitForm_04 = asyncHandler(async (req, res) => {
             [Op.and]: [
                 { somaiya_mail_id: somaiya_mail_id },
                 { awards_category: awards_category },
-                Sequelize.literal('YEAR(createdAt) = YEAR(CURDATE())'),
+                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
     });
 
     if (existingTeachingEntry) {
         res.status(400).json({
-            message: "A duplicate entry already exists for this year, email, and awards category.",
+            message:
+                "A duplicate entry already exists for this year, email, and awards category.",
             submitted: false,
-            data: existingTeachingEntry
+            data: existingTeachingEntry,
         });
         return;
     }
@@ -376,10 +418,11 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         q_18,
         q_19,
         q_20,
-        q_21 } = req.body
+        q_21,
+    } = req.body;
 
-    const data_evidence = req.files.data_evidence[0].path
-    const profile_photograph = req.files.profile_photograph[0].path
+    const data_evidence = req.files.data_evidence[0].path;
+    const profile_photograph = req.files.profile_photograph[0].path;
 
     const result = await Teaching.create({
         email_id: email_id,
@@ -411,36 +454,33 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         q_18: Number(q_18),
         q_19: Number(q_19),
         q_20: Number(q_20),
-        q_21:q_21,
+        q_21: q_21,
         data_evidence: data_evidence,
         profile_photograph: profile_photograph,
     });
 
-
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Failed to save teaching form filled by client ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Failed to save teaching form filled by client ${req.ip}`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Teaching form filled by client ${req.ip}`)
+    formLogger.info(`Teaching form filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
+        submitted: true,
+    });
+});
 
 //@desc handle non-teaching/staff  form submission
 //@route POST /forms/non-teaching
 //@access private
 
 const submitForm_05 = asyncHandler(async (req, res) => {
-
-    const { somaiya_email_id, award_category } = req.body
+    const { somaiya_email_id, award_category } = req.body;
     const currentYear = new Date().getFullYear();
 
     // Check if an entry with the same year, email, and awards category already exists
@@ -449,20 +489,20 @@ const submitForm_05 = asyncHandler(async (req, res) => {
             [Op.and]: [
                 { somaiya_email_id: somaiya_email_id },
                 { award_category: award_category },
-                Sequelize.literal('YEAR(createdAt) = YEAR(CURDATE())'),
+                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
     });
 
     if (existingNonTeachingEntry) {
         res.status(400).json({
-            message: "A duplicate entry already exists for this year, email, and awards category.",
+            message:
+                "A duplicate entry already exists for this year, email, and awards category.",
             submitted: false,
-            data: existingNonTeachingEntry
+            data: existingNonTeachingEntry,
         });
         return;
     }
-
 
     const {
         email_id,
@@ -495,13 +535,13 @@ const submitForm_05 = asyncHandler(async (req, res) => {
         q_21,
         q_22,
         q_23,
-        q_24, } = req.body
+        q_24,
+    } = req.body;
 
-        console.log(req.body);
-        
+    console.log(req.body);
 
-    const proof_docs = req.files.proof_docs[0].path
-    const nominee_photograph = req.files.nominee_photograph[0].path
+    const proof_docs = req.files.proof_docs[0].path;
+    const nominee_photograph = req.files.nominee_photograph[0].path;
 
     const result = await NonTeaching.create({
         email_id: email_id,
@@ -539,31 +579,29 @@ const submitForm_05 = asyncHandler(async (req, res) => {
         q_24: q_24,
         proof_docs: proof_docs,
         nominee_photograph: nominee_photograph,
-    })
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Failed to save Non Teaching form filled by client ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Failed to save Non Teaching form filled by client ${req.ip}`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Non Teaching form filled by client ${req.ip}`)
+    formLogger.info(`Non Teaching form filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
+        submitted: true,
+    });
+});
 
 //@desc handle research form submission
 //@route POST /forms/research
 //@access private
 
 const submitForm_10 = asyncHandler(async (req, res) => {
-
     const {
         course,
         email_id,
@@ -584,36 +622,31 @@ const submitForm_10 = asyncHandler(async (req, res) => {
         institution_name: institution_name,
         nomination_category: nomination_category,
         recommendation_note: recommendation_note,
-        supportings: supportings
-    })
-
+        supportings: supportings,
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Failed to save Non Teaching form filled by client ${req.ip}`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Failed to save Non Teaching form filled by client ${req.ip}`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Students form filled by client ${req.ip}`)
+    formLogger.info(`Students form filled by client ${req.ip}`);
 
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
-
+        submitted: true,
+    });
+});
 
 //@desc handle feedback 01 form submission
 //@route POST /forms/feedback-01
 //@access private
 
 const submitFeedback_01 = asyncHandler(async (req, res) => {
-
-
     const {
         email_id,
         student_batch_year,
@@ -632,8 +665,8 @@ const submitFeedback_01 = asyncHandler(async (req, res) => {
         q_09,
         q_10,
         q_11,
-        nominating_reasons } = req.body;
-
+        nominating_reasons,
+    } = req.body;
 
     const result = await FeedbackOne.create({
         email_id: email_id,
@@ -653,34 +686,31 @@ const submitFeedback_01 = asyncHandler(async (req, res) => {
         q_09: q_09,
         q_10: q_10,
         q_11: q_11,
-        nominating_reasons: nominating_reasons
-    })
+        nominating_reasons: nominating_reasons,
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Feedback 01 form filled by client ${req.ip} was not accepted`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Feedback 01 form filled by client ${req.ip} was not accepted`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Feedback 01 form successfully filled by client ${req.ip}`)
+    formLogger.info(`Feedback 01 form successfully filled by client ${req.ip}`);
 
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
-
+        submitted: true,
+    });
+});
 
 //@desc handle feedback 02 form submission
 //@route POST /forms/feedback-02
 //@access private
 
 const submitFeedback_02 = asyncHandler(async (req, res) => {
-
     console.log(req.body);
     const {
         rater_name,
@@ -700,7 +730,7 @@ const submitFeedback_02 = asyncHandler(async (req, res) => {
         q_07,
         q_08,
         q_09,
-        nomination_reason
+        nomination_reason,
     } = req.body;
 
     const result = await FeedbackTwo.create({
@@ -721,33 +751,31 @@ const submitFeedback_02 = asyncHandler(async (req, res) => {
         q_07: q_07,
         q_08: q_08,
         q_09: q_09,
-        nomination_reason: nomination_reason
+        nomination_reason: nomination_reason,
     });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Feedback 02 form filled by client ${req.ip} was not accepted`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Feedback 02 form filled by client ${req.ip} was not accepted`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Feedback 02 form successfully filled by client ${req.ip}`)
+    formLogger.info(`Feedback 02 form successfully filled by client ${req.ip}`);
 
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-})
-
-
+        submitted: true,
+    });
+});
 
 //@desc handle feedback03 form submission
 //@route POST /forms/feedback-03
 //@access private
 
 const submitFeedback_03 = asyncHandler(async (req, res) => {
-
     const {
         email_id,
         student_batch_year,
@@ -759,7 +787,8 @@ const submitFeedback_03 = asyncHandler(async (req, res) => {
         q_03,
         q_04,
         q_05,
-        nomination_reason } = req.body;
+        nomination_reason,
+    } = req.body;
 
     const result = await FeedbackThree.create({
         email_id: email_id,
@@ -772,34 +801,31 @@ const submitFeedback_03 = asyncHandler(async (req, res) => {
         q_03: q_03,
         q_04: q_04,
         q_05: q_05,
-        nomination_reason: nomination_reason
-    })
+        nomination_reason: nomination_reason,
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Feedback 03 form filled by client ${req.ip} was not accepted`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Feedback 03 form filled by client ${req.ip} was not accepted`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Feedback 03 form successfully filled by client ${req.ip}`)
+    formLogger.info(`Feedback 03 form successfully filled by client ${req.ip}`);
 
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
-
+        submitted: true,
+    });
+});
 
 //@desc handle feedback04 form submission
 //@route POST /forms/feedback-04
 //@access private
 
 const submitFeedback_04 = asyncHandler(async (req, res) => {
-
     const {
         rater_name,
         institution_name,
@@ -817,8 +843,8 @@ const submitFeedback_04 = asyncHandler(async (req, res) => {
         q_06,
         q_07,
         q_08,
-        nomination_reason } = req.body;
-
+        nomination_reason,
+    } = req.body;
 
     const result = await FeedbackFour.create({
         rater_name: rater_name,
@@ -837,32 +863,30 @@ const submitFeedback_04 = asyncHandler(async (req, res) => {
         q_06: q_06,
         q_07: q_07,
         q_08: q_08,
-        nomination_reason: nomination_reason
-    })
+        nomination_reason: nomination_reason,
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Feedback 04 form filled by client ${req.ip} was not accepted`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Feedback 04 form filled by client ${req.ip} was not accepted`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Feedback 04 form successfully filled by client ${req.ip}`)
+    formLogger.info(`Feedback 04 form successfully filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
+        submitted: true,
+    });
+});
 
 //@desc handle feedback05 form submission
 //@route POST /forms/feedback-05
 //@access private
 
 const submitFeedback_05 = asyncHandler(async (req, res) => {
-
     const {
         rater_name,
         institution,
@@ -887,7 +911,8 @@ const submitFeedback_05 = asyncHandler(async (req, res) => {
         q_17,
         q_18,
         q_19,
-        q_20 } = req.body;
+        q_20,
+    } = req.body;
 
     const result = await FeedbackFive.create({
         rater_name: rater_name,
@@ -913,27 +938,24 @@ const submitFeedback_05 = asyncHandler(async (req, res) => {
         q_17: q_17,
         q_18: q_18,
         q_19: q_19,
-        q_20: q_20
-    })
+        q_20: q_20,
+    });
 
     if (!result) {
-
         // throw error
-        res.status(500)
-        formLogger.info(`Feedback 05 form filled by client ${req.ip} was not accepted`)
-        throw new Error("Failed to accept your response")
+        res.status(500);
+        formLogger.info(
+            `Feedback 05 form filled by client ${req.ip} was not accepted`
+        );
+        throw new Error("Failed to accept your response");
     }
 
-    formLogger.info(`Feedback 05 form successfully filled by client ${req.ip}`)
+    formLogger.info(`Feedback 05 form successfully filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
-        submitted: true
-    })
-
-})
-
-
-
+        submitted: true,
+    });
+});
 
 module.exports = {
     submitForm_01,
@@ -946,5 +968,5 @@ module.exports = {
     submitFeedback_03,
     submitFeedback_04,
     submitFeedback_05,
-    submitForm_10
-}
+    submitForm_10,
+};

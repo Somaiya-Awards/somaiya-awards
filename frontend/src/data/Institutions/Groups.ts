@@ -39,6 +39,6 @@ const Groups = {
     "Faculty & Staff Development Centre": [3],
     "K J Somaiya junior college of science and commerce": [3],
     "K J Somaiya junior college of arts and commerce": [4],
-}
+};
 
 export default Groups;

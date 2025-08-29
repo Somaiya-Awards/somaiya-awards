@@ -5,7 +5,7 @@ export class NonTeaching extends Model {
     declare email_id: string;
     declare staff_name: string;
     declare award_category: string;
-    declare institute_name: string;
+    declare institution_name: string;
     declare department: string;
     declare designation: string;
     declare appointment_date: string;
@@ -50,7 +50,7 @@ export default function NonTeachingInit(sequelize: Sequelize) {
             email_id: { type: DataTypes.STRING, allowNull: false },
             staff_name: { type: DataTypes.STRING, allowNull: false },
             award_category: { type: DataTypes.STRING, allowNull: false },
-            institute_name: { type: DataTypes.STRING, allowNull: false },
+            institution_name: { type: DataTypes.STRING, allowNull: false },
             department: { type: DataTypes.STRING, allowNull: false },
             designation: { type: DataTypes.STRING, allowNull: false },
             appointment_date: { type: DataTypes.STRING, allowNull: false },
