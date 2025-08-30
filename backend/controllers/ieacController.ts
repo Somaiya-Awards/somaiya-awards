@@ -1,39 +1,26 @@
 import asyncHandler from "express-async-handler";
-const {
-    OutstandingInstitution,
-    Research,
-    Sports,
-    Teaching,
-    NonTeaching,
-    User,
-    Sequelize,
-} = require("../models");
-const { Op } = Sequelize;
-import sequelize from "sequelize";
+import { AuthRequest, FileRequest } from "../types/request";
+import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
+import { sequelize } from "../models";
+import { Research } from "../models/tables/Research";
+import { Sports } from "../models/tables/Sports";
+import { Teaching } from "../models/tables/Teaching";
+import { NonTeaching } from "../models/tables/NonTeaching";
+import { Op } from "sequelize";
 
 //@desc get data of institution forms to ieac
 //@route GET /ieac/data/outstanding-institution
 //@access private
 
-const institutionDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const institutionDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await OutstandingInstitution.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institution_name: user_institution }
         ),
     });
@@ -49,25 +36,15 @@ const institutionDataHandler = asyncHandler(async (req, res) => {
 /**
  * @deprecated : Permanently moved to research Admin
  */
-const researchDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const researchDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Research.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institution: user_institution }
         ),
     });
@@ -81,25 +58,15 @@ const researchDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/sports
 //@access private
 /**@deprecated : Shifted Permanently to Sports Admin */
-const sportsDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const sportsDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Sports.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -113,25 +80,15 @@ const sportsDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/teaching
 //@access private
 
-const teachingDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const teachingDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Teaching.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -145,25 +102,15 @@ const teachingDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/non-teaching
 //@access private
 
-const nonTeachingDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await NonTeaching.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -176,12 +123,12 @@ const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //@desc update institution form
 //@route PUT /ieac/data/outstanding-institution
 //@access private
-/**@deprecated : no longer required */
-const institutionDataUpdater = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: "API works",
-    });
-});
+/**@deprecated : no longer required (Then remove it) */
+// const institutionDataUpdater = asyncHandler(async (req, res) => {
+//     res.status(200).json({
+//         message: "API works",
+//     });
+// });
 
 // @desc update research form
 // @route PUT /ieac/data/research
@@ -190,28 +137,17 @@ const institutionDataUpdater = asyncHandler(async (req, res) => {
  * @deprecated permanently moved to research Admin
  */
 
-const researchDataUpdater = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
+export const researchDataUpdater = asyncHandler(async (req, res) => {
     const { applicationID } = req.body;
 
     const applicationForm = await Research.findOne({
         where: { id: applicationID },
     });
+
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
 
     await applicationForm.update({ ieacApproved: true });
 
@@ -224,28 +160,16 @@ const researchDataUpdater = asyncHandler(async (req, res) => {
 //@route PUT /ieac/data/sports
 //@access private
 /**@deprecated : No need For IAEC Approval */
-const sportsDataUpdater = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
+export const sportsDataUpdater = asyncHandler(async (req, res) => {
     const { applicationID } = req.body;
 
     const applicationForm = await Sports.findOne({
         where: { id: applicationID },
     });
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
 
     await applicationForm.update({ ieacApproved: true });
 
@@ -257,30 +181,17 @@ const sportsDataUpdater = asyncHandler(async (req, res) => {
 //@desc update teaching forms
 //@route PUT /ieac/data/teaching
 //@access private
-
-const teachingDataUpdater = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
+// TODO: add zod for this
+export const teachingDataUpdater = asyncHandler(async (req, res) => {
     const { scoreA, scoreB, scoreC, recommended, applicationID } = req.body;
 
     const applicationForm = await Teaching.findOne({
         where: { id: applicationID },
     });
-
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
     await applicationForm.update({
         ieac_scoreA: scoreA,
         ieac_scoreB: scoreB,
@@ -297,28 +208,16 @@ const teachingDataUpdater = asyncHandler(async (req, res) => {
 //@route PUT /ieac/data/non-teaching
 //@access private
 
-const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
+export const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
     const { scoreA, scoreB, recommended, applicationID } = req.body;
 
     const applicationForm = await NonTeaching.findOne({
         where: { id: applicationID },
     });
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
 
     await applicationForm.update({
         ieac_scoreA: scoreA,
@@ -336,23 +235,7 @@ const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
  */
 /**@deprecated : No longer required */
 const researchRecFileHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        // throw error
-        res.status(400);
-        throw new Error("User not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
-    const ieacApprovedFile = req.file.path;
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
     const currentYear = new Date().getFullYear();
     await Research.update(
@@ -369,7 +252,7 @@ const researchRecFileHandler = asyncHandler(async (req, res) => {
                         ),
                     ],
                 },
-                institution: user.institution,
+                institution: (req as AuthRequest).user.institution,
             },
         }
     );
@@ -382,23 +265,7 @@ const researchRecFileHandler = asyncHandler(async (req, res) => {
 
 /**@deprecated : No Need for IAEC to approve */
 const sportsRecFileHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        // throw error
-        res.status(400);
-        throw new Error("User not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
-    const ieacApprovedFile = req.file.path;
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
     const currentYear = new Date().getFullYear();
     await Sports.update(
@@ -415,7 +282,7 @@ const sportsRecFileHandler = asyncHandler(async (req, res) => {
                         ),
                     ],
                 },
-                institute_name: user.institution,
+                institute_name: (req as AuthRequest).user.institution,
             },
         }
     );
@@ -426,24 +293,8 @@ const sportsRecFileHandler = asyncHandler(async (req, res) => {
     });
 });
 
-const teachingRecFileHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        // throw error
-        res.status(400);
-        throw new Error("User not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
-    const ieacApprovedFile = req.file.path;
+export const teachingRecFileHandler = asyncHandler(async (req, res) => {
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
     const currentYear = new Date().getFullYear();
 
@@ -461,7 +312,7 @@ const teachingRecFileHandler = asyncHandler(async (req, res) => {
                         ),
                     ],
                 },
-                institute_name: user.institution,
+                institute_name: (req as AuthRequest).user.institution,
             },
         }
     );
@@ -472,24 +323,8 @@ const teachingRecFileHandler = asyncHandler(async (req, res) => {
     });
 });
 
-const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        // throw error
-        res.status(400);
-        throw new Error("User not found");
-    }
-
-    // checks role is IEAC or not
-    if (user.role != "IEAC") {
-        res.status(403);
-        throw new Error("FORBIDDEN RESOURCE REQUESTED");
-    }
-
-    const ieacApprovedFile = req.file.path;
+export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
     const currentYear = new Date().getFullYear();
 
@@ -507,7 +342,7 @@ const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
                         ),
                     ],
                 },
-                institute_name: user.institution,
+                institute_name: (req as AuthRequest).user.institution,
             },
         }
     );
@@ -522,19 +357,20 @@ const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
 //@route GET sports-admin/data/nominated-coach-names
 //@access PRIVATE
 
-const getNominatedTeacherNames = asyncHandler(async (req, res) => {
+export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.headers["x-institute-name"];
+    const institute_name = req.query.institute_name;
 
     const result = await Teaching.findAll({
         where: {
             [Op.and]: [
                 { institute_name: institute_name },
                 { ieacApproved: true },
-                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
+        attributes: ["staff_name"],
     });
 
     for (const feedback of result) {
@@ -550,19 +386,20 @@ const getNominatedTeacherNames = asyncHandler(async (req, res) => {
 //@route GET sports-admin/data/nominated-coach-names
 //@access PRIVATE
 
-const getNominatedStaffNames = asyncHandler(async (req, res) => {
+export const getNominatedStaffNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.headers["x-institute-name"];
+    const institute_name = req.query.institute_name;
 
     const result = await NonTeaching.findAll({
         where: {
             [Op.and]: [
                 { institute_name: institute_name },
                 { ieacApproved: true },
-                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
+        attributes: ["staff_name"],
     });
 
     for (const feedback of result) {
@@ -573,22 +410,3 @@ const getNominatedStaffNames = asyncHandler(async (req, res) => {
         data: names,
     });
 });
-
-module.exports = {
-    institutionDataHandler,
-    researchDataHandler,
-    sportsDataHandler,
-    teachingDataHandler,
-    nonTeachingDataHandler,
-    institutionDataUpdater,
-    researchDataUpdater,
-    sportsDataUpdater,
-    teachingDataUpdater,
-    nonTeachingDataUpdater,
-    researchRecFileHandler,
-    teachingRecFileHandler,
-    nonTeachingRecFileHandler,
-    sportsRecFileHandler,
-    getNominatedStaffNames,
-    getNominatedTeacherNames,
-};

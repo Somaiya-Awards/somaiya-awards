@@ -1,20 +1,33 @@
-const express = require('express');
-const userAuthenticator = require('../middleware/userAuthenticator');
-const { sportsStarGirlDataHandler, sportsStarBoyDataHandler, inspiringCoachDataHandler, sportsDataUpdater, getNominatedNames } = require('../controllers/sportsAdminController');
-const router = express.Router()
+import express from "express";
+import userAuthenticator from "../middleware/userAuthenticator";
+import {
+    sportsStarGirlDataHandler,
+    sportsStarBoyDataHandler,
+    inspiringCoachDataHandler,
+    sportsDataUpdater,
+    getNominatedNames,
+} from "../controllers/sportsAdminController";
+const router = express.Router();
 
 /**GET REQUEST */
 
-router.route('/sports-star-girl').get(userAuthenticator,sportsStarGirlDataHandler);
-router.route('/sports-star-boy').get(userAuthenticator,sportsStarBoyDataHandler);
-router.route('/inspiring-coach').get(userAuthenticator,inspiringCoachDataHandler);
-router.route('/nominated-coach-names').get(userAuthenticator, getNominatedNames)
+router
+    .route("/sports-star-girl")
+    .get(userAuthenticator, sportsStarGirlDataHandler);
+router
+    .route("/sports-star-boy")
+    .get(userAuthenticator, sportsStarBoyDataHandler);
+router
+    .route("/inspiring-coach")
+    .get(userAuthenticator, inspiringCoachDataHandler);
+router
+    .route("/nominated-coach-names")
+    .get(userAuthenticator, getNominatedNames);
 
 /**
  * PUT REQUEST
  */
 
-router.route('/update').put(userAuthenticator, sportsDataUpdater);
+router.route("/update").put(userAuthenticator, sportsDataUpdater);
 
-
-module.exports = router
+export default router;

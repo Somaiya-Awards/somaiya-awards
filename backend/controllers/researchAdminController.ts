@@ -1,84 +1,43 @@
-import asyncHandler from 'express-async-handler';
-const {
-  Research,
-  User,
-  Sequelize } = require('../models')
-const { Op } = Sequelize;
-import sequelize from 'sequelize';
-import { v4: uuidv4 } from 'uuid';
-
+import asyncHandler from "express-async-handler";
+import sequelize from "sequelize";
+import { Research } from "../models/tables/Research";
 
 //@desc get data of research forms to Research Admin
 //@route GET /research-admin/data/research
 //@access private
 
-const researchDataHandler = asyncHandler(async (req, res) => {
+export const researchDataHandler = asyncHandler(async (req, res) => {
+    const currentYear = new Date().getFullYear();
 
-  const user_id = res.user_id;
+    const data = await Research.findAll({
+        where: sequelize.where(
+            sequelize.fn("YEAR", sequelize.col("createdAt")),
+            currentYear
+        ),
+    });
 
-  const user = await User.findOne({ where: { id: user_id } });
-
-  if (!user) {
-    //throw error
-    res.status(400)
-    throw new Error("User Not found")
-  }
-
-  if (user.role != 'RESEARCH ADMIN') {
-    //throw error
-    res.status(403)
-    throw new Error("FORBIDDEN ACCESS TO RESOURCE")
-  }
-
-  const currentYear = new Date().getFullYear();
-
-  const data = await Research.findAll(
-    {
-      where: sequelize.where(
-        sequelize.fn('YEAR', sequelize.col('createdAt')), currentYear
-      )
-    }
-  )
-
-  res.status(200).json({
-    data: data,
-  })
-})
+    res.status(200).json({
+        data: data,
+    });
+});
 
 //@desc get data of research forms to Research Admin
 //@route PUT /research-admin/data/update
 //@access private
-const researchDataUpdater = asyncHandler(async (req, res) => {
+export const researchDataUpdater = asyncHandler(async (req, res) => {
+    const { applicationID } = req.body;
 
-  const user_id = res.user_id;
+    const applicationForm = await Research.findOne({
+        where: { id: applicationID },
+    });
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
 
-  const user = await User.findOne({ where: { id: user_id } });
+    await applicationForm.update({ approved: true });
 
-  if (!user) {
-    //throw error
-    res.status(400)
-    throw new Error("User Not found")
-  }
-
-  if (user.role != 'RESEARCH ADMIN') {
-    //throw error
-    res.status(403)
-    throw new Error("FORBIDDEN ACCESS TO RESOURCE")
-  }
-
-  const { applicationID } = req.body;
-
-  const applicationForm = await Research.findOne({ where: { id: applicationID } });
-
-  await applicationForm.update({ approved: true });
-
-  res.status(200).json({
-    message: 'Update Successful'
-  });
-
-})
-
-module.exports = {
-  researchDataHandler,
-  researchDataUpdater
-}
+    res.status(200).json({
+        message: "Update Successful",
+    });
+});

@@ -1,7 +1,7 @@
 import * as z from "zod";
 import { email, institute, validNumber, validString } from "..";
 
-export const FeedbackTwo = z.object({
+export const FeedbackTwoForm = z.object({
     id: validNumber,
     rater_name: validString,
     institution_name: institute,

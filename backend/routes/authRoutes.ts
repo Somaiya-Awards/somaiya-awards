@@ -1,31 +1,28 @@
-const express = require('express')
-const {
-    userLogin, 
+import express from "express";
+import {
+    userLogin,
     passwordReset,
-    verifyForPasswordReset,
     changePassword,
-    userValidate, 
     registerUser,
-    bulkCreateOrUpdateUsers} = require('../controllers/authController')
-    
-const userAuthenticator = require('../middleware/userAuthenticator')
+    bulkCreateOrUpdateUsers,
+} from "../controllers/authController";
 
-const router = express.Router()
+import userAuthenticator from "../middleware/userAuthenticator";
+
+const router = express.Router();
 
 /**
  *  Routes
  */
 
-router.route('/login').post(userLogin)
-router.route('/forgot-password').post(passwordReset)
-router.route('/:id/:token').get(verifyForPasswordReset)
-router.route('/:id/:token').post(changePassword)
-router.route('/validate').get(userAuthenticator, userValidate)
-router.route('/register').post(registerUser)
-router.route('/bulk-create').post(bulkCreateOrUpdateUsers)
+router.route("/login").post(userLogin);
+router.route("/forgot-password").post(passwordReset);
+router.route("/:id/:token").post(changePassword);
+router.route("/register").post(registerUser);
+router.route("/bulk-create").post(bulkCreateOrUpdateUsers);
 
 /**
  * Exports
  */
 
-module.exports = router
+export default router;

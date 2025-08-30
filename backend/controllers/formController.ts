@@ -1,130 +1,46 @@
-const {
-    OutstandingInstitution,
-    Research,
-    Sports,
-    Teaching,
-    NonTeaching,
-    Students,
-    FeedbackOne,
-    FeedbackTwo,
-    FeedbackThree,
-    FeedbackFour,
-    FeedbackFive,
-    Sequelize,
-} = require("../models");
 import { Op } from "sequelize";
-
+import { OutstandingInstitutionForm } from "../zod/form/OutstandingInstitution";
+import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
 import asyncHandler from "express-async-handler";
 import { formLogger } from "../middleware/logger";
-
+import { FileRequest } from "../types/request";
+import { checkFiles, checkObject } from ".";
+import { ResearchForm } from "../zod/form/Research";
+import { Research } from "../models/tables/Research";
+import { Sports } from "../models/tables/Sports";
+import { SportsForm } from "../zod/form/Sports";
+import { Teaching } from "../models/tables/Teaching";
+import { sequelize } from "../models";
+import { TeachingForm } from "../zod/form/Teaching";
+import { NonTeachingForm } from "../zod/form/NonTeaching";
+import { NonTeaching } from "../models/tables/NonTeaching";
+import { StudentsForm } from "../zod/form/Students";
+import { Students } from "../models/tables/Students";
+import { FeedbackOne } from "../models/tables/FeedbackOne";
+import { FeedbackOneForm } from "../zod/form/FeedbackOne";
+import { FeedbackTwo } from "../models/tables/FeedbackTwo";
+import { FeedbackTwoForm } from "../zod/form/FeedbackTwo";
+import { FeedbackThree } from "../models/tables/FeedbackThree";
+import { FeedbackThreeForm } from "../zod/form/FeedbackThree";
+import { FeedbackFourForm } from "../zod/form/FeedbackFour";
+import { FeedbackFour } from "../models/tables/FeedbackFour";
+import { FeedbackFiveForm } from "../zod/form/FeedbackFive";
+import { FeedbackFive } from "../models/tables/FeedbackFive";
 //@desc handle institution form submission
 //@route POST /forms/outstanding-institution
 //@access private
-const submitForm_01 = asyncHandler(async (req, res) => {
-    const {
-        email_id,
-        nomination_category,
-        institution_name,
-        established_In,
-        hoi_name,
-        hoi_designation,
-        hoi_joining_date,
-        somaiya_mail_id,
-        contact_number,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        q_12,
-        q_13,
-        q_14,
-        q_15,
-        q_16,
-        q_17,
-        institution_ratings,
-        q_18,
-        q_19,
-        q_20,
-        q_21,
-        q_22,
-        q_23,
-        q_24,
-        q_25,
-        q_26,
-        q_27,
-        q_28,
-        q_29,
-        q_30,
-        q_31,
-        q_32,
-        q_33,
-        q_34,
-        q_35,
-        q_36,
-        q_37,
-        q_38,
-    } = req.body;
+export const submitForm_01 = asyncHandler(async (req, res) => {
+    const supportings = (req as FileRequest).file.path;
+    const response = checkObject(
+        {
+            ...req.body,
+            supportings,
+        },
+        OutstandingInstitutionForm,
+        res
+    );
 
-    const supportings = req.file.path;
-
-    const result = await OutstandingInstitution.create({
-        email_id: email_id,
-        nomination_category: nomination_category,
-        institution_name: institution_name,
-        established_In: established_In,
-        head_of_institution: hoi_name,
-        hoi_designation: hoi_designation,
-        hoi_joining_date: hoi_joining_date,
-        somaiya_mail_id: somaiya_mail_id,
-        contact_number: contact_number,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        q_10: q_10,
-        q_11: q_11,
-        q_12: q_12,
-        q_13: q_13,
-        q_14: q_14,
-        q_15: q_15,
-        q_16: q_16,
-        q_17: q_17,
-        institution_ratings: institution_ratings,
-        q_18: q_18,
-        q_19: q_19,
-        q_20: q_20,
-        q_21: q_21,
-        q_22: q_22,
-        q_23: q_23,
-        q_24: q_24,
-        q_25: q_25,
-        q_26: q_26,
-        q_27: q_27,
-        q_28: q_28,
-        q_29: q_29,
-        q_30: q_30,
-        q_31: q_31,
-        q_32: q_32,
-        q_33: q_33,
-        q_34: q_34,
-        q_35: q_35,
-        q_36: q_36,
-        q_37: q_37,
-        q_38: q_38,
-        supportings: supportings,
-    });
+    const result = await OutstandingInstitution.create(response.data);
 
     if (!result) {
         // throw error
@@ -147,84 +63,23 @@ const submitForm_01 = asyncHandler(async (req, res) => {
 //@route POST /forms/research
 //@access private
 
-const submitForm_02 = asyncHandler(async (req, res) => {
-    const {
-        faculty_name,
-        designation,
-        department,
-        institution,
-        tenure,
-        org_articles_count,
-        review_papers_count,
-        letters_count,
-        case_studies_count,
-        books_count,
-        chapters_count,
-        presentations_international_count,
-        presentation_national_count,
-        international_seminar_count,
-        national_seminar_count,
-        international_workshops_count,
-        national_workshops_count,
-        completed_minorp_count,
-        ongoing_minorp_count,
-        completed_majorp_count,
-        ongoing_majorp_count,
-        completed_consultancy_count,
-        ongoing_consultancy_count,
-        revenue_from_projects,
-        granted_patents_count,
-        filed_patents_count,
-        granted_copyrights_count,
-        filed_copyrights_count,
-        granted_industrial_designs_count,
-        filed_industrial_designs_count,
-        international_awards_won_count,
-        national_awards_won_count,
-        confirmation_of_trueData,
-    } = req.body;
+export const submitForm_02 = asyncHandler(async (req, res) => {
+    const files = checkFiles(req, res);
 
-    const evidence_of_research = req.files.evidence_of_research[0].path;
-    const evidence_of_data_provided =
-        req.files.evidence_of_data_provided[0].path;
+    const evidence_of_research = files.evidence_of_research[0]?.path;
+    const evidence_of_data_provided = files.evidence_of_data_provided[0]?.path;
 
-    const result = await Research.create({
-        faculty_name: faculty_name,
-        designation: designation,
-        institution: institution,
-        department: department,
-        tenure: tenure,
-        org_articles_count: org_articles_count,
-        review_papers_count: review_papers_count,
-        letters_count: letters_count,
-        case_studies_count: case_studies_count,
-        books_count: books_count,
-        chapters_count: chapters_count,
-        presentations_international_count: presentations_international_count,
-        presentation_national_count: presentation_national_count,
-        international_seminar_count: international_seminar_count,
-        national_seminar_count: national_seminar_count,
-        international_workshops_count: international_workshops_count,
-        national_workshops_count: national_workshops_count,
-        completed_minorp_count: completed_minorp_count,
-        ongoing_minorp_count: ongoing_minorp_count,
-        completed_majorp_count: completed_majorp_count,
-        ongoing_majorp_count: ongoing_majorp_count,
-        completed_consultancy_count: completed_consultancy_count,
-        ongoing_consultancy_count: ongoing_consultancy_count,
-        revenue_from_projects: revenue_from_projects,
-        granted_patents_count: granted_patents_count,
-        filed_patents_count: filed_patents_count,
-        granted_copyrights_count: granted_copyrights_count,
-        filed_copyrights_count: filed_copyrights_count,
-        granted_industrial_designs_count: granted_industrial_designs_count,
-        filed_industrial_designs_count: filed_industrial_designs_count,
-        international_awards_won_count: international_awards_won_count,
-        national_awards_won_count: national_awards_won_count,
-        evidence_of_research: evidence_of_research,
-        evidence_of_data_provided: evidence_of_data_provided,
-        confirmation_of_trueData: confirmation_of_trueData,
-    });
+    const response = checkObject(
+        {
+            ...req.body,
+            evidence_of_research,
+            evidence_of_data_provided,
+        },
+        ResearchForm,
+        res
+    );
+
+    const result = await Research.create(response.data);
 
     if (!result) {
         // throw error
@@ -244,106 +99,34 @@ const submitForm_02 = asyncHandler(async (req, res) => {
 //@route POST /forms/sports
 //@access private
 
-const submitForm_03 = asyncHandler(async (req, res) => {
-    const {
-        email_id,
-        institute_name,
-        nominee_inspiring_coach,
-        nominee_coach_comments,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        q_12,
-        q_13,
-        q_14,
-        q_15,
-        q_16,
-        q_17,
-        q_18,
-        q_19,
-        q_20,
+export const submitForm_03 = asyncHandler(async (req, res) => {
+    const files = checkFiles(req, res);
 
-        nominee_ss_girl,
-        nominee_ss_girl_sport,
-        q_21,
-        q_22,
-        q_23,
-        q_24,
+    const nominee_coach_photo = files.nominee_coach_photo[0].path;
+    const nominee_coach_supportings = files.nominee_coach_supportings[0].path;
 
-        nominee_ss_boy,
-        nominee_ss_boy_sport,
-        q_25,
-        q_26,
-        q_27,
-        q_28,
-    } = req.body;
-
-    const nominee_coach_photo = req.files.nominee_coach_photo[0].path;
-    const nominee_coach_supportings =
-        req.files.nominee_coach_supportings[0].path;
-
-    const nominee_ss_girl_photo = req.files.nominee_ss_girl_photo[0].path;
+    const nominee_ss_girl_photo = files.nominee_ss_girl_photo[0].path;
     const nominee_ss_girl_supportings =
-        req.files.nominee_ss_girl_supportings[0].path;
+        files.nominee_ss_girl_supportings[0].path;
 
-    const nominee_ss_boy_photo = req.files.nominee_ss_boy_photo[0].path;
-    const nominee_ss_boy_supportings =
-        req.files.nominee_ss_boy_supportings[0].path;
+    const nominee_ss_boy_photo = files.nominee_ss_boy_photo[0].path;
+    const nominee_ss_boy_supportings = files.nominee_ss_boy_supportings[0].path;
 
-    const result = await Sports.create({
-        email_id: email_id,
-        institute_name: institute_name,
-        nominee_inspiring_coach: nominee_inspiring_coach,
-        nominee_coach_comments: nominee_coach_comments,
-        nominee_coach_photo: nominee_coach_photo,
-        nominee_coach_supportings: nominee_coach_supportings,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        q_10: q_10,
-        q_11: q_11,
-        q_12: q_12,
-        q_13: q_13,
-        q_14: q_14,
-        q_15: q_15,
-        q_16: q_16,
-        q_17: q_17,
-        q_18: q_18,
-        q_19: q_19,
-        q_20: q_20,
+    const response = checkObject(
+        {
+            ...req.body,
+            nominee_ss_boy_supportings,
+            nominee_ss_boy_photo,
+            nominee_ss_girl_photo,
+            nominee_ss_girl_supportings,
+            nominee_coach_photo,
+            nominee_coach_supportings,
+        },
+        SportsForm,
+        res
+    );
 
-        nominee_ss_girl: nominee_ss_girl,
-        nominee_ss_girl_sport: nominee_ss_girl_sport,
-        nominee_ss_girl_photo: nominee_ss_girl_photo,
-        nominee_ss_girl_supportings: nominee_ss_girl_supportings,
-        q_21: q_21,
-        q_22: q_22,
-        q_23: q_23,
-        q_24: q_24,
-
-        nominee_ss_boy: nominee_ss_boy,
-        nominee_ss_boy_sport: nominee_ss_boy_sport,
-        nominee_ss_boy_photo: nominee_ss_boy_photo,
-        nominee_ss_boy_supportings: nominee_ss_boy_supportings,
-        q_25: q_25,
-        q_26: q_26,
-        q_27: q_27,
-        q_28: q_28,
-    });
+    const result = await Sports.create(response.data);
 
     if (!result) {
         // throw error
@@ -363,10 +146,8 @@ const submitForm_03 = asyncHandler(async (req, res) => {
 //@route POST /forms/teaching
 //@access private
 
-const submitForm_04 = asyncHandler(async (req, res) => {
+export const submitForm_04 = asyncHandler(async (req, res) => {
     const { somaiya_mail_id, awards_category } = req.body;
-
-    const currentYear = new Date().getFullYear();
 
     // Check if an entry with the same year, email, and awards category already exists
     const existingTeachingEntry = await Teaching.findOne({
@@ -374,7 +155,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
             [Op.and]: [
                 { somaiya_mail_id: somaiya_mail_id },
                 { awards_category: awards_category },
-                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
     });
@@ -389,75 +170,18 @@ const submitForm_04 = asyncHandler(async (req, res) => {
         return;
     }
 
-    const {
-        email_id,
-        faculty_name,
-        institute_name,
-        department,
-        designation,
-        date_of_appointment,
+    const files = checkFiles(req, res);
 
-        contact_number,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        q_12,
-        q_13,
-        q_14,
-        q_15,
-        q_16,
-        q_17,
-        q_18,
-        q_19,
-        q_20,
-        q_21,
-    } = req.body;
+    const data_evidence = files.data_evidence[0].path;
+    const profile_photograph = files.profile_photograph[0].path;
 
-    const data_evidence = req.files.data_evidence[0].path;
-    const profile_photograph = req.files.profile_photograph[0].path;
+    const response = checkObject(
+        { ...req.body, data_evidence, profile_photograph },
+        TeachingForm,
+        res
+    );
 
-    const result = await Teaching.create({
-        email_id: email_id,
-        faculty_name: faculty_name,
-        awards_category: awards_category,
-        institute_name: institute_name,
-        department: department,
-        designation: designation,
-        date_of_appointment: date_of_appointment,
-        somaiya_mail_id: somaiya_mail_id,
-        contact_number: contact_number,
-        q_01: Number(q_01),
-        q_02: Number(q_02),
-        q_03: Number(q_03),
-        q_04: Number(q_04),
-        q_05: Number(q_05),
-        q_06: Number(q_06),
-        q_07: Number(q_07),
-        q_08: Number(q_08),
-        q_09: Number(q_09),
-        q_10: Number(q_10),
-        q_11: Number(q_11),
-        q_12: Number(q_12),
-        q_13: Number(q_13),
-        q_14: Number(q_14),
-        q_15: Number(q_15),
-        q_16: Number(q_16),
-        q_17: Number(q_17),
-        q_18: Number(q_18),
-        q_19: Number(q_19),
-        q_20: Number(q_20),
-        q_21: q_21,
-        data_evidence: data_evidence,
-        profile_photograph: profile_photograph,
-    });
+    const result = await Teaching.create(response.data);
 
     if (!result) {
         // throw error
@@ -479,7 +203,7 @@ const submitForm_04 = asyncHandler(async (req, res) => {
 //@route POST /forms/non-teaching
 //@access private
 
-const submitForm_05 = asyncHandler(async (req, res) => {
+export const submitForm_05 = asyncHandler(async (req, res) => {
     const { somaiya_email_id, award_category } = req.body;
     const currentYear = new Date().getFullYear();
 
@@ -489,7 +213,7 @@ const submitForm_05 = asyncHandler(async (req, res) => {
             [Op.and]: [
                 { somaiya_email_id: somaiya_email_id },
                 { award_category: award_category },
-                Sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
     });
@@ -504,82 +228,18 @@ const submitForm_05 = asyncHandler(async (req, res) => {
         return;
     }
 
-    const {
-        email_id,
-        staff_name,
-        institute_name,
-        department,
-        designation,
-        appointment_date,
-        phone_number,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        q_12,
-        q_13,
-        q_14,
-        q_15,
-        q_16,
-        q_17,
-        q_18,
-        q_19,
-        q_20,
-        q_21,
-        q_22,
-        q_23,
-        q_24,
-    } = req.body;
+    const files = checkFiles(req, res);
 
-    console.log(req.body);
+    const proof_docs = files.proof_docs[0].path;
+    const nominee_photograph = files.nominee_photograph[0].path;
 
-    const proof_docs = req.files.proof_docs[0].path;
-    const nominee_photograph = req.files.nominee_photograph[0].path;
+    const response = checkObject(
+        { ...req.body, proof_docs, nominee_photograph },
+        NonTeachingForm,
+        res
+    );
 
-    const result = await NonTeaching.create({
-        email_id: email_id,
-        staff_name: staff_name,
-        award_category: award_category,
-        institute_name: institute_name,
-        department: department,
-        designation: designation,
-        appointment_date: appointment_date,
-        somaiya_email_id: somaiya_email_id,
-        phone_number: phone_number,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        q_10: q_10,
-        q_11: q_11,
-        q_12: q_12,
-        q_13: q_13,
-        q_14: q_14,
-        q_15: q_15,
-        q_16: q_16,
-        q_17: q_17,
-        q_18: q_18,
-        q_19: q_19,
-        q_20: q_20,
-        q_21: q_21,
-        q_22: q_22,
-        q_23: q_23,
-        q_24: q_24,
-        proof_docs: proof_docs,
-        nominee_photograph: nominee_photograph,
-    });
+    const result = await NonTeaching.create(response.data);
 
     if (!result) {
         // throw error
@@ -601,29 +261,15 @@ const submitForm_05 = asyncHandler(async (req, res) => {
 //@route POST /forms/research
 //@access private
 
-const submitForm_10 = asyncHandler(async (req, res) => {
-    const {
-        course,
-        email_id,
-        institution_name,
-        nomination_category,
-        recommendation_note,
-        student_name,
-        students_class,
-    } = req.body;
+export const submitForm_10 = asyncHandler(async (req, res) => {
+    const supportings = (req as FileRequest).file.path;
+    const response = checkObject(
+        { ...req.body, supportings },
+        StudentsForm,
+        res
+    );
 
-    const supportings = req.file.path;
-
-    const result = await Students.create({
-        email_id: email_id,
-        student_name: student_name,
-        students_class: students_class,
-        course: course,
-        institution_name: institution_name,
-        nomination_category: nomination_category,
-        recommendation_note: recommendation_note,
-        supportings: supportings,
-    });
+    const result = await Students.create(response.data);
 
     if (!result) {
         // throw error
@@ -646,48 +292,9 @@ const submitForm_10 = asyncHandler(async (req, res) => {
 //@route POST /forms/feedback-01
 //@access private
 
-const submitFeedback_01 = asyncHandler(async (req, res) => {
-    const {
-        email_id,
-        student_batch_year,
-        student_class_and_division,
-        teacher_name,
-        teacher_designation,
-        teaching_subject,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        nominating_reasons,
-    } = req.body;
-
-    const result = await FeedbackOne.create({
-        email_id: email_id,
-        student_batch_year: student_batch_year,
-        student_class_and_division: student_class_and_division,
-        teacher_name: teacher_name,
-        teacher_designation: teacher_designation,
-        teaching_subject: teaching_subject,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        q_10: q_10,
-        q_11: q_11,
-        nominating_reasons: nominating_reasons,
-    });
+export const submitFeedback_01 = asyncHandler(async (req, res) => {
+    const response = checkObject(req.body, FeedbackOneForm, res);
+    const result = await FeedbackOne.create(response.data);
 
     if (!result) {
         // throw error
@@ -710,49 +317,9 @@ const submitFeedback_01 = asyncHandler(async (req, res) => {
 //@route POST /forms/feedback-02
 //@access private
 
-const submitFeedback_02 = asyncHandler(async (req, res) => {
-    console.log(req.body);
-    const {
-        rater_name,
-        institute_name,
-        department_name,
-        designation,
-        somaiya_mail_id,
-        contact_number,
-        teacher_name,
-        nomination_category,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        nomination_reason,
-    } = req.body;
-
-    const result = await FeedbackTwo.create({
-        rater_name: rater_name,
-        institute_name: institute_name,
-        department_name: department_name,
-        designation: designation,
-        somaiya_mail_id: somaiya_mail_id,
-        contact_number: contact_number,
-        teacher_name: teacher_name,
-        nomination_category: nomination_category,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        nomination_reason: nomination_reason,
-    });
+export const submitFeedback_02 = asyncHandler(async (req, res) => {
+    const response = checkObject(req.body, FeedbackTwoForm, res);
+    const result = await FeedbackTwo.create(response.data);
 
     if (!result) {
         // throw error
@@ -775,34 +342,9 @@ const submitFeedback_02 = asyncHandler(async (req, res) => {
 //@route POST /forms/feedback-03
 //@access private
 
-const submitFeedback_03 = asyncHandler(async (req, res) => {
-    const {
-        email_id,
-        student_batch_year,
-        student_class_and_division,
-        employee_name,
-        employee_designation,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        nomination_reason,
-    } = req.body;
-
-    const result = await FeedbackThree.create({
-        email_id: email_id,
-        student_batch_year: student_batch_year,
-        student_class_and_division: student_class_and_division,
-        employee_name: employee_name,
-        employee_designation: employee_designation,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        nomination_reason: nomination_reason,
-    });
+export const submitFeedback_03 = asyncHandler(async (req, res) => {
+    const response = checkObject(req.body, FeedbackThreeForm, res);
+    const result = await FeedbackThree.create(response.data);
 
     if (!result) {
         // throw error
@@ -825,46 +367,10 @@ const submitFeedback_03 = asyncHandler(async (req, res) => {
 //@route POST /forms/feedback-04
 //@access private
 
-const submitFeedback_04 = asyncHandler(async (req, res) => {
-    const {
-        rater_name,
-        institution_name,
-        department,
-        designation,
-        somaiya_mail_id,
-        contact_no,
-        nominee_name,
-        category,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        nomination_reason,
-    } = req.body;
+export const submitFeedback_04 = asyncHandler(async (req, res) => {
+    const response = checkObject(req.body, FeedbackFourForm, res);
 
-    const result = await FeedbackFour.create({
-        rater_name: rater_name,
-        institution_name: institution_name,
-        department: department,
-        designation: designation,
-        somaiya_mail_id: somaiya_mail_id,
-        contact_no: contact_no,
-        nominee_name: nominee_name,
-        category: category,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        nomination_reason: nomination_reason,
-    });
+    const result = await FeedbackFour.create(response.data);
 
     if (!result) {
         // throw error
@@ -886,60 +392,9 @@ const submitFeedback_04 = asyncHandler(async (req, res) => {
 //@route POST /forms/feedback-05
 //@access private
 
-const submitFeedback_05 = asyncHandler(async (req, res) => {
-    const {
-        rater_name,
-        institution,
-        somaiya_mail_id,
-        nominee_name,
-        q_01,
-        q_02,
-        q_03,
-        q_04,
-        q_05,
-        q_06,
-        q_07,
-        q_08,
-        q_09,
-        q_10,
-        q_11,
-        q_12,
-        q_13,
-        q_14,
-        q_15,
-        q_16,
-        q_17,
-        q_18,
-        q_19,
-        q_20,
-    } = req.body;
-
-    const result = await FeedbackFive.create({
-        rater_name: rater_name,
-        institution: institution,
-        somaiya_mail_id: somaiya_mail_id,
-        nominee_name: nominee_name,
-        q_01: q_01,
-        q_02: q_02,
-        q_03: q_03,
-        q_04: q_04,
-        q_05: q_05,
-        q_06: q_06,
-        q_07: q_07,
-        q_08: q_08,
-        q_09: q_09,
-        q_10: q_10,
-        q_11: q_11,
-        q_12: q_12,
-        q_13: q_13,
-        q_14: q_14,
-        q_15: q_15,
-        q_16: q_16,
-        q_17: q_17,
-        q_18: q_18,
-        q_19: q_19,
-        q_20: q_20,
-    });
+export const submitFeedback_05 = asyncHandler(async (req, res) => {
+    const response = checkObject(req.body, FeedbackFiveForm, res);
+    const result = await FeedbackFive.create(response.data);
 
     if (!result) {
         // throw error
@@ -956,17 +411,3 @@ const submitFeedback_05 = asyncHandler(async (req, res) => {
         submitted: true,
     });
 });
-
-module.exports = {
-    submitForm_01,
-    submitForm_02,
-    submitForm_03,
-    submitForm_04,
-    submitForm_05,
-    submitFeedback_01,
-    submitFeedback_02,
-    submitFeedback_03,
-    submitFeedback_04,
-    submitFeedback_05,
-    submitForm_10,
-};

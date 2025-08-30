@@ -75,9 +75,6 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     let toCheckToken: User = refresh;
 
     if (access !== null) {
-        if (access !== refresh) {
-            req.header.coo;
-        }
         toCheckToken = access;
     }
 

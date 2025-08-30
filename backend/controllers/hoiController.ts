@@ -1,39 +1,26 @@
 import asyncHandler from "express-async-handler";
-const {
-    OutstandingInstitution,
-    Research,
-    Sports,
-    Teaching,
-    NonTeaching,
-    User,
-    Students,
-    Sequelize,
-} = require("../models");
-const { Op } = Sequelize;
+import { AuthRequest } from "../types/request";
+import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
+import { sequelize } from "../models";
+import { Research } from "../models/tables/Research";
+import { Sports } from "../models/tables/Sports";
+import { Teaching } from "../models/tables/Teaching";
+import { NonTeaching } from "../models/tables/NonTeaching";
+import { Students } from "../models/tables/Students";
 
 //@desc get data of institution forms to hoi
 //@route GET /hoi/data/outstanding-institution
 //@access private
 
-const institutionDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const institutionDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await OutstandingInstitution.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institution_name: user_institution }
         ),
     });
@@ -47,25 +34,15 @@ const institutionDataHandler = asyncHandler(async (req, res) => {
 //@route GET /hoi/data/research
 //@access private
 
-const researchDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const researchDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Research.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institution: user_institution }
         ),
     });
@@ -79,25 +56,15 @@ const researchDataHandler = asyncHandler(async (req, res) => {
 //@route GET /hoi/data/sports
 //@access private
 
-const sportsDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const sportsDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Sports.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -111,25 +78,15 @@ const sportsDataHandler = asyncHandler(async (req, res) => {
 //@route GET /hoi/data/teaching
 //@access private
 
-const teachingDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const teachingDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Teaching.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -143,25 +100,15 @@ const teachingDataHandler = asyncHandler(async (req, res) => {
 //@route GET /hoi/data/non-teaching
 //@access private
 
-const nonTeachingDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await NonTeaching.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institute_name: user_institution }
         ),
     });
@@ -175,25 +122,15 @@ const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //@route GET /hoi/data/students
 //@access private
 
-const studentsDataHandler = asyncHandler(async (req, res) => {
-    const user_id = res.user_id;
-
-    const user = await User.findOne({ where: { id: user_id } });
-
-    if (!user) {
-        //throw error
-        res.status(400);
-        throw new Error("User Not found");
-    }
-
-    const user_institution = user.institution;
+export const studentsDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
 
     const currentYear = new Date().getFullYear();
 
     const data = await Students.findAll({
-        where: Sequelize.and(
+        where: sequelize.and(
             // raw SQL query using and operator
-            Sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
             { institution_name: user_institution }
         ),
     });
@@ -202,12 +139,3 @@ const studentsDataHandler = asyncHandler(async (req, res) => {
         data: data,
     });
 });
-
-module.exports = {
-    institutionDataHandler,
-    researchDataHandler,
-    sportsDataHandler,
-    teachingDataHandler,
-    nonTeachingDataHandler,
-    studentsDataHandler,
-};

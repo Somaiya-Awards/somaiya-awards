@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import { AuthRequest } from "../types/request";
 import { Role } from "../types/role";
 
-export function roleMiddle(role: Role) {
+export default function roleMiddle(role: Role) {
     return asyncHandler(async (req, res, next) => {
         const user = (req as AuthRequest).user;
 

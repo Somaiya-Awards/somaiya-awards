@@ -1,14 +1,17 @@
-const express = require('express')
-const userAuthenticator = require('../middleware/userAuthenticator')
-const { researchDataHandler, researchDataUpdater } = require('../controllers/researchAdminController')
-const router = express.Router()
+import express from "express";
+import userAuthenticator from "../middleware/userAuthenticator";
+import {
+    researchDataHandler,
+    researchDataUpdater,
+} from "../controllers/researchAdminController";
+const router = express.Router();
 
 // GET METHOD ROUTES
 
-router.route('/research').get(userAuthenticator,researchDataHandler)
+router.route("/research").get(userAuthenticator, researchDataHandler);
 
 // PUT METHOD ROUTES
 
-router.route('/update').put(userAuthenticator,researchDataUpdater)
+router.route("/update").put(userAuthenticator, researchDataUpdater);
 
-module.exports = router
+export default router;

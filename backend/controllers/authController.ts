@@ -10,10 +10,10 @@ import { AccessHeader, RefreshHeader } from "../constants";
 import { Register } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
+
 //@desc handle login
 //@route POST /auth/login
 //@access public
-
 export const userLogin = asyncHandler(async (req, res) => {
     const response = UserLogin.safeParse(req.body);
 
@@ -323,44 +323,6 @@ export const changePassword = asyncHandler(async (req, res) => {
     res.status(200).json({
         message: "Password changed successfully",
     });
-});
-
-/**
- * @deprecated
- */
-export const userValidate = asyncHandler(async (req, res) => {
-    const token = res.token;
-    const user_id = res.user_id;
-
-    try {
-        const user = await User.findOne({ where: { id: user_id } });
-
-        if (!user) {
-            // throw error
-            res.status(404);
-            throw new Error(" User not found !");
-        }
-
-        const secret = process.env.JWT_SECRET + user.password;
-
-        const result = jwt.verify(token, secret);
-
-        if (!result) {
-            //throw error
-
-            res.status(401);
-            throw new Error("User token invalid. Try logging again");
-        }
-
-        res.status(200).json({
-            authorized: true,
-            role: user.role,
-        });
-    } catch (err) {
-        res.status(401);
-
-        throw new Error("User token invalid. Try logging again");
-    }
 });
 
 export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {

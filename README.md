@@ -16,6 +16,7 @@
 - [x] Patching Security and implemented Access-Refresh JWT Token   
 - [x] AuthController and AdminController done 
 - [x] Zod added
+- [x] Make it run actually (It's alive)
 
 #### TODO
 - [ ] Controller Rewrite and Optimization
@@ -27,7 +28,6 @@
 
 #### MAYBE
 - [ ] Use tRPC (Pros: More Type Safety, Cons: It has it's own configs and need special routing. TLDR: Route Rewrite v2)
-- [ ] Make it run actually
 
 ### Documentation
 
