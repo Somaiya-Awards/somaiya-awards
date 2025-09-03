@@ -3,21 +3,19 @@ import z from "zod";
 import { FileRequest } from "../types/request";
 
 /** Checks schema against validator and throws an error if invalid schema and also set res to status 400 */
-export function checkObject(
+export function checkObject<T>(
     data: { [key: string]: any },
     validator: z.ZodObject,
     res: Response
-) {
+): T {
     let response = validator.safeParse(data);
 
     if (!response.success) {
         res.status(400);
-        throw new Error(
-            response.error.issues.map((value) => value.message).join("\n")
-        );
+        throw new Error(JSON.stringify(z.treeifyError(response.error)));
     }
 
-    return response;
+    return response.data as T;
 }
 
 export function checkFiles(req: Request, res: Response) {

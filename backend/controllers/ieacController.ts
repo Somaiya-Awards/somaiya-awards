@@ -1,11 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { AuthRequest, FileRequest } from "../types/request";
-import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
-import { sequelize } from "../models";
-import { Research } from "../models/tables/Research";
-import { Sports } from "../models/tables/Sports";
-import { Teaching } from "../models/tables/Teaching";
-import { NonTeaching } from "../models/tables/NonTeaching";
+import { NonTeaching, sequelize } from "../models";
+import { OutstandingInstitution, Research, Sports, Teaching } from "../models";
 import { Op } from "sequelize";
 
 //@desc get data of institution forms to ieac
@@ -36,45 +32,45 @@ export const institutionDataHandler = asyncHandler(async (req, res) => {
 /**
  * @deprecated : Permanently moved to research Admin
  */
-export const researchDataHandler = asyncHandler(async (req, res) => {
-    const user_institution = (req as AuthRequest).user.institution;
-
-    const currentYear = new Date().getFullYear();
-
-    const data = await Research.findAll({
-        where: sequelize.and(
-            // raw SQL query using and operator
-            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institution: user_institution }
-        ),
-    });
-
-    res.status(200).json({
-        data: data,
-    });
-});
+// export const researchDataHandler = asyncHandler(async (req, res) => {
+//     const user_institution = (req as AuthRequest).user.institution;
+//
+//     const currentYear = new Date().getFullYear();
+//
+//     const data = await Research.findAll({
+//         where: sequelize.and(
+//             // raw SQL query using and operator
+//             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+//             { institution: user_institution }
+//         ),
+//     });
+//
+//     res.status(200).json({
+//         data: data,
+//     });
+// });
 
 //@desc get data of sports forms to ieac
 //@route GET /ieac/data/sports
 //@access private
 /**@deprecated : Shifted Permanently to Sports Admin */
-export const sportsDataHandler = asyncHandler(async (req, res) => {
-    const user_institution = (req as AuthRequest).user.institution;
-
-    const currentYear = new Date().getFullYear();
-
-    const data = await Sports.findAll({
-        where: sequelize.and(
-            // raw SQL query using and operator
-            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
-        ),
-    });
-
-    res.status(200).json({
-        data: data,
-    });
-});
+// export const sportsDataHandler = asyncHandler(async (req, res) => {
+//     const user_institution = (req as AuthRequest).user.institution;
+//
+//     const currentYear = new Date().getFullYear();
+//
+//     const data = await Sports.findAll({
+//         where: sequelize.and(
+//             // raw SQL query using and operator
+//             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+//             { institute_name: user_institution }
+//         ),
+//     });
+//
+//     res.status(200).json({
+//         data: data,
+//     });
+// });
 
 //@desc get data of teaching forms to ieac
 //@route GET /ieac/data/teaching
@@ -136,47 +132,47 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 /**
  * @deprecated permanently moved to research Admin
  */
+// export const researchDataUpdater = asyncHandler(async (req, res) => {
+//     const { applicationID } = req.body;
 
-export const researchDataUpdater = asyncHandler(async (req, res) => {
-    const { applicationID } = req.body;
+//     const applicationForm = await Research.findOne({
+//         where: { id: applicationID },
+//     });
 
-    const applicationForm = await Research.findOne({
-        where: { id: applicationID },
-    });
+//     if (!applicationForm) {
+//         res.status(404);
+//         throw new Error("Application not found");
+//     }
 
-    if (!applicationForm) {
-        res.status(404);
-        throw new Error("Application not found");
-    }
+// 
+//     await applicationForm.update({ ieacApproved: true });
 
-    await applicationForm.update({ ieacApproved: true });
-
-    res.status(200).json({
-        message: "Update Successful",
-    });
-});
+//     res.status(200).json({
+//         message: "Update Successful",
+//     });
+// });
 
 //@desc update sports
 //@route PUT /ieac/data/sports
 //@access private
 /**@deprecated : No need For IAEC Approval */
-export const sportsDataUpdater = asyncHandler(async (req, res) => {
-    const { applicationID } = req.body;
-
-    const applicationForm = await Sports.findOne({
-        where: { id: applicationID },
-    });
-    if (!applicationForm) {
-        res.status(404);
-        throw new Error("Application not found");
-    }
-
-    await applicationForm.update({ ieacApproved: true });
-
-    res.status(200).json({
-        message: "Update Successful",
-    });
-});
+// export const sportsDataUpdater = asyncHandler(async (req, res) => {
+//     const { applicationID } = req.body;
+//
+//     const applicationForm = await Sports.findOne({
+//         where: { id: applicationID },
+//     });
+//     if (!applicationForm) {
+//         res.status(404);
+//         throw new Error("Application not found");
+//     }
+//
+//     await applicationForm.update({ ieacApproved: true });
+//
+//     res.status(200).json({
+//         message: "Update Successful",
+//     });
+// });
 
 //@desc update teaching forms
 //@route PUT /ieac/data/teaching
@@ -234,99 +230,91 @@ export const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
  * File handlers
  */
 /**@deprecated : No longer required */
-const researchRecFileHandler = asyncHandler(async (req, res) => {
-    const ieacApprovedFile = (req as FileRequest).file.path;
-
-    const currentYear = new Date().getFullYear();
-    await Research.update(
-        {
-            ieacApprovedFile: ieacApprovedFile,
-        },
-        {
-            where: {
-                createdAt: {
-                    [Op.and]: [
-                        sequelize.where(
-                            sequelize.fn("YEAR", sequelize.col("createdAt")),
-                            currentYear
-                        ),
-                    ],
-                },
-                institution: (req as AuthRequest).user.institution,
-            },
-        }
-    );
-
-    res.status(200).json({
-        file: ieacApprovedFile,
-        message: "File uploaded sucessfully! ",
-    });
-});
+// const researchRecFileHandler = asyncHandler(async (req, res) => {
+//     const ieacApprovedFile = (req as FileRequest).file.path;
+//
+//     const currentYear = new Date().getFullYear();
+//     await Research.update(
+//         {
+//             ieacApprovedFile: ieacApprovedFile,
+//         },
+//         {
+//             where: {
+//                 createdAt: {
+//                     [Op.and]: [
+//                         sequelize.where(
+//                             sequelize.fn("YEAR", sequelize.col("createdAt")),
+//                             currentYear
+//                         ),
+//                     ],
+//                 },
+//                 institution: (req as AuthRequest).user.institution,
+//             },
+//         }
+//     );
+//
+//     res.status(200).json({
+//         file: ieacApprovedFile,
+//         message: "File uploaded sucessfully! ",
+//     });
+// });
 
 /**@deprecated : No Need for IAEC to approve */
-const sportsRecFileHandler = asyncHandler(async (req, res) => {
-    const ieacApprovedFile = (req as FileRequest).file.path;
-
-    const currentYear = new Date().getFullYear();
-    await Sports.update(
-        {
-            ieacApprovedFile: ieacApprovedFile,
-        },
-        {
-            where: {
-                createdAt: {
-                    [Op.and]: [
-                        sequelize.where(
-                            sequelize.fn("YEAR", sequelize.col("createdAt")),
-                            currentYear
-                        ),
-                    ],
-                },
-                institute_name: (req as AuthRequest).user.institution,
-            },
-        }
-    );
-
-    res.status(200).json({
-        file: ieacApprovedFile,
-        message: "File uploaded sucessfully! ",
-    });
-});
+// const sportsRecFileHandler = asyncHandler(async (req, res) => {
+//     const ieacApprovedFile = (req as FileRequest).file.path;
+//
+//     const currentYear = new Date().getFullYear();
+//     await Sports.update(
+//         {
+//             ieacApprovedFile: ieacApprovedFile,
+//         },
+//         {
+//             where: {
+//                 createdAt: {
+//                     [Op.and]: [
+//                         sequelize.where(
+//                             sequelize.fn("YEAR", sequelize.col("createdAt")),
+//                             currentYear
+//                         ),
+//                     ],
+//                 },
+//                 institute_name: (req as AuthRequest).user.institution,
+//             },
+//         }
+//     );
+//
+//     res.status(200).json({
+//         file: ieacApprovedFile,
+//         message: "File uploaded sucessfully! ",
+//     });
+// });
 
 export const teachingRecFileHandler = asyncHandler(async (req, res) => {
     const ieacApprovedFile = (req as FileRequest).file.path;
 
     const currentYear = new Date().getFullYear();
-
     await Teaching.update(
         {
             ieacApprovedFile: ieacApprovedFile,
         },
         {
             where: {
-                createdAt: {
-                    [Op.and]: [
-                        sequelize.where(
-                            sequelize.fn("YEAR", sequelize.col("createdAt")),
-                            currentYear
-                        ),
-                    ],
-                },
-                institute_name: (req as AuthRequest).user.institution,
+                [Op.and]: [
+                    { institution_name: (req as AuthRequest).user.institution as string},
+                    sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                ],
             },
         }
     );
 
     res.status(200).json({
         file: ieacApprovedFile,
-        message: "File uploaded sucessfully! ",
+        message: "File uploaded successfully!",
     });
 });
 
 export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
     const ieacApprovedFile = (req as FileRequest).file.path;
-
-    const currentYear = new Date().getFullYear();
 
     await NonTeaching.update(
         {
@@ -334,22 +322,17 @@ export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
         },
         {
             where: {
-                createdAt: {
-                    [Op.and]: [
-                        sequelize.where(
-                            sequelize.fn("YEAR", sequelize.col("createdAt")),
-                            currentYear
-                        ),
-                    ],
-                },
-                institute_name: (req as AuthRequest).user.institution,
+                [Op.and]: [
+                    sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                    { institution_name: (req as AuthRequest).user.institution as string},
+                ],
             },
         }
     );
 
     res.status(200).json({
         file: ieacApprovedFile,
-        message: "File uploaded sucessfully! ",
+        message: "File uploaded successfully!",
     });
 });
 
@@ -360,12 +343,12 @@ export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
 export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.query.institute_name;
+    const institute_name = req.query.institute_name as string;
 
     const result = await Teaching.findAll({
         where: {
             [Op.and]: [
-                { institute_name: institute_name },
+                { institution_name: institute_name },
                 { ieacApproved: true },
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
@@ -389,12 +372,12 @@ export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
 export const getNominatedStaffNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.query.institute_name;
+    const institute_name = req.query.institute_name as string;
 
     const result = await NonTeaching.findAll({
         where: {
             [Op.and]: [
-                { institute_name: institute_name },
+                { institution_name: institute_name },
                 { ieacApproved: true },
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],

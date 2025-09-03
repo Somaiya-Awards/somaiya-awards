@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import sequelize from "sequelize";
-import { Research } from "../models/tables/Research";
+import { Research } from "../models";
 
 //@desc get data of research forms to Research Admin
 //@route GET /research-admin/data/research

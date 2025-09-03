@@ -1,37 +1,49 @@
 import { Op } from "sequelize";
-import { OutstandingInstitutionForm } from "../zod/form/OutstandingInstitution";
-import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
+import {
+    OutstandingInstitutionForm,
+    OutstandingInstitutionType,
+} from "../zod/form/OutstandingInstitution";
+import {
+    FeedbackOne,
+    FeedbackTwo,
+    FeedbackThree,
+    FeedbackFour,
+    NonTeaching,
+    OutstandingInstitution,
+    Research,
+    FeedbackFive,
+    Sports,
+    Students,
+    Teaching,
+} from "../models";
+
 import asyncHandler from "express-async-handler";
 import { formLogger } from "../middleware/logger";
 import { FileRequest } from "../types/request";
 import { checkFiles, checkObject } from ".";
-import { ResearchForm } from "../zod/form/Research";
-import { Research } from "../models/tables/Research";
-import { Sports } from "../models/tables/Sports";
-import { SportsForm } from "../zod/form/Sports";
-import { Teaching } from "../models/tables/Teaching";
+import { ResearchForm, ResearchType } from "../zod/form/Research";
+import { SportsForm, SportsType } from "../zod/form/Sports";
 import { sequelize } from "../models";
-import { TeachingForm } from "../zod/form/Teaching";
-import { NonTeachingForm } from "../zod/form/NonTeaching";
-import { NonTeaching } from "../models/tables/NonTeaching";
-import { StudentsForm } from "../zod/form/Students";
-import { Students } from "../models/tables/Students";
-import { FeedbackOne } from "../models/tables/FeedbackOne";
-import { FeedbackOneForm } from "../zod/form/FeedbackOne";
-import { FeedbackTwo } from "../models/tables/FeedbackTwo";
-import { FeedbackTwoForm } from "../zod/form/FeedbackTwo";
-import { FeedbackThree } from "../models/tables/FeedbackThree";
-import { FeedbackThreeForm } from "../zod/form/FeedbackThree";
-import { FeedbackFourForm } from "../zod/form/FeedbackFour";
-import { FeedbackFour } from "../models/tables/FeedbackFour";
-import { FeedbackFiveForm } from "../zod/form/FeedbackFive";
-import { FeedbackFive } from "../models/tables/FeedbackFive";
+import { TeachingForm, TeachingType } from "../zod/form/Teaching";
+import { NonTeachingForm, NonTeachingType } from "../zod/form/NonTeaching";
+import { StudentsForm, StudentsType } from "../zod/form/Students";
+import { FeedbackOneForm, FeedbackOneType } from "../zod/form/FeedbackOne";
+import { FeedbackTwoForm, FeedbackTwoType } from "../zod/form/FeedbackTwo";
+import {
+    FeedbackThreeForm,
+    FeedbackThreeType,
+} from "../zod/form/FeedbackThree";
+import { FeedbackFourForm, FeedbackFourType } from "../zod/form/FeedbackFour";
+import { FeedbackFiveForm, FeedbackFiveType } from "../zod/form/FeedbackFive";
+import z from "zod";
+import { validString, email } from "../zod";
+
 //@desc handle institution form submission
 //@route POST /forms/outstanding-institution
 //@access private
 export const submitForm_01 = asyncHandler(async (req, res) => {
     const supportings = (req as FileRequest).file.path;
-    const response = checkObject(
+    const response = checkObject<OutstandingInstitutionType>(
         {
             ...req.body,
             supportings,
@@ -40,7 +52,7 @@ export const submitForm_01 = asyncHandler(async (req, res) => {
         res
     );
 
-    const result = await OutstandingInstitution.create(response.data);
+    const result = await OutstandingInstitution.create(response);
 
     if (!result) {
         // throw error
@@ -69,7 +81,7 @@ export const submitForm_02 = asyncHandler(async (req, res) => {
     const evidence_of_research = files.evidence_of_research[0]?.path;
     const evidence_of_data_provided = files.evidence_of_data_provided[0]?.path;
 
-    const response = checkObject(
+    const response = checkObject<ResearchType>(
         {
             ...req.body,
             evidence_of_research,
@@ -79,7 +91,7 @@ export const submitForm_02 = asyncHandler(async (req, res) => {
         res
     );
 
-    const result = await Research.create(response.data);
+    const result = await Research.create(response);
 
     if (!result) {
         // throw error
@@ -112,7 +124,7 @@ export const submitForm_03 = asyncHandler(async (req, res) => {
     const nominee_ss_boy_photo = files.nominee_ss_boy_photo[0].path;
     const nominee_ss_boy_supportings = files.nominee_ss_boy_supportings[0].path;
 
-    const response = checkObject(
+    const response = checkObject<SportsType>(
         {
             ...req.body,
             nominee_ss_boy_supportings,
@@ -126,7 +138,7 @@ export const submitForm_03 = asyncHandler(async (req, res) => {
         res
     );
 
-    const result = await Sports.create(response.data);
+    const result = await Sports.create(response);
 
     if (!result) {
         // throw error
@@ -147,7 +159,16 @@ export const submitForm_03 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitForm_04 = asyncHandler(async (req, res) => {
-    const { somaiya_mail_id, awards_category } = req.body;
+    const quick = z.object({
+        somaiya_mail_id: email,
+        awards_category: validString,
+    });
+    type QuickType = z.infer<typeof quick>;
+    const { somaiya_mail_id, awards_category } = checkObject<QuickType>(
+        req.body,
+        quick,
+        res
+    );
 
     // Check if an entry with the same year, email, and awards category already exists
     const existingTeachingEntry = await Teaching.findOne({
@@ -175,13 +196,13 @@ export const submitForm_04 = asyncHandler(async (req, res) => {
     const data_evidence = files.data_evidence[0].path;
     const profile_photograph = files.profile_photograph[0].path;
 
-    const response = checkObject(
+    const response = checkObject<TeachingType>(
         { ...req.body, data_evidence, profile_photograph },
         TeachingForm,
         res
     );
 
-    const result = await Teaching.create(response.data);
+    const result = await Teaching.create(response);
 
     if (!result) {
         // throw error
@@ -204,15 +225,20 @@ export const submitForm_04 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitForm_05 = asyncHandler(async (req, res) => {
-    const { somaiya_email_id, award_category } = req.body;
-    const currentYear = new Date().getFullYear();
+    let quick = z.object({
+        somaiya_mail_id: email,
+        awards_category: validString,
+    });
+    const { somaiya_mail_id, awards_category } = checkObject<
+        z.infer<typeof quick>
+    >(req.body, quick, res);
 
     // Check if an entry with the same year, email, and awards category already exists
     const existingNonTeachingEntry = await NonTeaching.findOne({
         where: {
             [Op.and]: [
-                { somaiya_email_id: somaiya_email_id },
-                { award_category: award_category },
+                { somaiya_email_id: somaiya_mail_id },
+                { award_category: awards_category },
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },
@@ -233,13 +259,13 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
     const proof_docs = files.proof_docs[0].path;
     const nominee_photograph = files.nominee_photograph[0].path;
 
-    const response = checkObject(
+    const response = checkObject<NonTeachingType>(
         { ...req.body, proof_docs, nominee_photograph },
         NonTeachingForm,
         res
     );
 
-    const result = await NonTeaching.create(response.data);
+    const result = await NonTeaching.create(response);
 
     if (!result) {
         // throw error
@@ -263,13 +289,13 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
 
 export const submitForm_10 = asyncHandler(async (req, res) => {
     const supportings = (req as FileRequest).file.path;
-    const response = checkObject(
+    const response = checkObject<StudentsType>(
         { ...req.body, supportings },
         StudentsForm,
         res
     );
 
-    const result = await Students.create(response.data);
+    const result = await Students.create(response);
 
     if (!result) {
         // throw error
@@ -293,8 +319,12 @@ export const submitForm_10 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitFeedback_01 = asyncHandler(async (req, res) => {
-    const response = checkObject(req.body, FeedbackOneForm, res);
-    const result = await FeedbackOne.create(response.data);
+    const response = checkObject<FeedbackOneType>(
+        req.body,
+        FeedbackOneForm,
+        res
+    );
+    const result = await FeedbackOne.create(response);
 
     if (!result) {
         // throw error
@@ -318,8 +348,12 @@ export const submitFeedback_01 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitFeedback_02 = asyncHandler(async (req, res) => {
-    const response = checkObject(req.body, FeedbackTwoForm, res);
-    const result = await FeedbackTwo.create(response.data);
+    const response = checkObject<FeedbackTwoType>(
+        req.body,
+        FeedbackTwoForm,
+        res
+    );
+    const result = await FeedbackTwo.create(response);
 
     if (!result) {
         // throw error
@@ -343,8 +377,12 @@ export const submitFeedback_02 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitFeedback_03 = asyncHandler(async (req, res) => {
-    const response = checkObject(req.body, FeedbackThreeForm, res);
-    const result = await FeedbackThree.create(response.data);
+    const response = checkObject<FeedbackThreeType>(
+        req.body,
+        FeedbackThreeForm,
+        res
+    );
+    const result = await FeedbackThree.create(response);
 
     if (!result) {
         // throw error
@@ -368,9 +406,13 @@ export const submitFeedback_03 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitFeedback_04 = asyncHandler(async (req, res) => {
-    const response = checkObject(req.body, FeedbackFourForm, res);
+    const response = checkObject<FeedbackFourType>(
+        req.body,
+        FeedbackFourForm,
+        res
+    );
 
-    const result = await FeedbackFour.create(response.data);
+    const result = await FeedbackFour.create(response);
 
     if (!result) {
         // throw error
@@ -393,8 +435,12 @@ export const submitFeedback_04 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitFeedback_05 = asyncHandler(async (req, res) => {
-    const response = checkObject(req.body, FeedbackFiveForm, res);
-    const result = await FeedbackFive.create(response.data);
+    const response = checkObject<FeedbackFiveType>(
+        req.body,
+        FeedbackFiveForm,
+        res
+    );
+    const result = await FeedbackFive.create(response);
 
     if (!result) {
         // throw error

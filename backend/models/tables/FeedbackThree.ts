@@ -1,6 +1,29 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class FeedbackThree extends Model {
+interface FeedbackThreeAttributes {
+    createdAt?: Date,
+    updatedAt?: Date,
+    id: number;
+    email_id: string;
+    student_batch_year: string;
+    student_class_and_division: string;
+    employee_name: string;
+    employee_designation: string;
+    q_01: string;
+    q_02: string;
+    q_03: string;
+    q_04: string;
+    q_05: string;
+    nomination_reason: string;
+}
+
+interface FeedbackThreeCreationAttributes
+    extends Optional<FeedbackThreeAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class FeedbackThree
+    extends Model<FeedbackThreeAttributes, FeedbackThreeCreationAttributes>
+    implements FeedbackThreeAttributes
+{
     declare id: number;
     declare email_id: string;
     declare student_batch_year: string;
@@ -18,6 +41,11 @@ export class FeedbackThree extends Model {
 export default function FeedbackThreeInit(sequelize: Sequelize) {
     FeedbackThree.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             email_id: { type: DataTypes.STRING, allowNull: false },
             student_batch_year: { type: DataTypes.STRING, allowNull: false },
             student_class_and_division: {
@@ -39,4 +67,5 @@ export default function FeedbackThreeInit(sequelize: Sequelize) {
             tableName: "FeedbackThree",
         }
     );
+    return FeedbackThree;
 }

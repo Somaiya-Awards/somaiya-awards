@@ -28,3 +28,5 @@ export const FeedbackFiveForm = z.object({
     q_19: validNumber,
     q_20: validNumber,
 });
+
+export type FeedbackFiveType = z.infer<typeof FeedbackFiveForm>;

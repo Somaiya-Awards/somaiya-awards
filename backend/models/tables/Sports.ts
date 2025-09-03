@@ -1,6 +1,63 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class Sports extends Model {
+interface SportsAttributes {
+    id: number;
+    email_id: string;
+    institution_name: string;
+    nominee_inspiring_coach: string;
+    nominee_coach_comments: string;
+    nominee_coach_photo: string;
+    nominee_coach_supportings: string;
+    q_01: number;
+    q_02: number;
+    q_03: number;
+    q_04: number;
+    q_05: number;
+    q_06: number;
+    q_07: number;
+    q_08: number;
+    q_09: number;
+    q_10: number;
+    q_11: number;
+    q_12: number;
+    q_13: number;
+    q_14: number;
+    q_15: number;
+    q_16: number;
+    q_17: number;
+    q_18: number;
+    q_19: number;
+    q_20: number;
+    isApprovedCoach: boolean;
+    nominee_ss_girl: string;
+    nominee_ss_girl_sport: string;
+    nominee_ss_girl_photo: string;
+    nominee_ss_girl_supportings: string;
+    q_21: number;
+    q_22: number;
+    q_23: number;
+    q_24: number;
+    isApprovedSportsGirl: boolean;
+    nominee_ss_boy: string;
+    nominee_ss_boy_sport: string;
+    nominee_ss_boy_photo: string;
+    nominee_ss_boy_supportings: string;
+    q_25: number;
+    q_26: number;
+    q_27: number;
+    q_28: number;
+    isApprovedSportsBoy: boolean;
+    createdAt?: Date,
+    updatedAt?: Date,
+
+}
+
+interface StudentCreationAttributes extends Optional<SportsAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class Sports
+    extends Model<SportsAttributes, StudentCreationAttributes>
+    implements SportsAttributes
+{
     declare id: number;
     declare email_id: string;
     declare institution_name: string;
@@ -28,7 +85,7 @@ export class Sports extends Model {
     declare q_18: number;
     declare q_19: number;
     declare q_20: number;
-    declare isApprovedCoach: string;
+    declare isApprovedCoach: boolean;
     declare nominee_ss_girl: string;
     declare nominee_ss_girl_sport: string;
     declare nominee_ss_girl_photo: string;
@@ -47,11 +104,19 @@ export class Sports extends Model {
     declare q_27: number;
     declare q_28: number;
     declare isApprovedSportsBoy: boolean;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function SportsInit(sequelize: Sequelize) {
-    return Sports.init(
+    Sports.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             email_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -151,7 +216,8 @@ export default function SportsInit(sequelize: Sequelize) {
         },
         {
             sequelize,
-            modelName: "Research",
+            modelName: "Sports",
         }
     );
+    return Sports;
 }

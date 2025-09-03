@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, institute, role, validNumber, validString } from "..";
+import { email, institute, validNumber, validString } from "..";
 
 export const FeedbackFourForm = z.object({
     id: validNumber,
@@ -7,7 +7,7 @@ export const FeedbackFourForm = z.object({
     institution_name: institute,
     department: validString,
     designation: validString,
-    somaiya_mail_id: validString,
+    somaiya_mail_id: email,
     contact_no: validString,
     nominee_name: validString,
     category: validString,
@@ -21,3 +21,5 @@ export const FeedbackFourForm = z.object({
     q_08: validString,
     nomination_reason: validString,
 });
+
+export type FeedbackFourType = z.infer<typeof FeedbackFourForm>;

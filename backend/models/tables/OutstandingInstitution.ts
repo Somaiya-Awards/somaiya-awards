@@ -1,9 +1,75 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class OutstandingInstitution extends Model {
+interface OutstandingInstitutionAttributes {
+    id: number;
+    email_id: string;
+    nomination_category: string;
+    institution_name: string;
+    established_In: string;
+    head_of_institution: string;
+    hoi_designation: string;
+    hoi_joining_date: Date;
+    somaiya_mail_id: string;
+    contact_number: string;
+    q_01: string;
+    q_02: string;
+    q_03: string;
+    q_04: string;
+    q_05: string;
+    q_06: string;
+    q_07: string;
+    q_08: string;
+    q_09: string;
+    q_10: string;
+    q_11: string;
+    q_12: string;
+    q_13: string;
+    q_14: string;
+    q_15: string;
+    q_16: string;
+    q_17: string;
+    institution_ratings: string;
+    q_18: string;
+    q_19: string;
+    q_20: string;
+    q_21: string;
+    q_22: string;
+    q_23: string;
+    q_24: string;
+    q_25: string;
+    q_26: string;
+    q_27: string;
+    q_28: string;
+    q_29: string;
+    q_30: string;
+    q_31: string;
+    q_32: string;
+    q_33: string;
+    q_34: string;
+    q_35: string;
+    q_36: string;
+    q_37: string;
+    q_38: string;
+    supportings: string;
+    ieac_approved: boolean;
+    hr_approved: boolean;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface OutstandingInstitutionCreationAttributes
+    extends Optional<OutstandingInstitutionAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class OutstandingInstitution
+    extends Model<
+        OutstandingInstitutionAttributes,
+        OutstandingInstitutionCreationAttributes
+    >
+    implements OutstandingInstitutionAttributes
+{
     declare id: number;
     declare email_id: string;
-    declare nomination: string;
+    declare nomination_category: string;
     declare institution_name: string;
     declare established_In: string;
     declare head_of_institution: string;
@@ -53,11 +119,19 @@ export class OutstandingInstitution extends Model {
     declare supportings: string;
     declare ieac_approved: boolean;
     declare hr_approved: boolean;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function OutstandingInstitutionInit(sequelize: Sequelize) {
     OutstandingInstitution.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             email_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -268,4 +342,5 @@ export default function OutstandingInstitutionInit(sequelize: Sequelize) {
             modelName: "OutstandingInstitution",
         }
     );
+    return OutstandingInstitution;
 }

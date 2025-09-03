@@ -22,3 +22,5 @@ export const FeedbackTwoForm = z.object({
     q_09: validString,
     nomination_reason: validString,
 });
+
+export type FeedbackTwoType = z.infer<typeof FeedbackTwoForm>;

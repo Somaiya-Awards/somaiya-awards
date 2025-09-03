@@ -1,6 +1,35 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class FeedbackFour extends Model {
+interface FeedbackFourAttributes {
+    id: number;
+    rater_name: string;
+    institution_name: string;
+    department: string;
+    designation: string;
+    somaiya_mail_id: string;
+    contact_no: string;
+    nominee_name: string;
+    category: string;
+    q_01: string;
+    q_02: string;
+    q_03: string;
+    q_04: string;
+    q_05: string;
+    q_06: string;
+    q_07: string;
+    q_08: string;
+    nomination_reason: string;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface FeedbackFourCreationAttributes
+    extends Optional<FeedbackFourAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class FeedbackFour
+    extends Model<FeedbackFourAttributes, FeedbackFourCreationAttributes>
+    implements FeedbackFourAttributes
+{
     declare id: number;
     declare rater_name: string;
     declare institution_name: string;
@@ -19,11 +48,18 @@ export class FeedbackFour extends Model {
     declare q_07: string;
     declare q_08: string;
     declare nomination_reason: string;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function FeedbackFourInit(sequelize: Sequelize) {
     FeedbackFour.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             rater_name: { type: DataTypes.STRING, allowNull: false },
             institution_name: { type: DataTypes.STRING, allowNull: false },
             department: { type: DataTypes.STRING, allowNull: false },
@@ -47,4 +83,5 @@ export default function FeedbackFourInit(sequelize: Sequelize) {
             tableName: "FeedbackFour",
         }
     );
+    return FeedbackFour;
 }

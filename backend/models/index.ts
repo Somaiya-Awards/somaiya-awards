@@ -1,8 +1,7 @@
-"use strict";
-
 import { Sequelize } from "sequelize";
 import process from "process";
 import InitDB from "./tables";
+
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 
@@ -19,5 +18,20 @@ if (config.use_env_variable) {
     );
 }
 
-InitDB(s);
+export const {
+    User,
+    FeedbackOne,
+    FeedbackTwo,
+    FeedbackThree,
+    FeedbackFour,
+    NonTeaching,
+    OutstandingInstitution,
+    Research,
+    Results,
+    Sports,
+    Students,
+    Teaching,
+    FeedbackFive,
+} = InitDB(s);
+
 export const sequelize = s;

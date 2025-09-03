@@ -14,23 +14,19 @@ import TeachingInit from "./Teaching";
 import { Sequelize } from "sequelize";
 
 export default function InitDB(sequelize: Sequelize) {
-    let tables = [
-        UserInit,
-        FeedbackOneInit,
-        FeedbackTwoInit,
-        FeedbackThreeInit,
-        FeedbackFourInit,
-        FeedbackFiveInit,
-        NonTeachingInit,
-        OutstandingInstitutionInit,
-        ResearchInit,
-        ResultsInit,
-        SportsInit,
-        StudentsInit,
-        TeachingInit,
-    ];
-
-    for (let table of tables) {
-        table(sequelize);
-    }
+    return {
+        User: UserInit(sequelize),
+        FeedbackOne: FeedbackOneInit(sequelize),
+        FeedbackTwo: FeedbackTwoInit(sequelize),
+        FeedbackThree: FeedbackThreeInit(sequelize),
+        FeedbackFour: FeedbackFourInit(sequelize),
+        FeedbackFive: FeedbackFiveInit(sequelize),
+        NonTeaching: NonTeachingInit(sequelize),
+        OutstandingInstitution: OutstandingInstitutionInit(sequelize),
+        Research: ResearchInit(sequelize),
+        Results: ResultsInit(sequelize),
+        Sports: SportsInit(sequelize),
+        Students: StudentsInit(sequelize),
+        Teaching: TeachingInit(sequelize),
+    };
 }

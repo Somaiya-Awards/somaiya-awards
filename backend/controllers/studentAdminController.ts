@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
-import sequelize from "sequelize";
-const { Op } = sequelize;
-import { Students } from "../models/tables/Students";
+import sequelize, { Op } from "sequelize";
+import { Students } from "../models";
 
 //@desc get somaiya star girl form data of current Year
 //@route GET students-admin/data/somaiya-star-girl

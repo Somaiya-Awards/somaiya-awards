@@ -1,24 +1,27 @@
 import asyncHandler from "express-async-handler";
 // import { authLogger } from "logger";
 import jwt from "jsonwebtoken";
-import { User } from "../models/tables/User";
+import { User } from "../models";
 import { AccessHeader, RefreshHeader } from "../constants";
 import { AuthRequest } from "../types/request";
+import { JwtForm, JwtType } from "../zod/auth/jwt";
+import { Model } from "sequelize";
 
-export function getJwtToken(token: string): User | null {
+export function getJwtToken(token: string): JwtType | null {
     try {
-        if (!token.startsWith("Bearer "))
+        if (!token.startsWith("Bearer ")) {
             throw new Error("Malformed auth header");
+        }
 
         token = token.split("Bearer ")[1];
 
         const secret = process.env.JWT_SECRET;
-
+        console.log(secret);
         if (secret === undefined) throw new Error("JWT Secret not found");
 
-        //@ts-expect-error
-        return jwt.verify(token, secret);
+        return JwtForm.parse(jwt.verify(token, secret));
     } catch (err) {
+        console.error(err);
         return null;
     }
 }
@@ -26,11 +29,15 @@ export function getJwtToken(token: string): User | null {
 // This is parse by jwtLib
 type JwtTimeout = "1h" | "1d";
 
-export function setJwtToken(user: User, expire: JwtTimeout) {
-    let payload: User = user.toJSON();
+export function setJwtToken(user: Model, expire: JwtTimeout) {
+    let payload = {
+        id: user.getDataValue("id"),
+        email_id: user.getDataValue("email_id"),
+        role: user.getDataValue("role"),
+        institution: user.getDataValue("institution"),
+    };
 
     //@ts-ignore No Password on token
-    delete payload.password; // Remove password, cause why not :)
     const secret = process.env.JWT_SECRET;
 
     if (secret === undefined) throw new Error("JWT Secret not found");
@@ -45,7 +52,6 @@ export function setJwtToken(user: User, expire: JwtTimeout) {
 const userAuthenticator = asyncHandler(async (req, res, next) => {
     const accessToken = req.headers[AccessHeader];
     const refreshToken = req.headers[RefreshHeader];
-
     /**
      * WARN: (Don't Follow that):
      *
@@ -60,10 +66,17 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
         return;
     }
 
+    if (Array.isArray(accessToken) || Array.isArray(refreshToken)) {
+        res.status(400).json({
+            error: "Received Multiple Tokens",
+        });
+        return;
+    }
+
     /**till here */
 
-    let access = getJwtToken(accessToken.toString());
-    let refresh = getJwtToken(refreshToken.toString());
+    let access = getJwtToken(accessToken);
+    let refresh = getJwtToken(refreshToken);
 
     if (refresh === null) {
         res.status(401).json({
@@ -72,7 +85,7 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
         return;
     }
 
-    let toCheckToken: User = refresh;
+    let toCheckToken = refresh;
 
     if (access !== null) {
         toCheckToken = access;
@@ -89,8 +102,8 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
         return;
     }
 
-    let newAccess = accessToken,
-        newRefresh = refreshToken;
+    let newAccess = accessToken.split("Bearer ")[1],
+        newRefresh = refreshToken.split("Bearer ")[1];
 
     if (access === null) {
         newAccess = setJwtToken(user, "1h");
@@ -100,7 +113,6 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     (req as AuthRequest).user = user;
     res.setHeader(AccessHeader, newAccess);
     res.setHeader(RefreshHeader, newRefresh);
-
     next();
 });
 

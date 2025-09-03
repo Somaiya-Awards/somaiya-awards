@@ -1,13 +1,33 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class Results extends Model {
+interface ResultsAttributes {
+    id: number;
+    result: string;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface ResultsCreationAttributes extends Optional<ResultsAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class Results extends Model<
+    ResultsAttributes,
+    ResultsCreationAttributes
+> {
     declare id: number;
     declare result: string;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function ResultsInit(sequelize: Sequelize) {
-    return Results.init(
+    Results.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             result: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -15,7 +35,8 @@ export default function ResultsInit(sequelize: Sequelize) {
         },
         {
             sequelize,
-            modelName: "Research",
+            modelName: "Results",
         }
     );
+    return Results;
 }

@@ -1,6 +1,36 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class FeedbackTwo extends Model {
+interface FeedbackTwoAttributes {
+    id: number;
+    rater_name: string;
+    institution_name: string;
+    department_name: string;
+    designation: string;
+    somaiya_mail_id: string;
+    contact_number: string;
+    teacher_name: string;
+    nomination_category: string;
+    q_01: string;
+    q_02: string;
+    q_03: string;
+    q_04: string;
+    q_05: string;
+    q_06: string;
+    q_07: string;
+    q_08: string;
+    q_09: string;
+    nomination_reason: string;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface FeedbackTwoCreationAttributes
+    extends Optional<FeedbackTwoAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class FeedbackTwo
+    extends Model<FeedbackTwoAttributes, FeedbackTwoCreationAttributes>
+    implements FeedbackTwoAttributes
+{
     declare id: number;
     declare rater_name: string;
     declare institution_name: string;
@@ -20,11 +50,18 @@ export class FeedbackTwo extends Model {
     declare q_08: string;
     declare q_09: string;
     declare nomination_reason: string;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function FeedbackTwoInit(sequelize: Sequelize) {
     FeedbackTwo.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             rater_name: { type: DataTypes.STRING, allowNull: false },
             institution_name: { type: DataTypes.STRING, allowNull: false },
             department_name: { type: DataTypes.STRING, allowNull: false },
@@ -52,4 +89,5 @@ export default function FeedbackTwoInit(sequelize: Sequelize) {
             tableName: "FeedbackTwo",
         }
     );
+    return FeedbackTwo;
 }

@@ -1,6 +1,36 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class FeedbackOne extends Model {
+interface FeedbackOneAttributes {
+    id: number;
+    email_id: string;
+    student_batch_year: string;
+    student_class_and_division: string;
+    teacher_name: string;
+    teacher_designation: string;
+    teaching_subject: string;
+    q_01: string;
+    q_02: string;
+    q_03: number;
+    q_04: number;
+    q_05: number;
+    q_06: string;
+    q_07: string;
+    q_08: number;
+    q_09: string;
+    q_10: string;
+    q_11: string;
+    nominating_reasons: string;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface FeedbackOneCreationAttributes
+    extends Optional<FeedbackOneAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class FeedbackOne
+    extends Model<FeedbackOneAttributes, FeedbackOneCreationAttributes>
+    implements FeedbackOneAttributes
+{
     declare id: number;
     declare email_id: string;
     declare student_batch_year: string;
@@ -20,11 +50,19 @@ export class FeedbackOne extends Model {
     declare q_10: string;
     declare q_11: string;
     declare nominating_reasons: string;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function FeedbackOneInit(sequelize: Sequelize) {
     FeedbackOne.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             email_id: { type: DataTypes.STRING, allowNull: false },
             student_batch_year: { type: DataTypes.STRING, allowNull: false },
             student_class_and_division: {
@@ -52,4 +90,5 @@ export default function FeedbackOneInit(sequelize: Sequelize) {
             tableName: "FeedbackOne",
         }
     );
+    return FeedbackOne;
 }

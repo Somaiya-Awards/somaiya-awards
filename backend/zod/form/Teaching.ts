@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, validNumber, validString } from "..";
+import { email, validBoolean, validNumber, validString } from "..";
 
 export const TeachingForm = z.object({
     id: validNumber,
@@ -35,10 +35,12 @@ export const TeachingForm = z.object({
     q_21: validNumber,
     data_evidence: validString,
     profile_photograph: validString,
-    ieacApproved: z.boolean(),
+    ieacApproved: validBoolean,
     ieacApprovedFile: validString.nullable(),
     ieac_scoreA: validNumber.nullable(),
     ieac_scoreB: validNumber.nullable(),
     ieac_scoreC: validNumber.nullable(),
-    hr_approved: z.boolean(),
+    hr_approved: validBoolean,
 });
+
+export type TeachingType = z.infer<typeof TeachingForm>;

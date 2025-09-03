@@ -1,6 +1,63 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class Teaching extends Model {
+interface TeachingAttributes {
+    id: number;
+    email_id: string;
+    faculty_name: string;
+    awards_category: string;
+    institution_name: string;
+    department: string;
+    designation: string;
+    date_of_appointment: string;
+    somaiya_mail_id: string;
+    contact_number: string;
+    q_01: number;
+    q_02: number;
+    q_03: number;
+    q_04: number;
+    q_05: number;
+    q_06: number;
+    q_07: number;
+    q_08: number;
+    q_09: number;
+    q_10: number;
+    q_11: number;
+    q_12: number;
+    q_13: number;
+    q_14: number;
+    q_15: number;
+    q_16: number;
+    q_17: number;
+    q_18: number;
+    q_19: number;
+    q_20: number;
+    q_21: number;
+    data_evidence: string;
+    profile_photograph: string;
+    ieacApproved: boolean;
+    hr_approved: boolean;
+    ieacApprovedFile: string | null;
+    ieac_scoreA: number | null;
+    ieac_scoreB: number | null;
+    ieac_scoreC: number | null;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface TeachingCreationAttributes
+    extends Optional<
+        TeachingAttributes,
+        | "id" | "createdAt" | "updatedAt"
+        | "ieac_scoreA"
+        | "ieac_scoreB"
+        | "ieac_scoreC"
+        | "ieacApprovedFile"
+    > {}
+
+export class Teaching
+    extends Model<TeachingAttributes, TeachingCreationAttributes>
+    implements TeachingAttributes
+{
     declare id: number;
     declare email_id: string;
     declare faculty_name: string;
@@ -35,16 +92,23 @@ export class Teaching extends Model {
     declare data_evidence: string;
     declare profile_photograph: string;
     declare ieacApproved: boolean;
+    declare hr_approved: boolean;
     declare ieacApprovedFile: string | null;
     declare ieac_scoreA: number | null;
     declare ieac_scoreB: number | null;
     declare ieac_scoreC: number | null;
-    declare hr_approved: boolean;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function TeachingInit(sequelize: Sequelize) {
     Teaching.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             email_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -203,4 +267,5 @@ export default function TeachingInit(sequelize: Sequelize) {
             modelName: "Teaching",
         }
     );
+    return Teaching;
 }

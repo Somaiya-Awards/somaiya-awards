@@ -22,3 +22,5 @@ export const FeedbackOneForm = z.object({
     q_11: validString,
     nominating_reasons: validString,
 });
+
+export type FeedbackOneType = z.infer<typeof FeedbackOneForm>;

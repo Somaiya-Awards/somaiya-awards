@@ -1,6 +1,27 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class Students extends Model {
+interface StudentsAttributes {
+    id: number;
+    email_id: string;
+    student_name: string;
+    students_class: string;
+    course: string;
+    institution_name: string;
+    nomination_category: string;
+    recommendation_note: string;
+    supportings: string;
+    approved: boolean;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface StudentCreationAttributes
+    extends Optional<StudentsAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class Students
+    extends Model<StudentsAttributes, StudentCreationAttributes>
+    implements StudentsAttributes
+{
     declare id: number;
     declare email_id: string;
     declare student_name: string;
@@ -10,12 +31,20 @@ export class Students extends Model {
     declare nomination_category: string;
     declare recommendation_note: string;
     declare supportings: string;
-    declare approved: boolean | null;
+    declare approved: boolean;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function StudentsInit(sequelize: Sequelize) {
     Students.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             email_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -58,4 +87,5 @@ export default function StudentsInit(sequelize: Sequelize) {
             modelName: "Students",
         }
     );
+    return Students;
 }

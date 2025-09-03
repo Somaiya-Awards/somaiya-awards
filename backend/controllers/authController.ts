@@ -1,30 +1,27 @@
-import { User } from "../models/tables/User";
+import { User } from "../models";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
-import { UserLogin } from "../zod/auth/login";
+import { UserLogin, UserLoginType } from "../zod/auth/login";
 import { setJwtToken } from "../middleware/userAuthenticator";
 import { AccessHeader, RefreshHeader } from "../constants";
-import { Register } from "../zod/auth/register";
+import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
+import { checkObject } from ".";
+import { email } from "../zod";
 
 //@desc handle login
 //@route POST /auth/login
 //@access public
 export const userLogin = asyncHandler(async (req, res) => {
-    const response = UserLogin.safeParse(req.body);
-
-    if (!response.success) {
-        res.status(400);
-        throw new Error(
-            response.error.issues.map((value) => value.message).join("\n")
-        );
-    }
-
-    const { user_email, user_password } = response.data;
+    const { user_email, user_password } = checkObject<UserLoginType>(
+        req.body,
+        UserLogin,
+        res
+    );
 
     const user = await User.findOne({ where: { email_id: user_email } });
 
@@ -34,22 +31,17 @@ export const userLogin = asyncHandler(async (req, res) => {
         throw new Error("Unauthorized login request");
     }
 
-    const dbPassword = user["password"];
+    const dbPassword = user.password;
 
-    const result = await bcrypt.compare(user_password, dbPassword);
+    const result = bcrypt.compare(user_password, dbPassword);
 
     if (result) {
         let access = setJwtToken(user, "1h");
         let refresh = setJwtToken(user, "1d");
 
         authLogger.info(`${user.email_id} logged in successfully`);
-        res.cookie(AccessHeader, access, {
-            expires: new Date(Date.now() + 60 * 60 * 1000),
-        });
-        res.cookie(RefreshHeader, refresh, {
-            expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-            httpOnly: true,
-        });
+        res.header(AccessHeader, access);
+        res.header(RefreshHeader, refresh);
 
         res.status(200).json({
             authorized: result,
@@ -92,17 +84,8 @@ export const userLogin = asyncHandler(async (req, res) => {
 //@access private
 
 export const registerUser = asyncHandler(async (req, res) => {
-    const response = Register.safeParse(req.body);
-
-    if (!response.success) {
-        res.status(400);
-        throw new Error(
-            response.error.issues.map((value) => value.message).join("\n")
-        );
-    }
-
-    const { user_email_id, user_password, user_institution, user_role } =
-        response.data;
+    const { user_email_id, user_password, user_role, user_institution } =
+        checkObject<RegisterType>(req.body, Register, res);
 
     const user = await User.findOne({ where: { email_id: user_email_id } });
 
@@ -135,16 +118,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 //@access public
 
 export const passwordReset = asyncHandler(async (req, res) => {
-    const response = z.object({ user_email: z.email() }).safeParse(req.body);
-
-    if (!response.success) {
-        res.status(400);
-        throw new Error(
-            response.error.issues.map((value) => value.message).join("\n")
-        );
-    }
-
-    const { user_email } = response.data;
+    const quick = z.object({ user_email: email });
+    type Quick = z.infer<typeof quick>;
+    const { user_email } = checkObject<Quick>(req.body, quick, res);
 
     const user = await User.findOne({
         where: { email_id: user_email },
@@ -277,7 +253,7 @@ export const changePassword = asyncHandler(async (req, res) => {
             `User not found for password reset verification  ID :${id}`
         );
         res.status(401);
-        throw new Error("Unauthorized access !");
+        throw new Error("Unauthorized access!");
     }
 
     const secret = process.env.JWT_RESET_SECRET + user.password;
@@ -292,11 +268,12 @@ export const changePassword = asyncHandler(async (req, res) => {
         });
     } else {
         authLogger.info(
-            `Reset password access invalid token id ${id} token recieved ${token}`
+            `Reset password access invalid token id ${id} token received ${token}`
         );
         res.status(401);
-        throw new Error(" Unauthorized access !");
+        throw new Error(" Unauthorized access!");
     }
+    
     const response = resetPassword.safeParse(req.body);
 
     if (!response.success) {
@@ -320,24 +297,20 @@ export const changePassword = asyncHandler(async (req, res) => {
     await user.save();
 
     authLogger.info(`User ${user.email_id} changed password successfully`);
+    
     res.status(200).json({
         message: "Password changed successfully",
     });
 });
 
 export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
-    const response = z
-        .object({ formData: z.array(Register) })
-        .safeParse(req.body);
+    const quick = z.object({ formData: z.array(Register) });
 
-    if (!response.success) {
-        res.status(400);
-        throw new Error(
-            response.error.issues.map((value) => value.message).join("\n")
-        );
-    }
-
-    const { formData } = response.data;
+    const { formData } = checkObject<z.infer<typeof quick>>(
+        req.body,
+        quick,
+        res
+    );
 
     const results = [];
 
@@ -376,10 +349,3 @@ export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
         results,
     });
 });
-
-/**
- * default Credentials for Admin
- */
-
-// email_id : admin@gmail.com
-//password: Admin@123 (db BlowFish Encrypt 10  128b salts crypted )

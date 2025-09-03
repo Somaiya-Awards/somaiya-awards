@@ -17,6 +17,14 @@ export default function errorHandler(
 
     // TODO: Remove these stacks. No traceback in Prod
 
+    let json = err.message;
+
+    try {
+        json = JSON.parse(json);
+    } catch (e) {}
+
+    err.message = json;
+
     switch (statusCode) {
         case BAD_REQUEST:
             res.json({

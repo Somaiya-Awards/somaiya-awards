@@ -1,6 +1,54 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class Research extends Model {
+interface ResearchAttributes {
+    id: number;
+    faculty_name: string;
+    designation: string;
+    institution_name: string;
+    department: string;
+    tenure: string;
+    org_articles_count: number;
+    review_papers_count: number;
+    letters_count: number;
+    case_studies_count: number;
+    books_count: number;
+    chapters_count: number;
+    presentations_international_count: number;
+    presentation_national_count: number;
+    international_seminar_count: number;
+    national_seminar_count: number;
+    international_workshops_count: number;
+    national_workshops_count: number;
+    completed_minorp_count: number;
+    ongoing_minorp_count: number;
+    completed_majorp_count: number;
+    ongoing_majorp_count: number;
+    completed_consultancy_count: number;
+    ongoing_consultancy_count: number;
+    revenue_from_projects: string;
+    granted_patents_count: number;
+    filed_patents_count: number;
+    granted_copyrights_count: number;
+    filed_copyrights_count: number;
+    granted_industrial_designs_count: number;
+    filed_industrial_designs_count: number;
+    international_awards_won_count: number;
+    national_awards_won_count: number;
+    evidence_of_research: string;
+    evidence_of_data_provided: string;
+    confirmation_of_trueData: string;
+    approved: boolean;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface ResearchCreationAttributes
+    extends Optional<ResearchAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+export class Research
+    extends Model<ResearchAttributes, ResearchCreationAttributes>
+    implements ResearchAttributes
+{
     declare id: number;
     declare faculty_name: string;
     declare designation: string;
@@ -37,12 +85,20 @@ export class Research extends Model {
     declare evidence_of_research: string;
     declare evidence_of_data_provided: string;
     declare confirmation_of_trueData: string;
-    declare approved: string;
+    declare approved: boolean;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function ResearchInit(sequelize: Sequelize) {
     Research.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+
             faculty_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -193,4 +249,5 @@ export default function ResearchInit(sequelize: Sequelize) {
             modelName: "Research",
         }
     );
+    return Research;
 }

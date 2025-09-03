@@ -15,3 +15,5 @@ export const FeedbackThreeForm = z.object({
     q_05: validString,
     nomination_reason: validString,
 });
+
+export type FeedbackThreeType = z.infer<typeof FeedbackThreeForm>;

@@ -1,6 +1,62 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
-export class NonTeaching extends Model {
+interface NonTeachingAttributes {
+
+    id: number;
+    email_id: string;
+    staff_name: string;
+    award_category: string;
+    institution_name: string;
+    department: string;
+    designation: string;
+    appointment_date: string;
+    somaiya_email_id: string;
+    phone_number: string;
+    q_01: number;
+    q_02: number;
+    q_03: number;
+    q_04: number;
+    q_05: number;
+    q_06: number;
+    q_07: number;
+    q_08: number;
+    q_09: number;
+    q_10: number;
+    q_11: number;
+    q_12: number;
+    q_13: number;
+    q_14: number;
+    q_15: number;
+    q_16: number;
+    q_17: number;
+    q_18: number;
+    q_19: number;
+    q_20: number;
+    q_21: number;
+    q_22: number;
+    q_23: number;
+    q_24: number;
+    proof_docs: string;
+    nominee_photograph: string;
+    ieacApproved: boolean;
+    hr_approved: boolean;
+    ieac_scoreA: number | null;
+    ieac_scoreB: number | null;
+    ieacApprovedFile: string | null;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface NonTeachingCreationAttributes
+    extends Optional<
+        NonTeachingAttributes,
+        "id" | "createdAt" | "updatedAt" | "ieac_scoreA" | "ieac_scoreB" | "ieacApprovedFile"
+    > {}
+
+export class NonTeaching
+    extends Model<NonTeachingAttributes, NonTeachingCreationAttributes>
+    implements NonTeachingAttributes
+{
     declare id: number;
     declare email_id: string;
     declare staff_name: string;
@@ -37,16 +93,23 @@ export class NonTeaching extends Model {
     declare q_24: number;
     declare proof_docs: string;
     declare nominee_photograph: string;
-    declare ieacApproved: string;
+    declare ieacApproved: boolean;
+    declare hr_approved: boolean;
     declare ieac_scoreA: number | null;
     declare ieac_scoreB: number | null;
     declare ieacApprovedFile: string | null;
-    declare hr_approved: string;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function NonTeachingInit(sequelize: Sequelize) {
     NonTeaching.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             email_id: { type: DataTypes.STRING, allowNull: false },
             staff_name: { type: DataTypes.STRING, allowNull: false },
             award_category: { type: DataTypes.STRING, allowNull: false },
@@ -93,4 +156,5 @@ export default function NonTeachingInit(sequelize: Sequelize) {
             modelName: "NonTeaching",
         }
     );
+    return NonTeaching;
 }

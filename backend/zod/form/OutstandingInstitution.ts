@@ -1,10 +1,10 @@
 import * as z from "zod";
-import { email, institute, validNumber, validString } from "..";
+import { email, institute, validBoolean, validNumber, validString } from "..";
 
 export const OutstandingInstitutionForm = z.object({
     id: validNumber,
     email_id: email,
-    nomination: validString,
+    nomination_category: validString,
     institution_name: institute,
     established_In: validString,
     head_of_institution: validString,
@@ -52,8 +52,8 @@ export const OutstandingInstitutionForm = z.object({
     q_37: validString,
     q_38: validString,
     supportings: validString,
-    ieac_approved: z.boolean(),
-    hr_approved: z.boolean(),
+    ieac_approved: validBoolean,
+    hr_approved: validBoolean,
 });
 
 export type OutstandingInstitutionType = z.infer<

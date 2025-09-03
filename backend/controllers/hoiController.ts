@@ -1,12 +1,13 @@
 import asyncHandler from "express-async-handler";
 import { AuthRequest } from "../types/request";
-import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
-import { sequelize } from "../models";
-import { Research } from "../models/tables/Research";
-import { Sports } from "../models/tables/Sports";
-import { Teaching } from "../models/tables/Teaching";
-import { NonTeaching } from "../models/tables/NonTeaching";
-import { Students } from "../models/tables/Students";
+import { NonTeaching, sequelize } from "../models";
+import {
+    OutstandingInstitution,
+    Research,
+    Sports,
+    Students,
+    Teaching,
+} from "../models";
 
 //@desc get data of institution forms to hoi
 //@route GET /hoi/data/outstanding-institution

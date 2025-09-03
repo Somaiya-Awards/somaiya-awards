@@ -1,18 +1,6 @@
 import { Request, Response } from "express";
 import { FileRequest } from "../types/request";
 import asyncHandler from "express-async-handler";
-import { OutstandingInstitution } from "../models/tables/OutstandingInstitution";
-import { Research } from "../models/tables/Research";
-import { Sports } from "../models/tables/Sports";
-import { Teaching } from "../models/tables/Teaching";
-import { NonTeaching } from "../models/tables/NonTeaching";
-import { Students } from "../models/tables/Students";
-import { User } from "../models/tables/User";
-import { FeedbackOne } from "../models/tables/FeedbackOne";
-import { FeedbackTwo } from "../models/tables/FeedbackTwo";
-import { FeedbackThree } from "../models/tables/FeedbackThree";
-import { FeedbackFour } from "../models/tables/FeedbackFour";
-import sequelize, { Op } from "sequelize";
 import {
     countAll,
     TeachingJuryScore,
@@ -21,8 +9,23 @@ import {
     InstituteCount,
     groupCountType,
 } from "../types/controllers/admin";
-import { Results } from "../models/tables/Results";
 import { v4 as uuidv4 } from "uuid";
+import {
+    User,
+    FeedbackOne,
+    FeedbackTwo,
+    FeedbackThree,
+    FeedbackFour,
+    NonTeaching,
+    OutstandingInstitution,
+    Research,
+    Results,
+    Sports,
+    Students,
+    Teaching,
+    sequelize,
+} from "../models";
+import { Op } from "sequelize";
 
 /**Global Info */
 const institutionArray = [

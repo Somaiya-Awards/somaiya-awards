@@ -1,17 +1,40 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 import { Role } from "../../types/role";
 
-export class User extends Model {
+interface UserAttributes {
+    id: number;
+    email_id: string;
+    institution: string | null;
+    password: string;
+    role: Role | null;
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+interface UserCreationAttributes
+    extends Optional<UserAttributes, "id" | "createdAt" | "updatedAt" | "institution" | "role"> {}
+
+export class User
+    extends Model<UserAttributes, UserCreationAttributes>
+    implements UserAttributes
+{
     declare id: number;
     declare email_id: string;
-    declare institution: string;
+    declare institution: string | null;
     declare password: string;
     declare role: Role | null;
+    declare readonly createdAt?: Date;
+    declare readonly updatedAt?: Date;
 }
 
 export default function UserInit(sequelize: Sequelize) {
     User.init(
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             email_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -30,7 +53,16 @@ export default function UserInit(sequelize: Sequelize) {
                 allowNull: false,
             },
             role: {
-                type: DataTypes.STRING,
+                type: DataTypes.ENUM(
+                    Role.Admin,
+                    Role.Hoi,
+                    Role.Ieac,
+                    Role.Perr,
+                    Role.ResearchAdmin,
+                    Role.SportsAdmin,
+                    Role.Student,
+                    Role.StudentAdmin,
+                ),
             },
         },
         {
@@ -38,4 +70,6 @@ export default function UserInit(sequelize: Sequelize) {
             modelName: "User",
         }
     );
+
+    return User;
 }

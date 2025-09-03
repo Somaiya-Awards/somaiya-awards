@@ -7,3 +7,4 @@ export const validNumber = z.number().gte(0, "Number should be greater than 0");
 export const role = z.enum(Role);
 export const validString = z.string({ error: "String must not be null" });
 export const institute = z.enum(institutes);
+export const validBoolean = z.boolean();

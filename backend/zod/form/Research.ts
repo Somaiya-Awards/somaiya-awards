@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, institute, validNumber, validString } from "..";
+import { institute, validBoolean, validNumber, validString } from "..";
 
 export const ResearchForm = z.object({
     id: validNumber,
@@ -38,5 +38,7 @@ export const ResearchForm = z.object({
     evidence_of_research: validString,
     evidence_of_data_provided: validString,
     confirmation_of_trueData: validString,
-    approved: validString,
+    approved: validBoolean,
 });
+
+export type ResearchType = z.infer<typeof ResearchForm>;

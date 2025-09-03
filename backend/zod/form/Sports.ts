@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, validNumber, validString } from "..";
+import { email, validBoolean, validNumber, validString } from "..";
 
 export const SportsForm = z.object({
     id: validNumber,
@@ -29,7 +29,7 @@ export const SportsForm = z.object({
     q_18: validNumber,
     q_19: validNumber,
     q_20: validNumber,
-    isApprovedCoach: validString,
+    isApprovedCoach: validBoolean,
     nominee_ss_girl: validString,
     nominee_ss_girl_sport: validString,
     nominee_ss_girl_photo: validString,
@@ -38,7 +38,7 @@ export const SportsForm = z.object({
     q_22: validNumber,
     q_23: validNumber,
     q_24: validNumber,
-    isApprovedSportsGirl: z.boolean(),
+    isApprovedSportsGirl: validBoolean,
     nominee_ss_boy: validString,
     nominee_ss_boy_sport: validString,
     nominee_ss_boy_photo: validString,
@@ -47,5 +47,7 @@ export const SportsForm = z.object({
     q_26: validNumber,
     q_27: validNumber,
     q_28: validNumber,
-    isApprovedSportsBoy: z.boolean(),
+    isApprovedSportsBoy: validBoolean,
 });
+
+export type SportsType = z.infer<typeof SportsForm>;
