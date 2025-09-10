@@ -50,8 +50,8 @@ export function setJwtToken(user: Model, expire: JwtTimeout) {
  *   Header Token -> x-access (Main Token), x-refresh (Refresh Token to refresh access)
  * */
 const userAuthenticator = asyncHandler(async (req, res, next) => {
-    const accessToken = req.headers[AccessHeader];
-    const refreshToken = req.headers[RefreshHeader];
+    const accessToken = req.cookies[AccessHeader];
+    const refreshToken = req.cookies[RefreshHeader];
     /**
      * WARN: (Don't Follow that):
      *
@@ -111,8 +111,9 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     }
 
     (req as AuthRequest).user = user;
-    res.setHeader(AccessHeader, newAccess);
-    res.setHeader(RefreshHeader, newRefresh);
+    res.cookie(AccessHeader, `Bearer ${newAccess}`, {expires: new Date(Date.now() + 1000*60*60), httpOnly: true});
+    res.cookie(RefreshHeader, `Bearer ${newRefresh}`, {expires: new Date(Date.now() + 1000*60*60*24), httpOnly: true});
+
     next();
 });
 

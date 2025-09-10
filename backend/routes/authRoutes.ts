@@ -7,8 +7,6 @@ import {
     bulkCreateOrUpdateUsers,
 } from "../controllers/authController";
 
-import userAuthenticator from "../middleware/userAuthenticator";
-
 const router = express.Router();
 
 /**

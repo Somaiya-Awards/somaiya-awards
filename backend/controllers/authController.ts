@@ -40,8 +40,8 @@ export const userLogin = asyncHandler(async (req, res) => {
         let refresh = setJwtToken(user, "1d");
 
         authLogger.info(`${user.email_id} logged in successfully`);
-        res.header(AccessHeader, access);
-        res.header(RefreshHeader, refresh);
+        res.cookie(AccessHeader, access, {expires: new Date(Date.now() + 1000*60*60), httpOnly: true, sameSite: "strict"});
+        res.cookie(RefreshHeader, refresh, {expires: new Date(Date.now() + 1000*60*60*24), httpOnly: true, sameSite: "strict"});
 
         res.status(200).json({
             authorized: result,
@@ -273,7 +273,7 @@ export const changePassword = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error(" Unauthorized access!");
     }
-    
+
     const response = resetPassword.safeParse(req.body);
 
     if (!response.success) {
@@ -297,7 +297,7 @@ export const changePassword = asyncHandler(async (req, res) => {
     await user.save();
 
     authLogger.info(`User ${user.email_id} changed password successfully`);
-    
+
     res.status(200).json({
         message: "Password changed successfully",
     });

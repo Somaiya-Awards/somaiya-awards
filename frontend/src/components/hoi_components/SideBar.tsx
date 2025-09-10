@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
 import AssessmentRoundedIcon from '@mui/icons-material/AssessmentRounded';

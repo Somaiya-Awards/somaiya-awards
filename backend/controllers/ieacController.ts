@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { AuthRequest, FileRequest } from "../types/request";
 import { NonTeaching, sequelize } from "../models";
-import { OutstandingInstitution, Research, Sports, Teaching } from "../models";
+import { OutstandingInstitution, Teaching } from "../models";
 import { Op } from "sequelize";
 
 //@desc get data of institution forms to ieac
@@ -54,7 +54,7 @@ export const institutionDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/sports
 //@access private
 /**@deprecated : Shifted Permanently to Sports Admin */
-// export const sportsDataHandler = asyncHandler(async (req, res) => {
+const sportsDataHandler = asyncHandler(async (req, res) => {});
 //     const user_institution = (req as AuthRequest).user.institution;
 //
 //     const currentYear = new Date().getFullYear();
@@ -75,7 +75,6 @@ export const institutionDataHandler = asyncHandler(async (req, res) => {
 //@desc get data of teaching forms to ieac
 //@route GET /ieac/data/teaching
 //@access private
-
 export const teachingDataHandler = asyncHandler(async (req, res) => {
     const user_institution = (req as AuthRequest).user.institution;
 
@@ -97,7 +96,6 @@ export const teachingDataHandler = asyncHandler(async (req, res) => {
 //@desc get data of non-teaching forms to ieac
 //@route GET /ieac/data/non-teaching
 //@access private
-
 export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
     const user_institution = (req as AuthRequest).user.institution;
 
@@ -144,7 +142,7 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //         throw new Error("Application not found");
 //     }
 
-// 
+//
 //     await applicationForm.update({ ieacApproved: true });
 
 //     res.status(200).json({
@@ -156,7 +154,7 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //@route PUT /ieac/data/sports
 //@access private
 /**@deprecated : No need For IAEC Approval */
-// export const sportsDataUpdater = asyncHandler(async (req, res) => {
+export const sportsDataUpdater = asyncHandler(async (req, res) => {});
 //     const { applicationID } = req.body;
 //
 //     const applicationForm = await Sports.findOne({
@@ -260,7 +258,8 @@ export const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
 // });
 
 /**@deprecated : No Need for IAEC to approve */
-// const sportsRecFileHandler = asyncHandler(async (req, res) => {
+const sportsRecFileHandler = asyncHandler(async (req, res) => {});
+//
 //     const ieacApprovedFile = (req as FileRequest).file.path;
 //
 //     const currentYear = new Date().getFullYear();
@@ -300,7 +299,10 @@ export const teachingRecFileHandler = asyncHandler(async (req, res) => {
         {
             where: {
                 [Op.and]: [
-                    { institution_name: (req as AuthRequest).user.institution as string},
+                    {
+                        institution_name: (req as AuthRequest).user
+                            .institution as string,
+                    },
                     sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
                 ],
             },
@@ -324,7 +326,10 @@ export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
             where: {
                 [Op.and]: [
                     sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-                    { institution_name: (req as AuthRequest).user.institution as string},
+                    {
+                        institution_name: (req as AuthRequest).user
+                            .institution as string,
+                    },
                 ],
             },
         }

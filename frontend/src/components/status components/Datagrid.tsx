@@ -1,8 +1,7 @@
-import React from 'react'
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid'
+import { DataGrid, type GridRowsProp, type GridColDef, GridToolbar } from '@mui/x-data-grid'
 
 
-const Datagrid = (props) => {
+function Datagrid(props: {rows: any}){
 
     const rows: GridRowsProp = props.rows
 

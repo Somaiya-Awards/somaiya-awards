@@ -1,5 +1,4 @@
 import express from "express";
-import userAuthenticator from "../middleware/userAuthenticator";
 import {
     researchDataHandler,
     researchDataUpdater,
@@ -8,10 +7,10 @@ const router = express.Router();
 
 // GET METHOD ROUTES
 
-router.route("/research").get(userAuthenticator, researchDataHandler);
+router.route("/research").get(researchDataHandler);
 
 // PUT METHOD ROUTES
 
-router.route("/update").put(userAuthenticator, researchDataUpdater);
+router.route("/update").put(researchDataUpdater);
 
 export default router;

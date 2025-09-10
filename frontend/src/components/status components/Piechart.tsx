@@ -1,7 +1,6 @@
-import React from 'react'
 import { Legend, Pie, PieChart, Tooltip, Cell, ResponsiveContainer } from 'recharts'
 
-const Piechart = (props) => {
+function Piechart(props: any) {
 
     const data = props.data 
 
@@ -12,7 +11,8 @@ const Piechart = (props) => {
             <PieChart width={300} height={350} >
                 <Pie data={data} dataKey={'formsFilled'} nameKey='group' fill="#8884d8" label>
                     {
-                        data.map((entry, index) => <Cell fill={colors[index]} />)
+                        //@ts-ignore
+                        data.map((_, index) => <Cell fill={colors[index]} />)
                     }
                 </Pie>
                 <Legend />

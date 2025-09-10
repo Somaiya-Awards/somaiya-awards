@@ -18,6 +18,7 @@ import { sequelize, User } from "./models";
 import { Role } from "./types/role";
 import dotenv from "dotenv";
 import userAuthenticator from "./middleware/userAuthenticator";
+import roleMiddle from "./middleware/role";
 
 dotenv.config();
 
@@ -44,13 +45,28 @@ app.use(cors());
 app.use(express.json());
 app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
-app.use("/forms", formRoute);
-app.use("/hoi/data", hoiRoutes);
-app.use("/ieac/data", ieacRoutes);
-app.use("/admin/data", adminRoutes);
-app.use("/students-admin/data", studentAdminRoutes);
-app.use("/sports-admin/data", sportsAdminRoutes);
-app.use("/research-admin/data", researchRoutes);
+app.use("/forms", userAuthenticator, formRoute);
+app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
+app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
+app.use("/admin/data", userAuthenticator, roleMiddle(Role.Admin), adminRoutes);
+app.use(
+    "/students-admin/data",
+    userAuthenticator,
+    roleMiddle(Role.StudentAdmin),
+    studentAdminRoutes
+);
+app.use(
+    "/sports-admin/data",
+    userAuthenticator,
+    roleMiddle(Role.SportsAdmin),
+    sportsAdminRoutes
+);
+app.use(
+    "/research-admin/data",
+    userAuthenticator,
+    roleMiddle(Role.ResearchAdmin),
+    researchRoutes
+);
 app.use(errorHandler);
 
 // server listen and database configuration

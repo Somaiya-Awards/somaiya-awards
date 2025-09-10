@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+function Footer() {
   return (
     <>
       <div className="flex w-full font-Poppins py-3 px-2 bg-gray-300">

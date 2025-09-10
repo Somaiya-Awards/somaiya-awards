@@ -1,5 +1,4 @@
 import express from "express";
-import userAuthenticator from "../middleware/userAuthenticator";
 import {
     somaiyaStarGirlDataHandler,
     somaiyaStarBoyDataHandler,
@@ -14,26 +13,16 @@ const router = express.Router();
  * GET REQUEST
  */
 
-router
-    .route("/somaiya-star-girl")
-    .get(userAuthenticator, somaiyaStarGirlDataHandler);
-router
-    .route("/somaiya-star-boy")
-    .get(userAuthenticator, somaiyaStarBoyDataHandler);
-router
-    .route("/somaiya-star-innovator")
-    .get(userAuthenticator, somaiyaStarInnovatorDataHandler);
-router
-    .route("/somaiya-star-citizen")
-    .get(userAuthenticator, somaiyaStarCitizenDataHandler);
-router
-    .route("/somaiya-green-star")
-    .get(userAuthenticator, somaiyaGreenStarDataHandler);
+router.route("/somaiya-star-girl").get(somaiyaStarGirlDataHandler);
+router.route("/somaiya-star-boy").get(somaiyaStarBoyDataHandler);
+router.route("/somaiya-star-innovator").get(somaiyaStarInnovatorDataHandler);
+router.route("/somaiya-star-citizen").get(somaiyaStarCitizenDataHandler);
+router.route("/somaiya-green-star").get(somaiyaGreenStarDataHandler);
 
 /**
  * Put REQUEST
  */
 
-router.route("/update").put(userAuthenticator, studentsDataUpdater);
+router.route("/update").put(studentsDataUpdater);
 
 export default router;

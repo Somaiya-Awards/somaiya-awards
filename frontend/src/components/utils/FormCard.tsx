@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 const FormCard = (props) => {
   const [hovered, setHovered] = useState(false);
@@ -33,19 +33,19 @@ const FormCard = (props) => {
                 {props.info}
               </p>
 
-            {
-              hovered
-              ?
-              <>
-               <Link to={props.link}>
-               <div className='text-black font-Poppins font-semibold bg-amber-600 hover:bg-amber-700 absolute bottom-0 right-0 m-10 p-3 rounded-lg text-center w-[6rem]  bg-opacity-100'>
-                  Link
-                </div>
-               </Link>
-              </>
-              :
-              null
-            }
+              {
+                hovered
+                  ?
+                  <>
+                    <Link to={props.link}>
+                      <div className='text-black font-Poppins font-semibold bg-amber-600 hover:bg-amber-700 absolute bottom-0 right-0 m-10 p-3 rounded-lg text-center w-[6rem]  bg-opacity-100'>
+                        Link
+                      </div>
+                    </Link>
+                  </>
+                  :
+                  null
+              }
             </div>
           </div>
         </div>

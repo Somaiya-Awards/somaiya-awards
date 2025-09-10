@@ -1,8 +1,7 @@
-import React from 'react'
 import FunctionsRoundedIcon from '@mui/icons-material/FunctionsRounded';
 import CountUp from 'react-countup'
 
-const Box = (props) => {
+function Box(props: {title: string, count: number}){
     return (
         <div>
             <div className='w-42 rounded-lg p-3 m-5 my-7 b bg-gradient-to-br from-[#e52d27] to-[#b31217] text-xs font-Poppins text-white'>

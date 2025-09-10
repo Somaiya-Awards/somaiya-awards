@@ -1,6 +1,4 @@
-import React from 'react'
-
-const FormInfo = (props) => {
+function FormInfo(props: {info?: string, title: string}){
     return (
         <div className=''>
             <div className='relative w-full h-[11rem] bg-red-700'>
@@ -20,7 +18,7 @@ const FormInfo = (props) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default FormInfo

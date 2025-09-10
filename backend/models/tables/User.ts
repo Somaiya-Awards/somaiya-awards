@@ -7,12 +7,15 @@ interface UserAttributes {
     institution: string | null;
     password: string;
     role: Role | null;
-    createdAt?: Date,
-    updatedAt?: Date,
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 interface UserCreationAttributes
-    extends Optional<UserAttributes, "id" | "createdAt" | "updatedAt" | "institution" | "role"> {}
+    extends Optional<
+        UserAttributes,
+        "id" | "createdAt" | "updatedAt" | "institution" | "role"
+    > {}
 
 export class User
     extends Model<UserAttributes, UserCreationAttributes>
@@ -57,11 +60,11 @@ export default function UserInit(sequelize: Sequelize) {
                     Role.Admin,
                     Role.Hoi,
                     Role.Ieac,
-                    Role.Perr,
+                    Role.Peer,
                     Role.ResearchAdmin,
                     Role.SportsAdmin,
                     Role.Student,
-                    Role.StudentAdmin,
+                    Role.StudentAdmin
                 ),
             },
         },

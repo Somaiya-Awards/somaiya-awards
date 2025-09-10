@@ -15,44 +15,30 @@ import { upload08, upload09 } from "../middleware/fileUpload";
 import userAuthenticator from "../middleware/userAuthenticator";
 
 /**GET Routes */
-router
-    .route("/outstanding-institution")
-    .get(userAuthenticator, institutionDataHandler);
-// router.route('/research').get(userAuthenticator, researchDataHandler);
-// router.route('/sports').get(userAuthenticator,sportsDataHandler);
-router.route("/teaching").get(userAuthenticator, teachingDataHandler);
-router.route("/non-teaching").get(userAuthenticator, nonTeachingDataHandler);
+router.route("/outstanding-institution").get(institutionDataHandler);
+// router.route('/research').get(researchDataHandler);
+// router.route('/sports').get(sportsDataHandler);
+router.route("/teaching").get(teachingDataHandler);
+router.route("/non-teaching").get(nonTeachingDataHandler);
 
-router
-    .route("/nominated-faculty-names")
-    .get(userAuthenticator, getNominatedTeacherNames);
-router
-    .route("/nominated-staff-names")
-    .get(userAuthenticator, getNominatedStaffNames);
+router.route("/nominated-faculty-names").get(getNominatedTeacherNames);
+router.route("/nominated-staff-names").get(getNominatedStaffNames);
 
 /**PUT Routes */
 
-// router.route('/research').put(userAuthenticator,researchDataUpdater);
-// router.route('/sports').put(userAuthenticator,sportsDataUpdater);
-router.route("/teaching").put(userAuthenticator, teachingDataUpdater);
-router.route("/non-teaching").put(userAuthenticator, nonTeachingDataUpdater);
+// router.route('/research').put(researchDataUpdater);
+// router.route('/sports').put(sportsDataUpdater);
+router.route("/teaching").put(teachingDataUpdater);
+router.route("/non-teaching").put(nonTeachingDataUpdater);
 
 /**POST Routes */
 
-// router.route('/research').post(userAuthenticator,upload06.single('approvalFile'),researchRecFileHandler)
+// router.route('/research').post(researchRecFileHandler)
 router
     .route("/teaching")
-    .post(
-        userAuthenticator,
-        upload08.single("approvalFile"),
-        teachingRecFileHandler
-    );
+    .post(upload08.single("approvalFile"), teachingRecFileHandler);
 router
     .route("/non-teaching")
-    .post(
-        userAuthenticator,
-        upload09.single("approvalFile"),
-        nonTeachingRecFileHandler
-    );
-// router.route('/sports').post(userAuthenticator,upload07.single('approvalFile'),sportsRecFileHandler)
+    .post(upload09.single("approvalFile"), nonTeachingRecFileHandler);
+// router.route('/sports').post(sportsRecFileHandler)
 export default router;

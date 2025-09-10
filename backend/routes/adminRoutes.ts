@@ -1,6 +1,5 @@
 import express from "express";
 const router = express.Router();
-import userAuthenticator from "../middleware/userAuthenticator";
 import { upload11 } from "../middleware/fileUpload";
 import {
     getCounts,
@@ -32,40 +31,32 @@ import {
 
 /** GET ROUTES */
 
-router.route("/count/all").get(userAuthenticator, getCounts);
-router.route("/count/15").get(userAuthenticator, getDaysCount);
-router
-    .route("/count/institution-wise")
-    .get(userAuthenticator, getInstitutionWiseCount);
-router.route("/count/group").get(userAuthenticator, getGroupWiseCount);
-router.route("/users").get(userAuthenticator, getUsersData);
+router.route("/count/all").get(getCounts);
+router.route("/count/15").get(getDaysCount);
+router.route("/count/institution-wise").get(getInstitutionWiseCount);
+router.route("/count/group").get(getGroupWiseCount);
+router.route("/users").get(getUsersData);
 
 // responses
 
-router
-    .route("/forms/outstanding-institution")
-    .get(userAuthenticator, getInstitutionData);
-router.route("/forms/research").get(userAuthenticator, getResearchData);
-router.route("/forms/sports-girl").get(userAuthenticator, getSportsGirlData);
-router.route("/forms/sports-boy").get(userAuthenticator, getSportsBoyData);
-router.route("/forms/sports-coach").get(userAuthenticator, getSportsCoachData);
-router.route("/forms/students").get(userAuthenticator, getStudentsData);
-router.route("/forms/teaching").get(userAuthenticator, getTeachingData);
-router.route("/forms/non-teaching").get(userAuthenticator, getNonTeachingData);
-router.route("/forms/feedback-01").get(userAuthenticator, getFeedback01Data);
-router.route("/forms/feedback-02").get(userAuthenticator, getFeedback02Data);
-router.route("/forms/feedback-03").get(userAuthenticator, getFeedback03Data);
-router.route("/forms/feedback-04").get(userAuthenticator, getFeedback04Data);
+router.route("/forms/outstanding-institution").get(getInstitutionData);
+router.route("/forms/research").get(getResearchData);
+router.route("/forms/sports-girl").get(getSportsGirlData);
+router.route("/forms/sports-boy").get(getSportsBoyData);
+router.route("/forms/sports-coach").get(getSportsCoachData);
+router.route("/forms/students").get(getStudentsData);
+router.route("/forms/teaching").get(getTeachingData);
+router.route("/forms/non-teaching").get(getNonTeachingData);
+router.route("/forms/feedback-01").get(getFeedback01Data);
+router.route("/forms/feedback-02").get(getFeedback02Data);
+router.route("/forms/feedback-03").get(getFeedback03Data);
+router.route("/forms/feedback-04").get(getFeedback04Data);
 
 // scorecard
 
-router
-    .route("/teaching/scorecard")
-    .get(userAuthenticator, getTeachingScoreCardData);
-router
-    .route("/non-teaching/scorecard")
-    .get(userAuthenticator, getNonTeachingScoreCardData);
-router.route("/:formtype/preview").get(userAuthenticator, getFormPreviewData);
+router.route("/teaching/scorecard").get(getTeachingScoreCardData);
+router.route("/non-teaching/scorecard").get(getNonTeachingScoreCardData);
+router.route("/:formtype/preview").get(getFormPreviewData);
 
 // Announce Results
 
@@ -79,13 +70,9 @@ router.route("/results").get(getResultsData);
 
 // Jury summary
 
-router
-    .route("/jury-summary/teaching")
-    .get(userAuthenticator, getTeachingJurySummaryData);
-router
-    .route("/jury-summary/non-teaching")
-    .get(userAuthenticator, getNonTeachingJurySummaryData);
+router.route("/jury-summary/teaching").get(getTeachingJurySummaryData);
+router.route("/jury-summary/non-teaching").get(getNonTeachingJurySummaryData);
 
 // delete query
-router.route("/delete-user").delete(userAuthenticator, deleteUser);
+router.route("/delete-user").delete(deleteUser);
 export default router;

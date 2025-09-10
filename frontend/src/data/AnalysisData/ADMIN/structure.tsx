@@ -14,8 +14,7 @@
  * -09 - column structure for feedback-04 form 
  * 
  */
-
-import { GridColDef } from '@mui/x-data-grid';
+import type { GridColDef } from '@mui/x-data-grid';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { Link } from 'react-router-dom'
@@ -141,7 +140,7 @@ const columns02: GridColDef[] = [
     },
     { field: 'confirmation_of_trueData', headerName: 'Confirmation of True Data', width: 200 },
     {
-        field: 'approved', headerName: 'Research Admin Approved', align: 'center', width: 200, type: 'boolean', width: 150, renderCell: (params) => {
+        field: 'approved', headerName: 'Research Admin Approved', align: 'center', width: 200, type: 'boolean', renderCell: (params) => {
             return params.value ?
                 (
                     <CheckRoundedIcon style={{ color: '#15803d' }} />
@@ -170,13 +169,13 @@ const columns03: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'email_id', headerName: 'Email', width: 200 },
     { field: 'student_name', headerName: 'Student Name', width: 200 },
-    { field: 'students_class', headerName: 'Class', width: 150 },
+    { field: 'students_class', headerName: 'Class' },
     { field: 'course', headerName: 'Course', width: 200 },
     { field: 'institution_name', headerName: 'Institution', width: 200 },
     { field: 'nomination_category', headerName: 'Nomination Category', width: 200 },
     { field: 'recommendation_note', headerName: 'Recommendation Note', width: 300 },
     {
-        field: 'approved', headerName: 'Approval Status', type: 'boolean', width: 150, renderCell: (params) => {
+        field: 'approved', headerName: 'Approval Status', type: 'boolean', renderCell: (params) => {
             return params.value ?
                 (
                     <CheckRoundedIcon style={{ color: '#15803d' }} />
@@ -251,7 +250,7 @@ const columns04: GridColDef[] = [
         }
     },
     {
-        field: 'ieacApproved', headerName: 'IEAC Approved', align: 'center', width: 200, type: 'boolean', width: 150, renderCell: (params) => {
+        field: 'ieacApproved', headerName: 'IEAC Approved', align: 'center', width: 200, type: 'boolean', renderCell: (params) => {
             return params.value ?
                 (
                     <CheckRoundedIcon style={{ color: '#15803d' }} />
@@ -342,7 +341,7 @@ const columns05: GridColDef[] = [
         }
     },
     {
-        field: 'ieacApproved', headerName: 'IEAC Approved', align: 'center', width: 200, type: 'boolean', width: 150, renderCell: (params) => {
+        field: 'ieacApproved', headerName: 'IEAC Approved', align: 'center', width: 200, type: 'boolean', renderCell: (params) => {
             return params.value ?
                 (
                     <CheckRoundedIcon style={{ color: '#15803d' }} />

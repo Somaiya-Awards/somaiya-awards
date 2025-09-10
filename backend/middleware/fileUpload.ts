@@ -11,8 +11,6 @@ import path from "path";
 
 // file upload for outstanding institution form
 
-const FILE_ROOT = "data";
-
 const destinations = [
     "institution",
     "research",

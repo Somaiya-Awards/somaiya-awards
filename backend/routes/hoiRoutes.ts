@@ -1,6 +1,5 @@
 import express from "express";
 const router = express.Router();
-import userAuthenticator from "../middleware/userAuthenticator";
 import {
     institutionDataHandler,
     researchDataHandler,
@@ -14,28 +13,26 @@ import {
 
 //get institution form data
 
-router
-    .route("/outstanding-institution")
-    .get(userAuthenticator, institutionDataHandler);
+router.route("/outstanding-institution").get(institutionDataHandler);
 
 //get research form data
 
-router.route("/research").get(userAuthenticator, researchDataHandler);
+router.route("/research").get(researchDataHandler);
 
 //get sports form data
 
-router.route("/sports").get(userAuthenticator, sportsDataHandler);
+router.route("/sports").get(sportsDataHandler);
 
 //get teaching form data
 
-router.route("/teaching").get(userAuthenticator, teachingDataHandler);
+router.route("/teaching").get(teachingDataHandler);
 
 //get non-teaching form data
 
-router.route("/non-teaching").get(userAuthenticator, nonTeachingDataHandler);
+router.route("/non-teaching").get(nonTeachingDataHandler);
 
 //get non-teaching form data
 
-router.route("/students").get(userAuthenticator, studentsDataHandler);
+router.route("/students").get(studentsDataHandler);
 
 export default router;
