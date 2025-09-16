@@ -1,12 +1,48 @@
-import {
-    BAD_REQUEST,
-    UNAUTHORIZED,
-    FORBIDDEN,
-    NOT_FOUND,
-    METHOD_NOT_ALLOWED,
-} from "../constants";
+import { StatusCode } from "../constants";
 import { Request, Response, NextFunction } from "express";
 
+function getErrorJson(
+    err: Error,
+    statusCode: StatusCode
+): { title: string; message: string; stack?: string } {
+    const debug = process.env.DEBUG === "1";
+    console.log(process.env.DEBUG);
+
+    const getTitle = (statusCode: StatusCode) => {
+        switch (statusCode) {
+            case StatusCode.BAD_REQUEST:
+                return "400 : BAD REQUEST";
+
+            case StatusCode.UNAUTHORIZED:
+                return "401 : UNAUTHORIZED";
+
+            case StatusCode.FORBIDDEN:
+                return "403 : FORBIDDEN";
+
+            case StatusCode.NOT_FOUND:
+                return "404 : NOT FOUND";
+
+            case StatusCode.METHOD_NOT_ALLOWED:
+                return "405 : METHOD NOT ALLOWED";
+
+            default:
+                return "500 : Server Error";
+        }
+    };
+
+    if (debug) {
+        return {
+            title: getTitle(statusCode),
+            message: err.message,
+            stack: err.stack,
+        };
+    } else {
+        return {
+            title: getTitle(statusCode),
+            message: err.message,
+        };
+    }
+}
 export default function errorHandler(
     err: Error,
     req: Request,
@@ -14,8 +50,6 @@ export default function errorHandler(
     next: NextFunction
 ) {
     const statusCode = res.statusCode ? res.statusCode : 500;
-
-    // TODO: Remove these stacks. No traceback in Prod
 
     let json = err.message;
 
@@ -25,56 +59,5 @@ export default function errorHandler(
 
     err.message = json;
 
-    switch (statusCode) {
-        case BAD_REQUEST:
-            res.json({
-                title: "400 : BAD REQUEST",
-                message: err.message,
-                stack: err.stack,
-            });
-
-            break;
-
-        case UNAUTHORIZED:
-            res.json({
-                title: "401 : UNAUTHORIZED",
-                message: err.message,
-                stack: err.stack,
-            });
-
-            break;
-
-        case FORBIDDEN:
-            res.json({
-                title: "403 : FORBIDDEN",
-                message: err.message,
-                stack: err.stack,
-            });
-
-            break;
-
-        case NOT_FOUND:
-            res.json({
-                title: "404 : NOT FOUND",
-                message: err.message,
-                stack: err.stack,
-            });
-
-            break;
-
-        case METHOD_NOT_ALLOWED:
-            res.json({
-                title: "405 : METHOD NOT ALLOWED",
-                message: err.message,
-                stack: err.stack,
-            });
-
-            break;
-        default:
-            res.json({
-                title: "500 : Server Error",
-                message: err.message,
-                stack: err.stack,
-            });
-    }
+    res.json(getErrorJson(err, statusCode));
 }

@@ -42,7 +42,7 @@ export function setJwtToken(user: Model, expire: JwtTimeout) {
 
     if (secret === undefined) throw new Error("JWT Secret not found");
 
-    return jwt.sign(payload, secret, { expiresIn: expire });
+    return `Bearer ${jwt.sign(payload, secret, { expiresIn: expire })}`;
 }
 
 /**
@@ -57,8 +57,8 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
      *
      * if something breaks remove this if statement due to token or userID while TESTING
      * */
-
     // Both absent
+    console.log(accessToken, refreshToken);
     if (!accessToken || !refreshToken) {
         res.status(400).json({
             message: "Malformed Request",
@@ -111,8 +111,14 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     }
 
     (req as AuthRequest).user = user;
-    res.cookie(AccessHeader, `Bearer ${newAccess}`, {expires: new Date(Date.now() + 1000*60*60), httpOnly: true});
-    res.cookie(RefreshHeader, `Bearer ${newRefresh}`, {expires: new Date(Date.now() + 1000*60*60*24), httpOnly: true});
+    res.cookie(AccessHeader, `Bearer ${newAccess}`, {
+        expires: new Date(Date.now() + 1000 * 60 * 60),
+        httpOnly: true,
+    });
+    res.cookie(RefreshHeader, `Bearer ${newRefresh}`, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        httpOnly: true,
+    });
 
     next();
 });

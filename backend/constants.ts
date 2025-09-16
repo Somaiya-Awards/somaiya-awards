@@ -1,7 +1,9 @@
-export const BAD_REQUEST = 400;
-export const UNAUTHORIZED = 401;
-export const FORBIDDEN = 403;
-export const NOT_FOUND = 404;
-export const METHOD_NOT_ALLOWED = 405;
+export enum StatusCode {
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUND = 404,
+    METHOD_NOT_ALLOWED = 405,
+}
 export const AccessHeader = "x-access";
 export const RefreshHeader = "x-refresh";

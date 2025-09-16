@@ -19,6 +19,7 @@ import { Role } from "./types/role";
 import dotenv from "dotenv";
 import userAuthenticator from "./middleware/userAuthenticator";
 import roleMiddle from "./middleware/role";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -41,7 +42,13 @@ const numCPUs = os.cpus().length;
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:3000", // your frontend URL
+        credentials: true,
+    })
+);
+app.use(cookieParser());
 app.use(express.json());
 app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
@@ -87,10 +94,10 @@ sequelize.sync({ alter: true }).then(async (req) => {
         serverLogger.info(`Connected to database ${req.config.database}`);
         console.log("Connected to MySQL database");
     } catch (error) {
-        throw error;
         console.error(
             "Error creating default user: OR User already exists. " + error
         );
+        throw error;
     }
     const PORT = process.env.PORT || 5000;
 
