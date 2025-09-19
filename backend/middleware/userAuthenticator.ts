@@ -2,21 +2,15 @@ import asyncHandler from "express-async-handler";
 // import { authLogger } from "logger";
 import jwt from "jsonwebtoken";
 import { User } from "../models";
-import { AccessHeader, RefreshHeader } from "../constants";
+import { AccessHeader, IstOffset, RefreshHeader } from "../constants";
 import { AuthRequest } from "../types/request";
 import { JwtForm, JwtType } from "../zod/auth/jwt";
 import { Model } from "sequelize";
 
 export function getJwtToken(token: string): JwtType | null {
     try {
-        if (!token.startsWith("Bearer ")) {
-            throw new Error("Malformed auth header");
-        }
-
-        token = token.split("Bearer ")[1];
-
         const secret = process.env.JWT_SECRET;
-        console.log(secret);
+
         if (secret === undefined) throw new Error("JWT Secret not found");
 
         return JwtForm.parse(jwt.verify(token, secret));
@@ -42,7 +36,7 @@ export function setJwtToken(user: Model, expire: JwtTimeout) {
 
     if (secret === undefined) throw new Error("JWT Secret not found");
 
-    return `Bearer ${jwt.sign(payload, secret, { expiresIn: expire })}`;
+    return jwt.sign(payload, secret, { expiresIn: expire });
 }
 
 /**
@@ -57,8 +51,8 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
      *
      * if something breaks remove this if statement due to token or userID while TESTING
      * */
+
     // Both absent
-    console.log(accessToken, refreshToken);
     if (!accessToken || !refreshToken) {
         res.status(400).json({
             message: "Malformed Request",
@@ -85,6 +79,7 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
         return;
     }
 
+    // TODO: Remove this auto refreshing
     let toCheckToken = refresh;
 
     if (access !== null) {
@@ -102,8 +97,8 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
         return;
     }
 
-    let newAccess = accessToken.split("Bearer ")[1],
-        newRefresh = refreshToken.split("Bearer ")[1];
+    let newAccess = accessToken,
+        newRefresh = refreshToken;
 
     if (access === null) {
         newAccess = setJwtToken(user, "1h");
@@ -111,14 +106,6 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     }
 
     (req as AuthRequest).user = user;
-    res.cookie(AccessHeader, `Bearer ${newAccess}`, {
-        expires: new Date(Date.now() + 1000 * 60 * 60),
-        httpOnly: true,
-    });
-    res.cookie(RefreshHeader, `Bearer ${newRefresh}`, {
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-        httpOnly: true,
-    });
 
     next();
 });

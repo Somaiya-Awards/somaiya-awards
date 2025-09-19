@@ -52,10 +52,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
-app.use("/forms", userAuthenticator, formRoute);
+app.use("/forms", formRoute);
 app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
 app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
-app.use("/admin/data", userAuthenticator, roleMiddle(Role.Admin), adminRoutes);
+app.use("/admin/data", roleMiddle(Role.Admin), adminRoutes);
 app.use(
     "/students-admin/data",
     userAuthenticator,

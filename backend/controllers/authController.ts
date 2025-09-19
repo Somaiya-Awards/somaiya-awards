@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
 import { setJwtToken } from "../middleware/userAuthenticator";
-import { AccessHeader, RefreshHeader } from "../constants";
+import { AccessHeader, IstOffset, RefreshHeader } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
@@ -40,8 +40,8 @@ export const userLogin = asyncHandler(async (req, res) => {
         let refresh = setJwtToken(user, "1d");
 
         authLogger.info(`${user.email_id} logged in successfully`);
-        res.cookie(AccessHeader, access, {expires: new Date(Date.now() + 1000*60*60), httpOnly: true, sameSite: "strict"});
-        res.cookie(RefreshHeader, refresh, {expires: new Date(Date.now() + 1000*60*60*24), httpOnly: true, sameSite: "strict"});
+        res.cookie(AccessHeader, access, {expires: new Date(Date.now() + IstOffset + 1000*60*60), httpOnly: true, sameSite: "strict"});
+        res.cookie(RefreshHeader, refresh, {expires: new Date(Date.now() + IstOffset + 1000*60*60*24), httpOnly: true, sameSite: "strict"});
 
         res.status(200).json({
             authorized: result,

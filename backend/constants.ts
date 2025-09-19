@@ -7,3 +7,4 @@ export enum StatusCode {
 }
 export const AccessHeader = "x-access";
 export const RefreshHeader = "x-refresh";
+export const IstOffset = (5 * 60 + 30) * 60000
