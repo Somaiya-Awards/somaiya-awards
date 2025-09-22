@@ -5,8 +5,12 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import { setJwtToken } from "../middleware/userAuthenticator";
-import { AccessHeader, IstOffset, RefreshHeader } from "../constants";
+import {
+    getJwtToken,
+    setCookies,
+    setJwtToken,
+} from "../middleware/userAuthenticator";
+import { RefreshHeader } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
@@ -33,18 +37,17 @@ export const userLogin = asyncHandler(async (req, res) => {
 
     const dbPassword = user.password;
 
-    const result = bcrypt.compare(user_password, dbPassword);
+    const result = await bcrypt.compare(user_password, dbPassword); // this was a promise??
 
     if (result) {
         let access = setJwtToken(user, "1h");
         let refresh = setJwtToken(user, "1d");
 
         authLogger.info(`${user.email_id} logged in successfully`);
-        res.cookie(AccessHeader, access, {expires: new Date(Date.now() + IstOffset + 1000*60*60), httpOnly: true, sameSite: "strict"});
-        res.cookie(RefreshHeader, refresh, {expires: new Date(Date.now() + IstOffset + 1000*60*60*24), httpOnly: true, sameSite: "strict"});
+
+        setCookies(res, access, refresh);
 
         res.status(200).json({
-            authorized: result,
             role: user.role,
             institution: user.institution,
         });
@@ -55,29 +58,59 @@ export const userLogin = asyncHandler(async (req, res) => {
     }
 });
 
-/** User Registration Code */
-// export const userLogin = asyncHandler( async (req,res)=>{
+//@desc handle cookie refresh
+//@route POST /auth/refresh
+//@access public
+export const userRefresh = asyncHandler(async (req, res) => {
+    const refreshToken = req.cookies[RefreshHeader];
+    /**
+     * WARN: (Don't Follow that):
+     *
+     * if something breaks remove this if statement due to token or userID while TESTING
+     * */
 
-//     const {user_email , user_password } = req.body;
+    // Refresh absent
+    if (!refreshToken) {
+        res.status(400).json({
+            message: "Malformed Request",
+        });
+        return;
+    }
 
-//     const user = await User.findOne({where: {email_id: user_email}})
+    if (Array.isArray(refreshToken)) {
+        res.status(400).json({
+            error: "Received Multiple Tokens",
+        });
+        return;
+    }
 
-//     if(user){
+    /**till here */
 
-//         res.status(400)
-//         throw new Error("User already Exists")
+    let refresh = getJwtToken(refreshToken);
 
-//     }
+    if (refresh === null) {
+        res.status(401).json({
+            message: "Token Expired",
+        });
+        return;
+    }
 
-//     const hashedPassword = await bcrypt.hash(user_password,10);
+    console.log(1);
+    let user = await User.findOne({
+        where: { id: refresh.id, email_id: refresh.email_id },
+    });
 
-//     await User.create({email_id:user_email , password: hashedPassword , role:"hoi" })
+    if (user == null) {
+        res.status(401).json({
+            message: "User ID not found",
+        });
+        return;
+    }
 
-//     res.status(200).json({
-//         message:"User created successfully"
-//     })
+    setCookies(res, setJwtToken(user, "1h"), refreshToken);
 
-// })
+    res.status(200).json({});
+});
 
 //@desc handle user creation from admin side
 //@route POST /auth/register

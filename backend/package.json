@@ -1,14 +1,14 @@
 {
   "name": "somaiya-awards-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Backend Api for Somaiya awards System",
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx sequelize-cli db:create && node server.js",
+    "start": "npx sequelize-cli db:create && node server.ts",
     "dev": "npx sequelize-cli db:create && nodemon server"
   },
-  "author": "Trushil Dhokiya",
+  "author": "Alpharius397",
   "license": "ISC",
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",

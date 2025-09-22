@@ -2,7 +2,7 @@
 
 ## Progress Report
 
-![Progress Bar](https://progress-bar.xyz/35/)
+![Progress Bar](https://progress-bar.xyz/40/)
 
 ++++++++Why-0-Progress++++++++
   1) No Security (Even in Production)
@@ -19,15 +19,15 @@
 - [x] AuthController and AdminController done 
 - [x] Zod added and updated
 - [x] Make it run actually (It's alive)
+- [x] Axios Updation and Customization
+- [x] Limiting what data is send (Current sends everything -> DANGEROUS)
+- [x] Controller Rewrite and Optimization
 
 #### TODO
-- [ ] Controller Rewrite and Optimization
-- [ ] Limiting what data is send (Current sends everything -> DANGEROUS)
 - [ ] Routes Updation
 - [ ] Frontend Rewrite and Library Updation
-- [ ] Axios Updation and Customization
 - [ ] Full-Stack Type Safety
-      
+- [ ] FRONTEND (it's big)   
 
 #### MAYBE
 - [ ] Use tRPC (Pros: More Type Safety, Cons: It has it's own configs and need special routing. TLDR: Route Rewrite v2)
@@ -94,6 +94,3 @@ Start your backend server
 npm run dev  # to start your backend development server
 npm start    # to start backend production server
 ```
-
-
-

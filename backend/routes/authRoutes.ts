@@ -5,6 +5,7 @@ import {
     changePassword,
     registerUser,
     bulkCreateOrUpdateUsers,
+    userRefresh,
 } from "../controllers/authController";
 
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
  */
 
 router.route("/login").post(userLogin);
+router.route("/refresh").post(userRefresh);
 router.route("/forgot-password").post(passwordReset);
 router.route("/:id/:token").post(changePassword);
 router.route("/register").post(registerUser);

@@ -2,10 +2,41 @@ import asyncHandler from "express-async-handler";
 // import { authLogger } from "logger";
 import jwt from "jsonwebtoken";
 import { User } from "../models";
-import { AccessHeader, IstOffset, RefreshHeader } from "../constants";
+import {
+    AccessHeader,
+    IstOffset,
+    LoggedHeader,
+    RefreshHeader,
+} from "../constants";
 import { AuthRequest } from "../types/request";
 import { JwtForm, JwtType } from "../zod/auth/jwt";
 import { Model } from "sequelize";
+import { Response } from "express";
+
+export function setCookies(
+    res: Response,
+    accessCookie: string,
+    refreshCookie: string
+) {
+    res.cookie(AccessHeader, accessCookie, {
+        expires: new Date(Date.now() + IstOffset + 1000 * 60 * 60),
+        httpOnly: true,
+        sameSite: "strict",
+    });
+
+    res.cookie(RefreshHeader, refreshCookie, {
+        expires: new Date(Date.now() + IstOffset + 1000 * 60 * 60 * 24),
+        httpOnly: true,
+        sameSite: "strict",
+        path: "/auth/refresh",
+    });
+
+    res.cookie(LoggedHeader, "true", {
+        expires: new Date(Date.now() + IstOffset + 1000 * 60 * 60 * 24),
+        httpOnly: false,
+        sameSite: "strict",
+    });
+}
 
 export function getJwtToken(token: string): JwtType | null {
     try {
@@ -45,7 +76,6 @@ export function setJwtToken(user: Model, expire: JwtTimeout) {
  * */
 const userAuthenticator = asyncHandler(async (req, res, next) => {
     const accessToken = req.cookies[AccessHeader];
-    const refreshToken = req.cookies[RefreshHeader];
     /**
      * WARN: (Don't Follow that):
      *
@@ -53,14 +83,14 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
      * */
 
     // Both absent
-    if (!accessToken || !refreshToken) {
+    if (!accessToken) {
         res.status(400).json({
             message: "Malformed Request",
         });
         return;
     }
 
-    if (Array.isArray(accessToken) || Array.isArray(refreshToken)) {
+    if (Array.isArray(accessToken)) {
         res.status(400).json({
             error: "Received Multiple Tokens",
         });
@@ -70,39 +100,27 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     /**till here */
 
     let access = getJwtToken(accessToken);
-    let refresh = getJwtToken(refreshToken);
 
-    if (refresh === null) {
-        res.status(401).json({
+    if (access === null) {
+        res.status(418).json({
             message: "Token Expired",
         });
         return;
     }
 
     // TODO: Remove this auto refreshing
-    let toCheckToken = refresh;
-
-    if (access !== null) {
-        toCheckToken = access;
-    }
 
     let user = await User.findOne({
-        where: { id: toCheckToken.id, email_id: toCheckToken.email_id },
+        where: { id: access.id, email_id: access.email_id },
     });
+
+    console.log(access, 1);
 
     if (user == null) {
         res.status(401).json({
             message: "User ID not found",
         });
         return;
-    }
-
-    let newAccess = accessToken,
-        newRefresh = refreshToken;
-
-    if (access === null) {
-        newAccess = setJwtToken(user, "1h");
-        newRefresh = setJwtToken(user, "1d");
     }
 
     (req as AuthRequest).user = user;

@@ -6,5 +6,6 @@ export enum StatusCode {
     METHOD_NOT_ALLOWED = 405,
 }
 export const AccessHeader = "x-access";
+export const LoggedHeader = "logged";
 export const RefreshHeader = "x-refresh";
-export const IstOffset = (5 * 60 + 30) * 60000
+export const IstOffset = (5 * 60 + 30) * 60000;

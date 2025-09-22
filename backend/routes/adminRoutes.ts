@@ -29,41 +29,92 @@ import {
     getUsersData,
 } from "../controllers/adminController";
 import userAuthenticator from "../middleware/userAuthenticator";
+import { Role } from "../types/role";
+import roleMiddle from "../middleware/role";
 
 /** GET ROUTES */
 
-router.route("/count/all").get(userAuthenticator, getCounts);
-router.route("/count/15").get(userAuthenticator, getDaysCount);
-router.route("/count/institution-wise").get(userAuthenticator, getInstitutionWiseCount);
-router.route("/count/group").get(userAuthenticator, getGroupWiseCount);
-router.route("/users").get(userAuthenticator, getUsersData);
+router
+    .route("/count/all")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getCounts);
+router
+    .route("/count/15")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getDaysCount);
+router
+    .route("/count/institution-wise")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getInstitutionWiseCount);
+router
+    .route("/count/group")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getGroupWiseCount);
+router
+    .route("/users")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getUsersData);
 
 // responses
 
-router.route("/forms/outstanding-institution").get(userAuthenticator, getInstitutionData);
-router.route("/forms/research").get(userAuthenticator, getResearchData);
-router.route("/forms/sports-girl").get(userAuthenticator, getSportsGirlData);
-router.route("/forms/sports-boy").get(userAuthenticator, getSportsBoyData);
-router.route("/forms/sports-coach").get(userAuthenticator, getSportsCoachData);
-router.route("/forms/students").get(userAuthenticator, getStudentsData);
-router.route("/forms/teaching").get(userAuthenticator, getTeachingData);
-router.route("/forms/non-teaching").get(userAuthenticator, getNonTeachingData);
-router.route("/forms/feedback-01").get(userAuthenticator, getFeedback01Data);
-router.route("/forms/feedback-02").get(userAuthenticator, getFeedback02Data);
-router.route("/forms/feedback-03").get(userAuthenticator, getFeedback03Data);
-router.route("/forms/feedback-04").get(userAuthenticator, getFeedback04Data);
+router
+    .route("/forms/outstanding-institution")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getInstitutionData);
+router
+    .route("/forms/research")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getResearchData);
+router
+    .route("/forms/sports-girl")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsGirlData);
+router
+    .route("/forms/sports-boy")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsBoyData);
+router
+    .route("/forms/sports-coach")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsCoachData);
+router
+    .route("/forms/students")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getStudentsData);
+router
+    .route("/forms/teaching")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingData);
+router
+    .route("/forms/non-teaching")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getNonTeachingData);
+router
+    .route("/forms/feedback-01")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback01Data);
+router
+    .route("/forms/feedback-02")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback02Data);
+router
+    .route("/forms/feedback-03")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback03Data);
+router
+    .route("/forms/feedback-04")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback04Data);
 
 // scorecard
 
-router.route("/teaching/scorecard").get(userAuthenticator, getTeachingScoreCardData);
-router.route("/non-teaching/scorecard").get(userAuthenticator, getNonTeachingScoreCardData);
-router.route("/:formtype/preview").get(userAuthenticator, getFormPreviewData);
+router
+    .route("/teaching/scorecard")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingScoreCardData);
+router
+    .route("/non-teaching/scorecard")
+    .get(
+        userAuthenticator,
+        roleMiddle(Role.Admin),
+        getNonTeachingScoreCardData
+    );
+router
+    .route("/:formtype/preview")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getFormPreviewData);
 
 // Announce Results
 
 router
     .route("/announce-results")
-    .post(upload11.single("result"), resultsDataHandler);
+    .post(
+        userAuthenticator,
+        upload11.single("result"),
+        roleMiddle(Role.Admin),
+        resultsDataHandler
+    );
 
 // GET RESULTS
 
@@ -71,9 +122,20 @@ router.route("/results").get(getResultsData);
 
 // Jury summary
 
-router.route("/jury-summary/teaching").get(userAuthenticator, getTeachingJurySummaryData);
-router.route("/jury-summary/non-teaching").get(userAuthenticator, getNonTeachingJurySummaryData);
+router
+    .route("/jury-summary/teaching")
+    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingJurySummaryData);
+router
+    .route("/jury-summary/non-teaching")
+    .get(
+        userAuthenticator,
+        roleMiddle(Role.Admin),
+        getNonTeachingJurySummaryData
+    );
 
 // delete query
-router.route("/delete-user").delete(userAuthenticator, deleteUser);
+router
+    .route("/delete-user")
+    .delete(userAuthenticator, roleMiddle(Role.Admin), deleteUser);
+
 export default router;

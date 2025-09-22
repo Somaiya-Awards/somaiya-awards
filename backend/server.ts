@@ -1,7 +1,5 @@
-import express, { NextFunction } from "express";
+import express from "express";
 import os from "os";
-import { Request, Response } from "express";
-import cluster from "cluster";
 import authRoute from "./routes/authRoutes";
 import formRoute from "./routes/formRoutes";
 import hoiRoutes from "./routes/hoiRoutes";
@@ -55,7 +53,7 @@ app.use("/auth", authRoute);
 app.use("/forms", formRoute);
 app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
 app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
-app.use("/admin/data", roleMiddle(Role.Admin), adminRoutes);
+app.use("/admin/data", adminRoutes);
 app.use(
     "/students-admin/data",
     userAuthenticator,
@@ -76,34 +74,34 @@ app.use(
 );
 app.use(errorHandler);
 
-// server listen and database configuration
-sequelize.sync({ alter: true }).then(async (req) => {
-    try {
-        const userCount = await User.count();
+// server listen and database configuration (do it once, only. Uncomment once, then comment out)
+// sequelize.sync({ alter: true }).then(async (req) => {
+//     try {
+//         const userCount = await User.count();
+//
+//         if (userCount === 0) {
+//             await User.create({
+//                 email_id: "sas.tech@somaiya.edu",
+//                 password: await bcrypt.hash("Sas@1234", 10),
+//                 role: Role.Admin,
+//             });
+//
+//             console.log("Default user created successfully!");
+//         }
+//
+//         serverLogger.info(`Connected to database ${req.config.database}`);
+//         console.log("Connected to MySQL database");
+//     } catch (error) {
+//         console.error(
+//             "Error creating default user: OR User already exists. " + error
+//         );
+//         throw error;
+//     }
+const PORT = process.env.PORT || 5000;
 
-        if (userCount === 0) {
-            await User.create({
-                email_id: "sas.tech@somaiya.edu",
-                password: await bcrypt.hash("Sas@1234", 10),
-                role: Role.Admin,
-            });
-
-            console.log("Default user created successfully!");
-        }
-
-        serverLogger.info(`Connected to database ${req.config.database}`);
-        console.log("Connected to MySQL database");
-    } catch (error) {
-        console.error(
-            "Error creating default user: OR User already exists. " + error
-        );
-        throw error;
-    }
-    const PORT = process.env.PORT || 5000;
-
-    app.listen(PORT, () => {
-        serverLogger.info(`Server started running at port ${PORT}`);
-        console.log(`Server started running at port ${PORT}`);
-    });
+app.listen(PORT, () => {
+    serverLogger.info(`Server started running at port ${PORT}`);
+    console.log(`Server started running at port ${PORT}`);
 });
+// });
 // }

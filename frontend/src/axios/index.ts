@@ -1,96 +1,153 @@
-import axios from 'axios';
-import { validString } from '../../../backend/zod';
-import z from 'zod';
+import axios, { AxiosError } from "axios";
+import { validString } from "../../../backend/zod";
 
-const BASE_URL = 'http://127.0.0.1:8000/api';  
+const BASE_URL = "http://localhost/5001";
+
 export const URL = {
-    AUTH: { // auth/
-        USER: `${BASE_URL}/auth/user`,
-        LOGIN: `${BASE_URL}/auth/login`,
-        REGISTER: `${BASE_URL}/auth/register`,
-        UNIVERSITY: `${BASE_URL}/auth/university`,
-        INSTITUTE: `${BASE_URL}/auth/institute`,
-        BRANCH: `${BASE_URL}/auth/branch`,
+  AUTH: {
+    LOGIN: `${BASE_URL}/auth/login`,
+    FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
+    REFRESH: `${BASE_URL}/auth/refresh`,
+    OTP_RESET: (id: string, token: string) => {
+      const validId = validString.parse(id);
+      const validToken = validString.parse(token);
+      return `${BASE_URL}/auth/${validId}/${validToken}`;
     },
-    CARD: { // card
-        STATUS: `${BASE_URL}/card/status`, // checks whether or not user owns card
-        CARDS: `${BASE_URL}/card/`, // returns all cards owned by user
-        HEADING: `${BASE_URL}/card/heading`, // returns a heading
-    },
-    CHANGE: { // change/
-        OTP: { // these send otps
-            USERNAME: `${BASE_URL}/change/mail/username`,
-            EMAIL: `${BASE_URL}/change/mail/email`,
-            PASSWORD: `${BASE_URL}/change/mail/password`,
-            DELETE: `${BASE_URL}/change/mail/delete`,
-            /** remember redirect user to password screen */
-            FORGOT: `${BASE_URL}/change/forgot`,
-        },
-        /** these verify otp and make changes */
-        VERIFY: { 
-            USERNAME: `${BASE_URL}/change/username`,
-            EMAIL: `${BASE_URL}/change/email`,
-            PASSWORD: `${BASE_URL}/change/password`,
-            DELETE: `${BASE_URL}/change/delete`,
-            /** remember redirect user to password screen */
-            FORGOT: `${BASE_URL}/change/reset`,
-        }
+    VALIDATE: `${BASE_URL}/auth/validate`,
+    REGISTER: `${BASE_URL}/auth/register`,
+    BULK_CREATE: `${BASE_URL}/auth/bulk-create`,
+  },
 
+  ADMIN: {
+    COUNT: {
+      ALL: `${BASE_URL}/admin/data/count/all`,
+      LAST_15: `${BASE_URL}/admin/data/count/15`,
+      INSTITUTION_WISE: `${BASE_URL}/admin/data/count/institution-wise`,
+      GROUPS: `${BASE_URL}/admin/data/count/group`,
     },
-    REPORT: function (cardID: string, sem:string){ // report/ -> these are dynamic, function call this
-        const card = validString.parse(`${cardID}`);
-        const Sem = z.string().nullable().parse(sem);
+    USERS_LIST: `${BASE_URL}/admin/data/users`,
+    FORMS: {
+      SPORTS_COACH: `${BASE_URL}/admin/data/forms/sports-coach`,
+      STUDENTS: `${BASE_URL}/admin/data/forms/students`,
+      SPORTS_GIRL: `${BASE_URL}/admin/data/forms/sports-girl`,
+      SPORTS_BOY: `${BASE_URL}/admin/data/forms/sports-boy`,
+      NON_TEACHING: `${BASE_URL}/admin/data/forms/non-teaching`,
+      OUTSTANDING_INSTITUTION: `${BASE_URL}/admin/data/forms/outstanding-institution`,
+      FEEDBACK_01: `${BASE_URL}/admin/data/forms/feedback-01`,
+      RESEARCH: `${BASE_URL}/admin/data/forms/research`,
+      TEACHING: `${BASE_URL}/admin/data/forms/teaching`,
+      FEEDBACK_02: `${BASE_URL}/admin/data/forms/feedback-02`,
+      FEEDBACK_03: `${BASE_URL}/admin/data/forms/feedback-03`,
+      FEEDBACK_04: `${BASE_URL}/admin/data/forms/feedback-04`,
+    },
+    RESULTS_HANDLER: `${BASE_URL}/admin/data/announce-results`,
+    FORM_PREVIEW: (formType: string) => {
+      const validForm = validString.parse(formType);
+      return `${BASE_URL}/admin/data/${validForm}/preview`;
+    },
+    JURY_SUMMARY: {
+      TEACHING: `${BASE_URL}/admin/data/jury-summary/teaching`,
+      NON_TEACHING: `${BASE_URL}/admin/data/jury-summary/non-teaching`,
+    },
+    SCORECARD: {
+      TEACHING: `${BASE_URL}/admin/data/teaching/scorecard`,
+      NON_TEACHING: `${BASE_URL}/admin/data/non-teaching/scorecard`,
+    },
+    RESULTS: `${BASE_URL}/admin/data/results`,
+    DELETE_USER: `${BASE_URL}/admin/data/delete-user`,
+  },
 
-        return `${BASE_URL}/report/${card}?sem=${Sem}`
-    }
-}
+  FORMS: {
+    SPORTS: `${BASE_URL}/forms/sports`,
+    TEACHING: `${BASE_URL}/forms/teaching`,
+    STUDENTS: `${BASE_URL}/forms/students`,
+    RESEARCH: `${BASE_URL}/forms/research`,
+    NON_TEACHING: `${BASE_URL}/forms/non-teaching`,
+    OUTSTANDING_INSTITUTION: `${BASE_URL}/forms/outstanding-institution`,
+    FEEDBACK_01: `${BASE_URL}/forms/feedback-01`,
+    FEEDBACK_02: `${BASE_URL}/forms/feedback-02`,
+    FEEDBACK_03: `${BASE_URL}/forms/feedback-03`,
+    FEEDBACK_04: `${BASE_URL}/forms/feedback-04`,
+    FEEDBACK_05: `${BASE_URL}/forms/feedback-05`,
+  },
+
+  HOI: {
+    STUDENTS: `${BASE_URL}/hoi/data/students`,
+    NON_TEACHING: `${BASE_URL}/hoi/data/non-teaching`,
+    SPORTS: `${BASE_URL}/hoi/data/sports`,
+    TEACHING: `${BASE_URL}/hoi/data/teaching`,
+    RESEARCH: `${BASE_URL}/hoi/data/research`,
+    OUTSTANDING_INSTITUTION: `${BASE_URL}/hoi/data/outstanding-institution`,
+  },
+
+  IEAC: {
+    OUTSTANDING_INSTITUTION: `${BASE_URL}/ieac/data/outstanding-institution`,
+    NOMINATED_STAFF: `${BASE_URL}/ieac/data/nominated-staff-names`,
+    TEACHING: `${BASE_URL}/ieac/data/teaching`,
+    NON_TEACHING: `${BASE_URL}/ieac/data/non-teaching`,
+    NOMINATED_FACULTY: `${BASE_URL}/ieac/data/nominated-faculty-names`,
+  },
+
+  RESEARCH_ADMIN: {
+    UPDATE: `${BASE_URL}/research-data/data/update`,
+    RESEARCH: `${BASE_URL}/research-data/data/research`,
+  },
+
+  SPORTS_ADMIN: {
+    INSPIRING_COACH: `${BASE_URL}/sports-admin/data/inspiring-coach`,
+    NOMINATED_COACH: `${BASE_URL}/sports-admin/data/nominated-coach-names`,
+    SPORTS_STAR_BOY: `${BASE_URL}/sports-admin/data/sports-star-boy`,
+    SPORTS_STAR_GIRL: `${BASE_URL}/sports-admin/data/sports-star-girl`,
+    UPDATE: `${BASE_URL}/sports-admin/data/update`,
+  },
+
+  STUDENTS_ADMIN: {
+    STAR_CITIZEN: `${BASE_URL}/students-admin/data/somaiya-star-citizen`,
+    GREEN_STAR: `${BASE_URL}/students-admin/data/somaiya-green-star`,
+    STAR_INNOVATOR: `${BASE_URL}/students-admin/data/somaiya-star-innovator`,
+    UPDATE: `${BASE_URL}/students-admin/data/update`,
+    STAR_BOY: `${BASE_URL}/students-admin/data/somaiya-star-boy`,
+    STAR_GIRL: `${BASE_URL}/students-admin/data/somaiya-star-girl`,
+  },
+};
 
 const Axios = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        'Request-Origin': BASE_URL,
-        'Content-Type': 'application/json',
-    },
+  baseURL: BASE_URL,
+  headers: {
+    "Request-Origin": BASE_URL,
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
 });
 
-Axios.interceptors.request.use(
-    async (config) => {
-        try {
-            const token = await getAccessToken(); 
-            const refresh = await getRefreshToken(); 
-
-            if ((token !== null) && (refresh !== null) && (config.headers)) {
-                config.headers.Authorization = `Bearer ${token}`;
-                config.headers.Refresh = `Bearer ${refresh}`;
-            }
-
-        } catch (error) {
-            console.error('Error fetching token:', error);
-        }
-        return config;
-    },
-
-    async (error) => {
-        console.error('Request interceptor error:', error);
-        return Promise.reject(error);
-    }
-);
-
 Axios.interceptors.response.use(
-    async (response) => {
+  async (response) => response,
 
-        try {
-            const {access, refresh} = response.data;
-    
-            if((access !== undefined) && (access !== null)) await setAccessToken(access); 
-            if((refresh !== undefined) && (refresh !== null)) await setRefreshToken(refresh); 
+  async (error: AxiosError) => {
+    const config = error.config;
 
-        } catch(err){
-            console.warn(err);
+    if (!config) return Promise.reject(error);
+
+    if (config.url === URL.AUTH.REFRESH) return Promise.reject(error);
+
+    try {
+      await axios.post(
+        URL.AUTH.REFRESH,
+        {},
+        {
+          headers: {
+            "Request-Origin": BASE_URL,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         }
-        
-        return response;    
+      );
+
+      return Axios(config);
+    } catch (err) {
+      return Promise.reject(err);
     }
+  }
 );
 
-export default Axios
+export default Axios;

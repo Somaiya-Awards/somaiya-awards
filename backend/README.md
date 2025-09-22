@@ -3,9 +3,6 @@
 
 Backend server for somaiya awards project . The backend API is created using Node JS and Express JS 
 
-
-
-
 ## Run Locally
 
 Clone the project
@@ -41,11 +38,6 @@ To run this project, you will need to add the following environment variables to
 
 `Your Gmail address and APP KEY`
 
-
-
 ## Tech Stack
 
 **Server:** Node, Express , MYSQL  
-
-
-

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "../utils/css/config.css";
+import { useState } from "react";
+import "./css/config.css";
 
 /**validations */
 const validator = (props, value) => {
