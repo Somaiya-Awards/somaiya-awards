@@ -50,7 +50,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
-app.use("/forms", formRoute);
+app.use("/forms", userAuthenticator, /** --Guy who fills form -- ,*/ formRoute);
 app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
 app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
 app.use("/admin/data", adminRoutes);
