@@ -111,8 +111,8 @@ router
     .route("/announce-results")
     .post(
         userAuthenticator,
-        upload11.single("result"),
         roleMiddle(Role.Admin),
+        upload11.single("result"),
         resultsDataHandler
     );
 
