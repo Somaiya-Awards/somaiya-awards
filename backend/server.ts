@@ -11,13 +11,12 @@ import researchRoutes from "./routes/researchAdminRoutes";
 import errorHandler from "./middleware/errorHandler";
 import cors from "cors";
 import { serverLogger } from "./middleware/logger";
-import bcrypt from "bcrypt";
-import { sequelize, User } from "./models";
 import { Role } from "./types/role";
 import dotenv from "dotenv";
 import userAuthenticator from "./middleware/userAuthenticator";
 import roleMiddle from "./middleware/role";
 import cookieParser from "cookie-parser";
+import csrfMiddleware from "./middleware/csrfCookie";
 
 dotenv.config();
 
@@ -37,6 +36,7 @@ const numCPUs = os.cpus().length;
 //     });
 // } else {
 // creating express app
+
 const app = express();
 
 // Middleware
@@ -48,26 +48,52 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
+app.use(
+    "/data",
+    csrfMiddleware,
+    userAuthenticator,
+    express.static(`${__dirname}/data`)
+);
 app.use("/auth", authRoute);
-app.use("/forms", userAuthenticator, /** --Guy who fills form -- ,*/ formRoute);
-app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
-app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
+app.use(
+    "/forms",
+    csrfMiddleware,
+    userAuthenticator,
+    /** --Guy who fills form -- ,*/ 
+    formRoute
+);
+app.use(
+    "/hoi/data",
+    csrfMiddleware,
+    userAuthenticator,
+    roleMiddle(Role.Hoi),
+    hoiRoutes
+);
+app.use(
+    "/ieac/data",
+    csrfMiddleware,
+    userAuthenticator,
+    roleMiddle(Role.Ieac),
+    ieacRoutes
+);
 app.use("/admin/data", adminRoutes);
 app.use(
     "/students-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.StudentAdmin),
     studentAdminRoutes
 );
 app.use(
     "/sports-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.SportsAdmin),
     sportsAdminRoutes
 );
 app.use(
     "/research-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.ResearchAdmin),
     researchRoutes
@@ -75,7 +101,7 @@ app.use(
 app.use(errorHandler);
 
 // server listen and database configuration (do it once, only. Uncomment once, then comment out)
-// sequelize.sync({ alter: true }).then(async (req) => {
+// sequelize.sync({ alter: false }).then(async (req) => {
 //     try {
 //         const userCount = await User.count();
 //

@@ -5,17 +5,14 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import {
-    getJwtToken,
-    setCookies,
-    setJwtToken,
-} from "../middleware/userAuthenticator";
 import { RefreshHeader } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
 import { checkObject } from ".";
 import { email } from "../zod";
+import { getJwtToken, setJwtToken } from "../middleware/jwt";
+import { setAccessCookie, setCsrfCookie, setRefreshCookie } from "../middleware/cookie";
 
 //@desc handle login
 //@route POST /auth/login
@@ -40,12 +37,14 @@ export const userLogin = asyncHandler(async (req, res) => {
     const result = await bcrypt.compare(user_password, dbPassword); // this was a promise??
 
     if (result) {
-        let access = setJwtToken(user, "1h");
-        let refresh = setJwtToken(user, "1d");
+        const accessCookie = setJwtToken(user, "1h");
+        const refreshCookie = setJwtToken(user, "1d");
 
         authLogger.info(`${user.email_id} logged in successfully`);
 
-        setCookies(res, access, refresh);
+        setAccessCookie(res, accessCookie);
+        setRefreshCookie(res, refreshCookie);
+        setCsrfCookie(res);
 
         res.status(200).json({
             role: user.role,
@@ -95,7 +94,6 @@ export const userRefresh = asyncHandler(async (req, res) => {
         return;
     }
 
-    console.log(1);
     let user = await User.findOne({
         where: { id: refresh.id, email_id: refresh.email_id },
     });
@@ -107,7 +105,9 @@ export const userRefresh = asyncHandler(async (req, res) => {
         return;
     }
 
-    setCookies(res, setJwtToken(user, "1h"), refreshToken);
+    setAccessCookie(res, setJwtToken(user, "1h"));
+    setRefreshCookie(res, refreshToken);
+    setCsrfCookie(res);
 
     res.status(200).json({});
 });

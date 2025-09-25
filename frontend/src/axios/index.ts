@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { validString } from "../../../backend/zod";
+import { config } from "zod";
 
 const BASE_URL = "http://localhost/5001";
 
@@ -120,6 +121,27 @@ const Axios = axios.create({
   withCredentials: true,
 });
 
+function getCookie(name: string): string | null{
+  const cookies = document.cookie.split(";").map(c => c.trim());
+  for (let cookie of cookies) {
+    const [key, value] = cookie.split("=");
+    if (key === name) return decodeURIComponent(value);
+  }
+  return null;
+}
+
+Axios.interceptors.request.use(
+  async (config) => {
+        const token = getCookie('x-csrf'); 
+
+        if ((token !== null) && (config.headers)) {
+            config.headers['x-csrf'] = `Bearer ${token}`;
+        }
+
+      return config;
+  },
+);
+
 Axios.interceptors.response.use(
   async (response) => response,
 
@@ -131,13 +153,14 @@ Axios.interceptors.response.use(
     if (config.url === URL.AUTH.REFRESH) return Promise.reject(error);
 
     try {
-      await axios.post(
+      await Axios.post(
         URL.AUTH.REFRESH,
         {},
         {
           headers: {
             "Request-Origin": BASE_URL,
             "Content-Type": "application/json",
+            "x-csrf": `Bearer ${getCookie('x-csrf')}`
           },
           withCredentials: true,
         }
