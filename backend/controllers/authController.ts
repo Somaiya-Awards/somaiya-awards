@@ -5,14 +5,15 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import { RefreshHeader } from "../constants";
+import { RefreshCookie } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
 import { checkObject } from ".";
 import { email } from "../zod";
 import { getJwtToken, setJwtToken } from "../middleware/jwt";
-import { setAccessCookie, setCsrfCookie, setRefreshCookie } from "../middleware/cookie";
+import { setAccessCookie, setRefreshCookie } from "../middleware/cookie";
+import { setCsrfCookie } from "../middleware/csrfMiddleware";
 
 //@desc handle login
 //@route POST /auth/login
@@ -61,7 +62,7 @@ export const userLogin = asyncHandler(async (req, res) => {
 //@route POST /auth/refresh
 //@access public
 export const userRefresh = asyncHandler(async (req, res) => {
-    const refreshToken = req.cookies[RefreshHeader];
+    const refreshToken = req.cookies[RefreshCookie];
     /**
      * WARN: (Don't Follow that):
      *

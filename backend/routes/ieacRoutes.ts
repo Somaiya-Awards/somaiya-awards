@@ -12,7 +12,6 @@ import {
     institutionDataHandler,
 } from "../controllers/ieacController";
 import { upload08, upload09 } from "../middleware/fileUpload";
-import userAuthenticator from "../middleware/userAuthenticator";
 
 /**GET Routes */
 router.route("/outstanding-institution").get(institutionDataHandler);

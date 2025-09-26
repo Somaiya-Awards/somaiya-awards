@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 // import { authLogger } from "logger";
 import { User } from "../models";
-import { AccessHeader, RefreshHeader } from "../constants";
+import { AccessCookie, RefreshCookie } from "../constants";
 import { AuthRequest } from "../types/request";
 import { getJwtToken } from "./jwt";
 
@@ -10,7 +10,7 @@ import { getJwtToken } from "./jwt";
  *   Header Token -> x-access (Main Token), x-refresh (Refresh Token to refresh access)
  * */
 const userAuthenticator = asyncHandler(async (req, res, next) => {
-    const accessToken = req.cookies[AccessHeader];
+    const accessToken = req.cookies[AccessCookie];
 
     /**
      * WARN: (Don't Follow that):

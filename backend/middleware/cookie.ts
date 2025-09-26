@@ -1,13 +1,13 @@
 import { Response } from "express";
-import { AccessHeader, CsrfHeader, IstOffset, RefreshHeader } from "../constants";
-import { JwtTimeout, randomJwt } from "./jwt";
+import { AccessCookie, IstOffset, RefreshCookie } from "../constants";
+import { JwtTimeout } from "./jwt";
 
 export function setCookie(
     res: Response,
     cookieName: string,
     cookieValue: string,
     timeout: JwtTimeout,
-    path: string | null= null,
+    path: string | null = null,
     httpOnly: boolean = true
 ) {
     let expire = Date.now();
@@ -23,8 +23,7 @@ export function setCookie(
             throw new Error("Invalid expiration time");
     }
 
-
-    if(!path){
+    if (!path) {
         res.cookie(cookieName, cookieValue, {
             expires: new Date(expire),
             httpOnly,
@@ -41,13 +40,9 @@ export function setCookie(
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    setCookie(res, AccessHeader, cookie, "1h");
+    setCookie(res, AccessCookie, cookie, "1h");
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
-    setCookie(res, RefreshHeader, cookie, "1d", "/auth/refresh");
-}
-
-export function setCsrfCookie(res: Response) {
-    setCookie(res, CsrfHeader, randomJwt("1d"), "1h", "", false);
+    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh");
 }

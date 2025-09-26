@@ -7,19 +7,20 @@ import {
     bulkCreateOrUpdateUsers,
     userRefresh,
 } from "../controllers/authController";
+import csrfMiddleware from "../middleware/csrfMiddleware";
 
 const router = express.Router();
 
 /**
- *  Routes
+ *  Routes. Note: Manual csrf cause entry points might not have them, except refresh and bulk-create
  */
 
 router.route("/login").post(userLogin);
-router.route("/refresh").post(userRefresh);
+router.route("/refresh").post(csrfMiddleware, userRefresh);
 router.route("/forgot-password").post(passwordReset);
 router.route("/:id/:token").post(changePassword);
 router.route("/register").post(registerUser);
-router.route("/bulk-create").post(bulkCreateOrUpdateUsers);
+router.route("/bulk-create").post(csrfMiddleware, bulkCreateOrUpdateUsers);
 
 /**
  * Exports

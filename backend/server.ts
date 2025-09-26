@@ -16,7 +16,7 @@ import dotenv from "dotenv";
 import userAuthenticator from "./middleware/userAuthenticator";
 import roleMiddle from "./middleware/role";
 import cookieParser from "cookie-parser";
-import csrfMiddleware from "./middleware/csrfCookie";
+import csrfMiddleware from "./middleware/csrfMiddleware";
 
 dotenv.config();
 
@@ -48,52 +48,32 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-    "/data",
-    csrfMiddleware,
-    userAuthenticator,
-    express.static(`${__dirname}/data`)
-);
+app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
 app.use(
     "/forms",
     csrfMiddleware,
     userAuthenticator,
-    /** --Guy who fills form -- ,*/ 
+    /** --Guy who fills form -- ,*/
     formRoute
 );
-app.use(
-    "/hoi/data",
-    csrfMiddleware,
-    userAuthenticator,
-    roleMiddle(Role.Hoi),
-    hoiRoutes
-);
-app.use(
-    "/ieac/data",
-    csrfMiddleware,
-    userAuthenticator,
-    roleMiddle(Role.Ieac),
-    ieacRoutes
-);
+app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
+app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
 app.use("/admin/data", adminRoutes);
 app.use(
     "/students-admin/data",
-    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.StudentAdmin),
     studentAdminRoutes
 );
 app.use(
     "/sports-admin/data",
-    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.SportsAdmin),
     sportsAdminRoutes
 );
 app.use(
     "/research-admin/data",
-    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.ResearchAdmin),
     researchRoutes
