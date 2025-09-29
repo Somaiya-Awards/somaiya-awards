@@ -45,7 +45,7 @@ export const userLogin = asyncHandler(async (req, res) => {
 
         setAccessCookie(res, accessCookie);
         setRefreshCookie(res, refreshCookie);
-        setCsrfCookie(res);
+        setCsrfCookie(req, res);
 
         res.status(200).json({
             role: user.role,
