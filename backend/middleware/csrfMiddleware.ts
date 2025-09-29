@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { CSRF, CSRF_SIZE, CsrfName } from "../constants";
 import { setCookie } from "./cookie";
-import { Response } from "express";
+import { Request, Response } from "express";
 
 export function randomString(size: number = CSRF_SIZE) {
     let csrfString = "";
@@ -48,12 +48,17 @@ function unmaskSecret(token: string) {
     return secret;
 }
 
-export function setCsrfCookie(res: Response) {
-    const cookie = randomString();
+export function setCsrfCookie(req: Request, res: Response) {
+    var cookie;
 
+    if (!req.cookies[CsrfName]){
+        cookie = randomString();
+        setCookie(res, CsrfName, cookie, "1h");
+    } else {
+        cookie = req.cookies[CsrfName];
+    }
+    
     const csrfToken = maskSecret(cookie);
-
-    setCookie(res, CsrfName, cookie, "1h");
 
     res.setHeader(CsrfName, csrfToken as string);
 }
@@ -66,8 +71,8 @@ const csrfMiddleware = asyncHandler(async (req, res, next) => {
     const csrfTokenHeader = req.headers[CsrfName];
     const csrfTokenCookie = req.cookies[CsrfName];
 
-    if (!req.cookies[CsrfName]) setCsrfCookie(res);
-
+    setCsrfCookie(req, res);
+    
     if (req.method === "GET") {
         next();
         return;
