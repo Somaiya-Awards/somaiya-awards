@@ -1,13 +1,12 @@
-import React from 'react'
-import Gif from '../../assests/404.gif'
 import { Link } from 'react-router-dom'
-const PageNotFound = () => {
+
+export default function PageNotFound() {
 
   return (
     <div className='w-full h-screen  bg-[#fcfcff]'>
 
       <div className='w-full h-[50%] flex items-center justify-center'>
-        <img src={Gif} className='h-auto' />
+        <img src={'../../assets/404.gif'} className='h-auto' />
       </div>
       <div className='text-center p-5 mt-[2rem] leading-4'>
         <h2 className='text-3xl font-Poppins font-semibold'> OOP's !</h2>
@@ -26,5 +25,3 @@ const PageNotFound = () => {
     </div>
   )
 }
-
-export default PageNotFound

@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import FormStages from "./FormStages";
-import Field, { type FieldProp } from "./utils/Field";
+import Field, { type CommonFieldProps } from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { CircularProgressbar } from "react-circular-progressbar";
-//@ts-expect-error CSS files issue
 import "react-circular-progressbar/dist/styles.css";
 import Axios from "../axios";
+import type { StagesType } from "./utils/data/types";
+import swalAlert from "./utils/swal";
+import type { FormEntry } from "../data/Forms/types";
 
-const Forms = (props: {
+export type FormProps = {
     pageCount: number;
-    pageHeadings: string;
-    data: FieldProp[];
-}) => {
+    pageHeadings: string[];
+    data: FormEntry[];
+    stages: StagesType[];
+    message?: string;
+}
+
+export type FormData = {
+    [key: string]: string | File | number
+}
+
+const Forms = (props: FormProps) => {
     /**
      * Variables and States
      */
@@ -22,7 +32,7 @@ const Forms = (props: {
     const navigate = useNavigate();
 
     const [current, setCurrent] = useState(0);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState<FormData>({});
     const [percentage, setPercentage] = useState(0);
 
     /**
@@ -43,18 +53,18 @@ const Forms = (props: {
         }
     };
 
-    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
+    const handleFieldChange = (event: React.ChangeEvent<Element>) => {
+        const { target } = event as React.ChangeEvent<HTMLInputElement>;
 
         const { name, files } = target;
 
-        if (target.type === "file" && files && files[0]) {
+        if (target.type === "file" && files) {
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 [name]: files[0],
             }));
         } else {
-            const { name, value } = event.target;
+            const { name, value } = target;
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 [name]: value,
@@ -62,6 +72,7 @@ const Forms = (props: {
         }
 
         setPercentage(Object.keys(formData).length / props.data.length);
+        
         localStorage.setItem(
             `${window.location.href.split("/forms/")[1] + "Data"}`,
             JSON.stringify(formData)
@@ -78,14 +89,16 @@ const Forms = (props: {
                 return field.page;
             }
         }
+
+        return null;
     };
 
     const handleSubmit = () => {
         // Check for phone number validation
         const phoneFields = ["phone_number", "contact_number"];
         for (const field of phoneFields) {
-            if (formData[field] && formData[field].length !== 10) {
-                Swal.fire({
+            if (formData[field] && String(formData[field]).length !== 10) {
+                swalAlert({
                     title: "Invalid Phone Number",
                     text: `${field.replace(
                         "_",
@@ -106,7 +119,7 @@ const Forms = (props: {
         }
 
         if (props.data.length !== Object.keys(formData).length) {
-            Swal.fire({
+            swalAlert({
                 title: "Incomplete Form",
                 text: "Please fill out the form completely",
                 icon: "warning",
@@ -121,9 +134,11 @@ const Forms = (props: {
             });
 
             const incompletePageNumber = missingFieldPage();
-            setCurrent(incompletePageNumber - 1);
+
+            if(incompletePageNumber !== null) setCurrent(incompletePageNumber - 1);
+
         } else {
-            const formType = window.location.href.split("/forms/")[1];
+            const formType = window.location.href.split("/forms/")[1]; // TODO: remove this and make it a prop
             const postUrl = `/forms/${formType}`;
 
             Axios.post(postUrl, formData, {
@@ -133,41 +148,35 @@ const Forms = (props: {
                         : "multipart/form-data",
                 },
             })
-                .then((res) => {
+                .then(() => {
                     localStorage.removeItem(
                         window.location.href.split("/forms/")[1] + "Data"
                     );
                     navigate({
                         pathname: "/forms/cards",
                         search: createSearchParams({
-                            submitted: true,
+                            submitted: "true",
                             title: "Form submitted Successfully",
                         }).toString(),
                     });
                 })
                 .catch((err) => {
-                    Swal.fire({
+                    swalAlert({
                         text:
                             err.response?.data?.message || "Submission failed",
                         icon: "error",
                     });
-                    console.log(err);
                 });
         }
     };
 
-    const handleFormStageChange = (e: React.ChangeEvent<HTMLElement>) => {
-        const value = Number(e.target.innerHTML) - 1;
-        setCurrent(value);
-
-        // color change logic
-
+    const colorChange = () => {
         const stagesList = document.querySelectorAll(".stages");
 
         for (const stages of stagesList) {
             const stageNumber = Number(stages.innerHTML);
 
-            if (stageNumber < value + 1) {
+            if (stageNumber < current + 1) {
                 stages.classList.add("bg-red-500");
                 stages.classList.add("text-white");
                 stages.classList.remove("bg-white");
@@ -177,6 +186,16 @@ const Forms = (props: {
                 stages.classList.add("bg-white");
             }
         }
+    }
+
+    const handleFormStageChange = (e: React.MouseEvent<HTMLElement>) => {
+        //@ts-expect-error Event type matching ignore
+        const value = Number(e.target.innerHTML) - 1;
+        setCurrent(value); // renders everything
+
+        // color change logic
+        colorChange();
+
     };
 
     /**
@@ -188,18 +207,8 @@ const Forms = (props: {
             if (current === entry.page - 1) {
                 return (
                     <Field
-                        type={entry.type}
-                        title={entry.title}
-                        name={entry._name}
-                        required={entry.requiredStatus}
-                        validate={entry.hasValidations}
-                        dropOpt={entry.drop_opt}
-                        validateType={entry.validationType}
-                        dropdownHiddenItem={entry.dropdownHiddenItem}
-                        options={entry.options}
-                        value={formData[entry._name] || ""}
-                        fieldsPerLine={entry.fieldsPerLine}
-                        link={entry.link}
+                        {...entry}
+                        value={(formData[entry.name] as string) || ""}
                         onChange={handleFieldChange}
                         key={index}
                     />
@@ -215,11 +224,12 @@ const Forms = (props: {
         if (!localStorage.getItem(dataName)) {
             setFormData({});
         } else {
-            setFormData(JSON.parse(localStorage.getItem(dataName)));
+            setFormData(JSON.parse(localStorage.getItem(dataName) || "{}"));
         }
     }, []);
 
-    useEffect(() => {
+    useEffect(() => { // is this necessary?
+
         const stagesList = document.querySelectorAll(".stages");
 
         for (const stages of stagesList) {

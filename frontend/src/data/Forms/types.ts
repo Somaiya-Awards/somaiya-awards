@@ -1,24 +1,34 @@
+import type { ValidFiles } from "../../components/utils/validator";
+
 export type BaseFormEntry = {
-    title: string;
-    _name: string;
-    requiredStatus: boolean;
-    hasOptions: boolean;
-    page: number;
     fieldsPerLine: number;
-    validationType?: string;
-    hasValidations?: boolean;
-};
+    required: boolean;
+    title: string;
+    link?: string;
+    name: string;
+    page: number;
+} & Validate;
+
+export type Validate = {
+    validate: true;
+    validateType: "somaiya-mail-id" |  "email-id" | "year" | "contact-no" | "date";
+} | {
+    validate: true;
+    validateType: "file";
+    fileType: ValidFiles;
+}
+| {
+    validate?: false;
+    validateType?: string;
+}
 
 export type FormEntry =
     | (BaseFormEntry & { type: "radio"; options: string[] | number[] })
-    | (BaseFormEntry & { type: "email" })
-    | (BaseFormEntry & { type: "date" })
     | (BaseFormEntry &
           (
               | {
                     type: "dropdown";
                     dropOpt: "single";
-                    options: string[];
                     dropdownHiddenItem: string;
                 }
               | {
@@ -29,6 +39,8 @@ export type FormEntry =
                 }
           ))
     | (BaseFormEntry & { type: "textarea" })
-    | (BaseFormEntry & { type: "file" })
+    | (BaseFormEntry & { type: "file"; fileType: ValidFiles;})
     | (BaseFormEntry & { type: "number" })
-    | (BaseFormEntry & { type: "text"; placeholder?: string });
+    | (BaseFormEntry & { type: "text"; placeholder?: string })
+    | (BaseFormEntry & { type: "email"; placeholder?: string })
+    | (BaseFormEntry & { type: "date"; placeholder?: string });

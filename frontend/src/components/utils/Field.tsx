@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-//@ts-expect-error CSS files issue
 import "./css/config.css";
-import { validator } from "./validator";
+import { validator, type ValidFiles } from "./validator";
+import type { Validate } from "../../data/Forms/types";
 
 export type CommonFieldProps = {
     onChange: (event: React.ChangeEvent) => void;
     fieldsPerLine: number;
     required: boolean;
     title: string;
-    link: string;
+    link?: string; // useless property 
     name: string;
-    validate: boolean;
-    validateType: string;
-};
+    value: string;
+    page: number;
+} & Validate;
 
 export type FieldProp =
     | (CommonFieldProps & { type: "radio"; options: string[] })
@@ -31,9 +31,11 @@ export type FieldProp =
                 }
           ))
     | (CommonFieldProps & { type: "textarea" })
-    | (CommonFieldProps & { type: "file"; value: { name: string | null } })
+    | (CommonFieldProps & { type: "file"; value: { name: string }, fileType: ValidFiles })
     | (CommonFieldProps & { type: "number" })
-    | (CommonFieldProps & { type: "text"; placeholder?: string });
+    | (CommonFieldProps & { type: "text"; placeholder?: string })
+    | (CommonFieldProps & { type: "email"; placeholder?: string })
+    | (CommonFieldProps & { type: "date"; placeholder?: string });
 
 function Field(props: CommonFieldProps) {
     const [value, setValue] = useState<string>("");
@@ -67,7 +69,7 @@ function Field(props: CommonFieldProps) {
                         name={props.name}
                         required={props.required}
                         value={item}
-                        checked={props.value == item ? true : false}
+                        checked={props.value === item ? true : false}
                         className=""
                         onChange={handleChange}
                     />{" "}
@@ -84,7 +86,7 @@ function Field(props: CommonFieldProps) {
                 name={props.name}
                 required={props.required}
                 onChange={handleChange}
-                value={props.value as string}
+                value={props.value}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -97,7 +99,7 @@ function Field(props: CommonFieldProps) {
                 name={props.name}
                 required={props.required}
                 onChange={handleChange}
-                value={props.value as string}
+                value={props.value}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -114,7 +116,7 @@ function Field(props: CommonFieldProps) {
             <textarea
                 className="border-black p-3 border-2 rounded-lg w-full h-48"
                 name={props.name}
-                value={props.value as string}
+                value={props.value}
                 onChange={handleChange}
             ></textarea>
         );
@@ -139,7 +141,7 @@ function Field(props: CommonFieldProps) {
                         {" "}
                         selected File :{" "}
                     </span>{" "}
-                    {props.value["name"] as string}
+                    {props.value["name"]}
                 </p>
             </>
         );
@@ -155,14 +157,20 @@ function Field(props: CommonFieldProps) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                value={props.value as string}
+                value={props.value}
                 onChange={handleChange}
             />
         );
     }
 
     function TextProp(props: FieldProp) {
-        if (props.type !== "text") return null;
+
+        switch(props.type) {
+            case "text":
+            case "email":
+            case "date": break;
+            default: return null
+        }
 
         return (
             <input
@@ -172,7 +180,7 @@ function Field(props: CommonFieldProps) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                value={props.value as string}
+                value={props.value}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -203,11 +211,13 @@ function Field(props: CommonFieldProps) {
 
     function GiveJudgement(props: CommonFieldProps) {
         if (props.validate) {
+                            
             const [judgment, verdict] = validator(props, value);
 
             if (judgment) {
                 return <p className="font-Poppins text-red-700">{verdict}</p>;
             }
+
         }
 
         return null;

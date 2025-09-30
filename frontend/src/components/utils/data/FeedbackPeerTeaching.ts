@@ -1,4 +1,6 @@
-const FeedbackPeerTeaching = [
+import type { StagesType } from "./types"
+
+const FeedbackPeerTeaching: StagesType[] = [
     {
         _id : 1,
         value: 1

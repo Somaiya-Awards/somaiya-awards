@@ -4,62 +4,62 @@ import type { FormEntry } from "./types";
 const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "Email",
-        _name: "email_id",
+        name: "email_id",
         type: "email",
-        requiredStatus: true,
-        hasValidations: true,
-        validationType: "email-id",
-        hasOptions: false,
+        required: true,
+        validate: true,
+        validateType: "email-id",
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Batch Year",
-        _name: "student_batch_year",
+        name: "student_batch_year",
         type: "text",
-        requiredStatus: true,
-        hasValidations: true,
-        validationType: "year",
-        hasOptions: false,
+        required: true,
+        validate: true,
+        validateType: "year",
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Class / Division",
-        _name: "student_class_and_division",
+        name: "student_class_and_division",
         type: "text",
-        requiredStatus: true,
-        hasOptions: false,
+        required: true,
+
         page: 1,
         fieldsPerLine: 1,
     },
     {
         title: "Name of the Employee",
-        _name: "employee_name",
+        name: "employee_name",
         dropOpt: "multiple",
         type: "dropdown",
         dropdownHiddenItem: "Select Name of the Nominee",
-        requiredStatus: true,
-        hasOptions: true,
+        required: true,
+
         options: [],
         page: 2,
         fieldsPerLine: 2,
     },
     {
         title: "Designation of Employee",
-        _name: "employee_designation",
+        name: "employee_designation",
         type: "text",
-        requiredStatus: true,
-        hasOptions: false,
+        required: true,
+
         page: 2,
         fieldsPerLine: 2,
     },
     {
         title: "He/she is cooperative and helpful",
         type: "radio",
-        requiredStatus: true,
-        _name: "q_01",
-        hasOptions: true,
+        required: true,
+        name: "q_01",
+
         options: [
             "Strongly Agree",
             "Agree",
@@ -73,9 +73,9 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "He/she possesses excellent communication skills (in terms of information sharing)",
         type: "radio",
-        requiredStatus: true,
-        _name: "q_02",
-        hasOptions: true,
+        required: true,
+        name: "q_02",
+
         options: [
             "Strongly Agree",
             "Agree",
@@ -89,9 +89,9 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "He/ she shows high level of Sincerity and Commitment towards the institution/ department",
         type: "radio",
-        requiredStatus: true,
-        _name: "q_03",
-        hasOptions: true,
+        required: true,
+        name: "q_03",
+
         options: [
             "Strongly Agree",
             "Agree",
@@ -105,9 +105,9 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "He/she is punctual ",
         type: "radio",
-        requiredStatus: true,
-        _name: "q_04",
-        hasOptions: true,
+        required: true,
+        name: "q_04",
+
         options: [
             "Strongly Agree",
             "Agree",
@@ -121,9 +121,9 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "He/she is easily accessible to students and teachers ",
         type: "radio",
-        requiredStatus: true,
-        _name: "q_05",
-        hasOptions: true,
+        required: true,
+        name: "q_05",
+
         options: [
             "Strongly Agree",
             "Agree",
@@ -137,9 +137,9 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "Give 3 reasons for nominating the employee for the award:",
         type: "textarea",
-        requiredStatus: true,
-        _name: "nomination_reason",
-        hasOptions: false,
+        required: true,
+        name: "nomination_reason",
+
         page: 4,
         fieldsPerLine: 1,
     },

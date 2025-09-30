@@ -1,4 +1,6 @@
-const StudentsFormStages = [
+import type { StagesType } from "./types";
+
+const StudentsFormStages: StagesType[] = [
     {
         _id : 1,
         value: 1

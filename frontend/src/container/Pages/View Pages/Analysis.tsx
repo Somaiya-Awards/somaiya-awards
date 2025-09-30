@@ -1,15 +1,15 @@
-import React,{useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useLocation } from 'react-router-dom';
 import SideBar from '../../../components/hoi_components/SideBar'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { columns01 , columns02 , columns03 , columns04 , columns05, columns06 } from '../../../data/AnalysisData/HOI/structure';
 import axios from 'axios';
 
 
-const Analysis = () => {
+export default function Analysis() {
 
-    const [title, setTitle] = useState()
-    const [columns, setColumns] = useState([]);
+    const [title, setTitle] = useState<string>("")
+    const [columns, setColumns] = useState<GridColDef[]>([]);
     const [rows,setRows] = useState([]);
     const location = useLocation()
 
@@ -51,10 +51,8 @@ const Analysis = () => {
             }
         })
         .then((res)=>{
-            console.log(res.data.data);
             if(res.data){
                 setRows(res.data.data);
-                console.log(rows);
             }
         })
         .catch((err)=>{
@@ -111,5 +109,3 @@ const Analysis = () => {
         </div>
     )
 }
-
-export default Analysis

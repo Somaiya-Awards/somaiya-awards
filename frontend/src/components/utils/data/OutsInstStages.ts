@@ -1,4 +1,6 @@
-const OutsInstStages = [
+import type { StagesType } from "./types"
+
+const OutsInstStages: StagesType[] = [
     {
         _id : 1,
         value: 1

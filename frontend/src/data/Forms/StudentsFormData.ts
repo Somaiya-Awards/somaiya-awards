@@ -3,50 +3,50 @@ import type { FormEntry } from "./types";
 const StudentsFormData: FormEntry[] = [
     {
         title: "Somaiya Mail ",
-        _name: "email_id",
+        name: "email_id",
         type: "email",
-        requiredStatus: true,
-        hasValidations: true,
-        validationType: "somaiya-mail-id",
-        hasOptions: false,
+        required: true,
+        validate: true,
+        validateType: "somaiya-mail-id",
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Student's Name",
-        _name: "student_name",
+        name: "student_name",
         type: "text",
-        requiredStatus: true,
-        hasOptions: false,
+        required: true,
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Class",
-        _name: "students_class",
+        name: "students_class",
         type: "text",
-        requiredStatus: true,
-        hasOptions: false,
+        required: true,
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Course",
-        _name: "course",
+        name: "course",
         type: "text",
-        requiredStatus: true,
-        hasOptions: false,
+        required: true,
+
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Name of Institution",
-        _name: "institution_name",
+        name: "institution_name",
         type: "dropdown",
-        requiredStatus: true,
+        required: true,
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
-        hasOptions: true,
+
         options: [
             "The Somaiya School",
             "S. K. Somaiya Prathmik Shala",
@@ -90,9 +90,9 @@ const StudentsFormData: FormEntry[] = [
     {
         title: "Please mark your nomination category",
         type: "radio",
-        requiredStatus: true,
-        _name: "nomination_category",
-        hasOptions: true,
+        required: true,
+        name: "nomination_category",
+
         options: [
             "Somaiya Star -Girl",
             "Somaiya Star -Boy",
@@ -105,19 +105,21 @@ const StudentsFormData: FormEntry[] = [
     },
     {
         title: "Recommendation Note ( minimum 600 words )",
-        _name: "recommendation_note",
+        name: "recommendation_note",
         type: "textarea",
-        hasOptions: false,
-        requiredStatus: true,
+
+        required: true,
         page: 2,
         fieldsPerLine: 1,
     },
     {
         title: "Upload Supporting Documents",
         type: "file",
-        requiredStatus: true,
-        _name: "supportings",
-        hasOptions: false,
+        required: true,
+        name: "supportings",
+        validate: true,
+        validateType: "file",
+        fileType: "pdf",
         page: 3,
         fieldsPerLine: 1,
     },

@@ -1,6 +1,5 @@
-import React from 'react'
 
-const Dev = () => {
+export default function Dev() {
     return (
         <div className='flex'>
             <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
@@ -17,7 +16,7 @@ const Dev = () => {
                         Developer | Lead
                     </p>
                 </div>
-                <div classNameName="flex justify-center gap-7 p-6 pt-2">
+                <div className="flex justify-center gap-7 p-6 pt-2">
                     <a
                         href="#facebook"
                         className="block bg-gradient-to-tr from-blue-600 to-blue-400 bg-clip-text font-sans text-xl font-normal leading-relaxed text-transparent antialiased"
@@ -53,7 +52,7 @@ const Dev = () => {
                         Developer | Tech
                     </p>
                 </div>
-                <div classNameName="flex justify-center gap-7 p-6 pt-2">
+                <div className="flex justify-center gap-7 p-6 pt-2">
                     <a
                         href="#facebook"
                         className="block bg-gradient-to-tr from-blue-600 to-blue-400 bg-clip-text font-sans text-xl font-normal leading-relaxed text-transparent antialiased"
@@ -78,5 +77,3 @@ const Dev = () => {
         </div>
     )
 }
-
-export default Dev

@@ -1,4 +1,6 @@
-const FeedbackPeerNonTeaching = [
+import type { StagesType } from "./types"
+
+const FeedbackPeerNonTeaching: StagesType[] = [
     {
         _id : 1,
         value: 1

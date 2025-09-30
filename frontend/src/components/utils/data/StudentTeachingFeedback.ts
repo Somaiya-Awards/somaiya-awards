@@ -1,4 +1,6 @@
-const StudentTeachingFeedback =[
+import type { StagesType } from "./types";
+
+const StudentTeachingFeedback: StagesType[] = [
     {
         _id : 1,
         value: 1

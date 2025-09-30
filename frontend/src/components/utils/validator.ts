@@ -1,4 +1,8 @@
-export function validator(props: { validateType: string }, value: string) {
+
+export type Validators = "somaiya-mail-id" |  "email-id" | "year" | "contact-no" | "date" | "file"
+export type ValidFiles = "pdf" | "jpg"
+
+export function validator(props: {validateType: "file", fileType: ValidFiles} | { validateType: "somaiya-mail-id" |  "email-id" | "year" | "contact-no" | "date"}, value: string) {
     const validatePair: [boolean, string] = [false, "Invalid Input"];
     let regex;
 
@@ -45,6 +49,16 @@ export function validator(props: { validateType: string }, value: string) {
             }
 
             return validatePair;
+
+        case "file":
+            if (props.fileType == "jpg") {
+                regex = /^\.jpg$/;
+            } else {
+                regex = /^\.pdf$/;
+            }
+
+            validatePair[0] = !regex.test(value);
+            validatePair[1] = "Invalid File Type";
     }
 
     return validatePair;

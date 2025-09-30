@@ -1,4 +1,6 @@
-const SportsStarStages = [
+import type { StagesType } from "./types"
+
+const SportsStarStages: StagesType[] = [
     {
         _id : 1,
         value: 1
