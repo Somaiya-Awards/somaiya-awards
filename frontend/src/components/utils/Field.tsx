@@ -1,78 +1,50 @@
-import { useState } from "react";
+import React, { useState } from "react";
+//@ts-expect-error CSS files issue
 import "./css/config.css";
+import { validator } from "./validator";
 
-/**validations */
-const validator = (props, value) => {
-    if (props.validateType === "somaiya-mail-id") {
-        const regex = /@somaiya\.edu$/;
-        const validatePair = [];
-
-        validatePair.push(!regex.test(value));
-        validatePair.push("Please enter valid somaiya mail ID");
-
-        return validatePair;
-    }
-
-    if (props.validateType === "email-id") {
-        const regex = /^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/;
-        const validatePair = [];
-
-        validatePair.push(!regex.test(value));
-        validatePair.push("Please enter valid mail ID");
-
-        return validatePair;
-    }
-
-    if (props.validateType === "year") {
-        const regex = /^(19|20)\d{2}$/;
-        const validatePair = [];
-
-        validatePair.push(!regex.test(value));
-        validatePair.push("Year is Invalid");
-
-        return validatePair;
-    }
-
-    if (props.validateType === "contact-no") {
-        const regex = /^\d{10}$/;
-        const validatePair = [];
-
-        validatePair.push(!regex.test(value));
-        validatePair.push("Invalid contact Number");
-
-        return validatePair;
-    }
-
-    if (props.validateType === "date") {
-        const date1 = new Date(value || new Date());
-        const date2 = new Date();
-
-        const validatePair = [];
-
-        if (date1 >= date2) {
-            validatePair.push(true);
-            validatePair.push("Invalid Date");
-        } else {
-            validatePair.push(false);
-            validatePair.push("Valid Date");
-        }
-
-        return validatePair;
-    }
+export type CommonFieldProps = {
+    onChange: (event: React.ChangeEvent) => void;
+    fieldsPerLine: number;
+    required: boolean;
+    title: string;
+    link: string;
+    name: string;
+    validate: boolean;
+    validateType: string;
 };
 
-const Field = (props) => {
-    const [value, setValue] = useState("");
-    const [focused, setFocused] = useState(false);
+export type FieldProp =
+    | (CommonFieldProps & { type: "radio"; options: string[] })
+    | (CommonFieldProps &
+          (
+              | {
+                    type: "dropdown";
+                    dropOpt: "single";
+                    dropdownHiddenItem: string;
+                }
+              | {
+                    type: "dropdown";
+                    dropOpt: "multiple";
+                    options: string[];
+                    dropdownHiddenItem: string;
+                }
+          ))
+    | (CommonFieldProps & { type: "textarea" })
+    | (CommonFieldProps & { type: "file"; value: { name: string | null } })
+    | (CommonFieldProps & { type: "number" })
+    | (CommonFieldProps & { type: "text"; placeholder?: string });
 
-    /**
-     * Handlers
-     */
+function Field(props: CommonFieldProps) {
+    const [value, setValue] = useState<string>("");
+    const [, setFocused] = useState<boolean>(false);
 
-    const handleChange = (event) => {
+    function handleChange<
+        T extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+    >(event: React.ChangeEvent<T>) {
         setValue(event.target.value);
         props.onChange(event); // Pass the event to the parent component's onChange handler
-    };
+    }
 
     const handleFocus = () => {
         setFocused(true);
@@ -83,6 +55,163 @@ const Field = (props) => {
     };
 
     const { fieldsPerLine } = props;
+
+    function RadioProp(props: FieldProp) {
+        if (props.type !== "radio") return null;
+
+        return props.options.map((item, index) => (
+            <div key={index}>
+                <label>
+                    <input
+                        type={props.type}
+                        name={props.name}
+                        required={props.required}
+                        value={item}
+                        checked={props.value == item ? true : false}
+                        className=""
+                        onChange={handleChange}
+                    />{" "}
+                    {item}
+                </label>
+            </div>
+        ));
+    }
+
+    function DropwDownProp(props: FieldProp) {
+        if (props.type !== "dropdown") return null;
+        return props.dropOpt === "single" ? (
+            <select
+                name={props.name}
+                required={props.required}
+                onChange={handleChange}
+                value={props.value as string}
+                className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
+            >
+                <option hidden> {props.dropdownHiddenItem} </option>
+                <option value={localStorage.getItem("institution") as string}>
+                    {localStorage.getItem("institution")}
+                </option>
+            </select>
+        ) : (
+            <select
+                name={props.name}
+                required={props.required}
+                onChange={handleChange}
+                value={props.value as string}
+                className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
+            >
+                <option hidden> {props.dropdownHiddenItem} </option>
+                {props.options.map((item) => {
+                    return <option value={item}>{item}</option>;
+                })}
+            </select>
+        );
+    }
+
+    function TextAreaProp(props: FieldProp) {
+        if (props.type !== "textarea") return null;
+        return (
+            <textarea
+                className="border-black p-3 border-2 rounded-lg w-full h-48"
+                name={props.name}
+                value={props.value as string}
+                onChange={handleChange}
+            ></textarea>
+        );
+    }
+
+    function FileProp(props: FieldProp) {
+        if (props.type !== "file") return null;
+
+        return (
+            <>
+                <input
+                    autoComplete="off"
+                    type={props.type}
+                    name={props.name}
+                    required={props.required}
+                    className={`focus:outline-none color-red-400 }`}
+                    onChange={handleChange}
+                />
+                <p className="p-2 ">
+                    {" "}
+                    <span className="text-red-700 font-semibold font-Poppins">
+                        {" "}
+                        selected File :{" "}
+                    </span>{" "}
+                    {props.value["name"] as string}
+                </p>
+            </>
+        );
+    }
+
+    function NumberProp(props: FieldProp) {
+        if (props.type !== "number") return null;
+
+        return (
+            <input
+                autoComplete="off"
+                type={props.type}
+                name={props.name}
+                required={props.required}
+                className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
+                value={props.value as string}
+                onChange={handleChange}
+            />
+        );
+    }
+
+    function TextProp(props: FieldProp) {
+        if (props.type !== "text") return null;
+
+        return (
+            <input
+                autoComplete="off"
+                type={props.type}
+                placeholder={!props.placeholder ? "" : props.placeholder}
+                name={props.name}
+                required={props.required}
+                className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
+                value={props.value as string}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChange={handleChange}
+            />
+        );
+    }
+
+    function WhoThatPokemon(props: FieldProp) {
+        switch (props.type) {
+            case "text":
+                return TextProp(props);
+            case "number":
+                return NumberProp(props);
+            case "file":
+                return FileProp(props);
+            case "textarea":
+                return TextAreaProp(props);
+            case "radio":
+                return RadioProp(props);
+            case "dropdown":
+                return DropwDownProp(props);
+        }
+
+        throw new Error(
+            "If you see this, congrats you won a front row seat to a coup"
+        );
+    }
+
+    function GiveJudgement(props: CommonFieldProps) {
+        if (props.validate) {
+            const [judgment, verdict] = validator(props, value);
+
+            if (judgment) {
+                return <p className="font-Poppins text-red-700">{verdict}</p>;
+            }
+        }
+
+        return null;
+    }
 
     return (
         <div
@@ -110,125 +239,13 @@ const Field = (props) => {
                     </p>
                 ) : null}
 
-                {props.validate !== undefined && validator(props, value)[0] && (
-                    <p className="font-Poppins text-red-700">
-                        {validator(props, value)[1]}
-                    </p>
-                )}
+                <GiveJudgement {...props} />
             </div>
             <div>
-                {props.type === "radio" ? (
-                    props.options.map((item, index) => (
-                        <div key={index}>
-                            <label>
-                                <input
-                                    type={props.type}
-                                    name={props.name}
-                                    required={props.required}
-                                    value={item}
-                                    checked={props.value == item ? true : false}
-                                    className=""
-                                    onChange={handleChange}
-                                />{" "}
-                                {item}
-                            </label>
-                        </div>
-                    ))
-                ) : props.type === "dropdown" ? (
-                    props.dropOpt === "single" ? (
-                        <select
-                            name={props.name}
-                            required={props.requiredStatus}
-                            onChange={handleChange}
-                            value={props.value}
-                            className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
-                        >
-                            <option hidden> {props.dropdownHiddenItem} </option>
-                            <option
-                                name={props.name}
-                                value={localStorage.getItem("institution")}
-                            >
-                                {localStorage.getItem("institution")}
-                            </option>
-                        </select>
-                    ) : (
-                        <select
-                            name={props.name}
-                            required={props.requiredStatus}
-                            onChange={handleChange}
-                            value={props.value}
-                            className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
-                        >
-                            <option hidden> {props.dropdownHiddenItem} </option>
-                            {props.options.map((item) => {
-                                return (
-                                    <option name={props.name} value={item}>
-                                        {item}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    )
-                ) : props.type === "textarea" ? (
-                    <textarea
-                        className="border-black p-3 border-2 rounded-lg w-full h-48"
-                        name={props.name}
-                        value={props.value}
-                        onChange={handleChange}
-                    ></textarea>
-                ) : props.type === "file" ? (
-                    <>
-                        {console.log(props.value)}
-                        <input
-                            autoComplete="off"
-                            type={props.type}
-                            name={props.name}
-                            required={props.required}
-                            className={`focus:outline-none color-red-400 }`}
-                            // value={props.value}
-                            onChange={handleChange}
-                        />
-                        <p className="p-2 ">
-                            {" "}
-                            <span className="text-red-700 font-semibold font-Poppins">
-                                {" "}
-                                selected File :{" "}
-                            </span>{" "}
-                            {props.value["name"]}
-                        </p>
-                    </>
-                ) : props.type === "number" ? (
-                    <input
-                        autoComplete="off"
-                        type={props.type}
-                        name={props.name}
-                        required={props.required}
-                        className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                        value={props.value}
-                        onChange={handleChange}
-                    />
-                ) : (
-                    <input
-                        autoComplete="off"
-                        type={props.type}
-                        placeholder={
-                            props.placeholder === undefined
-                                ? null
-                                : props.placeholder
-                        }
-                        name={props.name}
-                        required={props.required}
-                        className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                        value={props.value}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                    />
-                )}
+                <WhoThatPokemon {...(props as FieldProp)} />
             </div>
         </div>
     );
-};
+}
 
 export default Field;
-export { validator };

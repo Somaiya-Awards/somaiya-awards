@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
+import type { FormEntry } from "./types";
 
-const FeedbackSportsCoach = [
+const FeedbackSportsCoach: FormEntry[] = [
     {
         title: "Name of the Rater",
         _name: "rater_name",
@@ -8,7 +9,7 @@ const FeedbackSportsCoach = [
         requiredStatus: true,
         hasOptions: false,
         page: 1,
-        fieldsPerLine: 2
+        fieldsPerLine: 2,
     },
     {
         title: "Somaiya email id",
@@ -16,17 +17,17 @@ const FeedbackSportsCoach = [
         type: "text",
         requiredStatus: true,
         hasValidations: true,
-        validationType: 'somaiya-mail-id',
+        validationType: "somaiya-mail-id",
         hasOptions: false,
         page: 1,
-        fieldsPerLine: 2
+        fieldsPerLine: 2,
     },
     {
         title: "Institution",
         _name: "institution",
         type: "dropdown",
-        dropdownHiddenItem: 'Select your institute',
-        drop_opt: 'single',
+        dropdownHiddenItem: "Select your institute",
+        dropOpt: "multiple",
         requiredStatus: true,
         hasOptions: true,
         options: [
@@ -67,18 +68,19 @@ const FeedbackSportsCoach = [
             "K J Somaiya junior college of arts and commerce",
         ],
         page: 1,
-        fieldsPerLine: 2
+        fieldsPerLine: 2,
     },
     {
         title: "Name of the Sports Incharge/ Coach",
         _name: "nominee_name",
         type: "dropdown",
-        dropdownHiddenItem: 'Select Name of the Nominee',
+        dropOpt: "multiple",
+        dropdownHiddenItem: "Select Name of the Nominee",
         requiredStatus: true,
         hasOptions: true,
         options: [],
         page: 1,
-        fieldsPerLine: 2
+        fieldsPerLine: 2,
     },
     {
         title: "Q1. The PE teacher is able to explain the training and competition demands of exceling at the top level.",
@@ -88,7 +90,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q2. I am confident in the teacher's knowledge about training and competition preparation.",
@@ -98,7 +100,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q3. I am confident in the teacher's knowledge about strategy and tactics during competition.",
@@ -108,7 +110,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q4. I am confident in the teacher's knowledge about psychological preparation.",
@@ -118,7 +120,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q5. The teacher is able to explain the reasons behind training and how it relates to competition and performance goals.",
@@ -128,7 +130,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q6. The teacher creates a safe training environment.",
@@ -138,7 +140,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q7. The teacher makes effective use of practice/training time. ",
@@ -148,7 +150,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q8. The teacher makes good use of available facilities and equipment during practice/training. ",
@@ -158,7 +160,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q9. There is logical sequence of activities in practice/training.",
@@ -168,7 +170,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q10. The teacher ensures that our team meetings are effective.",
@@ -178,7 +180,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 2,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q11.The teacher works together with me/ the team to set goals for the year related to training. ",
@@ -188,7 +190,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q12.The teacher works together with me/ the team to set goals for the year related to the competition schedule.",
@@ -198,7 +200,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q13. The teacher reviews progress toward goals regularly.",
@@ -208,7 +210,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q14. The teacher has an ongoing dialogue with me/ the team about progress in training and in competition, delivered in respectful way.",
@@ -218,7 +220,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q15. The teacher provides feedback on an ongoing basis",
@@ -228,7 +230,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q16. The teacher makes sure that everything at a competition supports my (the team’s) ability to perform well, for example, nutrition needs, accommodation, transport to and from venues, training venues, and so on.",
@@ -238,7 +240,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q17.The teacher is effective at analyzing my (the team's) performance and my (our) competitors during a competition and helping me (us) make adjustments to perform better. ",
@@ -248,7 +250,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q18. The teacher behaves in an ethical manner, that is, zero tolerance for performance enhancement drugs, sexual harassment, verbal/ physical abuse, cheating.",
@@ -258,7 +260,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q19. The teacher helps me believe that I can be a world-class competitor.",
@@ -268,7 +270,7 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
     {
         title: "Q20. The teacher understands the importance of finding a balance between sport performance and other aspects of my life.",
@@ -278,37 +280,38 @@ const FeedbackSportsCoach = [
         hasOptions: true,
         options: [1, 2, 3, 4, 5],
         page: 3,
-        fieldsPerLine: 1
+        fieldsPerLine: 1,
     },
-
-
-]
+];
 
 async function fetchNominatedNames() {
     try {
         // Make an HTTP request to fetch the data from your backend
         // const response = await axios.get('http://localhost:5001/sports-admin/data/nominated-coach-names',{
-        const response = await axios.get('https://apisomaiyaawards.somaiya.edu/sports-admin/data/nominated-coach-names', {
-
-            headers: {
-                'x-access-token': localStorage.getItem('token'),
-                'x-user-id': localStorage.getItem('user_id'),
-                'x-institute-name': localStorage.getItem('institution')
+        const response = await axios.get(
+            "https://apisomaiyaawards.somaiya.edu/sports-admin/data/nominated-coach-names",
+            {
+                headers: {
+                    "x-access-token": localStorage.getItem("token"),
+                    "x-user-id": localStorage.getItem("user_id"),
+                    "x-institute-name": localStorage.getItem("institution"),
+                },
             }
-        });
+        );
 
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;
 
         // Update the options for "nominee_name"
-        FeedbackSportsCoach.find(field => field._name === "nominee_name").options = nominatedNames;
+        FeedbackSportsCoach.find(
+            (field) => field._name === "nominee_name"
+        ).options = nominatedNames;
     } catch (error) {
-        console.error('Error fetching nominated names:', error);
+        console.error("Error fetching nominated names:", error);
     }
 }
 
 // Call the function to fetch and update the options
 fetchNominatedNames();
 
-
-export default FeedbackSportsCoach
+export default FeedbackSportsCoach;

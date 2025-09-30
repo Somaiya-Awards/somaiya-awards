@@ -1,49 +1,51 @@
-const StudentsFormData = [
+import type { FormEntry } from "./types";
+
+const StudentsFormData: FormEntry[] = [
     {
         title: "Somaiya Mail ",
         _name: "email_id",
         type: "email",
-        requiredStatus : true,
+        requiredStatus: true,
         hasValidations: true,
-        validationType:"somaiya-mail-id",
+        validationType: "somaiya-mail-id",
         hasOptions: false,
         page: 1,
-        fieldsPerLine:2
+        fieldsPerLine: 2,
     },
     {
         title: "Student's Name",
         _name: "student_name",
         type: "text",
-        requiredStatus : true,
+        requiredStatus: true,
         hasOptions: false,
         page: 1,
-        fieldsPerLine:2
+        fieldsPerLine: 2,
     },
     {
         title: "Class",
         _name: "students_class",
         type: "text",
-        requiredStatus : true,
+        requiredStatus: true,
         hasOptions: false,
         page: 1,
-        fieldsPerLine:2
+        fieldsPerLine: 2,
     },
     {
         title: "Course",
         _name: "course",
         type: "text",
-        requiredStatus : true,
+        requiredStatus: true,
         hasOptions: false,
         page: 1,
-        fieldsPerLine:2
+        fieldsPerLine: 2,
     },
     {
         title: "Name of Institution",
-        _name:"institution_name",
+        _name: "institution_name",
         type: "dropdown",
         requiredStatus: true,
-        dropdownHiddenItem:'Select your institute',
-        drop_opt:'single',
+        dropdownHiddenItem: "Select your institute",
+        dropOpt: "multiple",
         hasOptions: true,
         options: [
             "The Somaiya School",
@@ -82,13 +84,13 @@ const StudentsFormData = [
             "K J Somaiya junior college of science and commerce",
             "K J Somaiya junior college of arts and commerce",
         ],
-        page:1,
-        fieldsPerLine:2
+        page: 1,
+        fieldsPerLine: 2,
     },
     {
-        title:"Please mark your nomination category",
-        type:"radio",
-        requiredStatus : true,
+        title: "Please mark your nomination category",
+        type: "radio",
+        requiredStatus: true,
         _name: "nomination_category",
         hasOptions: true,
         options: [
@@ -98,27 +100,27 @@ const StudentsFormData = [
             "Somaiya Green Star/ Green Force",
             "Somaiya Star Innovator",
         ],
-        page:1,
-        fieldsPerLine:2
+        page: 1,
+        fieldsPerLine: 2,
     },
     {
         title: "Recommendation Note ( minimum 600 words )",
-        _name:"recommendation_note",
-        type: 'textarea',
-        hasOptions : false,
-        requiredStatus : true,
-        page:2,
-        fieldsPerLine:1
+        _name: "recommendation_note",
+        type: "textarea",
+        hasOptions: false,
+        requiredStatus: true,
+        page: 2,
+        fieldsPerLine: 1,
     },
     {
-        title:"Upload Supporting Documents",
-        type:"file",
-        requiredStatus : true,
+        title: "Upload Supporting Documents",
+        type: "file",
+        requiredStatus: true,
         _name: "supportings",
         hasOptions: false,
-        page:3,
-        fieldsPerLine:1
-    }
-]
+        page: 3,
+        fieldsPerLine: 1,
+    },
+];
 
 export default StudentsFormData;

@@ -51,13 +51,13 @@ function unmaskSecret(token: string) {
 export function setCsrfCookie(req: Request, res: Response) {
     var cookie;
 
-    if (!req.cookies[CsrfName]){
+    if (!req.cookies[CsrfName]) {
         cookie = randomString();
         setCookie(res, CsrfName, cookie, "1h");
     } else {
         cookie = req.cookies[CsrfName];
     }
-    
+
     const csrfToken = maskSecret(cookie);
 
     res.setHeader(CsrfName, csrfToken as string);
@@ -72,7 +72,7 @@ const csrfMiddleware = asyncHandler(async (req, res, next) => {
     const csrfTokenCookie = req.cookies[CsrfName];
 
     setCsrfCookie(req, res);
-    
+
     if (req.method === "GET") {
         next();
         return;

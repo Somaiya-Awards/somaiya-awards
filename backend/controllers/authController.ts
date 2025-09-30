@@ -108,7 +108,7 @@ export const userRefresh = asyncHandler(async (req, res) => {
 
     setAccessCookie(res, setJwtToken(user, "1h"));
     setRefreshCookie(res, refreshToken);
-    setCsrfCookie(res);
+    setCsrfCookie(req, res);
 
     res.status(200).json({});
 });

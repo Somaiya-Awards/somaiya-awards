@@ -4,13 +4,6 @@
 
 ![Progress Bar](https://progress-bar.xyz/40/)
 
-++++++++Why-0-Progress++++++++
-  1) No Security (Even in Production)
-  2) TypeScript Rewrite
-  3) Jwt Token only for password reset
-  4) backend done
-  5) cookies added
-
 #### DONE
 - [x] Model Rewrite and Optimization
 - [x] Model Type-Safety
@@ -18,16 +11,16 @@
 - [x] Patching Security and implemented Access-Refresh JWT Token   
 - [x] AuthController and AdminController done 
 - [x] Zod added and updated
-- [x] Make it run actually (It's alive)
+- [x] Make it run actually
 - [x] Axios Updation and Customization
-- [x] Limiting what data is send (Current sends everything -> DANGEROUS)
+- [x] Limiting what data is send
 - [x] Controller Rewrite and Optimization
 
 #### TODO
 - [ ] Routes Updation
 - [ ] Frontend Rewrite and Library Updation
 - [ ] Full-Stack Type Safety
-- [ ] FRONTEND (it's big)   
+- [ ] FRONTEND 
 
 #### MAYBE
 - [ ] Use tRPC (Pros: More Type Safety, Cons: It has it's own configs and need special routing. TLDR: Route Rewrite v2)
