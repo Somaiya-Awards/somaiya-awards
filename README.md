@@ -49,7 +49,7 @@ ___
 Clone the project
 
 ```bash
-git clone "https://github.com/Alpharius397/Somaiya-Awards.git"
+git clone "https://github.com/Somaiya-Awards/somaiya-awards"
 ```
 
 Open the project directory
