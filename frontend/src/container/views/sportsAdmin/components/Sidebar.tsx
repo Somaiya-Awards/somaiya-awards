@@ -1,40 +1,37 @@
-import React from 'react'
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import AssessmentRoundedIcon from '@mui/icons-material/AssessmentRounded';
-import GirlRoundedIcon from '@mui/icons-material/GirlRounded';
-import BoyRoundedIcon from '@mui/icons-material/BoyRounded';
-import SportsOutlinedIcon from '@mui/icons-material/SportsOutlined';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
+import GirlRoundedIcon from "@mui/icons-material/GirlRounded";
+import BoyRoundedIcon from "@mui/icons-material/BoyRounded";
+import SportsOutlinedIcon from "@mui/icons-material/SportsOutlined";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const SideBar = () => {
+export default function SideBar() {
     return (
-        <div className='flex h-screen text-white font-Poppins'>
-            <Sidebar backgroundColor='rgb(185,28,28)'>
+        <div className="flex h-screen text-white font-Poppins">
+            <Sidebar backgroundColor="rgb(185,28,28)">
                 <Menu
                     menuItemStyles={{
                         button: {
-                            backgroundColor: 'rgb(185,28,28)',
-                            '&:hover': {
-                                backgroundColor: '#880808',
-                                color: '#fffff7'
+                            backgroundColor: "rgb(185,28,28)",
+                            "&:hover": {
+                                backgroundColor: "#880808",
+                                color: "#fffff7",
                             },
                         },
                     }}
                 >
-                    <div className='p-4 text-2xl text-center mb-[1rem] font-Roboto '>
+                    <div className="p-4 text-2xl text-center mb-[1rem] font-Roboto ">
                         <p>
                             SPORTS
-                            <p>
-                                ADMIN
-                            </p>
+                            <p>ADMIN</p>
                         </p>
                     </div>
                     <MenuItem
                         icon={<HomeRoundedIcon />}
-                        component={<Link to='/sports-admin' />}
+                        component={<Link to="/sports-admin" />}
                     >
                         Home
                     </MenuItem>
@@ -43,47 +40,42 @@ const SideBar = () => {
                         label="Responses"
                         icon={<AssessmentRoundedIcon />}
                     >
-
                         <MenuItem
                             icon={<GirlRoundedIcon />}
-                            component={<Link to='/sports-admin/responses/sports-star-girl' />}
+                            component={
+                                <Link to="/sports-admin/responses/sports-star-girl" />
+                            }
                         >
-                            <p className='text-sm'>
-                                Sports Star Girl
-                            </p>
+                            <p className="text-sm">Sports Star Girl</p>
                         </MenuItem>
 
                         <MenuItem
                             icon={<BoyRoundedIcon />}
-                            component={<Link to='/sports-admin/responses/sports-star-boy' />}
+                            component={
+                                <Link to="/sports-admin/responses/sports-star-boy" />
+                            }
                         >
-                            <p className='text-sm'>
-                                Sports Star Boy
-                            </p>
+                            <p className="text-sm">Sports Star Boy</p>
                         </MenuItem>
 
                         <MenuItem
                             icon={<SportsOutlinedIcon />}
-                            component={<Link to='/sports-admin/responses/inspiring-coach' />}
+                            component={
+                                <Link to="/sports-admin/responses/inspiring-coach" />
+                            }
                         >
-                            <p className='text-sm'>
-                                PE Teacher / Coach 
-                            </p>
+                            <p className="text-sm">PE Teacher / Coach</p>
                         </MenuItem>
-
                     </SubMenu>
 
                     <MenuItem
                         icon={<SchoolRoundedIcon />}
-                        component={<Link to='/tutorial' />}
+                        component={<Link to="/tutorial" />}
                     >
                         Tutorial
                     </MenuItem>
-
                 </Menu>
             </Sidebar>
         </div>
-    )
+    );
 }
-
-export default SideBar

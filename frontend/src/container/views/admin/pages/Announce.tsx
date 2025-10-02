@@ -1,123 +1,122 @@
-import React, { useEffect, useState } from 'react'
-import SideBar from '../../../../components/SideBar'
-import { FileUploader } from 'react-drag-drop-files'
-import Swal from 'sweetalert2'
-import axios from 'axios'
-import { MoonLoader } from 'react-spinners'
-import { json, useNavigate } from 'react-router-dom'
-import xlsx from 'json-as-xlsx'
+import { useEffect, useState } from "react";
+import SideBar from "../../../../components/SideBar";
+import { FileUploader } from "react-drag-drop-files";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { MoonLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import xlsx from "json-as-xlsx";
 
-const Announce = () => {
-
-    const [announced, setAnnounced] = useState(false)
-    const [url, setUrl] = useState()
-    const [loading, setLoading] = useState(true)
-    const [authorized, setAuthorized] = useState(false)
+export default function Announce() {
+    const [announced, setAnnounced] = useState<boolean>(false);
+    const [url, setUrl] = useState();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [authorized, setAuthorized] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const fileTypes = ["CSV", "XLSX"];
 
-    const handleChange = (file) => {
-        console.log(file);
-
+    function handleChange(file: File) {
         Swal.fire({
-            icon: 'question',
+            icon: "question",
             title: "Confirmation",
-            text: `Selected File : ${file.name}`
-        })
-            .then((res) => {
-                if (res.isConfirmed) {
-
-                    // make axios post request
-                    axios.post('/admin/data/announce-results', { result: file }, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
+            text: `Selected File : ${file.name}`,
+        }).then((res) => {
+            if (res.isConfirmed) {
+                // make axios post request
+                axios
+                    .post(
+                        "/admin/data/announce-results",
+                        { result: file },
+                        {
+                            headers: {
+                                "Content-Type": "multipart/form-data",
+                            },
                         }
+                    )
+                    .then((res) => {
+                        console.log(res);
+                        window.location.reload();
                     })
-                        .then((res) => {
-                            console.log(res);
-                            window.location.reload()
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        })
-                }
-            })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        });
     }
 
-    const handleDownload = () =>{
-        let data = [
+    const handleDownload = () => {
+        const data = [
             {
-              sheet: "Results",
-              columns: [
-                { label: "Name", value: "name" }, 
-                { label: "Institution", value:"inst" }, 
-                { label: "Category", value: "category" }, 
-              
-              ],
-              content: [
-                {
-                    name:'jash',
-                    inst:'kjsit',
-                    category:'jk'
-                }
-              ]
+                sheet: "Results",
+                columns: [
+                    { label: "Name", value: "name" },
+                    { label: "Institution", value: "inst" },
+                    { label: "Category", value: "category" },
+                ],
+                content: [
+                    {
+                        name: "jash",
+                        inst: "kjsit",
+                        category: "jk",
+                    },
+                ],
             },
-            
-          ]
-          
-          let settings = {
-            fileName: "Awards Result Announcement", 
-            extraLength: 3, 
-            writeMode: "writeFile", 
-            writeOptions: {}, 
-            RTL: false, 
-          }
-          
-          xlsx(data, settings)
+        ];
 
-    }
+        const settings = {
+            fileName: "Awards Result Announcement",
+            extraLength: 3,
+            writeMode: "writeFile",
+            writeOptions: {},
+            RTL: false,
+        };
+
+        xlsx(data, settings);
+    };
 
     useEffect(() => {
-
-        if (!localStorage.getItem('token') || !localStorage.getItem('user_id')) {
+        if (
+            !localStorage.getItem("token") ||
+            !localStorage.getItem("user_id")
+        ) {
             Swal.fire({
                 title: "Failed to Login",
                 text: "We failed to recognize you! Try relogging",
-                imageUrl: 'https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=',
+                imageUrl:
+                    "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
                 // imageWidth:"150",
-                imageHeight: '250',
-                confirmButtonColor: "rgb(185,28,28)"
-            })
-            navigate('/auth/login')
-        }
-        else {
-
-            axios.get('/auth/validate', {
-                headers: {
-                    'x-access-token': localStorage.getItem('token'),
-                    'x-user-id': localStorage.getItem('user_id'),
-                }
-            })
+                imageHeight: "250",
+                confirmButtonColor: "rgb(185,28,28)",
+            });
+            navigate("/auth/login");
+        } else {
+            axios
+                .get("/auth/validate", {
+                    headers: {
+                        "x-access-token": localStorage.getItem("token"),
+                        "x-user-id": localStorage.getItem("user_id"),
+                    },
+                })
                 .then((res) => {
-
-                    if (res.data['authorized'] && res.data['role'] === 'ADMIN') {
-
-                        setAuthorized(res.data['authorized'])
-                        setLoading(false)
-                    }
-                    else {
-
+                    if (
+                        res.data["authorized"] &&
+                        res.data["role"] === "ADMIN"
+                    ) {
+                        setAuthorized(res.data["authorized"]);
+                        setLoading(false);
+                    } else {
                         Swal.fire({
                             title: "Failed to Login",
                             text: "We failed to recognize you! Try relogging",
-                            imageUrl: 'https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=',
+                            imageUrl:
+                                "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
                             // imageWidth:"150",
-                            imageHeight: '250',
-                            confirmButtonColor: "rgb(185,28,28)"
-                        })
-                        navigate('/auth/login')
+                            imageHeight: "250",
+                            confirmButtonColor: "rgb(185,28,28)",
+                        });
+                        navigate("/auth/login");
                     }
                 })
                 .catch((err) => {
@@ -125,30 +124,30 @@ const Announce = () => {
                     Swal.fire({
                         title: "Failed to Login",
                         text: "We failed to recognize you! Try relogging",
-                        imageUrl: 'https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=',
+                        imageUrl:
+                            "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
                         // imageWidth:"150",
-                        imageHeight: '250',
-                        confirmButtonColor: "rgb(185,28,28)"
-                    })
-                    navigate('/auth/login')
-                })
+                        imageHeight: "250",
+                        confirmButtonColor: "rgb(185,28,28)",
+                    });
+                    navigate("/auth/login");
+                });
         }
 
-        const url = '/admin/data/results'
-        axios.get(url, {
-            headers: {
-                'x-user-id': localStorage.getItem('user_id'),
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
+        const url = "/admin/data/results";
+        axios
+            .get(url, {
+                headers: {
+                    "x-user-id": localStorage.getItem("user_id"),
+                    "x-access-token": localStorage.getItem("token"),
+                },
+            })
             .then((res) => {
-
                 if (res.data.data.length != 0) {
-
                     let path = res.data.data[0].result;
-                    path = path.split('data')[1]
-                    setUrl(path)
-                    setAnnounced(true)
+                    path = path.split("data")[1];
+                    setUrl(path);
+                    setAnnounced(true);
                 } else {
                     console.log(res.data);
                 }
@@ -156,84 +155,89 @@ const Announce = () => {
 
             .catch((err) => {
                 console.log(err);
-            })
+            });
+    }, []);
 
-    }, [])
     return (
-        <div className='flex'>
-            {
-                loading
-                    ?
-                    <>
-                        <div className='w-full h-screen flex justify-center items-center'>
-                            <MoonLoader
-                                loading={loading}
-                                size={50}
-                                color="rgb(185,28,28"
-                            />
+        <div className="flex">
+            {loading ? (
+                <>
+                    <div className="w-full h-screen flex justify-center items-center">
+                        <MoonLoader
+                            loading={loading}
+                            size={50}
+                            color="rgb(185,28,28"
+                        />
+                    </div>
+                </>
+            ) : authorized ? (
+                <>
+                    <SideBar />
+
+                    <div className="flex flex-col w-full h-screen overflow-y-scroll">
+                        <div className="p-5 font-Poppins">
+                            <h2 className="text-xl font-semibold">
+                                📢 Announce Results
+                            </h2>
+
+                            {announced ? (
+                                <>
+                                    <p className="my-2">
+                                        <span className="font-semibold text-green-700">
+                                            Status
+                                        </span>{" "}
+                                        : Announced
+                                    </p>
+
+                                    <div>
+                                        Results have been announced for the
+                                        current Year . Download The File to View
+                                        <div className="bg-red-800 text-white p-3 hover:bg-red-400 w-52 my-8 rounded-xl text-center animate-pulse">
+                                            <a href={`${url}`} download>
+                                                Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="my-2">
+                                        <span className="font-semibold text-green-700">
+                                            Status
+                                        </span>{" "}
+                                        : Not Announced
+                                    </p>
+
+                                    <p className="text-md my-3">
+                                        Drop a Excel File with names of winner's
+                                        , their institute name and Award
+                                        category to Announce Results Publicly
+                                    </p>
+
+                                    <div>
+                                        <button
+                                            className="px-3 py-2 bg-red-800 rounded-full text-white"
+                                            onClick={handleDownload}
+                                        >
+                                            Download CSV Format
+                                        </button>
+                                    </div>
+
+                                    <div className="my-5 p-2 flex justify-center">
+                                        <div className=" rounded-xl bg-slate-100 h-[200px] w-[50%] flex justify-center items-center">
+                                            <FileUploader
+                                                handleChange={handleChange}
+                                                name="result"
+                                                types={fileTypes}
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
-                    </>
-                    :
-                    authorized
-                        ?
-                        <>
-                            <SideBar />
-
-                            <div className='flex flex-col w-full h-screen overflow-y-scroll'>
-                                <div className='p-5 font-Poppins'>
-
-                                    <h2 className='text-xl font-semibold'>
-                                        📢 Announce Results
-                                    </h2>
-
-                                    {
-                                        announced
-                                            ?
-                                            <>
-                                                <p className='my-2'>
-                                                    <span className='font-semibold text-green-700'>Status</span> : Announced
-                                                </p>
-
-                                                <div>
-                                                    Results have been announced for the current Year . Download The File to View
-
-                                                    <div className='bg-red-800 text-white p-3 hover:bg-red-400 w-52 my-8 rounded-xl text-center animate-pulse'>
-                                                        <a href={`${url}`} download>Download</a>
-                                                    </div>
-                                                </div>
-                                            </>
-                                            :
-                                            <>
-                                                <p className='my-2'>
-                                                    <span className='font-semibold text-green-700'>Status</span> : Not Announced
-                                                </p>
-
-                                                
-                                                <p className='text-md my-3'>
-                                                    Drop a Excel File with names of winner's , their institute name  and Award category to Announce Results Publicly
-                                                </p>
-
-                                                <div>
-                                                    <button className='px-3 py-2 bg-red-800 rounded-full text-white' onClick={handleDownload}>
-                                                        Download CSV Format
-                                                    </button>
-                                                </div>
-
-                                                <div className='my-5 p-2 flex justify-center'>
-                                                    <div className=' rounded-xl bg-slate-100 h-[200px] w-[50%] flex justify-center items-center'>
-                                                        <FileUploader handleChange={handleChange} name="result" types={fileTypes} />
-                                                    </div>
-                                                </div>
-                                            </>
-                                    }
-                                </div>
-                            </div>
-                        </>
-                        :
-                        navigate('/auth/login')
-            }
+                    </div>
+                </>
+            ) : null}
         </div>
-    )
+    );
 }
-
-export default Announce

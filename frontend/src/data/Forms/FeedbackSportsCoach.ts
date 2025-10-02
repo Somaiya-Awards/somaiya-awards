@@ -303,9 +303,11 @@ async function fetchNominatedNames() {
         const nominatedNames = response.data.data;
 
         // Update the options for "nominee_name"
-        FeedbackSportsCoach.find(
-            (field) => field._name === "nominee_name"
-        ).options = nominatedNames;
+        const opt = FeedbackSportsCoach.find(
+            (field) => field.name === "nominee_name"
+        );
+
+        if (opt) opt.options = nominatedNames;
     } catch (error) {
         console.error("Error fetching nominated names:", error);
     }
