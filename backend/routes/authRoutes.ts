@@ -6,6 +6,7 @@ import {
     registerUser,
     bulkCreateOrUpdateUsers,
     userRefresh,
+    userLogout,
 } from "../controllers/authController";
 import csrfMiddleware from "../middleware/csrfMiddleware";
 
@@ -16,6 +17,7 @@ const router = express.Router();
  */
 
 router.route("/login").post(userLogin);
+router.route("/logout").post(userLogout);
 router.route("/refresh").post(csrfMiddleware, userRefresh);
 router.route("/forgot-password").post(passwordReset);
 router.route("/:id/:token").post(changePassword);

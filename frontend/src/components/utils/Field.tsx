@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+//@ts-expect-error CSS file
 import "./css/config.css";
 import { validator, type ValidFiles } from "./validator";
 import type { Validate } from "../../data/Forms/types";
 
 export type CommonFieldProps = {
     onChange: (event: React.ChangeEvent) => void;
-    fieldsPerLine: number;
-    required: boolean;
+    fieldsPerLine?: number;
+    required?: boolean;
     title: string;
-    link?: string; // useless property 
+    link?: string; // useless property
     name: string;
     value: string;
-    page: number;
+    page?: number;
 } & Validate;
 
 export type FieldProp =
@@ -31,13 +32,18 @@ export type FieldProp =
                 }
           ))
     | (CommonFieldProps & { type: "textarea" })
-    | (CommonFieldProps & { type: "file"; value: { name: string }, fileType: ValidFiles })
+    | (CommonFieldProps & {
+          type: "file";
+          value: { name: string };
+          fileType: ValidFiles;
+      })
     | (CommonFieldProps & { type: "number" })
     | (CommonFieldProps & { type: "text"; placeholder?: string })
     | (CommonFieldProps & { type: "email"; placeholder?: string })
+    | (CommonFieldProps & { type: "password"; placeholder?: string })
     | (CommonFieldProps & { type: "date"; placeholder?: string });
 
-function Field(props: CommonFieldProps) {
+function Field(props: FieldProp) {
     const [value, setValue] = useState<string>("");
     const [, setFocused] = useState<boolean>(false);
 
@@ -164,12 +170,13 @@ function Field(props: CommonFieldProps) {
     }
 
     function TextProp(props: FieldProp) {
-
-        switch(props.type) {
+        switch (props.type) {
             case "text":
             case "email":
-            case "date": break;
-            default: return null
+            case "date":
+                break;
+            default:
+                return null;
         }
 
         return (
@@ -211,13 +218,11 @@ function Field(props: CommonFieldProps) {
 
     function GiveJudgement(props: CommonFieldProps) {
         if (props.validate) {
-                            
             const [judgment, verdict] = validator(props, value);
 
             if (judgment) {
                 return <p className="font-Poppins text-red-700">{verdict}</p>;
             }
-
         }
 
         return null;
@@ -252,7 +257,7 @@ function Field(props: CommonFieldProps) {
                 <GiveJudgement {...props} />
             </div>
             <div>
-                <WhoThatPokemon {...(props as FieldProp)} />
+                <WhoThatPokemon {...props} />
             </div>
         </div>
     );

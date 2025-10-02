@@ -5,15 +5,22 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import { AccessCookie, RefreshCookie } from "../constants";
+import { RefreshCookie } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
 import { checkObject } from ".";
 import { email } from "../zod";
-import { getJwtToken, randomJwt, setJwtToken } from "../middleware/jwt";
-import { setAccessCookie, setCookie, setRefreshCookie } from "../middleware/cookie";
+import { getJwtToken, setJwtToken } from "../middleware/jwt";
+import {
+    removeAccessCookie,
+    removeRefreshCookie,
+    setAccessCookie,
+    setCookie,
+    setRefreshCookie,
+} from "../middleware/cookie";
 import { randomString, setCsrfCookie } from "../middleware/csrfMiddleware";
+import { AuthRequest } from "../types/request";
 
 //@desc handle login
 //@route POST /auth/login
@@ -100,7 +107,7 @@ export const userRefresh = asyncHandler(async (req, res) => {
         where: { id: refresh.id, email_id: refresh.email_id },
     });
 
-    if (user == null) {
+    if (user === null) {
         res.status(401).json({
             message: "User ID not found",
         });
@@ -182,8 +189,8 @@ export const passwordReset = asyncHandler(async (req, res) => {
         { expiresIn: "5m" }
     );
 
-    // const link = `http://localhost:3000/auth/${user.id}/${token}`
-    const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`;
+    const link = `http://localhost:3000/auth/${user.id}/${token}`;
+    // const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`;
 
     // // mail the link to user
 
@@ -382,5 +389,25 @@ export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
     res.status(200).json({
         message: "Bulk operation completed successfully",
         results,
+    });
+});
+
+//@desc handle logout
+//@route POST /auth/logout
+//@access public
+export const userLogout = asyncHandler(async (req, res) => {
+    const user = (req as AuthRequest).user;
+
+    if (!user) {
+        res.status(301).json({
+            message: "Already logged out",
+        });
+    }
+
+    removeAccessCookie(res);
+    removeRefreshCookie(res);
+
+    res.status(200).json({
+        message: "Successfully logged out",
     });
 });

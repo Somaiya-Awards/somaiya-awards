@@ -83,6 +83,6 @@ const TableData = [
         col4: "Somaiya Sports Academy",
         col5: "",
     },
-];
+] as const;
 
 export default TableData;

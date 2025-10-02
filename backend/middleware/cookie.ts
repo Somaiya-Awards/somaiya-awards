@@ -1,15 +1,12 @@
-import { Response } from "express";
+import { CookieOptions, Response } from "express";
 import { AccessCookie, IstOffset, RefreshCookie } from "../constants";
 import { JwtTimeout } from "./jwt";
 
-export function setCookie(
-    res: Response,
-    cookieName: string,
-    cookieValue: string,
+function setCookieOption(
     timeout: JwtTimeout,
     path: string | null = null,
     httpOnly: boolean = true
-) {
+): CookieOptions {
     let expire = Date.now();
 
     switch (timeout) {
@@ -22,21 +19,35 @@ export function setCookie(
         default:
             throw new Error("Invalid expiration time");
     }
-
     if (!path) {
-        res.cookie(cookieName, cookieValue, {
+        return {
             expires: new Date(expire),
             httpOnly,
             sameSite: "none",
-        });
+        };
     } else {
-        res.cookie(cookieName, cookieValue, {
+        return {
             expires: new Date(expire),
             httpOnly,
             sameSite: "none",
             path,
-        });
+        };
     }
+}
+
+export function setCookie(
+    res: Response,
+    cookieName: string,
+    cookieValue: string,
+    timeout: JwtTimeout,
+    path: string | null = null,
+    httpOnly: boolean = true
+) {
+    res.cookie(
+        cookieName,
+        cookieValue,
+        setCookieOption(timeout, path, httpOnly)
+    );
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
@@ -45,4 +56,12 @@ export function setAccessCookie(res: Response, cookie: string) {
 
 export function setRefreshCookie(res: Response, cookie: string) {
     setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh");
+}
+
+export function removeAccessCookie(res: Response) {
+    res.clearCookie(AccessCookie, setCookieOption("1h"));
+}
+
+export function removeRefreshCookie(res: Response) {
+    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"));
 }

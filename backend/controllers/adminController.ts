@@ -268,7 +268,6 @@ export const getCounts = asyncHandler(async (req: Request, res: Response) => {
     countData.studentsFormCount = await Students.count(conditions);
 
     res.status(200).json({
-        message: "Request Successful",
         data: countData,
     });
 });
@@ -403,7 +402,6 @@ export const getDaysCount = asyncHandler(
         }
 
         res.status(200).json({
-            message: "Api works",
             data: data,
         });
     }

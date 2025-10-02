@@ -10,6 +10,7 @@ interface Config extends AxiosRequestConfig {
 export const URL = {
     AUTH: {
         LOGIN: `${BASE_URL}/auth/login`,
+        LOGOUT: `${BASE_URL}/auth/logout`,
         FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
         REFRESH: `${BASE_URL}/auth/refresh`,
         OTP_RESET: (id: string, token: string) => {
