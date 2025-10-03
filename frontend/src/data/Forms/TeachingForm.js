@@ -332,7 +332,7 @@ const TeachingForm = [
         fieldsPerLine:1
     },
     {
-        title: "Q21. Add your relevant achievements.",
+        title: "Q21. Add your relevant achievements (MAX 1000 words).",
         _name:"q_21",
         type: 'textarea',
         hasOptions : false,
