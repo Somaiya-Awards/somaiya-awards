@@ -2072,7 +2072,8 @@ const getTeachingJurySummaryData = asyncHandler(async (req, res) => {
       }
     } else if (
       entry.awards_category ===
-      "Promising Teacher of the year (1 to 3 years of service)"
+      "Promising Faculty (2 to 3 years of Service)"
+
     ) {
       if (entry.ieacApproved) {
         promisingApprovedData.push(faculty);
