@@ -14,9 +14,8 @@ const validator = (props, value) => {
   }
 
   if (props.validateType === "email-id") {
-    const regex = /^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/;
+    const regex = /^[\w.-]+@[a-zA-Z_-]+\.[a-zA-Z]{2,3}$/;
     const validatePair = [];
-
     validatePair.push(!regex.test(value));
     validatePair.push("Please enter valid mail ID");
 
@@ -62,7 +61,7 @@ const validator = (props, value) => {
   if (props.validateType === "file") {
     const regex = /\.(pdf|jpg)$/;
     const validatePair = [];
-    console.log(props.value);
+
     if (!regex.test(props?.value?.name)) {
       validatePair.push(!regex.test(props?.value?.name));
       validatePair.push("Invalid File type");
@@ -73,6 +72,7 @@ const validator = (props, value) => {
 
     return validatePair;
   }
+  return null;
 };
 
 const Field = (props) => {
@@ -87,7 +87,7 @@ const Field = (props) => {
   const handleChange = (event) => {
     setValue(event.target.value);
     props.onChange(event); // Pass the event to the parent component's onChange handler
-    console.log(event.target.files);
+
     if (props.validateType === "file") {
       setError(event.target.files[0].size > 5 * 1024 * 1024);
     } else {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormStages from "./FormStages";
-import Field from "./utils/Field";
+import Field, { validator } from "./utils/Field";
 import axios from "axios";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -39,7 +39,6 @@ const Forms = (props) => {
   };
 
   const handleFieldChange = (event) => {
-    console.warn(event);
     if (event.target.type === "file") {
       const { name } = event.target;
       let regex = /.(pdf|jpg)$/;
@@ -52,17 +51,36 @@ const Forms = (props) => {
       }));
     } else {
       const { name, value } = event.target;
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
 
-    setPercentage(Object.keys(formData).length / props.data.length);
-    localStorage.setItem(
-      `${window.location.href.split("/forms/")[1] + "Data"}`,
-      JSON.stringify(formData),
-    );
+      let prop = props.data.find((x) => name === x._name);
+
+      if (!prop) return;
+      const p = prop.validationType;
+      let valid = validator({ validateType: p }, value);
+
+      if (valid && valid[0]) {
+        setFormData((prev) => {
+          let a = { ...prev };
+          delete a[name];
+          setPercentage(Object.keys(a).length / props.data.length);
+          localStorage.setItem(
+            `${window.location.href.split("/forms/")[1] + "Data"}`,
+            JSON.stringify(formData),
+          );
+          return { ...a };
+        });
+      } else {
+        setFormData((prevFormData) => {
+          let a = { ...prevFormData, [name]: value };
+          setPercentage(Object.keys(a).length / props.data.length);
+          localStorage.setItem(
+            `${window.location.href.split("/forms/")[1] + "Data"}`,
+            JSON.stringify(formData),
+          );
+          return { ...a };
+        });
+      }
+    }
   };
 
   const submit_checker = () => {};
@@ -196,7 +214,6 @@ const Forms = (props) => {
             validateType={entry.validationType}
             dropdownHiddenItem={entry.dropdownHiddenItem}
             options={entry.options}
-            value={formData[entry._name] || ""}
             fieldsPerLine={entry.fieldsPerLine}
             link={entry.link}
             onChange={handleFieldChange}
