@@ -103,6 +103,31 @@ const SportsStarForm = [
     fieldsPerLine: 2,
   },
   {
+    title: "Nominee Photo - Somaiya Sports Star",
+    hasValidations: true,
+    validationType: "file",
+    accept: ".jpg",
+    type: "file",
+    requiredStatus: true,
+    _name: "nominee_coach_photo",
+    hasOptions: false,
+    page: 2,
+    fieldsPerLine: 2,
+  },
+  {
+    title: "Supporting Documents",
+    hasValidations: true,
+    accept: ".pdf",
+    validationType: "file",
+    type: "file",
+    requiredStatus: true,
+    _name: "nominee_coach_supportings",
+    hasOptions: false,
+    page: 2,
+    fieldsPerLine: 2,
+  },
+
+  {
     title:
       "Q1. Skill to demonstrate competency in motor skills and movement patterns needed to perform a variety of physical activities.",
     _name: "q_01",
