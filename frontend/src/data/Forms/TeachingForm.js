@@ -27,7 +27,7 @@ const TeachingForm = [
         hasOptions: true,
         options:[
             "Excellence in Teaching (more than 3 years of service)",
-            "Promising Teacher of the year (1 to 3 years of service)",
+            "Promising Faculty (2 to 3 years of Service)",
         ],
         page: 1,
         fieldsPerLine:1
