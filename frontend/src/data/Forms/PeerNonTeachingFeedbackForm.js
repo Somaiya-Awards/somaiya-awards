@@ -168,7 +168,7 @@ const PeerNonTeachingFeedbackForm = [
         fieldsPerLine:1
     },
     {
-        title: "Give 3 reasons behind nominating the employee for the award",
+        title: "Give 3 reasons behind nominating the employee for the award (600 words max)",
         _name: "nomination_reason",
         type: "textarea",
         requiredStatus : true,

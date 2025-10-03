@@ -171,7 +171,7 @@ const FeedbackTeachingPeerForm =[
         fieldsPerLine:1
     },
     {
-        title: "Give 3 reasons behind nominating the teacher for the award",
+        title: "Give 3 reasons behind nominating the teacher for the award (600 words max)",
         _name: "nomination_reason",
         type: "textarea",
         requiredStatus : true,

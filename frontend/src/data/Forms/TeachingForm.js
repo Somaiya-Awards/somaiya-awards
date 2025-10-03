@@ -359,7 +359,7 @@ const TeachingForm = [
     fieldsPerLine: 1,
   },
   {
-    title: "Major evidences for the data provided in this form",
+    title: "Major evidences for the data provided in this form (Max Size: 5mB)",
     _name: "data_evidence",
     type: "file",
     hasValidations: true,
@@ -371,7 +371,7 @@ const TeachingForm = [
     fieldsPerLine: 1,
   },
   {
-    title: "Kindly attach the profile photograph of the nominated applicant",
+    title: "Kindly attach the profile photograph of the nominated applicant (Max Size: 5mB)",
     _name: "profile_photograph",
     hasValidations: true,
     validationType: "file",

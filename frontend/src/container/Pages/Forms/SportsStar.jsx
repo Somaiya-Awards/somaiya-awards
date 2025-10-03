@@ -86,7 +86,7 @@ const SportsStar = () => {
     "Nominee Ratings (BOY)",
   ];
   const message =
-    "Please fill all the fields correctly as per your knowledge. Upload a single file under each field. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.";
+    "Please fill all the fields correctly as per your knowledge. Upload a single file under each field. Files should be uploaded in a single PDF Format only of maximum size of 5mB. All the relevant documents are to be combined into single pdf.";
 
   return (
     <div>
@@ -99,7 +99,7 @@ const SportsStar = () => {
 
           {/* form instructions  */}
 
-          <div className="mt-4 font-Poppins text-xs">
+          <div className="mt-16 ml-2 font-Poppins text-xs">
             <div className="bg-red-700 text-white rounded-md shadow-lg mx-[1.5%] w-[50%] p-5">
               <div className="px-5 py-1">
                 <p className="font-semibold">

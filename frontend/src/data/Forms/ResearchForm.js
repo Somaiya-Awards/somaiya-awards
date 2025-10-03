@@ -328,7 +328,7 @@ const ResearchForm = [
     fieldsPerLine: 2,
   },
   {
-    title: "Upload the Research Accomplishment Document",
+    title: "Upload the Research Accomplishment Document (Max Size: 5mB)",
     _name: "evidence_of_research",
     type: "file",
     hasValidations: true,
@@ -342,7 +342,7 @@ const ResearchForm = [
   },
   {
     title:
-      "Major evidences for the data provided in this form as a single PDF file",
+      "Major evidences for the data provided in this form as a single PDF file (Max Size: 5mB)",
     _name: "evidence_of_data_provided",
     type: "file",
     hasValidations: true,

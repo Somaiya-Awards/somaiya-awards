@@ -173,7 +173,7 @@ const StudentTeachingFeedbackForm = [
         fieldsPerLine:1
     },
     {
-        title:"Give 3 reasons for nominating the teacher for the award",
+        title:"Give 3 reasons for nominating the teacher for the award (600 words max)",
         type:"textarea",
         requiredStatus : true,
         _name: "nominating_reasons",

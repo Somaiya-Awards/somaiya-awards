@@ -399,7 +399,7 @@ const NonTeachingForm = [
     fieldsPerLine: 1,
   },
   {
-    title: "Evidance / Proof ",
+    title: "Evidance / Proof (Max Size: 5mB)",
     _name: "proof_docs",
     type: "file",
     hasValidations: true,
@@ -411,7 +411,7 @@ const NonTeachingForm = [
     fieldsPerLine: 1,
   },
   {
-    title: "Kindly attach the profile photograph of the nominated applicant.",
+    title: "Kindly attach the profile photograph of the nominated applicant (Max Size: 5mB)",
     _name: "nominee_photograph",
     hasValidations: true,
     validationType: "file",

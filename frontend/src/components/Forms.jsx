@@ -18,6 +18,7 @@ const Forms = (props) => {
 
   const [current, setCurrent] = useState(0);
   const [formData, setFormData] = useState({});
+  const [display, setDisplay] = useState({});
   const [percentage, setPercentage] = useState(0);
 
   /**
@@ -41,21 +42,36 @@ const Forms = (props) => {
   const handleFieldChange = (event) => {
     if (event.target.type === "file") {
       const { name } = event.target;
-      let regex = /.(pdf|jpg)$/;
+      let regex = /\.(pdf|jpg)$/;
+
+      setDisplay((prev) => (
+        {...prev, [name]: event.target.files[0]}
+      ));
+
       if (!regex.test(event.target.files[0].name)) return;
-      if (event.target.files[0].size > 1 * 1024 * 1024) return;
+      if (event.target.files[0].size > 5 * 1024 * 1024) return;
 
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: event.target.files[0],
       }));
+      setPercentage(Object.keys(formData).length / props.data.length);
+
     } else {
       const { name, value } = event.target;
+      
+      setDisplay((prev) => (
+        {...prev, [name]: value}
+      ));
 
       let prop = props.data.find((x) => name === x._name);
 
       if (!prop) return;
-      const p = prop.validationType;
+      var p = prop.validationType;
+
+      if(prop.type === "textarea") {
+        p = "textarea";
+      }
       let valid = validator({ validateType: p }, value);
 
       if (valid && valid[0]) {
@@ -80,6 +96,8 @@ const Forms = (props) => {
           return { ...a };
         });
       }
+
+
     }
   };
 
@@ -208,6 +226,7 @@ const Forms = (props) => {
             title={entry.title}
             accept={entry.accept}
             name={entry._name}
+            value={display[entry._name] || ""}
             required={entry.requiredStatus}
             validate={entry.hasValidations}
             dropOpt={entry.drop_opt}

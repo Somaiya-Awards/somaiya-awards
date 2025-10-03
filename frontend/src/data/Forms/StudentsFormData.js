@@ -102,7 +102,7 @@ const StudentsFormData = [
     fieldsPerLine: 2,
   },
   {
-    title: "Recommendation Note ( minimum 600 words )",
+    title: "Recommendation Note (600 words max)",
     _name: "recommendation_note",
     type: "textarea",
     hasOptions: false,
@@ -111,7 +111,7 @@ const StudentsFormData = [
     fieldsPerLine: 1,
   },
   {
-    title: "Upload Supporting Documents",
+    title: "Upload Supporting Documents (Max Size: 5mB)",
     type: "file",
     hasValidations: true,
     accept: ".pdf",

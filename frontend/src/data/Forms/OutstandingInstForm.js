@@ -513,7 +513,7 @@ const OutstandingInstForm = [
   },
   {
     title:
-      "Q38. What are the significant contributions made by your institution to the support functions eg HR, IT, Sports, Security, PR, AR etc",
+      "Q38. What are the significant contributions made by your institution to the support functions eg HR, IT, Sports, Security, PR, AR etc (600 words max)",
     type: "textarea",
     requiredStatus: true,
     _name: "q_38",
@@ -523,7 +523,7 @@ const OutstandingInstForm = [
   },
 
   {
-    title: "Upload Supporting Documents",
+    title: "Upload Supporting Documents (Max Size: 5mB)",
     type: "file",
     hasValidations: true,
     accept: ".pdf",
