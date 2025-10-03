@@ -98,7 +98,7 @@ const Footer = () => {
                                 href="https://linkedin.com/in/riya-kapadia-a571401bb/"
                                 target="_blank"
                             >
-                                Jash J. Joshi
+                                Riya Kapadia
                             </a>
                         </div>
 
@@ -107,7 +107,7 @@ const Footer = () => {
                                 href="https://linkedin.com/in/jash-joshi01/"
                                 target="_blank"
                             >
-                                Riya Kapadia
+                                Jash J. Joshi
                             </a>
                         </div>
                     </div>
