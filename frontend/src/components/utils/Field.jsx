@@ -1,80 +1,84 @@
-import React, { useState } from 'react';
-import '../utils/css/config.css';
+import React, { useState } from "react";
+import "../utils/css/config.css";
 
 /**validations */
 const validator = (props, value) => {
+  if (props.validateType === "somaiya-mail-id") {
+    const regex = /@somaiya\.edu$/;
+    const validatePair = [];
 
-  if (props.validateType === 'somaiya-mail-id') {
+    validatePair.push(!regex.test(value));
+    validatePair.push("Please enter valid somaiya mail ID");
 
-    const regex = /@somaiya\.edu$/
-    const validatePair = []
-
-    validatePair.push(!regex.test(value))
-    validatePair.push("Please enter valid somaiya mail ID")
-
-    return validatePair
+    return validatePair;
   }
 
-  if (props.validateType === 'email-id') {
-
+  if (props.validateType === "email-id") {
     const regex = /^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/;
-    const validatePair = []
+    const validatePair = [];
 
-    validatePair.push(!regex.test(value))
-    validatePair.push("Please enter valid mail ID")
+    validatePair.push(!regex.test(value));
+    validatePair.push("Please enter valid mail ID");
 
-    return validatePair
+    return validatePair;
   }
 
-  if (props.validateType === 'year') {
-
+  if (props.validateType === "year") {
     const regex = /^(19|20)\d{2}$/;
-    const validatePair = []
+    const validatePair = [];
 
-    validatePair.push(!regex.test(value))
-    validatePair.push("Year is Invalid")
+    validatePair.push(!regex.test(value));
+    validatePair.push("Year is Invalid");
 
-    return validatePair
+    return validatePair;
   }
 
-  if (props.validateType === 'contact-no') {
-
+  if (props.validateType === "contact-no") {
     const regex = /^\d{10}$/;
-    const validatePair = []
+    const validatePair = [];
 
-    validatePair.push(!regex.test(value))
-    validatePair.push("Invalid contact Number")
+    validatePair.push(!regex.test(value));
+    validatePair.push("Invalid contact Number");
 
-    return validatePair
+    return validatePair;
   }
 
-  if (props.validateType === 'date') {
+  if (props.validateType === "date") {
     const date1 = new Date(value || new Date());
-    const date2 = new Date();
+    const date2 = new Date().getFullYear() - 3;
 
     const validatePair = [];
 
-    if (date1 >= date2) {
-
+    if (date1.getFullYear() >= date2) {
       validatePair.push(true);
-      validatePair.push('Invalid Date');
-
+      validatePair.push("Invalid Date");
     } else {
-
       validatePair.push(false);
-      validatePair.push("Valid Date")
-
+      validatePair.push("Valid Date");
     }
 
     return validatePair;
   }
-}
+  if (props.validateType === "file") {
+    const regex = /\.(pdf|jpg)$/;
+    const validatePair = [];
+    console.log(props.value);
+    if (!regex.test(props?.value?.name)) {
+      validatePair.push(!regex.test(props?.value?.name));
+      validatePair.push("Invalid File type");
+    } else {
+      validatePair.push(true);
+      validatePair.push("");
+    }
 
+    return validatePair;
+  }
+};
 
 const Field = (props) => {
-
-  const [value, setValue] = useState('');
-  const [focused, setFocused] = useState(false)
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(null);
+  const [focused, setFocused] = useState(false);
 
   /**
    * Handlers
@@ -83,43 +87,64 @@ const Field = (props) => {
   const handleChange = (event) => {
     setValue(event.target.value);
     props.onChange(event); // Pass the event to the parent component's onChange handler
+    console.log(event.target.files);
+    if (props.validateType === "file") {
+      setError(event.target.files[0].size > 5 * 1024 * 1024);
+    } else {
+      setError(null);
+    }
   };
 
   const handleFocus = () => {
-    setFocused(true)
-  }
+    setFocused(true);
+  };
 
   const handleBlur = () => {
-    setFocused(false)
-  }
-
+    setFocused(false);
+  };
 
   const { fieldsPerLine } = props;
 
   return (
-    <div className={`my-3 p-3 inline-block ${fieldsPerLine === 2 ? 'w-1/2' : 'w-full'}`}>
+    <div
+      className={`my-3 p-3 inline-block ${
+        fieldsPerLine === 2 ? "w-1/2" : "w-full"
+      }`}
+    >
       <div className="mb-3">
         <label className="font-Poppins">
           {props.title}
-          <span className="px-2 text-red-600">{props.required ? '*' : null}</span>
+          <span className="px-2 text-red-600">
+            {props.required ? "*" : null}
+          </span>
         </label>
         {props.link !== undefined ? (
           <p>
-            <a href={props.link} rel="noreferrer" target="_blank" className="font-Poppins font-semibold text-red-700">
+            <a
+              href={props.link}
+              rel="noreferrer"
+              target="_blank"
+              className="font-Poppins font-semibold text-red-700"
+            >
               Click here
             </a>
           </p>
         ) : null}
 
-        {props.validate !== undefined && validator(props, value)[0] &&
-          <p className='font-Poppins text-red-700'>
+        {props.validate !== undefined && validator(props, value)[0] && (
+          <p className="font-Poppins text-red-700">
             {validator(props, value)[1]}
           </p>
-        }
+        )}
 
+        {error && (
+          <p className="font-Poppins text-red-700">
+            {"File size should be less than 5mB"}
+          </p>
+        )}
       </div>
       <div>
-        {props.type === 'radio' ? (
+        {props.type === "radio" ? (
           props.options.map((item, index) => (
             <div key={index}>
               <label>
@@ -131,14 +156,13 @@ const Field = (props) => {
                   checked={props.value == item ? true : false}
                   className=""
                   onChange={handleChange}
-                />{' '}
+                />{" "}
                 {item}
               </label>
             </div>
           ))
-        ) : props.type === 'dropdown' ? (
-          props.dropOpt === 'single'
-            ?
+        ) : props.type === "dropdown" ? (
+          props.dropOpt === "single" ? (
             <select
               name={props.name}
               required={props.requiredStatus}
@@ -147,9 +171,14 @@ const Field = (props) => {
               className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
               <option hidden> {props.dropdownHiddenItem} </option>
-              <option name={props.name} value={localStorage.getItem('institution')}>{localStorage.getItem('institution')}</option>
+              <option
+                name={props.name}
+                value={localStorage.getItem("institution")}
+              >
+                {localStorage.getItem("institution")}
+              </option>
             </select>
-            :
+          ) : (
             <select
               name={props.name}
               required={props.requiredStatus}
@@ -159,21 +188,27 @@ const Field = (props) => {
             >
               <option hidden> {props.dropdownHiddenItem} </option>
               {props.options.map((item) => {
-                return <option name={props.name} value={item}>{item}</option>;
+                return (
+                  <option name={props.name} value={item}>
+                    {item}
+                  </option>
+                );
               })}
             </select>
-        ) : props.type === 'textarea' ? (
+          )
+        ) : props.type === "textarea" ? (
           <textarea
             className="border-black p-3 border-2 rounded-lg w-full h-48"
             name={props.name}
             value={props.value}
             onChange={handleChange}
           ></textarea>
-        ) : props.type === 'file' ? (
+        ) : props.type === "file" ? (
           <>
-            {console.log(props.value)}
+            {console.log(props)}
             <input
-              autoComplete='off'
+              autoComplete="off"
+              accept={props.accept}
               type={props.type}
               name={props.name}
               required={props.required}
@@ -181,11 +216,18 @@ const Field = (props) => {
               // value={props.value}
               onChange={handleChange}
             />
-            <p className='p-2 '> <span className='text-red-700 font-semibold font-Poppins'> selected File : </span> {props.value['name']}</p>
+            <p className="p-2 ">
+              {" "}
+              <span className="text-red-700 font-semibold font-Poppins">
+                {" "}
+                selected File :{" "}
+              </span>{" "}
+              {props.value?.name?.slice(0, 30)}
+            </p>
           </>
-        ) : props.type === 'number' ? (
+        ) : props.type === "number" ? (
           <input
-            autoComplete='off'
+            autoComplete="off"
             type={props.type}
             name={props.name}
             required={props.required}
@@ -195,9 +237,11 @@ const Field = (props) => {
           />
         ) : (
           <input
-            autoComplete='off'
+            autoComplete="on"
             type={props.type}
-            placeholder={props.placeholder === undefined ? null : props.placeholder}
+            placeholder={
+              props.placeholder === undefined ? null : props.placeholder
+            }
             name={props.name}
             required={props.required}
             className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
@@ -213,4 +257,4 @@ const Field = (props) => {
 };
 
 export default Field;
-export { validator }
+export { validator };

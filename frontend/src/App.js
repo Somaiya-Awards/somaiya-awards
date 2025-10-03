@@ -1,14 +1,14 @@
 import React from "react";
 import OutstandingInstitution from "./container/Pages/Forms/OutstandingInstitution";
-import SportsStar from './container/Pages/Forms/SportsStar'
-import Teaching from './container/Pages/Forms/Teaching'
-import Research from './container/Pages/Forms/Research'
+import SportsStar from "./container/Pages/Forms/SportsStar";
+import Teaching from "./container/Pages/Forms/Teaching";
+import Research from "./container/Pages/Forms/Research";
 import FormPreview from "./container/views/admin/pages/FormPreview";
-import NonTeaching from './container/Pages/Forms/NonTeaching'
-import FeedbackTeachingST from './container/Pages/Forms/FeedbackTeachingST'
-import FeedbackTeachingPR from './container/Pages/Forms/FeedbackTeachingPR'
-import FeedbackNonTeachingST from './container/Pages/Forms/FeedbackNonTeachingST'
-import FeedbackNonTeachingPR from './container/Pages/Forms/FeedbackNonTeachingPR'
+import NonTeaching from "./container/Pages/Forms/NonTeaching";
+import FeedbackTeachingST from "./container/Pages/Forms/FeedbackTeachingST";
+import FeedbackTeachingPR from "./container/Pages/Forms/FeedbackTeachingPR";
+import FeedbackNonTeachingST from "./container/Pages/Forms/FeedbackNonTeachingST";
+import FeedbackNonTeachingPR from "./container/Pages/Forms/FeedbackNonTeachingPR";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./container/Pages/Login";
 import ForgotPassword from "./container/Pages/ForgotPassword";
@@ -41,12 +41,12 @@ import ResearchResponses from "./container/views/researchAdmin/pages/ResearchRes
 import Users from "./container/views/admin/pages/Users";
 import Dev from "./container/Pages/Utility/Dev";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
-import axios from 'axios'
+import axios from "axios";
 
 import Tutorial from "./components/Tutorial";
 
-axios.defaults.baseURL = 'https://apisomaiyaawards.somaiya.edu' 
-// axios.defaults.baseURL = 'http://localhost:5001'
+// axios.defaults.baseURL = 'https://apisomaiyaawards.somaiya.edu'
+axios.defaults.baseURL = "http://localhost:5001";
 
 function App() {
   return (
@@ -64,11 +64,11 @@ function App() {
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
         <Route path="/auth/:id/:token" element={<ResetPassword />} />
         <Route path="/forms/cards" element={<Card />} />
-        <Route path='/hoi' element={<Hoi />} />
-        <Route path='/hoi/analysis/:form' element={<Analysis />} />
+        <Route path="/hoi" element={<Hoi />} />
+        <Route path="/hoi/analysis/:form" element={<Analysis />} />
         <Route path="/ieac" element={<Ieac />} />
         <Route path="/ieac/review/:form" element={<Review />} />
-        <Route path='/admin/dashboard' element={<Admin />} />
+        <Route path="/admin/dashboard" element={<Admin />} />
         <Route path="/admin/responses/:formType" element={<Responses />} />
         <Route path="/admin/:formType/scorecard/:id" element={<ScoreCard />} />
         <Route path="/admin/:formType/preview/:id" element={<FormPreview />} />
@@ -76,12 +76,24 @@ function App() {
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/announce-result" element={<Announce />} />
         <Route path="/students-admin" element={<StudentsAdmin />} />
-        <Route path="/students-admin/responses/:formType" element={<StudentResponses />} />
+        <Route
+          path="/students-admin/responses/:formType"
+          element={<StudentResponses />}
+        />
         <Route path="/sports-admin" element={<SportsAdmin />} />
-        <Route path="/sports-admin/responses/:formType" element={<SportsResponses />} />
+        <Route
+          path="/sports-admin/responses/:formType"
+          element={<SportsResponses />}
+        />
         <Route path="/research-admin" element={<ResearchAdmin />} />
-        <Route path="/research-admin/responses/research" element={<ResearchResponses />} />
-        <Route path="/forms/outstanding-institution" element={<OutstandingInstitution />} />
+        <Route
+          path="/research-admin/responses/research"
+          element={<ResearchResponses />}
+        />
+        <Route
+          path="/forms/outstanding-institution"
+          element={<OutstandingInstitution />}
+        />
         <Route path="/forms/sports" element={<SportsStar />} />
         <Route path="/forms/research" element={<Research />} />
         <Route path="/forms/teaching" element={<Teaching />} />
@@ -94,7 +106,7 @@ function App() {
         <Route path="/forms/feedback-05" element={<FeedbackSportsInc />} />
         <Route path="*" element={<PageNotFound />} />
 
-        <Route path="/tutorial" element={<Tutorial/>}/>
+        <Route path="/tutorial" element={<Tutorial />} />
       </Routes>
     </BrowserRouter>
   );
