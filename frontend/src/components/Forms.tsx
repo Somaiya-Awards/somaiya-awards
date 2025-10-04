@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FormStages from "./FormStages";
-import Field, { type CommonFieldProps } from "./utils/Field";
+import Field from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import Swal from "sweetalert2";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Axios from "../axios";
@@ -16,11 +15,11 @@ export type FormProps = {
     data: FormEntry[];
     stages: StagesType[];
     message?: string;
-}
+};
 
 export type FormData = {
-    [key: string]: string | File | number
-}
+    [key: string]: string | File | number;
+};
 
 const Forms = (props: FormProps) => {
     /**
@@ -72,7 +71,7 @@ const Forms = (props: FormProps) => {
         }
 
         setPercentage(Object.keys(formData).length / props.data.length);
-        
+
         localStorage.setItem(
             `${window.location.href.split("/forms/")[1] + "Data"}`,
             JSON.stringify(formData)
@@ -135,8 +134,8 @@ const Forms = (props: FormProps) => {
 
             const incompletePageNumber = missingFieldPage();
 
-            if(incompletePageNumber !== null) setCurrent(incompletePageNumber - 1);
-
+            if (incompletePageNumber !== null)
+                setCurrent(incompletePageNumber - 1);
         } else {
             const formType = window.location.href.split("/forms/")[1]; // TODO: remove this and make it a prop
             const postUrl = `/forms/${formType}`;
@@ -186,7 +185,7 @@ const Forms = (props: FormProps) => {
                 stages.classList.add("bg-white");
             }
         }
-    }
+    };
 
     const handleFormStageChange = (e: React.MouseEvent<HTMLElement>) => {
         //@ts-expect-error Event type matching ignore
@@ -195,7 +194,6 @@ const Forms = (props: FormProps) => {
 
         // color change logic
         colorChange();
-
     };
 
     /**
@@ -228,7 +226,8 @@ const Forms = (props: FormProps) => {
         }
     }, []);
 
-    useEffect(() => { // is this necessary?
+    useEffect(() => {
+        // is this necessary?
 
         const stagesList = document.querySelectorAll(".stages");
 

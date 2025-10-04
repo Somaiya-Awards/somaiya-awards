@@ -1,3 +1,4 @@
+import * as z from "zod";
 import type { ValidFiles } from "../../components/utils/validator";
 
 export type BaseFormEntry = {
@@ -10,20 +11,11 @@ export type BaseFormEntry = {
 } & Validate;
 
 export type Validate = {
-    validate: true;
-    validateType: "somaiya-mail-id" |  "email-id" | "year" | "contact-no" | "date";
-} | {
-    validate: true;
-    validateType: "file";
-    fileType: ValidFiles;
-}
-| {
-    validate?: false;
-    validateType?: string;
+    validator: z.ZodType;
 }
 
 export type FormEntry =
-    | (BaseFormEntry & { type: "radio"; options: string[] | number[] })
+    | (BaseFormEntry & { type: "radio"; options: readonly string[] | readonly number[] })
     | (BaseFormEntry &
           (
               | {
@@ -34,12 +26,12 @@ export type FormEntry =
               | {
                     type: "dropdown";
                     dropOpt: "multiple";
-                    options: string[];
+                    options: readonly string[];
                     dropdownHiddenItem: string;
                 }
           ))
     | (BaseFormEntry & { type: "textarea" })
-    | (BaseFormEntry & { type: "file"; fileType: ValidFiles;})
+    | (BaseFormEntry & { type: "file"; accept: ".pdf" | ".jpg"})
     | (BaseFormEntry & { type: "number" })
     | (BaseFormEntry & { type: "text"; placeholder?: string })
     | (BaseFormEntry & { type: "email"; placeholder?: string })

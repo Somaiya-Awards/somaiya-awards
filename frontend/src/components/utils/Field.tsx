@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//@ts-expect-error CSS file
 import "./css/config.css";
 import { validator, type ValidFiles } from "./validator";
 import type { Validate } from "../../data/Forms/types";
@@ -36,6 +35,7 @@ export type FieldProp =
           type: "file";
           value: { name: string };
           fileType: ValidFiles;
+          accept: ".pdf" | ".jpg";
       })
     | (CommonFieldProps & { type: "number" })
     | (CommonFieldProps & { type: "text"; placeholder?: string })
@@ -136,6 +136,7 @@ function Field(props: FieldProp) {
                 <input
                     autoComplete="off"
                     type={props.type}
+                    accept={props.accept}
                     name={props.name}
                     required={props.required}
                     className={`focus:outline-none color-red-400 }`}

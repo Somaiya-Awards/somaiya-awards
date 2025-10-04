@@ -1,5 +1,21 @@
 import axios from "axios";
 import type { FormEntry } from "./types";
+import { arrayChoice, phoneNumber, somaiyaMail, textArea, validString } from "../../../../backend/zod";
+
+const awards = [
+    "Outstanding Employee Educational Institute",
+    "Promising Employee Educational Institute (≤ 3 years of service)",
+    "Outstanding Administrator Somaiya Trust/GVPM",
+    "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
+] as const;
+
+const agree = [
+    "Strongly Agree",
+    "Agree",
+    "Sometimes",
+    "Disagree",
+    "Strongly Disagree",
+] as const;
 
 const PeerNonTeachingFeedbackForm: FormEntry[] = [
     {
@@ -7,7 +23,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "rater_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -16,7 +32,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "institution_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -25,7 +41,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "department",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -34,7 +50,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -43,9 +59,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "somaiya_mail_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "somaiya-mail-id",
-
+        validator: somaiyaMail,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -54,9 +68,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "contact_no",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "contact-no",
-
+        validator: phoneNumber,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -67,7 +79,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-
+        validator: validString,
         options: [] as string[],
         page: 1,
         fieldsPerLine: 2,
@@ -77,13 +89,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "category",
         type: "radio",
         required: true,
-
-        options: [
-            "Outstanding Employee Educational Institute",
-            "Promising Employee Educational Institute (≤ 3 years of service)",
-            "Outstanding Administrator Somaiya Trust/GVPM",
-            "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
-        ],
+        validator: arrayChoice(awards),
+        options: awards,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -92,14 +99,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_01",
         type: "radio",
         required: true,
-
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -109,13 +110,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -124,8 +120,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_03",
         type: "radio",
         required: true,
-
-        options: ["Outstanding", "Excellent", "Good", "Average", "Poor"],
+        validator: arrayChoice(["Outstanding", "Excellent", "Good", "Average", "Poor"]),
+        options: ["Outstanding", "Excellent", "Good", "Average", "Poor"] as const,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -134,14 +130,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_04",
         type: "radio",
         required: true,
-
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -151,13 +141,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -166,14 +151,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_06",
         type: "radio",
         required: true,
-
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -183,13 +162,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -199,13 +173,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -214,7 +183,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "nomination_reason",
         type: "textarea",
         required: true,
-
+        validator: textArea({maxLength: 300})
         page: 3,
         fieldsPerLine: 1,
     },

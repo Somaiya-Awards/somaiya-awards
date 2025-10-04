@@ -1,3 +1,5 @@
+import { arrayChoice, validFile, validNumber, validString } from "../../../../backend/zod";
+import institutes from "../Institutions/institutes";
 import type { FormEntry } from "./types";
 
 const ResearchForm: FormEntry[] = [
@@ -6,7 +8,7 @@ const ResearchForm: FormEntry[] = [
         name: "faculty_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -15,6 +17,7 @@ const ResearchForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -26,44 +29,8 @@ const ResearchForm: FormEntry[] = [
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
         required: true,
-
-        options: [
-            "The Somaiya School",
-            "S. K. Somaiya Prathmik Shala",
-            "S K Somaiya Vinay Mandir High School",
-            "Somaiya Vidyamandir- Sakarwadi",
-            "Shri Sharda English Medium School Kopargaon",
-            "Somaiya Vidya Mandir- Laxmiwadi",
-            "Somaiya Shishu Niketan Primary School- Sameerwadi",
-            "Somaiya Vinaymandir High School- Sameerwadi",
-            "KJ Somaiya English Medium School Sameerwadi",
-            "Nareshwadi Learning Centre- Dahanu",
-            "SK Somaiya Vinay Mandir High School, Mumbai",
-            "KJ Somaiya Junior College of Arts, Commerce and Science",
-            "SK Somaiya Vinay Mandir Junior College, Mumbai",
-            "KJ Somaiya Private Industrial Training Institute",
-            "Smt. Sakarben Somaiya Junior College of Education (DEd)",
-            "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar",
-            "KJ Somaiya College of Engineering",
-            "KJ Somaiya Institute of Management",
-            "KJ Somaiya Polytechnic College",
-            "KJ Somaiya College of Arts and Commerce",
-            "KJ Somaiya College of Science and Commerce",
-            "K.J Somaiya College of Comprehensive College of Education , Training and Research",
-            "KJ Somaiya Bhartiya Sanskriti Peetham",
-            "KJ Somaiya Centre for Buddhish Studies",
-            "KJ Somaiya Centre for Studies in Jainism",
-            "KJ Somaiya Medical College and Research Centre",
-            "KJ Somaiya College of Physiotherapy",
-            "KJ Somaiya School and College of Nursing",
-            "Somaiya Sports Academy",
-            "SK Somaiya College (SVU)",
-            "SK Somaiya College of Arts, Science and Commerce (MU)",
-            "School of civilization",
-            "Faculty & Staff Development Centre",
-            "K J Somaiya junior college of science and commerce",
-            "K J Somaiya junior college of arts and commerce",
-        ],
+        validator: arrayChoice(institutes),
+        options: institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -72,7 +39,7 @@ const ResearchForm: FormEntry[] = [
         name: "department",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -81,6 +48,7 @@ const ResearchForm: FormEntry[] = [
         name: "tenure",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -90,7 +58,7 @@ const ResearchForm: FormEntry[] = [
         name: "org_articles_count",
         type: "number",
         required: true,
-
+        validator: validNumber,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -99,6 +67,7 @@ const ResearchForm: FormEntry[] = [
         name: "review_papers_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 2,
         fieldsPerLine: 2,
@@ -108,6 +77,7 @@ const ResearchForm: FormEntry[] = [
         name: "letters_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 2,
         fieldsPerLine: 2,
@@ -117,6 +87,7 @@ const ResearchForm: FormEntry[] = [
         name: "case_studies_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 2,
         fieldsPerLine: 2,
@@ -126,6 +97,7 @@ const ResearchForm: FormEntry[] = [
         name: "books_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 2,
         fieldsPerLine: 2,
@@ -135,6 +107,7 @@ const ResearchForm: FormEntry[] = [
         name: "chapters_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 2,
         fieldsPerLine: 2,
@@ -144,6 +117,7 @@ const ResearchForm: FormEntry[] = [
         name: "presentations_international_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -153,6 +127,7 @@ const ResearchForm: FormEntry[] = [
         name: "presentation_national_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -162,6 +137,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_seminar_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -171,6 +147,7 @@ const ResearchForm: FormEntry[] = [
         name: "national_seminar_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -180,6 +157,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_workshops_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -189,6 +167,7 @@ const ResearchForm: FormEntry[] = [
         name: "national_workshops_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 3,
         fieldsPerLine: 2,
@@ -198,6 +177,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_minorp_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -207,6 +187,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_minorp_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -216,6 +197,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_majorp_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -225,6 +207,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_majorp_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -234,6 +217,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_consultancy_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -243,6 +227,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_consultancy_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 2,
@@ -252,6 +237,7 @@ const ResearchForm: FormEntry[] = [
         name: "revenue_from_projects",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 4,
         fieldsPerLine: 1,
@@ -261,6 +247,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_patents_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -270,6 +257,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_patents_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -279,6 +267,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_copyrights_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -288,6 +277,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_copyrights_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -297,6 +287,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_industrial_designs_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -306,6 +297,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_industrial_designs_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 5,
         fieldsPerLine: 2,
@@ -315,6 +307,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_awards_won_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 6,
         fieldsPerLine: 2,
@@ -324,18 +317,18 @@ const ResearchForm: FormEntry[] = [
         name: "national_awards_won_count",
         type: "number",
         required: true,
+        validator: validNumber,
 
         page: 6,
         fieldsPerLine: 2,
     },
     {
-        title: "Upload the Research Accomplishment Document",
+        title: "Upload the Research Accomplishment Document (Max size: 5mB)",
         name: "evidence_of_research",
         type: "file",
         required: true,
-        validate: true,
-        validateType: "file",
-        fileType: "pdf",
+        validator: validFile({type: "pdf"}),
+        accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,
     },
@@ -344,9 +337,8 @@ const ResearchForm: FormEntry[] = [
         name: "evidence_of_data_provided",
         type: "file",
         required: true,
-        validate: true,
-        validateType: "file",
-        fileType: "pdf",
+        validator: validFile({type: "pdf"}),
+        accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,
     },
@@ -355,8 +347,8 @@ const ResearchForm: FormEntry[] = [
         name: "confirmation_of_trueData",
         type: "radio",
         required: true,
-
-        options: ["Agree"],
+        validator: arrayChoice(["Agree"]),
+        options: ["Agree"] as const,
         page: 7,
         fieldsPerLine: 1,
     },

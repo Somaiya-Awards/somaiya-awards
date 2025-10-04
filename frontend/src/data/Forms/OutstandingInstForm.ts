@@ -1,4 +1,9 @@
+import { arrayChoice, email, phoneNumber, somaiyaMail, textArea, validDate, validFile, validString, validYear } from "../../../../backend/zod";
+import institutes from "../Institutions/institutes";
 import type { FormEntry } from "./types";
+
+const nominationCategory = ["Outstanding School", "Outstanding College"] as const;
+
 
 const OutstandingInstForm: FormEntry[] = [
     {
@@ -6,9 +11,7 @@ const OutstandingInstForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "email-id",
-
+        validator: email,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -17,8 +20,8 @@ const OutstandingInstForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "nomination_category",
-
-        options: ["Outstanding School", "Outstanding College"],
+        validator: arrayChoice(nominationCategory),
+        options: nominationCategory,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -29,44 +32,8 @@ const OutstandingInstForm: FormEntry[] = [
         dropOpt: "multiple",
         required: true,
         dropdownHiddenItem: "Select your institute",
-
-        options: [
-            "The Somaiya School",
-            "S. K. Somaiya Prathmik Shala",
-            "S K Somaiya Vinay Mandir High School",
-            "Somaiya Vidyamandir- Sakarwadi",
-            "Shri Sharda English Medium School Kopargaon",
-            "Somaiya Vidya Mandir- Laxmiwadi",
-            "Somaiya Shishu Niketan Primary School- Sameerwadi",
-            "Somaiya Vinaymandir High School- Sameerwadi",
-            "KJ Somaiya English Medium School Sameerwadi",
-            "Nareshwadi Learning Centre- Dahanu",
-            "SK Somaiya Vinay Mandir High School, Mumbai",
-            "KJ Somaiya Junior College of Arts, Commerce and Science",
-            "SK Somaiya Vinay Mandir Junior College, Mumbai",
-            "KJ Somaiya Private Industrial Training Institute",
-            "Smt. Sakarben Somaiya Junior College of Education (DEd)",
-            "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar",
-            "KJ Somaiya College of Engineering",
-            "KJ Somaiya Institute of Management",
-            "KJ Somaiya Polytechnic College",
-            "KJ Somaiya College of Arts and Commerce",
-            "KJ Somaiya College of Science and Commerce",
-            "K.J Somaiya College of Comprehensive College of Education , Training and Research",
-            "KJ Somaiya Bhartiya Sanskriti Peetham",
-            "KJ Somaiya Centre for Buddhish Studies",
-            "KJ Somaiya Centre for Studies in Jainism",
-            "KJ Somaiya Medical College and Research Centre",
-            "KJ Somaiya College of Physiotherapy",
-            "KJ Somaiya School and College of Nursing",
-            "Somaiya Sports Academy",
-            "SK Somaiya College (SVU)",
-            "SK Somaiya College of Arts, Science and Commerce (MU)",
-            "School of civilization",
-            "Faculty & Staff Development Centre",
-            "K J Somaiya junior college of science and commerce",
-            "K J Somaiya junior college of arts and commerce",
-        ],
+        validator: arrayChoice(institutes),
+        options: institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -74,10 +41,8 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Year of Establishment",
         name: "established_In",
         type: "text",
-
         required: true,
-        validate: true,
-        validateType: "year",
+        validator: validYear,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -85,7 +50,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Name of HOI",
         name: "hoi_name",
         type: "text",
-
+        validator: validString,
         required: true,
         page: 1,
         fieldsPerLine: 2,
@@ -94,7 +59,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Designation of HOI",
         name: "hoi_designation",
         type: "text",
-
+        validator: validString,
         required: true,
         page: 1,
         fieldsPerLine: 2,
@@ -103,10 +68,8 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Date of Joining Of HOI",
         name: "hoi_joining_date",
         type: "date",
-
+        validator: validDate,
         required: true,
-        validate: true,
-        validateType: "date",
         page: 1,
         fieldsPerLine: 2,
     },
@@ -114,9 +77,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Somaiya Email ID",
         name: "somaiya_mail_id",
         type: "email",
-
-        validate: true,
-        validateType: "somaiya-mail-id",
+        validator: somaiyaMail,
         required: true,
         page: 1,
         fieldsPerLine: 2,
@@ -125,10 +86,8 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Contact Number",
         name: "contact_number",
         type: "text",
-
+        validator: phoneNumber,
         required: true,
-        validate: true,
-        validateType: "contact-no",
         page: 1,
         fieldsPerLine: 2,
     },
@@ -136,7 +95,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q1. Submit a short paragraph/ summary of why you believe your Institution qualifies for the award. (500 – 700 words only)",
         name: "q_01",
         type: "textarea",
-
+        validator: textArea({minLength: 500, maxLength: 700}),
         required: true,
         page: 1,
         fieldsPerLine: 1,
@@ -145,7 +104,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q2. State the awards/certifications received from various national and international accrediting agencies such as AACSB, NAAC, NBA, Govt. Gradings, School boards and Govt. agencies. (500 words only)",
         name: "q_02",
         type: "textarea",
-
+        validator: textArea({maxLength: 500}),
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -154,7 +113,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q3. Has the institution secured any position in the National Institutional Ranking Framework (NIRF) by the HRD Ministry, Govt. of India. If yes, please specify details and attach relevant documents at the end of the form.(500 words only)",
         name: "q_03",
         type: "textarea",
-
+        validator: textArea({maxLength: 500}),
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -163,7 +122,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q4. Has the institution secured any ranking in Industry Journals & periodicals,/ mainline magazines, newspapers. If yes, please specify details and attach relevant documents at the end of the form. (500 words only)",
         name: "q_04",
         type: "textarea",
-
+        validator: textArea({maxLength: 500}),
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -172,6 +131,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q5. Has the HOI or any of the faculty got nominated as Heads of Councils and Committees of outside agencies/ universities. If yes, please specify details and attach relevant documents at the end of the form. (500 words only)",
         name: "q_05",
         type: "textarea",
+        validator: textArea({maxLength: 500}),
 
         required: true,
         page: 2,
@@ -181,6 +141,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Q6. Mention the number and list of toppers (students) at University levels or Board levels (250 words only)",
         name: "q_06",
         type: "textarea",
+        validator: textArea({maxLength: 500}),
 
         required: true,
         page: 2,
@@ -191,6 +152,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_07",
+        validator: textArea({maxLength: 250}),
 
         page: 2,
         fieldsPerLine: 1,
@@ -200,7 +162,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_08",
-
+        validator: textArea({maxLength: 500}),
         page: 2,
         fieldsPerLine: 1,
     },
@@ -209,7 +171,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_09",
-
+        validator: textArea({maxLength: 500}),
         page: 2,
         fieldsPerLine: 1,
     },
@@ -218,7 +180,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_10",
-
+        validator: textArea({maxLength: 500}),
         page: 2,
         fieldsPerLine: 1,
     },
@@ -227,7 +189,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_11",
-
+        validator: textArea({maxLength: 500}),
         page: 2,
         fieldsPerLine: 1,
     },
@@ -236,7 +198,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_12",
-
+        validator: textArea({maxLength: 250}),
         page: 2,
         fieldsPerLine: 1,
     },
@@ -245,7 +207,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_13",
-
+        validator: textArea({maxLength: 750}),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -254,7 +216,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_14",
-
+        validator: textArea({maxLength: 750}),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -263,7 +225,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_15",
-
+        validator: textArea({maxLength: 500}),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -272,7 +234,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_16",
-
+        validator: textArea({maxLength: 500}),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -281,7 +243,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_17",
-
+        validator: textArea({maxLength: 500}),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -290,8 +252,8 @@ const OutstandingInstForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "institution_ratings",
-
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice([1, 2, 3, 4, 5]),
+        options: [1, 2, 3, 4, 5] as const,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -300,7 +262,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_18",
-
+        validator: textArea({maxLength: 1000}),
         page: 4,
         fieldsPerLine: 1,
     },
@@ -309,7 +271,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_19",
-
+        validator: textArea({maxLength: 300}),
         page: 4,
         fieldsPerLine: 1,
     },
@@ -318,7 +280,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_20",
-
+        validator: textArea({maxLength: 500}),
         page: 4,
         fieldsPerLine: 1,
     },
@@ -327,7 +289,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_21",
-
+        validator: textArea({maxLength: 750}),
         page: 5,
         fieldsPerLine: 1,
     },
@@ -336,7 +298,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_22",
-
+        validator: textArea({maxLength: 500}),
         page: 5,
         fieldsPerLine: 1,
     },
@@ -345,7 +307,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_23",
-
+        validator: textArea({maxLength: 1000}),
         page: 5,
         fieldsPerLine: 1,
     },
@@ -354,7 +316,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_24",
-
+        validator: textArea({maxLength: 500}),
         page: 5,
         fieldsPerLine: 1,
     },
@@ -363,7 +325,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_25",
-
+        validator: textArea({maxLength: 500}),
         page: 6,
         fieldsPerLine: 1,
     },
@@ -372,7 +334,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_26",
-
+        validator: textArea({maxLength: 500}),
         page: 6,
         fieldsPerLine: 1,
     },
@@ -381,7 +343,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_27",
-
+        validator: textArea({maxLength: 500}),
         page: 6,
         fieldsPerLine: 1,
     },
@@ -390,7 +352,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_28",
-
+        validator: textArea({maxLength: 500}),
         page: 6,
         fieldsPerLine: 1,
     },
@@ -399,7 +361,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_29",
-
+        validator: textArea({maxLength: 500}),
         page: 6,
         fieldsPerLine: 1,
     },
@@ -408,7 +370,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_30",
-
+        validator: textArea({maxLength: 500}),
         page: 7,
         fieldsPerLine: 1,
     },
@@ -417,7 +379,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_31",
-
+        validator: textArea({maxLength: 500}),
         page: 7,
         fieldsPerLine: 1,
     },
@@ -426,7 +388,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_32",
-
+        validator: textArea({maxLength: 500}),
         page: 8,
         fieldsPerLine: 1,
     },
@@ -435,7 +397,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_33",
-
+        validator: textArea({maxLength: 300}),
         page: 9,
         fieldsPerLine: 1,
     },
@@ -444,7 +406,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_34",
-
+        validator: textArea({maxLength: 300}),
         page: 9,
         fieldsPerLine: 1,
     },
@@ -453,7 +415,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_35",
-
+        validator: textArea({maxLength: 300}),
         page: 9,
         fieldsPerLine: 1,
     },
@@ -462,7 +424,7 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_36",
-
+        validator: textArea({maxLength: 300}),
         page: 10,
         fieldsPerLine: 1,
     },
@@ -471,16 +433,16 @@ const OutstandingInstForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "q_37",
-
+        validator: textArea({maxLength: 300}),
         page: 11,
         fieldsPerLine: 1,
     },
     {
-        title: "Q38. What are the significant contributions made by your institution to the support functions eg HR, IT, Sports, Security, PR, AR etc",
+        title: "Q38. What are the significant contributions made by your institution to the support functions eg HR, IT, Sports, Security, PR, AR etc (500 words only)",
         type: "textarea",
         required: true,
         name: "q_38",
-
+        validator: textArea({maxLength: 500}),
         page: 12,
         fieldsPerLine: 1,
     },
@@ -490,8 +452,9 @@ const OutstandingInstForm: FormEntry[] = [
         type: "file",
         required: true,
         name: "supportings",
-
+        validator: validFile({type: "pdf", maxSizeInMb: 5}),
         page: 13,
+        accept: ".pdf",
         fieldsPerLine: 1,
     },
 ];

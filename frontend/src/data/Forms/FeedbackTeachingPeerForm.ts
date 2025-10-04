@@ -1,5 +1,30 @@
 import axios from "axios";
 import type { FormEntry } from "./types";
+import {
+    arrayChoice,
+    phoneNumber,
+    somaiyaMail,
+    textArea,
+    validString,
+} from "../../../../backend/zod";
+
+const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
+
+const agreeList = [
+    "Strongly Agree",
+    "Agree",
+    "Sometimes",
+    "Disagree",
+    "Strongly Disagree",
+] as const;
+
+const feedList = [
+    "Outstanding",
+    "Excellent",
+    "Good",
+    "Average",
+    "Poor",
+] as const;
 
 const FeedbackTeachingPeerForm: FormEntry[] = [
     {
@@ -7,7 +32,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "rater_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -16,6 +41,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "institute_name",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -25,6 +51,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "department_name",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -34,6 +61,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -43,8 +71,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "somaiya_mail_id",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "somaiya-mail-id",
+        validator: somaiyaMail,
 
         page: 1,
         fieldsPerLine: 2,
@@ -54,9 +81,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "contact_number",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "contact-no",
-
+        validator: phoneNumber,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -67,7 +92,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-
+        validator: validString,
         options: [],
         page: 1,
         fieldsPerLine: 2,
@@ -77,8 +102,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "nomination_category",
         type: "radio",
         required: true,
-
-        options: ["Promising Teacher", "Excellence in Teaching"],
+        validator: arrayChoice(stringOption),
+        options: stringOption,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -87,14 +112,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "q_01",
         type: "radio",
         required: true,
-
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -104,13 +123,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -120,13 +134,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -136,13 +145,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -152,13 +156,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -168,13 +167,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -184,13 +178,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -199,8 +188,8 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         name: "q_08",
         type: "radio",
         required: true,
-
-        options: ["Outstanding", "Excellent", "Good", "Average", "Poor"],
+        validator: arrayChoice(feedList),
+        options: feedList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -210,22 +199,17 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agreeList),
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
     {
-        title: "Give 3 reasons behind nominating the teacher for the award",
+        title: "Give 3 reasons behind nominating the teacher for the award (Max word limit: 600)",
         name: "nomination_reason",
         type: "textarea",
         required: true,
-
+        validator: textArea({ maxLength: 600 }),
         page: 3,
         fieldsPerLine: 1,
     },
