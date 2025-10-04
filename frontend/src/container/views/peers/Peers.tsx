@@ -5,10 +5,8 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../../components/utils/FormCard";
-//@ts-expect-error CSS
-import Teaching from "../../assests/teaching.jpeg";
-//@ts-expect-error CSS
-import NonTeaching from "../../assests/non-teaching.jpeg";
+import Teaching from "../../assets/teaching.jpeg";
+import NonTeaching from "../../assets/non-teaching.jpeg";
 import { MoonLoader } from "react-spinners";
 import axios from "axios";
 

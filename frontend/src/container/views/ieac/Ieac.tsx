@@ -6,16 +6,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "./ieacComponents/Tile";
-//@ts-expect-error CSS
-import Inst1 from "../../assests/inst1.png";
-//@ts-expect-error CSS
-import Inst2 from "../../assests/inst2.png";
-//@ts-expect-error CSS
-import Inst3 from "../../assests/inst3.png";
-//@ts-expect-error CSS
-import Inst4 from "../../assests/inst4.png";
-//@ts-expect-error CSS
-import Inst5 from "../../assests/inst5.png";
+import Inst2 from "../../assets/inst2.png";
+import Inst3 from "../../assets/inst3.png";
+import Inst4 from "../../assets/inst4.png";
+import Inst5 from "../../assets/inst5.png";
 
 export default function Ieac() {
     const [authorized, setAuthorized] = useState(false);
@@ -150,31 +144,31 @@ export default function Ieac() {
                                         <Tile
                                             title="1. Navigate to Recommended / Not Recommeded Columns"
                                             info="In each form responses there is a column name recommended to recommend a nominee to futher rounds. In case some category of awards there is a not recommeded column which is mandatory for marking the nominees"
-                                            image={Inst1}
+                                                image={"../../assets/inst1.png"}
                                         />
 
                                         <Tile
                                             title="2. Click on checkbox to Recommned"
                                             info="Click on the checkbox in front of the nominee to Recommend him/her"
-                                            image={Inst2}
+                                                image={"../../assets/inst2.png"}
                                         />
 
                                         <Tile
                                             title="3a. Confirm your decision"
                                             info="Click on confirm if you confirm your decision to recommend the nominee else click deny or anywhere else on screen"
-                                            image={Inst3}
+                                                image={"../../assets/inst3.png"}
                                         />
 
                                         <Tile
                                             title="3b. Enter your score and confirm"
                                             info="In case of teaching and non- teaching category of awards IAEC Member are required to enter their score of each nominee wheter he/she is recommended or not  and confirm "
-                                            image={Inst4}
+                                                image={"../../assets/inst4.png"}
                                         />
 
                                         <Tile
                                             title="4. Upload Recommendation File"
                                             info="At last after confirming all the decision and marking recommeded and not recommended ones upload the recommendation file and confirm it "
-                                            image={Inst5}
+                                                image={"../../assets/inst5.png"}
                                         />
                                     </div>
                                 </div>

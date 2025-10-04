@@ -5,7 +5,6 @@ import {
     validFile,
     validString,
 } from "../../../../backend/zod";
-import { validator } from "../../components/utils/validator";
 import institutes from "../Institutions/institutes";
 import type { FormEntry } from "./types";
 

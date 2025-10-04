@@ -1,5 +1,5 @@
 import { CookieOptions, Response } from "express";
-import { AccessCookie, IstOffset, RefreshCookie } from "../constants";
+import { AccessCookie, RefreshCookie } from "../constants";
 import { JwtTimeout } from "./jwt";
 
 function setCookieOption(
@@ -11,10 +11,10 @@ function setCookieOption(
 
     switch (timeout) {
         case "1h":
-            expire += IstOffset + 1000 * 60 * 60;
+            expire +=  1000 * 60 * 60;
             break;
         case "1d":
-            expire += IstOffset + 1000 * 60 * 60 * 24;
+            expire +=  1000 * 60 * 60 * 24;
             break;
         default:
             throw new Error("Invalid expiration time");

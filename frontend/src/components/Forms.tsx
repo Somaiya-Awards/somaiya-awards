@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import FormStages from "./FormStages";
 import Field from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import Axios from "../axios";
 import type { StagesType } from "./utils/data/types";
 import swalAlert from "./utils/swal";
 import type { FormEntry } from "../data/Forms/types";
+import debounce from "./utils/debounce";
 
 export type FormProps = {
     pageCount: number;
@@ -33,6 +34,7 @@ const Forms = (props: FormProps) => {
     const [current, setCurrent] = useState(0);
     const [formData, setFormData] = useState<FormData>({});
     const [percentage, setPercentage] = useState(0);
+    const formName = useMemo(() => window.location.href.split("/forms/")[1], []);
 
     /**
      * functions
@@ -52,31 +54,29 @@ const Forms = (props: FormProps) => {
         }
     };
 
-    const handleFieldChange = (event: React.ChangeEvent<Element>) => {
-        const { target } = event as React.ChangeEvent<HTMLInputElement>;
+    const handleFieldChange = useCallback((name: string, value: string, actionType: "add" | "delete") => {
 
-        const { name, files } = target;
+        setFormData((prev) => {
+            let newData = {...prev};
 
-        if (target.type === "file" && files) {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: files[0],
-            }));
-        } else {
-            const { name, value } = target;
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: value,
-            }));
-        }
+            switch (actionType) {
+                case "add":
+                    newData[name] = value;
+                    break;
+                case "delete":
+                    delete newData[name];
+            }
+    
+            setPercentage(Object.keys(newData).length / props.data.length);
+    
+            debounce((key: string, data: any) => {
+                localStorage.setItem(key, JSON.stringify(data));
+            }, 300);
+        
+            return newData;
+        });
 
-        setPercentage(Object.keys(formData).length / props.data.length);
-
-        localStorage.setItem(
-            `${window.location.href.split("/forms/")[1] + "Data"}`,
-            JSON.stringify(formData)
-        );
-    };
+    }, [props.data]);
 
     /**
      * @returns page number of field which is not present in formData state
@@ -200,13 +200,14 @@ const Forms = (props: FormProps) => {
      * Renderers
      */
 
-    const renderFields = () => {
+    const renderFields = useCallback(() => {
+
         return props.data.map((entry, index) => {
             if (current === entry.page - 1) {
                 return (
                     <Field
                         {...entry}
-                        value={(formData[entry.name] as string) || ""}
+                        formType={formName}
                         onChange={handleFieldChange}
                         key={index}
                     />
@@ -214,10 +215,10 @@ const Forms = (props: FormProps) => {
             }
             return null;
         });
-    };
+    }, [props.data, current, formName])
 
     useEffect(() => {
-        const dataName = window.location.href.split("/forms/")[1] + "Data";
+        const dataName = formName + "Data";
 
         if (!localStorage.getItem(dataName)) {
             setFormData({});
@@ -309,3 +310,5 @@ const Forms = (props: FormProps) => {
 };
 
 export default Forms;
+
+

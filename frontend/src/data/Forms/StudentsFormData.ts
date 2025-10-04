@@ -1,4 +1,14 @@
+import { arrayChoice, somaiyaMail, textArea, validFile, validString } from "../../../../backend/zod";
+import institutes from "../Institutions/institutes";
 import type { FormEntry } from "./types";
+
+const category = [
+    "Somaiya Star -Girl",
+    "Somaiya Star -Boy",
+    "Somaiya Star Citizen",
+    "Somaiya Green Star/ Green Force",
+    "Somaiya Star Innovator",
+] as const;
 
 const StudentsFormData: FormEntry[] = [
     {
@@ -6,9 +16,7 @@ const StudentsFormData: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "somaiya-mail-id",
-
+        validator: somaiyaMail,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -17,7 +25,7 @@ const StudentsFormData: FormEntry[] = [
         name: "student_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -26,6 +34,7 @@ const StudentsFormData: FormEntry[] = [
         name: "students_class",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -35,6 +44,7 @@ const StudentsFormData: FormEntry[] = [
         name: "course",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 1,
         fieldsPerLine: 2,
@@ -46,44 +56,8 @@ const StudentsFormData: FormEntry[] = [
         required: true,
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
-
-        options: [
-            "The Somaiya School",
-            "S. K. Somaiya Prathmik Shala",
-            "S K Somaiya Vinay Mandir High School",
-            "Somaiya Vidyamandir- Sakarwadi",
-            "Shri Sharda English Medium School Kopargaon",
-            "Somaiya Vidya Mandir- Laxmiwadi",
-            "Somaiya Shishu Niketan Primary School- Sameerwadi",
-            "Somaiya Vinaymandir High School- Sameerwadi",
-            "KJ Somaiya English Medium School Sameerwadi",
-            "Nareshwadi Learning Centre- Dahanu",
-            "SK Somaiya Vinay Mandir High School, Mumbai",
-            "KJ Somaiya Junior College of Arts, Commerce and Science",
-            "SK Somaiya Vinay Mandir Junior College, Mumbai",
-            "KJ Somaiya Private Industrial Training Institute",
-            "Smt. Sakarben Somaiya Junior College of Education (DEd)",
-            "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar",
-            "KJ Somaiya College of Engineering",
-            "KJ Somaiya Institute of Management",
-            "KJ Somaiya Polytechnic College",
-            "KJ Somaiya College of Arts and Commerce",
-            "KJ Somaiya College of Science and Commerce",
-            "K.J Somaiya College of Comprehensive College of Education , Training and Research",
-            "KJ Somaiya Bhartiya Sanskriti Peetham",
-            "KJ Somaiya Centre for Buddhish Studies",
-            "KJ Somaiya Centre for Studies in Jainism",
-            "KJ Somaiya Medical College and Research Centre",
-            "KJ Somaiya College of Physiotherapy",
-            "KJ Somaiya School and College of Nursing",
-            "Somaiya Sports Academy",
-            "SK Somaiya College (SVU)",
-            "SK Somaiya College of Arts, Science and Commerce (MU)",
-            "School of civilization",
-            "Faculty & Staff Development Centre",
-            "K J Somaiya junior college of science and commerce",
-            "K J Somaiya junior college of arts and commerce",
-        ],
+        validator: arrayChoice(institutes),
+        options: institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -92,22 +66,16 @@ const StudentsFormData: FormEntry[] = [
         type: "radio",
         required: true,
         name: "nomination_category",
-
-        options: [
-            "Somaiya Star -Girl",
-            "Somaiya Star -Boy",
-            "Somaiya Star Citizen",
-            "Somaiya Green Star/ Green Force",
-            "Somaiya Star Innovator",
-        ],
+        validator: arrayChoice(category),
+        options: category,
         page: 1,
         fieldsPerLine: 2,
     },
     {
-        title: "Recommendation Note ( minimum 600 words )",
+        title: "Recommendation Note (Max 600 words )",
         name: "recommendation_note",
         type: "textarea",
-
+        validator: textArea({maxLength: 600}),
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -117,9 +85,8 @@ const StudentsFormData: FormEntry[] = [
         type: "file",
         required: true,
         name: "supportings",
-        validate: true,
-        validateType: "file",
-        fileType: "pdf",
+        validator: validFile({type: "pdf"}),
+        accept: ".pdf",
         page: 3,
         fieldsPerLine: 1,
     },

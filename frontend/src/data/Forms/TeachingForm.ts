@@ -1,4 +1,13 @@
+import { validString, email, arrayChoice, validDate, somaiyaMail, phoneNumber, textArea, validFile } from "../../../../backend/zod";
+import institutes from "../Institutions/institutes";
 import type { FormEntry } from "./types";
+
+const awards = [
+    "Excellence in Teaching (more than 3 years of service)",
+    "Promising Teacher of the year (2 to 3 years of service)",
+] as const
+
+const score = [1, 2, 3, 4, 5] as const;
 
 const TeachingForm: FormEntry[] = [
     {
@@ -6,8 +15,7 @@ const TeachingForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "email-id",
+        validator: email,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -16,7 +24,7 @@ const TeachingForm: FormEntry[] = [
         name: "faculty_name",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -25,11 +33,8 @@ const TeachingForm: FormEntry[] = [
         name: "awards_category",
         type: "radio",
         required: true,
-        
-        options: [
-            "Excellence in Teaching (more than 3 years of service)",
-            "Promising Teacher of the year (1 to 3 years of service)",
-        ],
+        validator: arrayChoice(awards),
+        options: awards,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -39,45 +44,9 @@ const TeachingForm: FormEntry[] = [
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,
-        
         dropOpt: "multiple",
-        options: [
-            "The Somaiya School",
-            "S. K. Somaiya Prathmik Shala",
-            "S K Somaiya Vinay Mandir High School",
-            "Somaiya Vidyamandir- Sakarwadi",
-            "Shri Sharda English Medium School Kopargaon",
-            "Somaiya Vidya Mandir- Laxmiwadi",
-            "Somaiya Shishu Niketan Primary School- Sameerwadi",
-            "Somaiya Vinaymandir High School- Sameerwadi",
-            "KJ Somaiya English Medium School Sameerwadi",
-            "Nareshwadi Learning Centre- Dahanu",
-            "SK Somaiya Vinay Mandir High School, Mumbai",
-            "KJ Somaiya Junior College of Arts, Commerce and Science",
-            "SK Somaiya Vinay Mandir Junior College, Mumbai",
-            "KJ Somaiya Private Industrial Training Institute",
-            "Smt. Sakarben Somaiya Junior College of Education (DEd)",
-            "KJ Somaiya Institute of Engineering and Information Technology, Ayurvihar",
-            "KJ Somaiya College of Engineering",
-            "KJ Somaiya Institute of Management",
-            "KJ Somaiya Polytechnic College",
-            "KJ Somaiya College of Arts and Commerce",
-            "KJ Somaiya College of Science and Commerce",
-            "K.J Somaiya College of Comprehensive College of Education , Training and Research",
-            "KJ Somaiya Bhartiya Sanskriti Peetham",
-            "KJ Somaiya Centre for Buddhish Studies",
-            "KJ Somaiya Centre for Studies in Jainism",
-            "KJ Somaiya Medical College and Research Centre",
-            "KJ Somaiya College of Physiotherapy",
-            "KJ Somaiya School and College of Nursing",
-            "Somaiya Sports Academy",
-            "SK Somaiya College (SVU)",
-            "SK Somaiya College of Arts, Science and Commerce (MU)",
-            "School of civilization",
-            "Faculty & Staff Development Centre",
-            "K J Somaiya junior college of science and commerce",
-            "K J Somaiya junior college of arts and commerce",
-        ],
+        validator: arrayChoice(institutes),
+        options: institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -86,7 +55,7 @@ const TeachingForm: FormEntry[] = [
         name: "department",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -95,7 +64,7 @@ const TeachingForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -104,9 +73,7 @@ const TeachingForm: FormEntry[] = [
         name: "date_of_appointment",
         type: "date",
         required: true,
-        validate: true,
-        validateType: "date",
-
+        validator: validDate,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -115,9 +82,7 @@ const TeachingForm: FormEntry[] = [
         name: "somaiya_mail_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "somaiya-mail-id",
-
+        validator: somaiyaMail,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -126,9 +91,7 @@ const TeachingForm: FormEntry[] = [
         name: "contact_number",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "contact-no",
-
+        validator: phoneNumber,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -138,7 +101,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -148,7 +112,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -158,7 +123,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -168,7 +134,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -178,7 +145,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -188,7 +156,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -198,7 +167,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -208,7 +178,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -218,7 +189,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -228,7 +200,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -238,7 +211,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -248,7 +222,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -258,7 +233,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -268,7 +244,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -278,7 +255,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -288,7 +266,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 4,
         fieldsPerLine: 1,
     },
@@ -298,7 +277,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 4,
         fieldsPerLine: 1,
     },
@@ -308,7 +288,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 4,
         fieldsPerLine: 1,
     },
@@ -318,7 +299,8 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 4,
         fieldsPerLine: 1,
     },
@@ -328,15 +310,16 @@ const TeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 4,
         fieldsPerLine: 1,
     },
     {
-        title: "Q21. Add your relevant achievements.",
+        title: "Q21. Add your relevant achievements (300 words max)",
         name: "q_21",
         type: "textarea",
-
+        validator: textArea({maxLength: 300}),
         required: true,
         page: 5,
         fieldsPerLine: 1,
@@ -345,9 +328,8 @@ const TeachingForm: FormEntry[] = [
         title: "Major evidences for the data provided in this form",
         name: "data_evidence",
         type: "file",
-        validate: true,
-        validateType: "file",
-        fileType: "pdf",
+        validator: validFile({type: "pdf"}),
+        accept: ".pdf",
         required: true,
 
         page: 6,
@@ -358,9 +340,8 @@ const TeachingForm: FormEntry[] = [
         name: "profile_photograph",
         type: "file",
         required: true,
-        validate: true,
-        validateType: "file",
-        fileType: "pdf",
+        validator: validFile({type: "jpg"}),
+        accept: ".jpg",
         page: 6,
         fieldsPerLine: 1,
     },

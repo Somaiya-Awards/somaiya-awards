@@ -1,5 +1,21 @@
 import axios from "axios";
 import type { FormEntry } from "./types";
+import {
+    arrayChoice,
+    email,
+    textArea,
+    validDate,
+    validFile,
+    validString,
+} from "../../../../backend/zod";
+
+const agree = [
+    "Strongly Agree",
+    "Agree",
+    "Sometimes",
+    "Disagree",
+    "Strongly Disagree",
+] as const;
 
 const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
@@ -7,9 +23,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "email-id",
-
+        validator: email,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -18,9 +32,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "student_batch_year",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "year",
-
+        validator: validDate,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -29,7 +41,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "student_class_and_division",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -40,7 +52,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "dropdown",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-
+        validator: validString,
         options: [],
         page: 2,
         fieldsPerLine: 2,
@@ -50,6 +62,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "employee_designation",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 2,
         fieldsPerLine: 2,
@@ -59,14 +72,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_01",
-
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -76,13 +83,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_02",
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -92,13 +94,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_03",
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -108,13 +105,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_04",
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -124,22 +116,17 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_05",
 
-        options: [
-            "Strongly Agree",
-            "Agree",
-            "Sometimes",
-            "Disagree",
-            "Strongly Disagree",
-        ],
+        validator: arrayChoice(agree),
+        options: agree,
         page: 3,
         fieldsPerLine: 1,
     },
     {
-        title: "Give 3 reasons for nominating the employee for the award:",
+        title: "Give 3 reasons for nominating the employee for the award (500 words max)",
         type: "textarea",
         required: true,
         name: "nomination_reason",
-
+        validator: textArea({maxLength: 300}),
         page: 4,
         fieldsPerLine: 1,
     },

@@ -5,14 +5,10 @@ import { OrbitControls, Environment } from "@react-three/drei";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Lottie from "lottie-react";
-//@ts-expect-error Json include. TODO: fix this
-import CertificateData from "../assests/certificate.json";
-//@ts-expect-error Json include. TODO: fix this
-import TrophyData from "../assests/trophy.json";
-//@ts-expect-error Json include. TODO: fix this
-import MoneyData from "../assests/money.json";
-//@ts-expect-error Json include. TODO: fix this
-import EnvMapTexture from "../assests/skyfire.hdr";
+import CertificateData from "../assets/certificate.json";
+import TrophyData from "../assets/trophy.json";
+import MoneyData from "../assets/money.json";
+import EnvMapTexture from "../assets/skyfire.hdr";
 
 export default function Home() {
     const navigate = useNavigate();

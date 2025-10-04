@@ -183,7 +183,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "nomination_reason",
         type: "textarea",
         required: true,
-        validator: textArea({maxLength: 300})
+        validator: textArea({maxLength: 300}),
         page: 3,
         fieldsPerLine: 1,
     },

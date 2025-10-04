@@ -5,14 +5,12 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../../components/utils/FormCard";
-//@ts-expect-error Image
-import Teaching from "../../assests/teaching.jpeg";
-//@ts-expect-error Image
-import NonTeaching from "../../assests/non-teaching.jpeg";
-//@ts-expect-error Image
-import Sports from "../../assests/SportsCoach.jpg";
+import Teaching from "../../assets/teaching.jpeg";
+import NonTeaching from "../../assets/non-teaching.jpeg";
+import Sports from "../../assets/SportsCoach.jpg";
 import { MoonLoader } from "react-spinners";
 import axios from "axios";
+import React from "react";
 
 export default function Student() {
     const [loading, setLoading] = useState(true);

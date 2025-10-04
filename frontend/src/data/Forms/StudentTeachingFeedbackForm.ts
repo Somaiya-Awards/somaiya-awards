@@ -1,5 +1,9 @@
 import axios from "axios";
 import type { FormEntry } from "./types";
+import { arrayChoice, email, textArea, validString, validYear } from "../../../../backend/zod";
+
+const good = ["Outstanding", "Very Good", "Good", "Average", "Poor"] as const;
+const score = [1, 2, 3, 4, 5] as const;
 
 const StudentTeachingFeedbackForm: FormEntry[] = [
     {
@@ -7,9 +11,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validate: true,
-        validateType: "email-id",
-
+        validator: email,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -18,9 +20,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "student_batch_year",
         type: "text",
         required: true,
-        validate: true,
-        validateType: "year",
-
+        validator: validYear,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -29,7 +29,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "student_class_and_division",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -40,7 +40,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-
+        validator: validString,
         options: [],
         page: 2,
         fieldsPerLine: 2,
@@ -50,7 +50,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "teacher_designation",
         type: "text",
         required: true,
-
+        validator: validString,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -59,6 +59,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "teaching_subject",
         type: "text",
         required: true,
+        validator: validString,
 
         page: 2,
         fieldsPerLine: 1,
@@ -69,7 +70,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_01",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -79,7 +81,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_02",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -89,7 +92,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_03",
 
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -99,7 +103,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_04",
 
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -109,7 +114,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_05",
 
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -119,7 +125,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_06",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -129,7 +136,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_07",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -139,7 +147,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_08",
 
-        options: [1, 2, 3, 4, 5],
+        validator: arrayChoice(score),
+        options: score,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -149,7 +158,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_09",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -158,8 +168,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_10",
-
-        options: ["Yes", "No"],
+        validator: arrayChoice(["Yes", "No"]),
+        options: ["Yes", "No"] as const,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -169,16 +179,17 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_11",
 
-        options: ["Outstanding", "Very Good", "Good", "Average", "Poor"],
+        validator: arrayChoice(good),
+        options: good,
         page: 3,
         fieldsPerLine: 1,
     },
     {
-        title: "Give 3 reasons for nominating the teacher for the award",
+        title: "Give 3 reasons for nominating the teacher for the award (300 words max)",
         type: "textarea",
         required: true,
         name: "nominating_reasons",
-
+        validator: textArea({maxLength: 300}),
         page: 4,
         fieldsPerLine: 1,
     },

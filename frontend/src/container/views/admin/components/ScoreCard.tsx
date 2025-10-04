@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Download, User, Building2, Award } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
-//@ts-expect-error CSS Load
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "./BarGraph";
 import axios from "axios";
-//@ts-expect-error CSS Load
-import Logo from "../../../../container/assests/logo.png";
+import Logo from "../../../../container/assets/logo.png";
 
 type CompleteData = {
     name: string;

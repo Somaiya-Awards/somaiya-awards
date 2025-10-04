@@ -8,7 +8,6 @@ export enum StatusCode {
 export const AccessCookie = "x-access";
 export const CsrfName = "x-csrf";
 export const RefreshCookie = "x-refresh";
-export const IstOffset = (5 * 60 + 30) * 60000;
 export const CSRF =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 export const CSRF_SIZE = 32;

@@ -1,5 +1,4 @@
 import * as z from "zod";
-import type { ValidFiles } from "../../components/utils/validator";
 
 export type BaseFormEntry = {
     fieldsPerLine: number;
@@ -11,7 +10,7 @@ export type BaseFormEntry = {
 } & Validate;
 
 export type Validate = {
-    validator: z.ZodType;
+    validator: z.ZodType<any,any>;
 }
 
 export type FormEntry =

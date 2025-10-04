@@ -12,8 +12,8 @@ export const numberList = z.array(z.number())
 export const stringList = z.array(validString)
 export const somaiyaMail = email.regex(/somaiya.edu$/, { error: "Invalid Somaiya email" })
 export const phoneNumber = validString.regex(/^\d{10}/, { error: "Invalid Phone Number" })
-export const validDate = z.date({error: "Invalid Date"})
-export const validYear = validString.regex(/^\d{4}$/,{error: "Invalid Year"})
+export const validDate = validString.refine((date) => (!Number.isNaN(new Date(date).valueOf())), { error: "Invalid Date" })
+export const validYear = validString.regex(/^(19|20)\d{2}$/,{error: "Invalid Year"}).refine((year) => (year <= new Date().getFullYear().toString()), {error: "Invalid Year"})
 
 export function arrayChoice<T extends number | string>(option: readonly T[]): z.ZodType<T,T> {
     return z.any().refine((num: T) => option.includes(num), { error: "Invalid Option selected" });
@@ -38,5 +38,5 @@ export function validFile({ type, maxSizeInMb }: { type: "pdf" | "jpg", maxSizeI
 
     return z.instanceof(File).refine((file) => (
         file.size < ((maxSizeInMb || 5) * 1024 * 1024) && (ValidType.includes(file.type))
-    ))
+    ), { error: `File should be a ${type} file and of max size ${maxSizeInMb} mB` });
 }
