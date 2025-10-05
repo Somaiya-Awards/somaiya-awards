@@ -48,7 +48,7 @@ export default function FormCards() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-[5rem]  pb-[5rem] mt-[5rem] place-items-center">
                 <div className="">
                     <FormCard
-                        image={"../../assets/institution.jpeg"}
+                        image={"/institution.jpeg"}
                         title="Outstanding Institution"
                         info="Celebrating excellence, impact, and remarkable achievements of outstanding institutions."
                         link="/forms/outstanding-institution"
@@ -56,7 +56,7 @@ export default function FormCards() {
                 </div>
                 <div>
                     <FormCard
-                        image={"../../assets/sports.jpeg"}
+                        image={"/sports.jpeg"}
                         title="Sports"
                         info="Award form for sports: Honoring excellence in athletic achievements worldwide"
                         link="/forms/sports"
@@ -68,7 +68,7 @@ export default function FormCards() {
                     <>
                         <div>
                             <FormCard
-                                image={"../../assets/research.jpeg"}
+                                image={"/research.jpeg"}
                                 title="Excellence in Research"
                                 info="Honoring excellence in research through prestigious and impactful awards."
                                 link="/forms/research"
@@ -80,7 +80,7 @@ export default function FormCards() {
                 }
                 <div>
                     <FormCard
-                        image={"../../assets/teaching.jpeg"}
+                        image={"/teaching.jpeg"}
                         title="Teaching"
                         info="Recognizing teaching excellence with prestigious awards to inspiring educators"
                         link="/forms/teaching"
@@ -88,7 +88,7 @@ export default function FormCards() {
                 </div>
                 <div>
                     <FormCard
-                        image={"../../assets/non-teaching.jpeg"}
+                        image={"/non-teaching.jpeg"}
                         title="Non Teaching"
                         info="Commending administrative and staff excellence, driving institutional success and growth."
                         link="/forms/non-teaching"
@@ -97,10 +97,18 @@ export default function FormCards() {
 
                 <div>
                     <FormCard
-                        image={"../../assets/students.png"}
+                        image={"/students.png"}
                         title="Students"
                         info="Honoring students for their academic and overall achievements"
                         link="/forms/students"
+                    />
+                </div>
+                <div>
+                    <FormCard
+                        image={"/house.png"}
+                        title="House"
+                        info="Recognizing houses for their all-round performance and contributions"
+                        link="/forms/house"
                     />
                 </div>
             </div>

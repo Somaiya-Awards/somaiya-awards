@@ -2,19 +2,12 @@ import React, { useState, useEffect } from "react";
 import SideBar from "./ieacComponents/Sidebar";
 import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "./ieacComponents/Tile";
-import Inst2 from "../../assets/inst2.png";
-import Inst3 from "../../assets/inst3.png";
-import Inst4 from "../../assets/inst4.png";
-import Inst5 from "../../assets/inst5.png";
+import Axios from "../../../axios";
 
 export default function Ieac() {
-    const [authorized, setAuthorized] = useState(false);
-    const [loading, setLoading] = useState(true);
-
     const navigate = useNavigate();
 
     /**
@@ -40,62 +33,6 @@ export default function Ieac() {
     /**
      * Authorization
      */
-
-    useEffect(() => {
-        if (
-            !localStorage.getItem("token") ||
-            !localStorage.getItem("user_id")
-        ) {
-            Swal.fire({
-                title: "Failed to Login",
-                text: "We failed to recognize you! Try relogging",
-                imageUrl:
-                    "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
-                // imageWidth:"150",
-                imageHeight: "250",
-                confirmButtonColor: "rgb(185,28,28)",
-            });
-            navigate("/auth/login");
-        } else {
-            axios
-                .get("/auth/validate", {
-                    headers: {
-                        "x-access-token": localStorage.getItem("token"),
-                        "x-user-id": localStorage.getItem("user_id"),
-                    },
-                })
-                .then((res) => {
-                    if (res.data["authorized"] && res.data["role"] === "IEAC") {
-                        setAuthorized(res.data["authorized"]);
-                        setLoading(false);
-                    } else {
-                        Swal.fire({
-                            title: "Failed to Login",
-                            text: "We failed to recognize you! Try relogging",
-                            imageUrl:
-                                "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
-                            // imageWidth:"150",
-                            imageHeight: "250",
-                            confirmButtonColor: "rgb(185,28,28)",
-                        });
-                        navigate("/auth/login");
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                    Swal.fire({
-                        title: "Failed to Login",
-                        text: "We failed to recognize you! Try relogging",
-                        imageUrl:
-                            "https://media.istockphoto.com/id/648691968/vector/website-error-403-forbidden.jpg?s=612x612&w=0&k=20&c=sSc0Cb2as4BKgH0vFq2o5h1U2vUh4xnayaYkuyFPKh8=",
-                        // imageWidth:"150",
-                        imageHeight: "250",
-                        confirmButtonColor: "rgb(185,28,28)",
-                    });
-                    navigate("/auth/login");
-                });
-        }
-    }, []);
 
     return (
         <div className="h-screen w-full">
@@ -144,31 +81,31 @@ export default function Ieac() {
                                         <Tile
                                             title="1. Navigate to Recommended / Not Recommeded Columns"
                                             info="In each form responses there is a column name recommended to recommend a nominee to futher rounds. In case some category of awards there is a not recommeded column which is mandatory for marking the nominees"
-                                                image={"../../assets/inst1.png"}
+                                            image={"/inst1.png"}
                                         />
 
                                         <Tile
                                             title="2. Click on checkbox to Recommned"
                                             info="Click on the checkbox in front of the nominee to Recommend him/her"
-                                                image={"../../assets/inst2.png"}
+                                            image={"/inst2.png"}
                                         />
 
                                         <Tile
                                             title="3a. Confirm your decision"
                                             info="Click on confirm if you confirm your decision to recommend the nominee else click deny or anywhere else on screen"
-                                                image={"../../assets/inst3.png"}
+                                            image={"/inst3.png"}
                                         />
 
                                         <Tile
                                             title="3b. Enter your score and confirm"
                                             info="In case of teaching and non- teaching category of awards IAEC Member are required to enter their score of each nominee wheter he/she is recommended or not  and confirm "
-                                                image={"../../assets/inst4.png"}
+                                            image={"/inst4.png"}
                                         />
 
                                         <Tile
                                             title="4. Upload Recommendation File"
                                             info="At last after confirming all the decision and marking recommeded and not recommended ones upload the recommendation file and confirm it "
-                                                image={"../../assets/inst5.png"}
+                                            image={"/inst5.png"}
                                         />
                                     </div>
                                 </div>

@@ -18,10 +18,10 @@ import {
     columns11,
     columns12,
 } from "../../../data/AnalysisData/ADMIN/structure";
-import axios from "axios";
 import { MoonLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import xlsx from "json-as-xlsx";
+import Axios from "../../../axios";
 
 export default function Responses() {
     /**
@@ -56,7 +56,7 @@ export default function Responses() {
             });
             navigate("/auth/login");
         } else {
-            axios
+            Axios
                 .get("/auth/validate", {
                     headers: {
                         "x-access-token": localStorage.getItem("token"),
@@ -1064,7 +1064,7 @@ export default function Responses() {
                     </div>
                 </>
             ) : (
-                navigate("/auth/login")
+                null
             )}
         </div>
     );

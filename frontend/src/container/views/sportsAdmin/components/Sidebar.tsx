@@ -5,8 +5,8 @@ import BoyRoundedIcon from "@mui/icons-material/BoyRounded";
 import SportsOutlinedIcon from "@mui/icons-material/SportsOutlined";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
-
 import { Link } from "react-router-dom";
+import React from "react";
 
 export default function SideBar() {
     return (

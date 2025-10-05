@@ -1,5 +1,6 @@
 import OutstandingInstitution from "./container/Pages/Forms/OutstandingInstitution";
 import SportsStar from "./container/Pages/Forms/SportsStar";
+import House from "./container/Pages/Forms/House";
 import Teaching from "./container/Pages/Forms/Teaching";
 import Research from "./container/Pages/Forms/Research";
 import FormPreview from "./container/views/admin/pages/FormPreview";
@@ -40,12 +41,8 @@ import ResearchResponses from "./container/views/researchAdmin/pages/ResearchRes
 import Users from "./container/views/admin/pages/Users";
 import Dev from "./container/Pages/Utility/Dev";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
-import axios from "axios";
 import Tutorial from "./components/Tutorial";
 import React from "react";
-
-// axios.defaults.baseURL = "https://apisomaiyaawards.somaiya.edu";
-axios.defaults.baseURL = 'http://localhost:5001'
 
 function App() {
     return (
@@ -109,6 +106,7 @@ function App() {
                 <Route path="/forms/research" element={<Research />} />
                 <Route path="/forms/teaching" element={<Teaching />} />
                 <Route path="/forms/non-teaching" element={<NonTeaching />} />
+                <Route path="/forms/house" element={<House />} />
                 <Route path="/forms/students" element={<Students />} />
                 <Route
                     path="/forms/feedback-01"

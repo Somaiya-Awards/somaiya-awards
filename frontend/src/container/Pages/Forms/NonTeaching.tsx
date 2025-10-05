@@ -3,6 +3,8 @@ import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import NonTeachingForm from "../../../data/Forms/NonTeachingForm";
 import NonTeachingFormStages from "../../../components/utils/data/NonTeachingFormStages";
+import NonTeachingValidator from "../../../zod/Forms/NonTeachingForm";
+import React from "react";
 
 export default function NonTeaching() {
     /**
@@ -40,6 +42,7 @@ export default function NonTeaching() {
                 message={message}
                 data={NonTeachingForm}
                 stages={NonTeachingFormStages}
+                validator={NonTeachingValidator}
             />
         </div>
     );

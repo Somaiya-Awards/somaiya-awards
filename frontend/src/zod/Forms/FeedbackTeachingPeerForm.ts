@@ -1,0 +1,49 @@
+import z from "zod";
+import {
+    arrayChoice,
+    phoneNumber,
+    somaiyaMail,
+    textArea,
+    validString,
+} from "../../../../backend/zod";
+
+const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
+
+const agreeList = [
+    "Strongly Agree",
+    "Agree",
+    "Sometimes",
+    "Disagree",
+    "Strongly Disagree",
+] as const;
+
+const feedList = [
+    "Outstanding",
+    "Excellent",
+    "Good",
+    "Average",
+    "Poor",
+] as const;
+
+const FeedbackTeachingPeerValidator = z.object({
+    rater_name: validString,
+    institute_name: validString,
+    department_name: validString,
+    designation: validString,
+    somaiya_mail_id: somaiyaMail,
+    contact_number: phoneNumber,
+    teacher_name: validString,
+    nomination_category: arrayChoice(stringOption),
+    q_01: arrayChoice(agreeList),
+    q_02: arrayChoice(agreeList),
+    q_03: arrayChoice(agreeList),
+    q_04: arrayChoice(agreeList),
+    q_05: arrayChoice(agreeList),
+    q_06: arrayChoice(agreeList),
+    q_07: arrayChoice(agreeList),
+    q_08: arrayChoice(feedList),
+    q_09: arrayChoice(agreeList),
+    nomination_reason: textArea({ maxLength: 600 }),
+});
+
+export default FeedbackTeachingPeerValidator;

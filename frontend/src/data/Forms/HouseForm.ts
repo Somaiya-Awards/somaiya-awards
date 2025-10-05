@@ -1,0 +1,236 @@
+import type { FormEntry } from "./types";
+import { arrayChoice, textArea, validFile } from "../../../../backend/zod";
+import { Houses } from "../../../../backend/constants";
+
+const scoreOptions = ["1", "2", "3", "4", "5"] as const;
+
+const HouseEvaluationForm: FormEntry[] = [
+    // Page 1 - House Selection
+    {
+        title: "Select the House for Evaluation",
+        name: "house_name",
+        type: "dropdown",
+        options: Houses,
+        required: true,
+        validator: arrayChoice(Houses),
+        page: 1,
+        fieldsPerLine: 1,
+        dropdownHiddenItem: "Select House",
+        dropOpt: "multiple",
+    },
+
+    // Page 2 - Academics (100 points)
+    {
+        title: "Q1. Demonstrates strong knowledge and understanding of academic subjects",
+        name: "academics_subject_knowledge",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 2,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q2. Maintains high quality and effectiveness in teaching and learning methods",
+        name: "academics_teaching_quality",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 2,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q3. Ensures student participation, engagement, and active learning",
+        name: "academics_student_engagement",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 2,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q4. Achieves strong academic results and improvements over time",
+        name: "academics_results",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 2,
+        fieldsPerLine: 1,
+    },
+
+    // Page 3 - Co-Curricular (100 points)
+    {
+        title: "Q5. Encourages participation and creativity in arts and cultural activities",
+        name: "co_curricular_arts",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 3,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q6. Promotes involvement in clubs, groups, and extra-curricular activities",
+        name: "co_curricular_clubs",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 3,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q7. Demonstrates innovation and creativity through co-curricular programs",
+        name: "co_curricular_innovation",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 3,
+        fieldsPerLine: 1,
+    },
+
+    // Page 4 - Sports (100 points)
+    {
+        title: "Q8. Performs well in individual sports events with dedication and effort",
+        name: "sports_individual",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 4,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q9. Shows teamwork, cooperation, and competitive spirit in team sports",
+        name: "sports_team",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 4,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q10. Demonstrates consistency, discipline, and sportsmanship in competitions",
+        name: "sports_sportsmanship",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 4,
+        fieldsPerLine: 1,
+    },
+
+    // Page 5 - Discipline & Behavior (50 points)
+    {
+        title: "Q11. Demonstrates punctuality, regularity, and responsibility in all activities",
+        name: "discipline_punctuality",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 5,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q12. Maintains discipline, good conduct, and respectful behavior consistently",
+        name: "discipline_conduct",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 5,
+        fieldsPerLine: 1,
+    },
+
+    // Page 6 - Leadership & Initiative (50 points)
+    {
+        title: "Q13. Takes initiative and shows responsibility in school-wide activities",
+        name: "leadership_initiative_activities",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 6,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q14. Provides mentorship, guidance, and support to peers and juniors",
+        name: "leadership_mentorship",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 6,
+        fieldsPerLine: 1,
+    },
+
+    // Page 7 - Community Service (50 points)
+    {
+        title: "Q15. Participates actively in community service and social welfare activities",
+        name: "community_service_participation",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 7,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q16. Creates a positive impact through consistent efforts in social work",
+        name: "community_service_impact",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 7,
+        fieldsPerLine: 1,
+    },
+
+    // Page 8 - House Spirit / Participation (50 points)
+    {
+        title: "Q17. Shows enthusiasm and active participation in inter-house events",
+        name: "house_spirit_participation",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 8,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Q18. Demonstrates leadership, encouragement, and contribution in house activities",
+        name: "house_spirit_leadership",
+        type: "radio",
+        options: scoreOptions,
+        validator: arrayChoice(scoreOptions),
+        required: true,
+        page: 8,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Recommendation Note (Max 600 words )",
+        name: "recommendation_note",
+        type: "textarea",
+        validator: textArea({ maxLength: 600 }),
+        required: true,
+        page: 9,
+        fieldsPerLine: 1,
+    },
+    {
+        title: "Upload Supporting Documents",
+        type: "file",
+        required: true,
+        name: "supportings",
+        validator: validFile({ type: "pdf" }),
+        accept: ".pdf",
+        page: 9,
+        fieldsPerLine: 1,
+    },
+];
+
+export default HouseEvaluationForm;

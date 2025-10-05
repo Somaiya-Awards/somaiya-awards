@@ -8,7 +8,9 @@ import Lottie from "lottie-react";
 import CertificateData from "../assets/certificate.json";
 import TrophyData from "../assets/trophy.json";
 import MoneyData from "../assets/money.json";
+//@ts-expect-error Import
 import EnvMapTexture from "../assets/skyfire.hdr";
+import React from "react";
 
 export default function Home() {
     const navigate = useNavigate();

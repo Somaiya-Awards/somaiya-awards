@@ -4,6 +4,8 @@ import Forms from "../../../components/Forms";
 import PeerNonTeachingFeedbackForm from "../../../data/Forms/PeerNonTeachingFeedbackForm";
 import FeedbackPeerNonTeaching from "../../../components/utils/data/FeebackPeerNonTeaching";
 import Footer from "../../../components/Footer";
+import React from "react";
+import PeerNonTeachingFeedbackFormValidator from "../../../zod/Forms/PeerNonTeachingFeedbackForm";
 
 export default function FeedbackNonTeachingPR() {
     const title = "Peers Feedback Form for Non Teaching";
@@ -23,6 +25,7 @@ export default function FeedbackNonTeachingPR() {
                 pageCount={limit}
                 data={PeerNonTeachingFeedbackForm}
                 stages={FeedbackPeerNonTeaching}
+                validator={PeerNonTeachingFeedbackFormValidator}
             />
 
             <div className="mt-[5rem]">

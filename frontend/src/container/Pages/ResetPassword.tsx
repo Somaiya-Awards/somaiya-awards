@@ -1,31 +1,23 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
-import Field from "../../components/utils/Field";
+import Field, { dataHandler } from "../../components/utils/Field";
+import React from "react";
+import ForgotValidator, { ForgotType } from "../../zod/Forms/ForgotPassword";
+import { email, validString } from "../../../../backend/zod";
+import Axios from "../../axios";
 
 export default function ResetPassword() {
     const { id, token } = useParams();
     const [authorized, setAuthorized] = useState(false);
-    const [credentials, setCredentials] = useState({});
+    const {display, getData, handleChange} = dataHandler<ForgotType>(ForgotValidator)
     const [confirmation, setConfirmation] = useState(false);
     const navigate = useNavigate();
 
-    /**
-     * handlers
-     */
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setCredentials((prevCredentials) => ({
-            ...prevCredentials,
-            [name]: value,
-        }));
-    };
-
     const handleClick = () => {
-        axios
-            .post(`/auth/${id}/${token}`, credentials)
+        Axios
+            .post(`/auth/${id}/${token}`, getData())
             .then((res) => {
                 console.log(res);
                 setConfirmation(true);
@@ -38,21 +30,15 @@ export default function ResetPassword() {
             });
     };
 
-    /**
-     * on load check whether user is valid or not
-     */
-
     useEffect(() => {
-        // why we doing nothing here
-        axios
-            .get(`/auth/${id}/${token}`)
+        Axios.get(`/auth/${id}/${token}`)
             .then((res) => {
-                setAuthorized(res.data.authorized);
+                setAuthorized(res.data.authorized)
                 console.log(res);
             })
             .catch((err) => {
                 console.log(err);
-            });
+            })
     }, []);
 
     return (
@@ -79,7 +65,12 @@ export default function ResetPassword() {
                                         placeholder="kjsit_hoi@gmail.com"
                                         title="Email ID"
                                         type="email"
-                                        value={credentials.user_email || ""}
+                                        formType="Forgot"
+                                        fieldsPerLine={2}
+                                        page={1}
+                                        required={true}
+                                        validator={email}
+                                        value={display.user_email || ""}
                                         onChange={handleChange}
                                         name="user_email"
                                     />
@@ -88,8 +79,13 @@ export default function ResetPassword() {
                                         placeholder="password"
                                         title="New Password"
                                         type="password"
+                                        validator={validString}
+                                        fieldsPerLine={2}
+                                        page={1}
+                                        required={true}
+                                        formType="Forgot"
                                         value={
-                                            credentials["user_password_new"] ||
+                                            display.user_password_new ||
                                             ""
                                         }
                                         onChange={handleChange}

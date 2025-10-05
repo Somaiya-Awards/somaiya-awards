@@ -1,6 +1,7 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+import React from "react";
 
 export default function About() {
     return (

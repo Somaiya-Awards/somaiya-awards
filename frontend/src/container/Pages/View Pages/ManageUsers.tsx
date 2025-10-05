@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import SideBar from "../../../components/SideBar";
 import Field from "../../../components/utils/Field";
 import { ToastContainer, toast } from "react-toastify";
-//@ts-expect-error CSS error
 import "react-toastify/dist/ReactToastify.css";
 import PasswordValidator from "password-validator";
 import Swal from "sweetalert2";
-import institutes from "../../../data/Institutions/institutes.js";
-//@ts-expect-error TODO: do npm i
 import { Dropzone, FileMosaic } from "@files-ui/react";
-//@ts-expect-error TODO: do npm i
 import Papa from "papaparse";
 import Axios from "../../../axios/index.js";
+import { Institutes } from "../../../../../backend/constants"
 
 export default function ManageUsers() {
-    const institutionOptions = institutes;
+    const institutionOptions = Institutes;
     // for password checks
 
     const schema = new PasswordValidator();

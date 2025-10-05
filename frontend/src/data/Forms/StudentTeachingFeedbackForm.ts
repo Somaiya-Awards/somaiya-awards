@@ -1,6 +1,12 @@
-import axios from "axios";
 import type { FormEntry } from "./types";
-import { arrayChoice, email, textArea, validString, validYear } from "../../../../backend/zod";
+import {
+    arrayChoice,
+    email,
+    textArea,
+    validString,
+    validYear,
+} from "../../../../backend/zod";
+import Axios from "../../axios";
 
 const good = ["Outstanding", "Very Good", "Good", "Average", "Poor"] as const;
 const score = [1, 2, 3, 4, 5] as const;
@@ -189,27 +195,24 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "nominating_reasons",
-        validator: textArea({maxLength: 300}),
+        validator: textArea({ maxLength: 300 }),
         page: 4,
         fieldsPerLine: 1,
     },
 ];
 
 async function fetchNominatedNames() {
-    console.log(axios.defaults.baseURL);
+    console.log(Axios.defaults.baseURL);
     try {
         // Make an HTTP request to fetch the data from your backend
-        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-faculty-names',{
-        const response = await axios.get(
-            "https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-faculty-names",
-            {
-                headers: {
-                    "x-access-token": localStorage.getItem("token"),
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-institute-name": localStorage.getItem("institution"),
-                },
-            }
-        );
+        // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-faculty-names',{
+        const response = await Axios.get("/ieac/data/nominated-faculty-names", {
+            headers: {
+                "x-access-token": localStorage.getItem("token"),
+                "x-user-id": localStorage.getItem("user_id"),
+                "x-institute-name": localStorage.getItem("institution"),
+            },
+        });
 
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;

@@ -9,8 +9,9 @@ import {
     columns04,
     columns05,
     columns06,
+    columns07,
 } from "../../../data/AnalysisData/HOI/structure";
-import axios from "axios";
+import Axios from "../../../axios";
 
 export default function Analysis() {
     const [title, setTitle] = useState<string>("");
@@ -44,17 +45,20 @@ export default function Analysis() {
 
             case "students":
                 setColumns(columns06);
+                break;
+            case "house":
+                setColumns(columns07);
+                break;
         }
 
         const url = `/hoi/data/${formTitle}`;
 
-        axios
-            .get(url, {
-                headers: {
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-access-token": localStorage.getItem("token"),
-                },
-            })
+        Axios.get(url, {
+            headers: {
+                "x-user-id": localStorage.getItem("user_id"),
+                "x-access-token": localStorage.getItem("token"),
+            },
+        })
             .then((res) => {
                 if (res.data) {
                     setRows(res.data.data);

@@ -1,3 +1,4 @@
+import React from "react";
 import type { StagesType } from "./utils/data/types";
 
 function returnSteps(value: number, handleClick: React.MouseEventHandler){

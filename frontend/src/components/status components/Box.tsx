@@ -1,4 +1,5 @@
 import FunctionsRoundedIcon from '@mui/icons-material/FunctionsRounded';
+import React from 'react';
 import CountUp from 'react-countup'
 
 function Box(props: {title: string, count: number}){

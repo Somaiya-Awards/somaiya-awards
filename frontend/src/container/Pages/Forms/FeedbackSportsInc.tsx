@@ -4,6 +4,8 @@ import Forms from "../../../components/Forms";
 import FeedbackSports from "../../../components/utils/data/FeedbackPeerTeaching";
 import FeedbackSportsForm from "../../../data/Forms/FeedbackSportsCoach";
 import Footer from "../../../components/Footer";
+import FeedbackSportsCoachValidator from "../../../zod/Forms/FeedbackSportsCoach";
+import React from "react";
 
 export default function FeedbackSportsInc() {
     const headings = [
@@ -29,6 +31,7 @@ export default function FeedbackSportsInc() {
                 pageCount={limit}
                 data={FeedbackSportsForm}
                 stages={FeedbackSports}
+                validator={FeedbackSportsCoachValidator}
             />
 
             <div className="mt-[5rem]">

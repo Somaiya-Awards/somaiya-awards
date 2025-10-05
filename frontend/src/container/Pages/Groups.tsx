@@ -1,6 +1,7 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import TableData from "../../data/Institutions/TableData";
+import React from "react";
 
 export default function Groups() {
     function Table() {

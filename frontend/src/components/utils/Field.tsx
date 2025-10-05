@@ -1,60 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
 
 export type FieldProp = {
-    onChange: (name: string, value: any, type: "add" | "delete") => void;
-    formType: string,
+    onChange: (
+        name: string,
+        value: string | File,
+        actionType: "add" | "delete"
+    ) => void;
+    formType: string;
+    className?: string;
+    value: string | File;
 } & FormEntry;
 
 function Field(props: FieldProp) {
-    const [value, setValue] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [, setFocused] = useState<boolean>(false);
 
     function handleTextChange<
         T extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
     >(event: React.ChangeEvent<T>) {
-        let { name, value } = event.target;
-        let response = props.validator.safeParse(value);
-        let actionType: "delete" | "add";
+        const { name, value } = event.target;
+        const validator = props.validator;
+        const response = validator.safeParse(value);
 
         if (!response.success) {
-            actionType = "delete";
             setError(z.treeifyError(response.error).errors.join(", "));
+            props.onChange(name, value, "delete");
         } else {
-            actionType = "add";
+            props.onChange(name, response.data, "add");
             setError(null);
         }
-
-        setValue(value);
-        props.onChange(name, value, actionType);
-
     }
 
-    function handleFileChange<
-        T extends HTMLInputElement,
-    >(event: React.ChangeEvent<T>) {
-
-        let { name, files } = event.target;
+    function handleFileChange<T extends HTMLInputElement>(
+        event: React.ChangeEvent<T>
+    ) {
+        const { name, files } = event.target;
 
         if (!files) return;
 
-        let response = props.validator.safeParse(files[0]);
-        let actionType: "delete" | "add";
+        const response = props.validator.safeParse(files[0]);
 
         if (!response.success) {
-            actionType = "delete";
             setError(z.treeifyError(response.error).errors.join(", "));
+            props.onChange(name, files[0], "delete");
         } else {
-            actionType = "add";
+            props.onChange(name, response.data, "add");
             setError(null);
         }
-
-        setValue(files[0].name);
-        props.onChange(name, files[0], actionType);
-
     }
 
     const handleFocus = () => {
@@ -64,26 +59,6 @@ function Field(props: FieldProp) {
     const handleBlur = () => {
         setFocused(false);
     };
-
-    useEffect(() => {
-        const dataName = `${props.formType}-${props.name}-data`;
-        localStorage.setItem(dataName, value as string);
-    }, [value]);
-
-
-    useEffect(() => {
-        const dataName = `${props.formType}-${props.name}-data`;
-        try {
-            let local = localStorage.getItem(dataName)
-            if (!local) return;
-
-            setValue(local)
-
-        } catch (err) {
-            console.error(err);
-        }
-
-    }, []);
 
     function RadioProp(props: FieldProp) {
         if (props.type !== "radio") return null;
@@ -96,7 +71,7 @@ function Field(props: FieldProp) {
                         name={props.name}
                         required={props.required}
                         value={item}
-                        checked={value === item ? true : false}
+                        checked={props.value === item ? true : false}
                         className=""
                         onChange={handleTextChange}
                     />{" "}
@@ -113,7 +88,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={value ? value : ""}
+                value={props.value ? props.value : ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -126,7 +101,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={value ? value : ""}
+                value={props.value ? props.value : ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -143,7 +118,7 @@ function Field(props: FieldProp) {
             <textarea
                 className="border-black p-3 border-2 rounded-lg w-full h-48"
                 name={props.name}
-                value={value ? value : ""}
+                value={props.value ? props.value : ""}
                 onChange={handleTextChange}
             ></textarea>
         );
@@ -169,7 +144,7 @@ function Field(props: FieldProp) {
                         {" "}
                         selected File :{" "}
                     </span>{" "}
-                    {value}
+                    {(props.value as File).name}
                 </p>
             </>
         );
@@ -185,7 +160,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                value={value ? value : ""}
+                value={props.value ? props.value : ""}
                 onChange={handleTextChange}
             />
         );
@@ -196,6 +171,7 @@ function Field(props: FieldProp) {
             case "text":
             case "email":
             case "date":
+            case "password":
                 break;
             default:
                 return null;
@@ -209,7 +185,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                value={value ? value : ""}
+                value={props.value ? props.value : ""}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleTextChange}
@@ -217,10 +193,8 @@ function Field(props: FieldProp) {
         );
     }
 
-    function WhoThatPokemon(props: FieldProp) {
+    const WhoThatPokemon = useCallback((props: FieldProp) => {
         switch (props.type) {
-            case "text":
-                return TextProp(props);
             case "number":
                 return NumberProp(props);
             case "file":
@@ -231,14 +205,16 @@ function Field(props: FieldProp) {
                 return RadioProp(props);
             case "dropdown":
                 return DropwDownProp(props);
+            case "text":
+            case "email":
+            case "date":
+            case "password":
+                return TextProp(props);
         }
+        return null;
+    }, []);
 
-        throw new Error(
-            `If you see this, congrats you won a front row seat to a coup. You got ${props.type}`
-        );
-    }
-
-    function GiveJudgement(props: FieldProp) {
+    function GiveJudgement() {
         if (error) {
             return <p className="font-Poppins text-red-700">{error}</p>;
         }
@@ -248,8 +224,9 @@ function Field(props: FieldProp) {
 
     return (
         <div
-            className={`my-3 p-3 inline-block ${props.fieldsPerLine === 2 ? "w-1/2" : "w-full"
-                }`}
+            className={`my-3 p-3 inline-block ${
+                props.fieldsPerLine === 2 ? "w-1/2" : "w-full"
+            }`}
         >
             <div className="mb-3">
                 <label className="font-Poppins">
@@ -271,7 +248,7 @@ function Field(props: FieldProp) {
                     </p>
                 ) : null}
 
-                <GiveJudgement {...props} />
+                <GiveJudgement />
             </div>
             <div>
                 <WhoThatPokemon {...props} />
@@ -280,4 +257,40 @@ function Field(props: FieldProp) {
     );
 }
 
-export default React.memo(Field);
+export function dataHandler<T>(validator: z.ZodType) {
+    const [data, setData] = useState<T | {}>({});
+    const [display, setDisplay] = useState<{ [key: string]: string | File }>(
+        {}
+    );
+
+    const handleChange = (
+        name: string,
+        value: string | File,
+        actionType: "add" | "delete"
+    ) => {
+        setData((prev) => {
+            const newData = { ...prev };
+            newData[name] = actionType === "add" ? value : null;
+            return newData;
+        });
+
+        setDisplay((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const getData = (): T | null => {
+        const response = validator.safeParse(data);
+
+        if (response.success) {
+            return response.data as T;
+        } else {
+            return null;
+        }
+    };
+
+    return { getData, display, handleChange, data, setData };
+}
+
+export default Field;

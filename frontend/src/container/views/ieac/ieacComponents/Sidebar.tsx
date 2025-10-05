@@ -7,6 +7,7 @@ import GavelRoundedIcon from "@mui/icons-material/GavelRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 
 import { Link } from "react-router-dom";
+import React from "react";
 
 export default function SideBar() {
     return (

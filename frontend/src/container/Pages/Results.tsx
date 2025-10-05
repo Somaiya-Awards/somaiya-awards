@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import * as XLSX from "xlsx";
 import Axios from "../../axios";
+import React from "react";
 
 export default function Results() {
     const [jsonData, setJsonData] = useState([]);

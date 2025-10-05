@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import OutstandingInstForm from "../../../../data/Forms/OutstandingInstForm";
 import ResearchForm from "../../../../data/Forms/ResearchForm";
 import SportsStarForm from "../../../../data/Forms/SportsStarForm";
@@ -8,6 +7,7 @@ import TeachingForm from "../../../../data/Forms/TeachingForm";
 import NonTeachingForm from "../../../../data/Forms/NonTeachingForm";
 import { useReactToPrint } from "react-to-print";
 import type { FormEntry } from "../../../../data/Forms/types";
+import Axios from "../../../../axios";
 
 type IdkData = {
     [key: string]: string;
@@ -49,14 +49,11 @@ const FormPreview = () => {
                 break;
         }
 
-        axios
-            .get(url, {
-                headers: {
-                    "x-access-token": localStorage.getItem("token"),
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-application-id": applicationID,
-                },
-            })
+        Axios.get(url, {
+            headers: {
+                "x-application-id": applicationID,
+            },
+        })
             .then((res) => {
                 setData(res.data.data);
             })

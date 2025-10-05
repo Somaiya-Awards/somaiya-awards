@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { validString } from "../../../backend/zod";
 
-const BASE_URL = "http://localhost/5001";
+const BASE_URL = "http://localhost:5001";
 
 interface Config extends AxiosRequestConfig {
     retry?: boolean;
@@ -155,7 +155,7 @@ Axios.interceptors.response.use(
         config.retry = true;
 
         try {
-            await Axios.post(
+            await axios.post(
                 URL.AUTH.REFRESH,
                 {},
                 {

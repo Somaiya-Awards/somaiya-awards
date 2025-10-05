@@ -1,5 +1,11 @@
-import { arrayChoice, validFile, validNumber, validString } from "../../../../backend/zod";
-import institutes from "../Institutions/institutes";
+import {
+    arrayChoice,
+    validFile,
+    validNumber,
+    validString,
+} from "../../../../backend/zod";
+
+import { Institutes } from "../../../../backend/constants";
 import type { FormEntry } from "./types";
 
 const ResearchForm: FormEntry[] = [
@@ -29,8 +35,8 @@ const ResearchForm: FormEntry[] = [
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
         required: true,
-        validator: arrayChoice(institutes),
-        options: institutes,
+        validator: arrayChoice(Institutes),
+        options: Institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -327,7 +333,7 @@ const ResearchForm: FormEntry[] = [
         name: "evidence_of_research",
         type: "file",
         required: true,
-        validator: validFile({type: "pdf"}),
+        validator: validFile({ type: "pdf" }),
         accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,
@@ -337,7 +343,7 @@ const ResearchForm: FormEntry[] = [
         name: "evidence_of_data_provided",
         type: "file",
         required: true,
-        validator: validFile({type: "pdf"}),
+        validator: validFile({ type: "pdf" }),
         accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,

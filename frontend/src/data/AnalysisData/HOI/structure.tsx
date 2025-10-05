@@ -1253,4 +1253,92 @@ const columns06: GridColDef[] = [
     },
 ];
 
-export { columns01, columns02, columns03, columns04, columns05, columns06 };
+const columns07: GridColDef[] = [
+    { field: "house_name", headerName: "House Name", width: 200 },
+    { field: "academics_score", headerName: "Academics (100)", width: 180 },
+    {
+        field: "co_curricular_score",
+        headerName: "Co-Curricular (100)",
+        width: 200,
+    },
+    { field: "sports_score", headerName: "Sports (100)", width: 180 },
+    {
+        field: "discipline_score",
+        headerName: "Discipline & Behavior (50)",
+        width: 220,
+    },
+    {
+        field: "leadership_score",
+        headerName: "Leadership & Initiative (50)",
+        width: 220,
+    },
+    {
+        field: "community_service_score",
+        headerName: "Community Service (50)",
+        width: 220,
+    },
+    {
+        field: "house_spirit_score",
+        headerName: "House Spirit / Participation (50)",
+        width: 250,
+    },
+    {
+        field: "total_score",
+        headerName: "Total (500)",
+        width: 180,
+    },
+    {
+        field: "evidence_docs",
+        headerName: "Supporting Evidence",
+        width: 200,
+        renderCell: (params) => {
+            return params.value ? (
+                <a
+                    href={`${baseURL}/${params.value.split("data")[1]}`}
+                    className="p-2 rounded-2xl cursor-pointer bg-blue-700 text-white font-Poppins"
+                    download
+                >
+                    Download
+                </a>
+            ) : (
+                "-"
+            );
+        },
+    },
+    {
+        field: "hr_approved",
+        headerName: "HR Approved",
+        type: "boolean",
+        width: 180,
+        renderCell: (params) => {
+            return params.value ? (
+                <CheckRoundedIcon style={{ color: "#15803d" }} />
+            ) : (
+                <CloseRoundedIcon style={{ color: "rgb(185,28,28)" }} />
+            );
+        },
+    },
+    {
+        field: "committee_approved",
+        headerName: "Committee Approved",
+        type: "boolean",
+        width: 220,
+        renderCell: (params) => {
+            return params.value ? (
+                <CheckRoundedIcon style={{ color: "#15803d" }} />
+            ) : (
+                <CloseRoundedIcon style={{ color: "rgb(185,28,28)" }} />
+            );
+        },
+    },
+];
+
+export {
+    columns01,
+    columns02,
+    columns03,
+    columns04,
+    columns05,
+    columns06,
+    columns07,
+};

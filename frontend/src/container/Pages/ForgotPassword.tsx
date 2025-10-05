@@ -1,34 +1,28 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
-import Field from "../../components/utils/Field";
-import axios from "axios";
+import Field, { dataHandler } from "../../components/utils/Field";
+import React from "react";
+import Axios from "../../axios";
+import { ForgotPasswordType, ForgotPasswordValidator } from "../../zod/Forms/ForgotPassword";
+import { email } from "../../../../backend/zod";
 
 export default function ForgotPassword() {
-    const [email, setEmail] = useState<{
-        user_password?: string;
-        user_role?: string;
-        user_institution?: string;
-        user_email_id?: string;
-    }>({});
+    const {display, getData, handleChange} = dataHandler<ForgotPasswordType>(ForgotPasswordValidator)
     const [submitted, setSubmitted] = useState(false);
     const [serverResponse, setServerResponse] = useState<{
         message?: string;
         title?: string;
     }>({});
 
-    const handleChange = (event: React.ChangeEvent) => {
-        const { value, name } = (event as React.ChangeEvent<HTMLInputElement>)
-            .target;
-        setEmail({ ...email, [name]: value });
-    };
 
     const handleReset = async () => {
-        if (Object.keys(email).length === 0) {
+        let data = getData()
+        if (!data) {
             alert("Fill the field man");
         } else {
-            await axios
-                .post("/auth/forgot-password", email)
+            Axios
+                .post("/auth/forgot-password", data)
                 .then((res) => {
                     const { message, title } = res.data;
                     setSubmitted(true);
@@ -63,7 +57,8 @@ export default function ForgotPassword() {
                                     placeholder="kjsit_hoi@gmail.com"
                                     title="Email ID"
                                     type="email"
-                                    value={email.user_email_id || ""}
+                                    validator={email}
+                                    value={display.user_email_id || ""}
                                     onChange={handleChange}
                                     name="user_email"
                                 />
@@ -82,7 +77,7 @@ export default function ForgotPassword() {
                             <div className="p-4">
                                 <h2 className="text-center text-red-700 font-Poppins text-2xl font-semibold">
                                     {serverResponse["title"] ||
-                                        "Request Recieved"}
+                                        "Request Received"}
                                 </h2>
                             </div>
                             <div className="p-4 ">

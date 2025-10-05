@@ -4,6 +4,8 @@ import Forms from "../../../components/Forms";
 import StudentTeachingFeedback from "../../../components/utils/data/StudentTeachingFeedback";
 import StudentTeachingFeedbackForm from "../../../data/Forms/StudentTeachingFeedbackForm";
 import Footer from "../../../components/Footer";
+import React from "react";
+import StudentTeachingFeedbackFormValidator from "../../../zod/Forms/StudentTeachingFeedbackForm";
 
 export default function FeedbackTeachingST() {
     const headings = [
@@ -31,6 +33,7 @@ export default function FeedbackTeachingST() {
                 data={StudentTeachingFeedbackForm}
                 stages={StudentTeachingFeedback}
                 message={message}
+                validator={StudentTeachingFeedbackFormValidator}
             />
 
             <div className="mt-[5rem]">

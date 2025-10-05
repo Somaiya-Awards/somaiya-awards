@@ -1,13 +1,23 @@
-import { validString, email, arrayChoice, validDate, somaiyaMail, phoneNumber, textArea, validFile } from "../../../../backend/zod";
-import institutes from "../Institutions/institutes";
+import {
+    validString,
+    email,
+    arrayChoice,
+    somaiyaMail,
+    phoneNumber,
+    textArea,
+    validFile,
+    lastDate,
+} from "../../../../backend/zod";
+
+import { Institutes } from "../../../../backend/constants";
 import type { FormEntry } from "./types";
 
 const awards = [
     "Excellence in Teaching (more than 3 years of service)",
     "Promising Teacher of the year (2 to 3 years of service)",
-] as const
+] as const;
 
-const score = [1, 2, 3, 4, 5] as const;
+const score = ["1", "2", "3", "4", "5"] as const;
 
 const TeachingForm: FormEntry[] = [
     {
@@ -45,8 +55,8 @@ const TeachingForm: FormEntry[] = [
         dropdownHiddenItem: "Select your institute",
         required: true,
         dropOpt: "multiple",
-        validator: arrayChoice(institutes),
-        options: institutes,
+        validator: arrayChoice(Institutes),
+        options: Institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -73,7 +83,7 @@ const TeachingForm: FormEntry[] = [
         name: "date_of_appointment",
         type: "date",
         required: true,
-        validator: validDate,
+        validator: lastDate(3),
         page: 1,
         fieldsPerLine: 2,
     },
@@ -100,7 +110,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_01",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -111,7 +121,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_02",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -122,7 +132,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_03",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -133,7 +143,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_04",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -144,7 +154,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_05",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -155,7 +165,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_06",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -166,7 +176,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_07",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -177,7 +187,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_08",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -188,7 +198,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_09",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -199,7 +209,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_10",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 2,
@@ -210,7 +220,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_11",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 3,
@@ -221,7 +231,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_12",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 3,
@@ -232,7 +242,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_13",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 3,
@@ -243,7 +253,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_14",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 3,
@@ -254,7 +264,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_15",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 3,
@@ -265,7 +275,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_16",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 4,
@@ -276,7 +286,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_17",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 4,
@@ -287,7 +297,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_18",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 4,
@@ -298,7 +308,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_19",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 4,
@@ -309,7 +319,7 @@ const TeachingForm: FormEntry[] = [
         name: "q_20",
         type: "radio",
         required: true,
-        
+
         validator: arrayChoice(score),
         options: score,
         page: 4,
@@ -319,7 +329,7 @@ const TeachingForm: FormEntry[] = [
         title: "Q21. Add your relevant achievements (300 words max)",
         name: "q_21",
         type: "textarea",
-        validator: textArea({maxLength: 300}),
+        validator: textArea({ maxLength: 300 }),
         required: true,
         page: 5,
         fieldsPerLine: 1,
@@ -328,7 +338,7 @@ const TeachingForm: FormEntry[] = [
         title: "Major evidences for the data provided in this form",
         name: "data_evidence",
         type: "file",
-        validator: validFile({type: "pdf"}),
+        validator: validFile({ type: "pdf" }),
         accept: ".pdf",
         required: true,
 
@@ -340,7 +350,7 @@ const TeachingForm: FormEntry[] = [
         name: "profile_photograph",
         type: "file",
         required: true,
-        validator: validFile({type: "jpg"}),
+        validator: validFile({ type: "jpg" }),
         accept: ".jpg",
         page: 6,
         fieldsPerLine: 1,

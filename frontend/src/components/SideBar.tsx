@@ -11,6 +11,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 import SportsHandballRoundedIcon from '@mui/icons-material/SportsHandballRounded';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import React from 'react';
 
 const SideBar = () => {
     return (

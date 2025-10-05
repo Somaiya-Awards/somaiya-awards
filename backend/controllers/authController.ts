@@ -52,7 +52,7 @@ export const userLogin = asyncHandler(async (req, res) => {
 
         setAccessCookie(res, accessCookie);
         setRefreshCookie(res, refreshCookie);
-        setCookie(res, "isLoggedIn", randomString(), "1h");
+        setCookie(res, "isLoggedIn", randomString(), "1d");
         setCsrfCookie(req, res);
 
         res.status(200).json({

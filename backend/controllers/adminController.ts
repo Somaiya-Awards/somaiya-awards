@@ -8,6 +8,14 @@ import {
     NonTeachingJuryScore,
     InstituteCount,
     groupCountType,
+    lastDay,
+    instituteCountType,
+    instituteCountArrayType,
+    getInstitutionType,
+    MyModel,
+    SportsGirlType,
+    CoachType,
+    SportsBoyType,
 } from "../types/controllers/admin";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -26,153 +34,7 @@ import {
     sequelize,
 } from "../models";
 import { Op } from "sequelize";
-
-/**Global Info */
-const institutionArray = [
-    "K J Somaiya College of Arts and Commerce",
-    "S K Somaiya Vinay Mandir Junior College",
-    "K J Somaiya College of Science and Commerce",
-    "S K Somaiya College of  Arts, Science and Commerce",
-    "K J Somaiya College of Engineering",
-    "K J Somaiya Institute of Management",
-    "K J Somaiya College of Education",
-    "K J Somaiya Polytechnic",
-    "Somaiya Vidyavihar University",
-    "K J Somaiya Institute of Technology",
-    "S K Somaiya Vinay Mandir (Primary Section)",
-    "Department of Library and Information Science",
-    "Maya Somaiya School of Music and Performing Arts",
-    "S K Somaiya College",
-    "K J Somaiya Institute of Dharma Studies",
-    "Somaiya Sports Academy",
-    "Somaiya Institute for Research and Consultancy",
-    "Somaiya School of Design",
-    "Research Innovation Incubation Design Labs",
-    "Somaiya Vidyavihar",
-    "The Somaiya School",
-    "K J Somaiya English Medium School",
-    "K.J.Somaiya Secondary School,Nareshwadi",
-    "Shri Sharda English Medium School",
-    "Somaiya Vidya Mandir - Laxmiwadi",
-    "Somaiya Vidya Mandir - Sakarwadi",
-    "Somaiya Shishu Niketan Primary School",
-    "Somaiya Vinaymandir High School",
-    "K J Somaiya Hospital and Research Centre",
-    "K J Somaiya Medical College and Research Centre",
-    "K J Somaiya College of Physiotherapy",
-    "K J Somaiya College of Nursing",
-    "K J Somaiya School of Nursing",
-    "K J Somaiya Medical Trust",
-    "K J Somaiya Private Industrial Training Institute",
-    "SMT Sakarbai K Somaiya Junior College of Education",
-    "School of civilization",
-    "Faculty & Staff Development Centre",
-];
-
-type groupIndex = 0 | 1 | 2 | 3 | 4;
-
-// zero indexing this
-const grouping: { [keys: string]: groupIndex[] } = {
-    "K J Somaiya College of Arts and Commerce": [2],
-    "S K Somaiya Vinay Mandir Junior College": [1],
-    "K J Somaiya College of Science and Commerce": [2],
-    "S K Somaiya College of  Arts, Science and Commerce": [2],
-    "K J Somaiya College of Engineering": [2],
-    "K J Somaiya Institute of Management": [2],
-    "K J Somaiya College of Education": [2],
-    "K J Somaiya Polytechnic": [2],
-    "Somaiya Vidyavihar University": [2],
-    "K J Somaiya Institute of Technology": [2],
-    "S K Somaiya Vinay Mandir (Primary Section)": [2],
-    "Department of Library and Information Science": [2],
-    "Maya Somaiya School of Music and Performing Arts": [2],
-    "S K Somaiya College": [2],
-    "K J Somaiya Institute of Dharma Studies": [2],
-    "Somaiya Sports Academy": [2],
-    "Somaiya Institute for Research and Consultancy": [2],
-    "Somaiya School of Design": [2],
-    "Research Innovation Incubation Design Labs": [2],
-    "Somaiya Vidyavihar": [4],
-    "The Somaiya School": [0],
-    "K J Somaiya English Medium School": [0],
-    "K.J.Somaiya Secondary School,Nareshwadi": [0],
-    "Shri Sharda English Medium School": [0],
-    "Somaiya Vidya Mandir - Laxmiwadi": [0],
-    "Somaiya Vidya Mandir - Sakarwadi": [0],
-    "Somaiya Shishu Niketan Primary School": [0],
-    "Somaiya Vinaymandir High School": [1],
-    "K J Somaiya Hospital and Research Centre": [3],
-    "K J Somaiya Medical College and Research Centre": [3],
-    "K J Somaiya College of Physiotherapy": [3],
-    "K J Somaiya College of Nursing": [3],
-    "K J Somaiya School of Nursing": [3],
-    "K J Somaiya Medical Trust": [4],
-    "K J Somaiya Private Industrial Training Institute": [2],
-    "SMT Sakarbai K Somaiya Junior College of Education": [3],
-    "School of civilization": [2],
-    "Faculty & Staff Development Centre": [2],
-};
-
-// custom functions which will be used in Admin Controllers
-
-// @desc: extracts date from data
-// @accepts Array
-// const dataFormatter = (data) => {
-//     const formattedData = [];
-//
-//     for (const record of data) {
-//         const x = { date: record.createdAt };
-//         formattedData.push(x);
-//     }
-//
-//     return formattedData;
-// };
-//
-// // @ desc get occurance of each date in formatted data
-// // @accepts Array
-// const getDateCounts = (array) => {
-//     let currentDate = new Date();
-//     let dateCounts = [];
-//
-//     for (let i = 14; i >= 0; i--) {
-//         let date = new Date(
-//             currentDate.getFullYear(),
-//             currentDate.getMonth(),
-//             currentDate.getDate() - i
-//         )
-//             .toISOString()
-//             .split("T")[0];
-//
-//         // Set the initial count to 0
-//         let dateCount = {
-//             date: date,
-//             formsFilled: 0,
-//         };
-//
-//         dateCounts.unshift(dateCount);
-//     }
-//
-//     // Add today's date if it's not already present
-//     let today = new Date().toISOString().split("T")[0];
-//     let foundToday = dateCounts.find((dateCount) => dateCount.date === today);
-//     if (!foundToday) {
-//         dateCounts.unshift({ date: today, formsFilled: 0 });
-//     }
-//
-//     for (let j = 0; j < array.length; j++) {
-//         let arrayDate = new Date(array[j].date).toISOString().split("T")[0];
-//
-//         // Check if the date is within the last 15 days
-//         let foundDate = dateCounts.find(
-//             (dateCount) => dateCount.date === arrayDate
-//         );
-//         if (foundDate) {
-//             foundDate.formsFilled++;
-//         }
-//     }
-//
-//     return dateCounts;
-// };
+import { Group, Groups, Institutes } from "../constants";
 
 function textToScore(text: string) {
     let score = 0;
@@ -223,53 +85,50 @@ export const getCounts = asyncHandler(async (req: Request, res: Response) => {
         ),
     };
 
-    //@ts-ignore Just here for type safety
-    let countData: countAll = {};
+    let countData: countAll = {
+        /** WARN: Explicitly Fail if something errors out */
 
-    /** WARN: Explicitly Fail if something errors out */
+        // institution Count
+        institutionFormCount: await OutstandingInstitution.count(conditions),
 
-    // institution Count
-    countData.institutionFormCount = await OutstandingInstitution.count();
+        // research Count
 
-    // research Count
+        researchFormCount: await Research.count(conditions),
 
-    countData.researchFormCount = await Research.count(conditions);
+        // sports Count
 
-    // sports Count
+        sportsFormCount: await Sports.count(conditions),
 
-    countData.sportsFormCount = await Sports.count(conditions);
+        // teaching Count
 
-    // teaching Count
+        teachingFormCount: await Teaching.count(conditions),
 
-    countData.teachingFormCount = await Teaching.count(conditions);
+        // non teaching Count
 
-    // non teaching Count
+        nonTeachingFormCount: await NonTeaching.count(conditions),
 
-    countData.nonTeachingFormCount = await NonTeaching.count(conditions);
+        // feedback1 count
 
-    // feedback1 count
+        feedbackOneFormCount: await FeedbackOne.count(conditions),
 
-    countData.feedbackOneFormCount = await FeedbackOne.count(conditions);
+        // feedback2 count
 
-    // feedback2 count
+        feedbackTwoFormCount: await FeedbackTwo.count(conditions),
 
-    countData.feedbackTwoFormCount = await FeedbackTwo.count(conditions);
+        // feedback3 count
 
-    // feedback3 count
+        feedbackThreeFormCount: await FeedbackThree.count(conditions),
 
-    countData.feedbackThreeFormCount = await FeedbackThree.count(conditions);
+        // feedback4 count
 
-    // feedback4 count
+        feedbackFourFormCount: await FeedbackFour.count(conditions),
 
-    countData.feedbackFourFormCount = await FeedbackFour.count(conditions);
+        // students form count
 
-    // students form count
+        studentsFormCount: await Students.count(conditions),
+    };
 
-    countData.studentsFormCount = await Students.count(conditions);
-
-    res.status(200).json({
-        data: countData,
-    });
+    res.status(200).json({ data: countData });
 });
 
 /**
@@ -391,7 +250,7 @@ export const getDaysCount = asyncHandler(
             ...studentsData,
         ];
 
-        let data: { [key: string]: number } = {};
+        let data: lastDay = {};
 
         for (let list of lists) {
             if (!data.hasOwnProperty(list.date)) {
@@ -401,9 +260,7 @@ export const getDaysCount = asyncHandler(
             data[list.date] += list.formsFilled;
         }
 
-        res.status(200).json({
-            data: data,
-        });
+        res.status(200).json({ data: data });
     }
 );
 
@@ -472,20 +329,10 @@ export const getInstitutionWiseCount = asyncHandler(
 
         //process th data to extract just dates
 
-        let countObject: {
-            [key: string]: {
-                id: string;
-                institution_form: number;
-                research_form: number;
-                sports_form: number;
-                teaching_form: number;
-                non_teaching_form: number;
-                institution_name: string;
-                students_form: number;
-            };
-        } = {};
+        //@ts-expect-error {}
+        let countObject: instituteCountType = {};
 
-        for (let i of institutionArray) {
+        for (let i of Institutes) {
             countObject[i] = {
                 id: uuidv4(),
                 institution_form: 0,
@@ -548,30 +395,21 @@ export const getInstitutionWiseCount = asyncHandler(
             if (!countObject.hasOwnProperty(institute)) continue;
             countObject[institute].students_form += data.formsFilled;
         }
-        let array: {
-            id: string;
-            institution_name: string;
-            institution_form: number;
-            research_form: number;
-            sports_form: number;
-            teaching_form: number;
-            non_teaching_form: number;
-            students_form: number;
-        }[] = [];
+        let array: instituteCountArrayType = { data: [] };
 
         Object.keys(countObject).forEach((key) => {
-            array.push(countObject[key]);
+            array.data.push(countObject[key]);
         });
 
-        res.status(200).json({
-            message: "Request Successful",
-            data: array,
-        });
+        res.status(200).json(array);
     }
 );
 
 function groupCountMethod(
-    groupCount: groupCountType[],
+    groupCount: {
+        group: "A" | "B" | "C" | "D" | "E";
+        formsFilled: number;
+    }[],
     groupIndex: 0 | 1 | 2 | 3 | 4,
     count: number
 ) {
@@ -627,93 +465,92 @@ export const getGroupWiseCount = asyncHandler(
 
         //group count logic
 
-        const groupCount: groupCountType[] = [
-            {
-                group: "A",
-                formsFilled: 0,
-            },
-            {
-                group: "B",
-                formsFilled: 0,
-            },
-            {
-                group: "C",
-                formsFilled: 0,
-            },
-            {
-                group: "D",
-                formsFilled: 0,
-            },
-            {
-                group: "E",
-                formsFilled: 0,
-            },
-        ];
+        const groupCount: groupCountType = {
+            data: [
+                {
+                    group: "A",
+                    formsFilled: 0,
+                },
+                {
+                    group: "B",
+                    formsFilled: 0,
+                },
+                {
+                    group: "C",
+                    formsFilled: 0,
+                },
+                {
+                    group: "D",
+                    formsFilled: 0,
+                },
+                {
+                    group: "E",
+                    formsFilled: 0,
+                },
+            ],
+        };
 
         // institute forms
 
         for (const response of institutionData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
         //sports
 
         for (const response of sportsData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
         //research
 
         for (const response of researchData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
         //teaching
 
         for (const response of teachingData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
         //non teaching
 
         for (const response of nonTeachingData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
         // students
 
         for (const response of studentsData) {
-            const validGroups = grouping[response.institution_name];
+            const validGroups: Group = Groups[response.institution_name];
 
             for (let group of validGroups) {
-                groupCountMethod(groupCount, group, response.formsFilled);
+                groupCountMethod(groupCount.data, group, response.formsFilled);
             }
         }
 
-        res.status(200).json({
-            message: "Request Successful",
-            data: groupCount,
-        });
+        res.status(200).json(groupCount);
     }
 );
 
@@ -736,10 +573,11 @@ export const getInstitutionData = asyncHandler(
             ),
         });
 
-        res.status(200).json({
-            message: "Request Successful",
+        let instituteData: getInstitutionType = {
             data: data,
-        });
+        };
+
+        res.status(200).json(instituteData);
     }
 );
 
@@ -764,7 +602,6 @@ export const getResearchData = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -790,7 +627,9 @@ export const getSportsGirlData = asyncHandler(
             },
         });
 
-        const data = [];
+        const data: SportsGirlType = {
+            data: [],
+        };
 
         for (const response of rawData) {
             const object = {
@@ -814,13 +653,10 @@ export const getSportsGirlData = asyncHandler(
                     response.q_24 * 0.1,
             };
 
-            data.push(object);
+            data.data.push(object);
         }
 
-        res.status(200).json({
-            message: "Request Successful",
-            data: data,
-        });
+        res.status(200).json(data);
     }
 );
 
@@ -844,7 +680,7 @@ export const getSportsBoyData = asyncHandler(
             },
         });
 
-        const data = [];
+        const data: SportsBoyType = { data: [] };
 
         for (const response of rawData) {
             const object = {
@@ -867,13 +703,10 @@ export const getSportsBoyData = asyncHandler(
                     response.q_28 * 0.1,
             };
 
-            data.push(object);
+            data.data.push(object);
         }
 
-        res.status(200).json({
-            message: "Request Successful",
-            data: data,
-        });
+        res.status(200).json(data);
     }
 );
 
@@ -897,7 +730,7 @@ export const getSportsCoachData = asyncHandler(
             },
         });
 
-        const data = [];
+        const data: CoachType = { data: [] };
 
         for (const response of rawData) {
             const object = {
@@ -952,13 +785,10 @@ export const getSportsCoachData = asyncHandler(
                     response.q_20,
             };
 
-            data.push(object);
+            data.data.push(object);
         }
 
-        res.status(200).json({
-            message: "Request Successful",
-            data: data,
-        });
+        res.status(200).json(data);
     }
 );
 
@@ -983,7 +813,6 @@ export const getStudentsData = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1010,7 +839,6 @@ export const getTeachingData = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1037,7 +865,6 @@ export const getNonTeachingData = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1059,7 +886,6 @@ export const getFeedback01Data = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1081,7 +907,6 @@ export const getFeedback02Data = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1103,7 +928,6 @@ export const getFeedback03Data = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1125,7 +949,6 @@ export const getFeedback04Data = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: data,
         });
     }
@@ -1297,7 +1120,6 @@ export const getTeachingScoreCardData = asyncHandler(
         const scoreC = Number(applicationData.ieac_scoreC);
 
         res.status(200).json({
-            message: "Request Successful",
             name: facultyName,
             category: categoryOfAward,
             institute: institute,
@@ -1475,7 +1297,6 @@ export const getNonTeachingScoreCardData = asyncHandler(
         const scoreB = applicationData.ieac_scoreB;
 
         res.status(200).json({
-            message: "Request Successful",
             name: name,
             category: category,
             institute: institute,
@@ -1499,9 +1320,7 @@ export const resultsDataHandler = asyncHandler(
             result: (req as FileRequest).file.path,
         });
 
-        res.status(200).json({
-            message: "Request Successful",
-        });
+        res.status(200).json({});
     }
 );
 
@@ -1521,7 +1340,6 @@ export const getResultsData = asyncHandler(
         });
 
         res.status(200).json({
-            message: "Request Successful",
             data: result,
         });
     }
@@ -1540,7 +1358,7 @@ export const getUsersData = asyncHandler(
         });
 
         res.status(200).json({
-            users: result,
+            data: result,
         });
     }
 );
@@ -1553,7 +1371,7 @@ export const getFormPreviewData = asyncHandler(
         const formType = req.params.formtype;
         const applicationID = req.headers["x-application-id"];
 
-        let application;
+        let application: MyModel | null = null;
 
         switch (formType) {
             case "outstanding-institution":
@@ -1758,7 +1576,7 @@ export const getTeachingJurySummaryData = asyncHandler(
                 (faculty.applicationScore + ieacAverageScore / 2) / 2;
             faculty.applicationScore = 0.4 * faculty.applicationScore;
 
-            faculty.groups = grouping[entry.institution_name];
+            faculty.groups = Groups[entry.institution_name];
             faculty.ieacApprovedFile = entry.ieacApprovedFile;
             faculty.feedbackScore = 0;
 
@@ -1844,7 +1662,7 @@ export const getTeachingJurySummaryData = asyncHandler(
                 }
             } else if (
                 entry.awards_category ===
-                "Promising Teacher of the year (1 to 3 years of service)"
+                "Promising Teacher of the year (2 to 3 years of service)"
             ) {
                 if (entry.ieacApproved) {
                     promisingApprovedData.push(faculty);
@@ -1915,7 +1733,7 @@ export const getNonTeachingJurySummaryData = asyncHandler(
             employee.staff_name = entry.staff_name;
             employee.institution_name = entry.institution_name;
             employee.designation = entry.designation;
-            employee.groups = grouping[entry.institution_name];
+            employee.groups = Groups[entry.institution_name];
             employee.ieacApprovedFile = entry.ieacApprovedFile;
             employee.applicationScore = Number(
                 (
@@ -2108,7 +1926,5 @@ export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
         where: { id: userId },
     });
 
-    res.status(200).json({
-        message: "User deleted successfully",
-    });
+    res.status(200).json({});
 });

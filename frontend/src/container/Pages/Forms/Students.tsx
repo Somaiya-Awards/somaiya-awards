@@ -3,6 +3,8 @@ import Forms from "../../../components/Forms";
 import StudentsFormData from "../../../data/Forms/StudentsFormData";
 import StudentsFormStages from "../../../components/utils/data/StudentsFormStages";
 import FormInfo from "../../../components/FormInfo";
+import React from "react";
+import StudentsFormDataValidator from "../../../zod/Forms/StudentsFormData";
 
 export default function Students() {
     /**
@@ -35,6 +37,7 @@ export default function Students() {
                 data={StudentsFormData}
                 stages={StudentsFormStages}
                 message={message}
+                validator={StudentsFormDataValidator}
             />
         </div>
     );

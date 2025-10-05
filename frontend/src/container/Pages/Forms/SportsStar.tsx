@@ -3,6 +3,8 @@ import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import SportsStarForm from "../../../data/Forms/SportsStarForm";
 import SportsStarStages from "../../../components/utils/data/SportsStarStages";
+import React from "react";
+import SportsStarFormValidator from "../../../zod/Forms/SportsStarForm";
 
 export default function SportsStar() {
     /***
@@ -99,6 +101,7 @@ export default function SportsStar() {
                 data={SportsStarForm}
                 stages={SportsStarStages}
                 message={message}
+                validator={SportsStarFormValidator}
             />
         </div>
     );

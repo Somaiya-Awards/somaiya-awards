@@ -3,6 +3,8 @@ import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import OutstandingInstForm from "../../../data/Forms/OutstandingInstForm";
 import OutsInstStages from "../../../components/utils/data/OutsInstStages";
+import OutstandingInstFormValidator from "../../../zod/Forms/OutstandingInstForm";
+import React from "react";
 
 export default function OutstandingInstitution() {
     const message =
@@ -37,6 +39,7 @@ export default function OutstandingInstitution() {
                 data={OutstandingInstForm}
                 stages={OutsInstStages}
                 message={message}
+                validator={OutstandingInstFormValidator}
             />
         </div>
     );

@@ -5,7 +5,8 @@ import {
     validFile,
     validString,
 } from "../../../../backend/zod";
-import institutes from "../Institutions/institutes";
+
+import { Institutes } from "../../../../backend/constants";
 import type { FormEntry } from "./types";
 
 const option = [1, 2, 3, 4, 5] as const;
@@ -27,8 +28,8 @@ const SportsStarForm: FormEntry[] = [
         dropdownHiddenItem: "Select your institute",
         required: true,
         dropOpt: "multiple",
-        options: institutes,
-        validator: arrayChoice(institutes),
+        options: Institutes,
+        validator: arrayChoice(Institutes),
         page: 1,
         fieldsPerLine: 2,
     },

@@ -4,6 +4,8 @@ import Forms from "../../../components/Forms";
 import FeedbackTeachingPeerForm from "../../../data/Forms/FeedbackTeachingPeerForm";
 import FeedbackPeerTeaching from "../../../components/utils/data/FeedbackPeerTeaching";
 import Footer from "../../../components/Footer";
+import React from "react";
+import FeedbackTeachingPeerValidator from "../../../zod/Forms/FeedbackTeachingPeerForm";
 
 export default function FeedbackTeachingPR() {
     const headings = ["Basic Information", "Nominee Ratings", "Review"];
@@ -23,6 +25,7 @@ export default function FeedbackTeachingPR() {
                 pageHeadings={headings}
                 pageCount={limit}
                 data={FeedbackTeachingPeerForm}
+                validator={FeedbackTeachingPeerValidator}
                 stages={FeedbackPeerTeaching}
             />
 

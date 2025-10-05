@@ -6,7 +6,6 @@ function getErrorJson(
     statusCode: StatusCode
 ): { title: string; message: string; stack?: string } {
     const debug = process.env.DEBUG === "1";
-    console.log(process.env.DEBUG);
 
     const getTitle = (statusCode: StatusCode) => {
         switch (statusCode) {

@@ -1,5 +1,12 @@
-import { arrayChoice, somaiyaMail, textArea, validFile, validString } from "../../../../backend/zod";
-import institutes from "../Institutions/institutes";
+import {
+    arrayChoice,
+    somaiyaMail,
+    textArea,
+    validFile,
+    validString,
+} from "../../../../backend/zod";
+
+import { Institutes } from "../../../../backend/constants";
 import type { FormEntry } from "./types";
 
 const category = [
@@ -56,8 +63,8 @@ const StudentsFormData: FormEntry[] = [
         required: true,
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
-        validator: arrayChoice(institutes),
-        options: institutes,
+        validator: arrayChoice(Institutes),
+        options: Institutes,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -75,7 +82,7 @@ const StudentsFormData: FormEntry[] = [
         title: "Recommendation Note (Max 600 words )",
         name: "recommendation_note",
         type: "textarea",
-        validator: textArea({maxLength: 600}),
+        validator: textArea({ maxLength: 600 }),
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -85,7 +92,7 @@ const StudentsFormData: FormEntry[] = [
         type: "file",
         required: true,
         name: "supportings",
-        validator: validFile({type: "pdf"}),
+        validator: validFile({ type: "pdf" }),
         accept: ".pdf",
         page: 3,
         fieldsPerLine: 1,

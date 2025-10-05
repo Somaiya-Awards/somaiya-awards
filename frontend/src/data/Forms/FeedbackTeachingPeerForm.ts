@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { FormEntry } from "./types";
 import {
     arrayChoice,
@@ -7,6 +6,7 @@ import {
     textArea,
     validString,
 } from "../../../../backend/zod";
+import Axios from "../../axios";
 
 const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
 
@@ -218,17 +218,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
 async function fetchNominatedNames() {
     try {
         // Make an HTTP request to fetch the data from your backend
-        const response = await axios.get(
-            "https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-faculty-names",
-            {
-                // const response = await axios.get('http://localhost:5001/ieac/data/nominated-faculty-names',{
-                headers: {
-                    "x-access-token": localStorage.getItem("token"),
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-institute-name": localStorage.getItem("institution"),
-                },
-            }
-        );
+        const response = await Axios.get("/ieac/data/nominated-faculty-names");
 
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;

@@ -4,8 +4,10 @@ import { Download, User, Building2, Award } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "./BarGraph";
-import axios from "axios";
+//@ts-expect-error PNG Load
 import Logo from "../../../../container/assets/logo.png";
+import Axios from "../../../../axios";
+import React from "react";
 
 type CompleteData = {
     name: string;
@@ -53,7 +55,7 @@ export default function ScoreCard() {
                     ? "/admin/data/teaching/scorecard"
                     : "/admin/data/non-teaching/scorecard";
 
-                const res = await axios.get(endpoint, {
+                const res = await Axios.get(endpoint, {
                     headers: {
                         "x-user-id": localStorage.getItem("user_id"),
                         "x-access-token": localStorage.getItem("token"),
@@ -81,16 +83,16 @@ export default function ScoreCard() {
     }, []);
 
     const calculateFeedbackScore = () => {
-        let student_avg =
+        const student_avg =
             apiData && apiData.student_avg ? apiData.student_avg : 0;
-        let peers_avg = apiData && apiData.peers_avg ? apiData.peers_avg : 0;
+        const peers_avg = apiData && apiData.peers_avg ? apiData.peers_avg : 0;
 
         return ((student_avg + peers_avg) / 2) * 0.6;
     };
 
     const calculateFinalScore = () => {
-        let hoi_avg = apiData && apiData.hoi_avg ? apiData.hoi_avg : 0;
-        let ieac_avg = apiData && apiData.ieac_avg ? apiData.ieac_avg : 0;
+        const hoi_avg = apiData && apiData.hoi_avg ? apiData.hoi_avg : 0;
+        const ieac_avg = apiData && apiData.ieac_avg ? apiData.ieac_avg : 0;
 
         const applicationScore =
             Math.round(0.4 * ((hoi_avg + ieac_avg / 2) / 2) * 100) / 100;

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Legend, Pie, PieChart, Tooltip, Cell, ResponsiveContainer } from 'recharts'
 
 function Piechart(props: any) {

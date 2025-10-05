@@ -1,8 +1,10 @@
-import Navbar from "../../../components/Navbar";
+import SideBar from "../../../components/hoi_components/SideBar";
 import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import TeachingForm from "../../../data/Forms/TeachingForm";
 import TeachingFormStages from "../../../components/utils/data/TeachingFormStages";
+import React from "react";
+import TeachingFormValidator from "../../../zod/Forms/TeachingForm";
 
 export default function Teaching() {
     /**
@@ -31,15 +33,20 @@ export default function Teaching() {
     const limit = headings.length - 1;
     return (
         <div>
-            <Navbar />
-            <FormInfo title={title} info={award_info} />
-            <Forms
-                pageHeadings={headings}
-                pageCount={limit}
-                data={TeachingForm}
-                stages={TeachingFormStages}
-                message={message}
-            />
+            <div className="flex">
+                <SideBar />
+                <div className="flex flex-col w-full overflow-y-scroll">
+                    <FormInfo title={title} info={award_info} />
+                    <Forms
+                        pageHeadings={headings}
+                        pageCount={limit}
+                        data={TeachingForm}
+                        stages={TeachingFormStages}
+                        message={message}
+                        validator={TeachingFormValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

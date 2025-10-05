@@ -360,7 +360,6 @@ const NonTeachingForm: FormEntry[] = [
         required: true,
         validator: validFile({
             type: "pdf",
-            maxSizeInMb: 5,
         }),
         accept: ".pdf",
         page: 8,
@@ -373,7 +372,6 @@ const NonTeachingForm: FormEntry[] = [
         required: true,
         validator: validFile({
             type: "jpg",
-            maxSizeInMb: 5,
         }),
         accept: ".pdf",
         page: 8,

@@ -3,6 +3,8 @@ import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import ResearchForm from "../../../data/Forms/ResearchForm";
 import ResearchFormStages from "../../../components/utils/data/ResearchFormStages";
+import React from "react";
+import ResearchFormValidator from "../../../zod/Forms/ResearchForm";
 
 export default function Research() {
     /**
@@ -36,6 +38,7 @@ export default function Research() {
                 data={ResearchForm}
                 stages={ResearchFormStages}
                 message={message}
+                validator={ResearchFormValidator}
             />
         </div>
     );

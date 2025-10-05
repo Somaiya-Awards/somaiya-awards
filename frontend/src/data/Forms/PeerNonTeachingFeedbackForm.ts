@@ -1,6 +1,12 @@
-import axios from "axios";
 import type { FormEntry } from "./types";
-import { arrayChoice, phoneNumber, somaiyaMail, textArea, validString } from "../../../../backend/zod";
+import {
+    arrayChoice,
+    phoneNumber,
+    somaiyaMail,
+    textArea,
+    validString,
+} from "../../../../backend/zod";
+import Axios from "../../axios";
 
 const awards = [
     "Outstanding Employee Educational Institute",
@@ -120,8 +126,20 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_03",
         type: "radio",
         required: true,
-        validator: arrayChoice(["Outstanding", "Excellent", "Good", "Average", "Poor"]),
-        options: ["Outstanding", "Excellent", "Good", "Average", "Poor"] as const,
+        validator: arrayChoice([
+            "Outstanding",
+            "Excellent",
+            "Good",
+            "Average",
+            "Poor",
+        ]),
+        options: [
+            "Outstanding",
+            "Excellent",
+            "Good",
+            "Average",
+            "Poor",
+        ] as const,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -183,7 +201,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "nomination_reason",
         type: "textarea",
         required: true,
-        validator: textArea({maxLength: 300}),
+        validator: textArea({ maxLength: 300 }),
         page: 3,
         fieldsPerLine: 1,
     },
@@ -191,17 +209,14 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
 
 async function fetchNominatedNames() {
     try {
-        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
-        const response = await axios.get(
-            "https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-staff-names",
-            {
-                headers: {
-                    "x-access-token": localStorage.getItem("token"),
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-institute-name": localStorage.getItem("institution"),
-                },
-            }
-        );
+        // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
+        const response = await Axios.get("/ieac/data/nominated-staff-names", {
+            headers: {
+                "x-access-token": localStorage.getItem("token"),
+                "x-user-id": localStorage.getItem("user_id"),
+                "x-institute-name": localStorage.getItem("institution"),
+            },
+        });
 
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;

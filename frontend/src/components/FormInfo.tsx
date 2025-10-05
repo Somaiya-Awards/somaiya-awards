@@ -1,3 +1,5 @@
+import React from "react";
+
 function FormInfo(props: { info?: string; title: string }) {
     return (
         <div className="">

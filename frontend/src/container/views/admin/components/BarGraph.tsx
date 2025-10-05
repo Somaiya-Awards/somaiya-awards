@@ -9,7 +9,6 @@ import {
     Bar,
 } from "recharts";
 import Skeleton from "react-loading-skeleton";
-//@ts-expect-error CSS load
 import "react-loading-skeleton/dist/skeleton.css";
 
 export type AvgScore = {

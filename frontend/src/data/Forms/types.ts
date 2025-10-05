@@ -30,6 +30,7 @@ export type FormEntry =
                 }
           ))
     | (BaseFormEntry & { type: "textarea" })
+    | (BaseFormEntry & { type: "password",placeholder?: string })
     | (BaseFormEntry & { type: "file"; accept: ".pdf" | ".jpg"})
     | (BaseFormEntry & { type: "number" })
     | (BaseFormEntry & { type: "text"; placeholder?: string })

@@ -1,84 +1,70 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
-import Field from "../../components/utils/Field";
-import axios from "axios";
-import Swal from "sweetalert2";
+import Field, { dataHandler } from "../../components/utils/Field";
 import React from "react";
+import { email, validString } from "../../../../backend/zod";
+import Axios from "../../axios";
+import LoginValidator, { type LoginType } from "../../zod/Forms/Login";
+import swalAlert from "../../components/utils/swal";
 
 export default function Login() {
-    const [credentials, setCredentials] = useState({});
     const navigate = useNavigate();
-
-    const handleChange = (event: React.ChangeEvent) => {
-        const { name, value } = (event as React.ChangeEvent<HTMLInputElement>)
-            .target;
-        setCredentials((prevCredentials) => ({
-            ...prevCredentials,
-            [name]: value,
-        }));
-    };
+    const { display, getData, handleChange } =
+        dataHandler<LoginType>(LoginValidator);
 
     const handleClick = () => {
         navigate("/auth/forgot-password");
     };
 
     const handleSubmit = async () => {
-        if (Object.keys(credentials).length === 2) {
-            await axios
-                .post("/auth/login", credentials)
+        const data = getData();
+
+        if (data) {
+            await Axios.post("/auth/login", data)
                 .then((res) => {
-                    if (res.data["authorized"]) {
-                        localStorage.setItem("token", res.data["token"]);
-                        localStorage.setItem("user_id", res.data["user_id"]);
-                        localStorage.setItem(
-                            "institution",
-                            res.data["institution"]
-                        );
-                        localStorage.setItem("role", res.data["role"]);
-                        setCredentials({});
+                    localStorage.setItem("role", res.data["role"]);
+                    localStorage.setItem(
+                        "institution",
+                        res.data["institution"]
+                    );
 
-                        switch (res.data["role"]) {
-                            case "ADMIN":
-                                navigate("/admin/dashboard");
-                                break;
+                    switch (res.data["role"]) {
+                        case "ADMIN":
+                            navigate("/admin/dashboard");
+                            break;
 
-                            case "IEAC":
-                                navigate("/ieac");
-                                break;
+                        case "IEAC":
+                            navigate("/ieac");
+                            break;
 
-                            case "HOI":
-                                navigate("/hoi");
-                                break;
+                        case "HOI":
+                            navigate("/hoi");
+                            break;
 
-                            case "STUDENTS ADMIN":
-                                navigate("/students-admin");
-                                break;
+                        case "STUDENTS ADMIN":
+                            navigate("/students-admin");
+                            break;
 
-                            case "SPORTS ADMIN":
-                                navigate("/sports-admin");
-                                break;
+                        case "SPORTS ADMIN":
+                            navigate("/sports-admin");
+                            break;
 
-                            case "STUDENT":
-                                navigate("/students");
-                                break;
+                        case "STUDENT":
+                            navigate("/students");
+                            break;
 
-                            case "PEER":
-                                navigate("/peers");
-                                break;
+                        case "PEER":
+                            navigate("/peers");
+                            break;
 
-                            case "RESEARCH ADMIN":
-                                navigate("/research-admin");
-                                break;
-                        }
-                    } else {
-                        console.log("Failed to login");
+                        case "RESEARCH ADMIN":
+                            navigate("/research-admin");
+                            break;
                     }
                 })
-                .catch((err) => {
-                    console.log(err);
-                    Swal.fire({
+                .catch(() => {
+                    swalAlert({
                         title: "User not Found",
                         imageUrl:
                             "https://img.freepik.com/premium-vector/male-student-feeling-confused-while-looking-up-with-thoughtful-focused-expression-questioned-thinking-curious-with-question-mark-concept-illustration_270158-365.jpg?w=2000",
@@ -88,7 +74,7 @@ export default function Login() {
                     });
                 });
         } else {
-            Swal.fire({
+            swalAlert({
                 title: "All Fields Required",
                 text: "You may have missed to enter some fields",
                 icon: "info",
@@ -110,24 +96,29 @@ export default function Login() {
                     </div>
                     <div className="p-5">
                         <Field
-                            className="w-full"
-                            page="login"
+                            page={1}
                             placeholder="kjsit_hoi@somaiya.edu"
                             title="Email"
                             type="email"
                             name="user_email"
-                            value={credentials["user_email"] || ""}
                             onChange={handleChange}
+                            formType="login"
+                            fieldsPerLine={1}
+                            required={true}
+                            validator={email}
+                            value={display.user_email ?? ""}
                         />
                         <Field
-                            className="w-full"
-                            page="login"
-                            placeholder="password"
+                            page={1}
                             title="Password"
                             type="password"
+                            formType="login"
                             name="user_password"
-                            value={credentials["user_password"] || ""}
+                            fieldsPerLine={1}
+                            required={true}
+                            validator={validString}
                             onChange={handleChange}
+                            value={display.user_password ?? ""}
                         />
                         <p
                             onClick={handleClick}

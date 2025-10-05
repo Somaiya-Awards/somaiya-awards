@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import FormStages from "./FormStages";
-import Field from "./utils/Field";
+import Field, { dataHandler } from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -8,7 +8,8 @@ import Axios from "../axios";
 import type { StagesType } from "./utils/data/types";
 import swalAlert from "./utils/swal";
 import type { FormEntry } from "../data/Forms/types";
-import debounce from "./utils/debounce";
+import z from "zod";
+import { lastDate } from "../../../backend/zod";
 
 export type FormProps = {
     pageCount: number;
@@ -16,13 +17,14 @@ export type FormProps = {
     data: FormEntry[];
     stages: StagesType[];
     message?: string;
+    validator: z.ZodObject;
 };
 
 export type FormData = {
     [key: string]: string | File | number;
 };
 
-const Forms = (props: FormProps) => {
+export default function Forms(props: FormProps) {
     /**
      * Variables and States
      */
@@ -32,9 +34,11 @@ const Forms = (props: FormProps) => {
     const navigate = useNavigate();
 
     const [current, setCurrent] = useState(0);
-    const [formData, setFormData] = useState<FormData>({});
     const [percentage, setPercentage] = useState(0);
-    const formName = useMemo(() => window.location.href.split("/forms/")[1], []);
+    const formName = useMemo(
+        () => window.location.href.split("/forms/")[1],
+        []
+    );
 
     /**
      * functions
@@ -54,37 +58,25 @@ const Forms = (props: FormProps) => {
         }
     };
 
-    const handleFieldChange = useCallback((name: string, value: string, actionType: "add" | "delete") => {
+    const { display, getData, handleChange, data, setData } = dataHandler<
+        z.infer<typeof props.validator>
+    >(props.validator);
 
-        setFormData((prev) => {
-            let newData = {...prev};
-
-            switch (actionType) {
-                case "add":
-                    newData[name] = value;
-                    break;
-                case "delete":
-                    delete newData[name];
-            }
-    
-            setPercentage(Object.keys(newData).length / props.data.length);
-    
-            debounce((key: string, data: any) => {
-                localStorage.setItem(key, JSON.stringify(data));
-            }, 300);
-        
-            return newData;
-        });
-
-    }, [props.data]);
-
+    const handleFieldChange = useCallback(
+        (name: string, value: string, actionType: "add" | "delete") => {
+            handleChange(name, value, actionType);
+            setPercentage(Object.keys(data).length / props.data.length);
+        },
+        []
+    );
+    console.error(display, data);
     /**
      * @returns page number of field which is not present in formData state
      */
 
     const missingFieldPage = () => {
         for (const field of props.data) {
-            if (!formData[field.name]) {
+            if (!data[field.name]) {
                 return field.page;
             }
         }
@@ -94,30 +86,9 @@ const Forms = (props: FormProps) => {
 
     const handleSubmit = () => {
         // Check for phone number validation
-        const phoneFields = ["phone_number", "contact_number"];
-        for (const field of phoneFields) {
-            if (formData[field] && String(formData[field]).length !== 10) {
-                swalAlert({
-                    title: "Invalid Phone Number",
-                    text: `${field.replace(
-                        "_",
-                        " "
-                    )} must be exactly 10 digits.`,
-                    icon: "warning",
-                    backdrop: true,
-                    background: "rgba(255,250,250)",
-                    iconColor: "rgb(185,28,28)",
-                    confirmButtonColor: "rgb(185,28,28)",
-                    buttonsStyling: false,
-                    customClass: {
-                        confirmButton: "gradient-button",
-                    },
-                });
-                return; // Stop form submission
-            }
-        }
+        const Data = getData();
 
-        if (props.data.length !== Object.keys(formData).length) {
+        if (!Data) {
             swalAlert({
                 title: "Incomplete Form",
                 text: "Please fill out the form completely",
@@ -140,7 +111,7 @@ const Forms = (props: FormProps) => {
             const formType = window.location.href.split("/forms/")[1]; // TODO: remove this and make it a prop
             const postUrl = `/forms/${formType}`;
 
-            Axios.post(postUrl, formData, {
+            Axios.post(postUrl, Data, {
                 headers: {
                     "Content-Type": formType.includes("feedback")
                         ? "application/json"
@@ -201,11 +172,28 @@ const Forms = (props: FormProps) => {
      */
 
     const renderFields = useCallback(() => {
-
         return props.data.map((entry, index) => {
             if (current === entry.page - 1) {
+                if (entry.name === "date_of_appointment") {
+                    const years =
+                        display["awards_category"] ===
+                        "Promising Teacher of the year (2 to 3 years of service)"
+                            ? 2
+                            : 3;
+                    entry.validator = lastDate(years);
+                    return (
+                        <Field
+                            value={display[entry.name] || ""}
+                            {...entry}
+                            formType={formName}
+                            onChange={handleFieldChange}
+                            key={index}
+                        />
+                    );
+                }
                 return (
                     <Field
+                        value={display[entry.name] || ""}
                         {...entry}
                         formType={formName}
                         onChange={handleFieldChange}
@@ -215,15 +203,15 @@ const Forms = (props: FormProps) => {
             }
             return null;
         });
-    }, [props.data, current, formName])
+    }, [props.data, current, display]);
 
     useEffect(() => {
         const dataName = formName + "Data";
 
         if (!localStorage.getItem(dataName)) {
-            setFormData({});
+            setData({});
         } else {
-            setFormData(JSON.parse(localStorage.getItem(dataName) || "{}"));
+            setData(JSON.parse(localStorage.getItem(dataName) || "{}"));
         }
     }, []);
 
@@ -307,8 +295,4 @@ const Forms = (props: FormProps) => {
             </div>
         </div>
     );
-};
-
-export default Forms;
-
-
+}

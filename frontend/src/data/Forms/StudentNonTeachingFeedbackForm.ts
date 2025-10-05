@@ -1,13 +1,12 @@
-import axios from "axios";
 import type { FormEntry } from "./types";
 import {
     arrayChoice,
     email,
     textArea,
     validDate,
-    validFile,
     validString,
 } from "../../../../backend/zod";
+import Axios from "../../axios";
 
 const agree = [
     "Strongly Agree",
@@ -126,7 +125,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "nomination_reason",
-        validator: textArea({maxLength: 300}),
+        validator: textArea({ maxLength: 300 }),
         page: 4,
         fieldsPerLine: 1,
     },
@@ -134,17 +133,14 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
 
 async function fetchNominatedNames() {
     try {
-        // const response = await axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
-        const response = await axios.get(
-            "https://apisomaiyaawards.somaiya.edu/ieac/data/nominated-staff-names",
-            {
-                headers: {
-                    "x-access-token": localStorage.getItem("token"),
-                    "x-user-id": localStorage.getItem("user_id"),
-                    "x-institute-name": localStorage.getItem("institution"),
-                },
-            }
-        );
+        // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
+        const response = await Axios.get("/ieac/data/nominated-staff-names", {
+            headers: {
+                "x-access-token": localStorage.getItem("token"),
+                "x-user-id": localStorage.getItem("user_id"),
+                "x-institute-name": localStorage.getItem("institution"),
+            },
+        });
 
         // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import SideBar from "./components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -6,15 +6,15 @@ import axios from "axios";
 import { MoonLoader } from "react-spinners";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "../studentsAdmin/components/Tile";
+import React from "react";
+import Axios, { URL } from "../../../axios";
 
 export default function SportsAdmin() {
-    const [loading, setLoading] = useState(true);
-    const [authorized, setAuthorized] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
         // remove token from local storage
-
+        Axios.post(URL.AUTH.LOGOUT);
         localStorage.removeItem("token");
         localStorage.removeItem("user_id");
 

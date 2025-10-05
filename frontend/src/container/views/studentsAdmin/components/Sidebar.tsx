@@ -7,8 +7,8 @@ import ForestRoundedIcon from "@mui/icons-material/ForestRounded";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
-
 import { Link } from "react-router-dom";
+import React from "react";
 
 export default function SideBar() {
     return (
