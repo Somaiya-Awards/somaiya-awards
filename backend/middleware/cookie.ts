@@ -3,43 +3,43 @@ import { AccessCookie, RefreshCookie } from "../constants";
 import { JwtTimeout } from "./jwt";
 
 function setCookieOption(
-    timeout: JwtTimeout,
+    timeout: JwtTimeout | "0s",
     path: string | null = null,
     httpOnly: boolean = true
 ): CookieOptions {
-    let expire = Date.now();
+    let maxAge = 0;
+    let prod = process.env.PROD === "1";
 
     switch (timeout) {
         case "1h":
-            expire += 1000 * 60 * 60;
+            maxAge += 1000 * 60 * 60;
             break;
         case "1d":
-            expire += 1000 * 60 * 60 * 24;
+            maxAge += 1000 * 60 * 60 * 24;
             break;
         default:
             throw new Error("Invalid expiration time");
     }
-    if (!path) {
-        return {
-            expires: new Date(expire),
-            httpOnly,
-            sameSite: "none",
-        };
-    } else {
-        return {
-            expires: new Date(expire),
-            httpOnly,
-            sameSite: "none",
-            path,
-        };
+
+    let config: CookieOptions = {
+        maxAge,
+        httpOnly,
+        secure: prod,
+        sameSite: prod ? "none" : "lax"
     }
+
+    if (path) {
+        config.path = path
+    }
+
+    return config
 }
 
 export function setCookie(
     res: Response,
     cookieName: string,
     cookieValue: string,
-    timeout: JwtTimeout,
+    timeout: JwtTimeout | "0s",
     path: string | null = null,
     httpOnly: boolean = false
 ) {
@@ -51,17 +51,17 @@ export function setCookie(
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    res.setHeader(AccessCookie, cookie);
+    setCookie(res, AccessCookie, cookie, "1h")
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
-    res.setHeader(RefreshCookie, cookie);
+    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh");
 }
 
 export function removeAccessCookie(res: Response) {
-    res.setHeader(RefreshCookie, null);
+    res.clearCookie(AccessCookie, setCookieOption("1h"))
 }
 
 export function removeRefreshCookie(res: Response) {
-    res.setHeader(RefreshCookie, null);
+    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"))
 }

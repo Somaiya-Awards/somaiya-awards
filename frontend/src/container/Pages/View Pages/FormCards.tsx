@@ -3,6 +3,7 @@ import FormCard from "../../../components/utils/FormCard";
 import swalAlert from "../../../components/utils/swal";
 import { useNavigate } from "react-router-dom";
 import Axios, { URL } from "../../../axios";
+import React from "react";
 
 export default function FormCards() {
     const navigate = useNavigate();
@@ -103,14 +104,14 @@ export default function FormCards() {
                         link="/forms/students"
                     />
                 </div>
-                <div>
+                {/* <div>
                     <FormCard
                         image={"/house.png"}
                         title="House"
                         info="Recognizing houses for their all-round performance and contributions"
                         link="/forms/house"
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     );

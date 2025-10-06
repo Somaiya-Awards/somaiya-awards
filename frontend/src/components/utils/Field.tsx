@@ -26,10 +26,12 @@ function Field(props: FieldProp) {
         const response = validator.safeParse(value);
 
         if (!response.success) {
-            setError(z.treeifyError(response.error).errors.join(", "));
+            setError(
+                z.treeifyError(response.error as z.ZodError).errors.join(", ")
+            );
             props.onChange(name, value, "delete");
         } else {
-            props.onChange(name, response.data, "add");
+            props.onChange(name, response.data as string, "add");
             setError(null);
         }
     }
@@ -40,14 +42,15 @@ function Field(props: FieldProp) {
         const { name, files } = event.target;
 
         if (!files) return;
-        console.log(files[0], files[0] instanceof File);
         const response = props.validator.safeParse(files[0]);
 
         if (!response.success) {
-            setError(z.treeifyError(response.error).errors.join(", "));
+            setError(
+                z.treeifyError(response.error as z.ZodError).errors.join(", ")
+            );
             props.onChange(name, files[0], "delete");
         } else {
-            props.onChange(name, response.data, "add");
+            props.onChange(name, response.data as File, "add");
             setError(null);
         }
     }

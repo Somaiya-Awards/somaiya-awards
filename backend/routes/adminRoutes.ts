@@ -31,6 +31,7 @@ import {
 import userAuthenticator from "../middleware/userAuthenticator";
 import { Role } from "../types/role";
 import roleMiddle from "../middleware/role";
+import csrfMiddleware from "../middleware/csrfMiddleware";
 
 /** GET ROUTES */
 
@@ -111,6 +112,7 @@ router
     .route("/announce-results")
     .post(
         userAuthenticator,
+        csrfMiddleware,
         roleMiddle(Role.Admin),
         upload11.single("result"),
         resultsDataHandler
@@ -136,6 +138,6 @@ router
 // delete query
 router
     .route("/delete-user")
-    .delete(userAuthenticator, roleMiddle(Role.Admin), deleteUser);
+    .delete(userAuthenticator,csrfMiddleware, roleMiddle(Role.Admin), deleteUser);
 
 export default router;

@@ -4,25 +4,28 @@ import Wave from "react-wavify";
 import Field, { dataHandler } from "../../components/utils/Field";
 import React from "react";
 import Axios from "../../axios";
-import { ForgotPasswordType, ForgotPasswordValidator } from "../../zod/Forms/ForgotPassword";
+import {
+    ForgotPasswordType,
+    ForgotPasswordValidator,
+} from "../../zod/Forms/ForgotPassword";
 import { email } from "../../../../backend/zod";
 
 export default function ForgotPassword() {
-    const {display, getData, handleChange} = dataHandler<ForgotPasswordType>(ForgotPasswordValidator)
+    const { display, getData, handleChange } = dataHandler<ForgotPasswordType>(
+        ForgotPasswordValidator
+    );
     const [submitted, setSubmitted] = useState(false);
     const [serverResponse, setServerResponse] = useState<{
         message?: string;
         title?: string;
     }>({});
 
-
     const handleReset = async () => {
-        let data = getData()
+        const data = getData();
         if (!data) {
             alert("Fill the field man");
         } else {
-            Axios
-                .post("/auth/forgot-password", data)
+            Axios.post("/auth/forgot-password", data)
                 .then((res) => {
                     const { message, title } = res.data;
                     setSubmitted(true);

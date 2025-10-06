@@ -18,6 +18,8 @@ import roleMiddle from "./middleware/role";
 import cookieParser from "cookie-parser";
 import { sequelize, User } from "./models";
 import bcrypt from 'bcrypt';
+import csrfMiddleware from "./middleware/csrfMiddleware";
+import { CsrfName } from "./constants";
 
 dotenv.config();
 
@@ -45,6 +47,7 @@ app.use(
     cors({
         origin: "http://localhost:5173", // your frontend URL
         credentials: true,
+        exposedHeaders: [CsrfName]
     })
 );
 app.use(cookieParser());
@@ -53,31 +56,36 @@ app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
 app.use(
     "/forms",
+    csrfMiddleware,
     userAuthenticator,
     /** --Guy who fills form -- ,*/
     formRoute
 );
-app.use("/hoi/data", userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
-app.use("/ieac/data", userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
+app.use("/hoi/data", csrfMiddleware, userAuthenticator, roleMiddle(Role.Hoi), hoiRoutes);
+app.use("/ieac/data", csrfMiddleware, userAuthenticator, roleMiddle(Role.Ieac), ieacRoutes);
 app.use("/admin/data", adminRoutes);
 app.use(
     "/students-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.StudentAdmin),
     studentAdminRoutes
 );
 app.use(
     "/sports-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.SportsAdmin),
     sportsAdminRoutes
 );
 app.use(
     "/research-admin/data",
+    csrfMiddleware,
     userAuthenticator,
     roleMiddle(Role.ResearchAdmin),
     researchRoutes
 );
+
 app.use(errorHandler);
 
 // server listen and database configuration (do it once, only. Uncomment once, then comment out)

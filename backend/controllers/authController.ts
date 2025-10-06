@@ -19,8 +19,8 @@ import {
     setCookie,
     setRefreshCookie,
 } from "../middleware/cookie";
-import { randomString } from "../middleware/csrfMiddleware";
 import { AuthRequest } from "../types/request";
+import { setCsrfCookie } from "../middleware/csrfMiddleware";
 
 //@desc handle login
 //@route POST /auth/login
@@ -52,12 +52,10 @@ export const userLogin = asyncHandler(async (req, res) => {
 
         setAccessCookie(res, accessCookie);
         setRefreshCookie(res, refreshCookie);
-        setCookie(res, "isLoggedIn", randomString(), "1d");
+        setCsrfCookie(req, res);
 
         res.status(200).json({
             role: user.role,
-            [AccessCookie]: accessCookie,
-            [RefreshCookie]: refreshCookie,
             institution: user.institution,
         });
     } else {

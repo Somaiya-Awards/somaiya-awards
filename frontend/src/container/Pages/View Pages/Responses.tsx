@@ -56,13 +56,12 @@ export default function Responses() {
             });
             navigate("/auth/login");
         } else {
-            Axios
-                .get("/auth/validate", {
-                    headers: {
-                        "x-access-token": localStorage.getItem("token"),
-                        "x-user-id": localStorage.getItem("user_id"),
-                    },
-                })
+            Axios.get("/auth/validate", {
+                headers: {
+                    "x-access-token": localStorage.getItem("token"),
+                    "x-user-id": localStorage.getItem("user_id"),
+                },
+            })
                 .then((res) => {
                     if (
                         res.data["authorized"] &&
@@ -104,7 +103,7 @@ export default function Responses() {
 
         switch (path) {
             case "outstanding-institution":
-                setTitle("Outstanding Institution");
+                setTitle(" utstanding Institution");
                 setColumns(columns01);
                 break;
 
@@ -1063,9 +1062,7 @@ export default function Responses() {
                         </motion.div>
                     </div>
                 </>
-            ) : (
-                null
-            )}
+            ) : null}
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { validString } from "../../../backend/zod";
-import { AccessCookie, RefreshCookie } from "../../../backend/constants";
+import { CsrfName } from "../../../backend/constants";
 
 const BASE_URL = "http://localhost:5001";
 
@@ -127,22 +127,19 @@ const Axios = axios.create({
 });
 
 Axios.interceptors.request.use(async (config) => {
-    const token = localStorage.getItem(AccessCookie);
+    const token = localStorage.getItem("x-csrf");
 
     if (token !== null && config.headers) {
-        config.headers[AccessCookie] = token;
+        config.headers["x-csrf"] = `Bearer ${token}`;
     }
 
     return config;
 });
 
 Axios.interceptors.response.use(
-    async (response) => {
-        const header = response.data;
-        if (header[AccessCookie])
-            localStorage.setItem(AccessCookie, header[AccessCookie]);
-        if (header[RefreshCookie])
-            localStorage.setItem(RefreshCookie, header[RefreshCookie]);
+    (response) => {
+        const header = response.headers;
+        if (header[CsrfName]) localStorage.setItem(CsrfName, header[CsrfName]);
         return response;
     },
 
@@ -165,9 +162,7 @@ Axios.interceptors.response.use(
                     headers: {
                         "Request-Origin": BASE_URL,
                         "Content-Type": "application/json",
-                        [RefreshCookie]: `Bearer ${localStorage.getItem(
-                            RefreshCookie
-                        )}`,
+                        "x-csrf": localStorage.getItem("x-csrf") || "",
                     },
                     withCredentials: true,
                 }

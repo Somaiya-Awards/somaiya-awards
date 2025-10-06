@@ -17,7 +17,7 @@ export default function FormStages({ stages, onClick }: {stages: StagesType[], o
         <div className="p-3 mb-[3rem]  mt-[6rem]">
             <div className="w-[70%] mx-auto">
                 <div className="relative flex justify-center">
-                    <div className=" border-2 border-red-600 absolute w-[90%] top-[50%] -z-10"></div>
+                    <div className="border-2 border-red-600 absolute w-[90%] top-[50%] -z-10"></div>
                     {stages.map((element) => {
                         return returnSteps(element.value, onClick);
                     })}
