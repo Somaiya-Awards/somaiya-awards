@@ -93,12 +93,6 @@ export function lastDate(beforeYears: number) {
                 now.getDate()
             );
 
-            console.warn(
-                "Previous allowed date:",
-                previousDate,
-                "Given date:",
-                date
-            );
             return date <= previousDate;
         },
         { error: `Date should be at least ${beforeYears} years before today` }

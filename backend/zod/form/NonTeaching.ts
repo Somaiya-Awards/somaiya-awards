@@ -7,18 +7,16 @@ import {
     phoneNumber,
     somaiyaMail,
     validBoolean,
-    validFile,
     validNumber,
     validString,
 } from "..";
-import {
-    awardsList,
-    options,
-} from "../../../frontend/src/zod/Forms/NonTeachingForm";
+
+import { NonTeachingAwardList } from "../../../frontend/src/zod/Forms/NonTeachingForm";
+
 export const NonTeachingForm = z.object({
     email_id: email,
     staff_name: validString,
-    award_category: arrayChoice(awardsList),
+    award_category: arrayChoice(NonTeachingAwardList),
     institution_name: institute,
     department: validString,
     designation: validString,

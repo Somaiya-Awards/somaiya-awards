@@ -7,17 +7,16 @@ import {
     textArea,
     validBoolean,
     validDate,
-    validFile,
     validNumber,
     validString,
     validYear,
 } from "..";
 import { Institutes } from "../../constants";
-import { nominationCategory } from "../../../frontend/src/zod/Forms/OutstandingInstForm";
+import { OutstandingInstList } from "../../../frontend/src/zod/Forms/OutstandingInstForm";
 
 export const OutstandingInstitutionForm = z.object({
     email_id: email,
-    nomination_category: arrayChoice(nominationCategory),
+    nomination_category: arrayChoice(OutstandingInstList),
     institution_name: arrayChoice(Institutes),
     established_In: validYear,
     head_of_institution: validString,

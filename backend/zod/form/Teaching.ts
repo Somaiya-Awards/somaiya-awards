@@ -10,7 +10,7 @@ import {
     validNumber,
     validString,
 } from "..";
-import { awards, score } from "../../../frontend/src/zod/Forms/TeachingForm";
+import { awards } from "../../../frontend/src/zod/Forms/TeachingForm";
 import { Institutes } from "../../constants";
 export const TeachingForm = z.object({
     email_id: email,

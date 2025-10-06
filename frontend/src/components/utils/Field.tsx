@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
@@ -196,7 +196,7 @@ function Field(props: FieldProp) {
         );
     }
 
-    const WhoThatPokemon = useCallback((props: FieldProp) => {
+    const WhoThatPokemon = (props: FieldProp) => {
         switch (props.type) {
             case "number":
                 return NumberProp(props);
@@ -215,7 +215,7 @@ function Field(props: FieldProp) {
                 return TextProp(props);
         }
         return null;
-    }, []);
+    };
 
     function GiveJudgement() {
         if (error) {

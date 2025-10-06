@@ -6,11 +6,8 @@ import {
     textArea,
     validString,
 } from "..";
-import {
-    agreeList,
-    feedList,
-    stringOption,
-} from "../../../frontend/src/zod/Forms/FeedbackTeachingPeerForm";
+import { agreeList, ratingList } from "../../../frontend/src/zod/";
+import { feedTeacherCategory } from "../../../frontend/src/zod/Forms/FeedbackTeachingPeerForm";
 export const FeedbackFourForm = z.object({
     rater_name: validString,
     institute_name: validString,
@@ -19,7 +16,7 @@ export const FeedbackFourForm = z.object({
     somaiya_mail_id: somaiyaMail,
     contact_number: phoneNumber,
     teacher_name: validString,
-    nomination_category: arrayChoice(stringOption),
+    nomination_category: arrayChoice(feedTeacherCategory),
     q_01: arrayChoice(agreeList),
     q_02: arrayChoice(agreeList),
     q_03: arrayChoice(agreeList),
@@ -27,7 +24,7 @@ export const FeedbackFourForm = z.object({
     q_05: arrayChoice(agreeList),
     q_06: arrayChoice(agreeList),
     q_07: arrayChoice(agreeList),
-    q_08: arrayChoice(feedList),
+    q_08: arrayChoice(ratingList),
     q_09: arrayChoice(agreeList),
     nomination_reason: textArea({ maxLength: 600 }),
 });

@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { email, validYear, validString, arrayChoice, textArea } from "..";
-import { good, score } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+import { good } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+import { options } from "../../../frontend/src/zod";
 
 export const FeedbackOneForm = z.object({
     email_id: email,
@@ -19,17 +20,17 @@ export const FeedbackOneForm = z.object({
 
     q_02: arrayChoice(good),
 
-    q_03: arrayChoice(score),
+    q_03: arrayChoice(options),
 
-    q_04: arrayChoice(score),
+    q_04: arrayChoice(options),
 
-    q_05: arrayChoice(score),
+    q_05: arrayChoice(options),
 
     q_06: arrayChoice(good),
 
     q_07: arrayChoice(good),
 
-    q_08: arrayChoice(score),
+    q_08: arrayChoice(options),
 
     q_09: arrayChoice(good),
 

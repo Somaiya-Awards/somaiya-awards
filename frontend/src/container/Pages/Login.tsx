@@ -29,6 +29,11 @@ export default function Login() {
                         res.data["institution"]
                     );
 
+                    swalAlert({
+                        title: "Authentication Successful!",
+                        text: "Redirecting to Dashboard",
+                        icon: "success",
+                    });
                     switch (res.data["role"]) {
                         case "ADMIN":
                             navigate("/admin/dashboard");

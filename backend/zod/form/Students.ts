@@ -1,15 +1,14 @@
 import * as z from "zod";
 import {
     arrayChoice,
-    email,
     somaiyaMail,
     textArea,
     validBoolean,
     validString,
 } from "..";
 import { Institutes } from "../../constants";
+import { studentAwardList } from "../../../frontend/src/zod/Forms/StudentsFormData";
 
-import { category } from "../../../frontend/src/zod/Forms/StudentsFormData";
 export const StudentsForm = z.object({
     email_id: somaiyaMail,
 
@@ -21,7 +20,7 @@ export const StudentsForm = z.object({
 
     institution_name: arrayChoice(Institutes),
 
-    nomination_category: arrayChoice(category),
+    nomination_category: arrayChoice(studentAwardList),
 
     recommendation_note: textArea({ maxLength: 600 }),
     supportings: validString,

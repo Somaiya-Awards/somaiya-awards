@@ -1,7 +1,6 @@
 import * as z from "zod";
-import { arrayChoice, email, validBoolean, validNumber, validString } from "..";
+import { email, validBoolean, validNumber, validString } from "..";
 
-import { option } from "../../../frontend/src/zod/Forms/SportsStarForm";
 export const SportsForm = z.object({
     email_id: email,
     institution_name: validString,

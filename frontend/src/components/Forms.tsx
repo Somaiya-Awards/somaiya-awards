@@ -176,7 +176,9 @@ export default function Forms(props: FormProps) {
                         "Promising Teacher of the year (2 to 3 years of service)"
                             ? 2
                             : 3;
+
                     entry.validator = lastDate(years);
+
                     return (
                         <Field
                             value={display[entry.name] || ""}
