@@ -172,7 +172,8 @@ const TeachingForm = [
         fieldsPerLine:1
     },
     {
-        title:"Q5. Use new and innovative teaching aids and tools (experiments, charts, maps) and integrate Information and Communications Technology (ICT) in the classroom. Eg Google Classrooms, Flipped Classrooms, Group teaching",
+      title:"Q5. Use new and innovative teaching aids and tools (experiments, charts, maps) and integrate Information and Communications Technology (ICT) in the classroom. E.g. Google Classrooms, Flipped Classrooms, Group teaching",
+
         _name:"q_05",
         type:"radio",
         requiredStatus:true,
@@ -182,7 +183,7 @@ const TeachingForm = [
         fieldsPerLine:1
     },
     {
-        title:"Q6. Has recently made a contribution to developing or enhancing curricula in his/her field",
+        title:"Q6. Has recently made a contribution to developing or enhancing curriculum in his/her field",
         _name:"q_06",
         type:"radio",
         requiredStatus:true,
@@ -202,7 +203,7 @@ const TeachingForm = [
         fieldsPerLine:1
     },
     {
-        title:"Q8. Is able to identity and device ways to address gaps in student learning",
+      title:"Q8. Is able to identify and devise ways to address gaps in student learning",
         _name:"q_08",
         type:"radio",
         requiredStatus:true,
