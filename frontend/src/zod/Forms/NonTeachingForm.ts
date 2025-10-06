@@ -9,8 +9,9 @@ import {
     validFile,
     validString,
 } from "../../../../backend/zod";
+import { options } from "..";
 
-export const awardsList = [
+export const NonTeachingAwardList = [
     "Outstanding Employee - Institute (More than 3 years of Service)",
     "Promising Employee - Institute (2 to 3 years of Service)",
     "Outstanding Employee - Somaiya Trust",
@@ -21,18 +22,16 @@ export const awardsList = [
     "Promising Employee - K. J. Somaiya Hospital",
 ] as const;
 
-export const options = ["1", "2", "3", "4", "5"] as const;
-
-const NonTeachingValidator = z.object({
+export const NonTeachingField = {
     email_id: email,
     staff_name: validString,
-    award_category: arrayChoice(awardsList),
+    award_category: arrayChoice(NonTeachingAwardList),
     institution_name: institute,
     department: validString,
     designation: validString,
-    date_of_appointment: lastDate(3),
+    appointment_date: lastDate(3),
     somaiya_email_id: somaiyaMail,
-    contact_number: phoneNumber,
+    phone_number: phoneNumber,
     q_01: arrayChoice(options),
     q_02: arrayChoice(options),
     q_03: arrayChoice(options),
@@ -59,6 +58,7 @@ const NonTeachingValidator = z.object({
     q_24: arrayChoice(options),
     proof_docs: validFile({ type: "pdf" }),
     nominee_photograph: validFile({ type: "jpg" }),
-});
+};
+const NonTeachingValidator = z.object(NonTeachingField);
 
 export default NonTeachingValidator;

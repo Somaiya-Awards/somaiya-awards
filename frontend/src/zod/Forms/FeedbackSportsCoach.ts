@@ -5,9 +5,9 @@ import {
     institute,
     arrayChoice,
 } from "../../../../backend/zod";
-const options = ["1", "2", "3", "4", "5"] as const;
+import { options } from "..";
 
-const FeedbackSportsCoachValidator = z.object({
+export const FeedbackSportsCoachField = {
     rater_name: validString,
 
     somaiya_mail_id: somaiyaMail,
@@ -55,6 +55,8 @@ const FeedbackSportsCoachValidator = z.object({
     q_19: arrayChoice(options),
 
     q_20: arrayChoice(options),
-});
+}
+
+const FeedbackSportsCoachValidator = z.object(FeedbackSportsCoachField);
 
 export default FeedbackSportsCoachValidator;

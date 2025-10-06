@@ -6,23 +6,16 @@ import {
     textArea,
     validString,
 } from "../../../../backend/zod";
+import { agreeList } from "..";
 
-const awards = [
+const PeerNonTeachingFeedbackList = [
     "Outstanding Employee Educational Institute",
     "Promising Employee Educational Institute (≤ 3 years of service)",
     "Outstanding Administrator Somaiya Trust/GVPM",
     "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
 ] as const;
 
-const agree = [
-    "Strongly Agree",
-    "Agree",
-    "Sometimes",
-    "Disagree",
-    "Strongly Disagree",
-] as const;
-
-const PeerNonTeachingFeedbackFormValidator = z.object({
+export const PeerNonTeachingFeedbackFormField = {
     rater_name: validString,
 
     institution_name: validString,
@@ -37,25 +30,28 @@ const PeerNonTeachingFeedbackFormValidator = z.object({
 
     nominee_name: validString,
 
-    category: arrayChoice(awards),
+    category: arrayChoice(PeerNonTeachingFeedbackList),
 
-    q_01: arrayChoice(agree),
+    q_01: arrayChoice(agreeList),
 
-    q_02: arrayChoice(agree),
+    q_02: arrayChoice(agreeList),
 
     q_03: arrayChoice(["Outstanding", "Excellent", "Good", "Average", "Poor"]),
 
-    q_04: arrayChoice(agree),
+    q_04: arrayChoice(agreeList),
 
-    q_05: arrayChoice(agree),
+    q_05: arrayChoice(agreeList),
 
-    q_06: arrayChoice(agree),
+    q_06: arrayChoice(agreeList),
 
-    q_07: arrayChoice(agree),
+    q_07: arrayChoice(agreeList),
 
-    q_08: arrayChoice(agree),
+    q_08: arrayChoice(agreeList),
 
     nomination_reason: textArea({ maxLength: 300 }),
-});
+};
+const PeerNonTeachingFeedbackFormValidator = z.object(
+    PeerNonTeachingFeedbackFormField
+);
 
 export default PeerNonTeachingFeedbackFormValidator;

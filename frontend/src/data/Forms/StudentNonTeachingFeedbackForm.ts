@@ -1,20 +1,7 @@
 import type { FormEntry } from "./types";
-import {
-    arrayChoice,
-    email,
-    textArea,
-    validDate,
-    validString,
-} from "../../../../backend/zod";
 import Axios from "../../axios";
-
-const agree = [
-    "Strongly Agree",
-    "Agree",
-    "Sometimes",
-    "Disagree",
-    "Strongly Disagree",
-] as const;
+import { agreeList } from "../../zod";
+import { StudentNonTeachingFeedbackFormField as v } from "../../zod/Forms/StudentNonTeachingFeedbackForm";
 
 const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
@@ -22,7 +9,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validator: email,
+        validator: v.email_id,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -31,7 +18,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "student_batch_year",
         type: "text",
         required: true,
-        validator: validDate,
+        validator: v.student_batch_year,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -40,7 +27,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "student_class_and_division",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.student_class_and_division,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -51,7 +38,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "dropdown",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-        validator: validString,
+        validator: v.employee_name,
         options: [],
         page: 2,
         fieldsPerLine: 2,
@@ -61,7 +48,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         name: "employee_designation",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.employee_designation,
 
         page: 2,
         fieldsPerLine: 2,
@@ -71,8 +58,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_01",
-        validator: arrayChoice(agree),
-        options: agree,
+        validator: v.q_01,
+        options: agreeList,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -82,8 +69,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_02",
 
-        validator: arrayChoice(agree),
-        options: agree,
+        validator: v.q_02,
+        options: agreeList,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -93,8 +80,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_03",
 
-        validator: arrayChoice(agree),
-        options: agree,
+        validator: v.q_03,
+        options: agreeList,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -104,8 +91,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_04",
 
-        validator: arrayChoice(agree),
-        options: agree,
+        validator: v.q_04,
+        options: agreeList,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -115,8 +102,8 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         required: true,
         name: "q_05",
 
-        validator: arrayChoice(agree),
-        options: agree,
+        validator: v.q_05,
+        options: agreeList,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -125,7 +112,7 @@ const StudentNonTeachingFeedbackForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "nomination_reason",
-        validator: textArea({ maxLength: 300 }),
+        validator: v.nomination_reason,
         page: 4,
         fieldsPerLine: 1,
     },

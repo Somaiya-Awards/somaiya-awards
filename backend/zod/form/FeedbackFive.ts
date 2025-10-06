@@ -1,13 +1,10 @@
 import * as z from "zod";
 import {
-    arrayChoice,
-    email,
     institute,
     somaiyaMail,
     validNumber,
     validString,
 } from "..";
-import { options } from "../../../frontend/src/zod/Forms/NonTeachingForm";
 
 export const FeedbackFiveForm = z.object({
     rater_name: validString,

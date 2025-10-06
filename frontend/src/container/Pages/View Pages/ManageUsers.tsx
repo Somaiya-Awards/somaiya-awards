@@ -7,8 +7,9 @@ import PasswordValidator from "password-validator";
 import Swal from "sweetalert2";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
-import Axios from "../../../axios/index.js";
-import { Institutes } from "../../../../../backend/constants"
+import Axios from "../../../axios";
+import { Institutes } from "../../../../../backend/constants";
+import { arrayChoice, email, validString } from "../../../../../backend/zod";
 
 export default function ManageUsers() {
     const institutionOptions = Institutes;
@@ -85,12 +86,16 @@ export default function ManageUsers() {
             });
     };
 
-    const handleChange = (event: React.ChangeEvent<Element>) => {
-        const { name, value } = (event as React.ChangeEvent<HTMLInputElement>)
-            .target;
-
+    const handleChange = (
+        name: string,
+        value: string | File,
+        actionType: "add" | "delete"
+    ) => {
         if (name === "user_email_id") {
-            setCredentials({ ...credentials, [name]: value.toLowerCase() });
+            setCredentials({
+                ...credentials,
+                [name as string]: (value as string).toLowerCase(),
+            });
         } else {
             setCredentials({ ...credentials, [name]: value });
         }
@@ -176,20 +181,39 @@ export default function ManageUsers() {
 
                             <div className="px-3">
                                 <Field
+                                    validator={email}
+                                    formType="Manage"
                                     title="Email ID"
                                     type="email"
                                     placeholder="awards.svv@somaiya.edu"
                                     name="user_email_id"
+                                    fieldsPerLine={1}
+                                    page={1}
+                                    required={true}
                                     value={credentials["user_email_id"] || ""}
                                     onChange={handleChange}
                                 />
 
                                 <Field
                                     title="Role"
+                                    fieldsPerLine={1}
+                                    page={1}
+                                    required={true}
+                                    formType="Manage"
                                     type="dropdown"
                                     dropOpt="multiple"
                                     name="user_role"
                                     value={credentials["user_role"] || ""}
+                                    validator={arrayChoice([
+                                        "ADMIN",
+                                        "IEAC",
+                                        "HOI",
+                                        "SPORTS ADMIN",
+                                        "STUDENTS ADMIN",
+                                        "RESEARCH ADMIN",
+                                        "STUDENT",
+                                        "PEER",
+                                    ])}
                                     options={[
                                         "ADMIN",
                                         "IEAC",
@@ -211,6 +235,11 @@ export default function ManageUsers() {
                                     "RESEARCH ADMIN" ? null : (
                                     <>
                                         <Field
+                                            required={true}
+                                            fieldsPerLine={2}
+                                            page={1}
+                                            formType="Mangage"
+                                            validator={validString}
                                             title="Institution"
                                             type="dropdown"
                                             dropOpt="multiple"
@@ -228,6 +257,11 @@ export default function ManageUsers() {
 
                                 <Field
                                     title="Password"
+                                    required={true}
+                                    fieldsPerLine={2}
+                                    page={1}
+                                    formType="Mangage"
+                                    validator={validString}
                                     type="password"
                                     name="user_password"
                                     value={credentials.user_password || ""}

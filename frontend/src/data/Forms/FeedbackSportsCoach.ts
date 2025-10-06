@@ -1,12 +1,6 @@
 import type { FormEntry } from "./types";
-import {
-    arrayChoice,
-    institute,
-    somaiyaMail,
-    validString,
-} from "../../../../backend/zod";
 import Axios from "../../axios";
-
+import { FeedbackSportsCoachField as v } from "../../zod/Forms/FeedbackSportsCoach";
 import { Institutes } from "../../../../backend/constants";
 
 const options = ["1", "2", "3", "4", "5"] as const;
@@ -17,7 +11,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "rater_name",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.rater_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -26,7 +20,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "somaiya_mail_id",
         type: "text",
         required: true,
-        validator: somaiyaMail,
+        validator: v.somaiya_mail_id,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -37,7 +31,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
         required: true,
-        validator: institute,
+        validator: v.institution_name,
         options: Institutes,
         page: 1,
         fieldsPerLine: 2,
@@ -49,7 +43,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-        validator: validString,
+        validator: v.nominee_name,
         options: [],
         page: 1,
         fieldsPerLine: 2,
@@ -59,7 +53,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "q_01",
         type: "radio",
         required: true,
-        validator: arrayChoice(options),
+        validator: v.q_01,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -69,7 +63,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "q_02",
         type: "radio",
         required: true,
-        validator: arrayChoice(options),
+        validator: v.q_02,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -79,7 +73,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "q_03",
         type: "radio",
         required: true,
-        validator: arrayChoice(options),
+        validator: v.q_03,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -90,7 +84,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_04,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -101,7 +95,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_05,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -112,7 +106,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_06,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -123,7 +117,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_07,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -134,7 +128,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_08,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -145,7 +139,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_09,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -156,7 +150,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_10,
         options: options,
         page: 2,
         fieldsPerLine: 1,
@@ -167,7 +161,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_11,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -178,7 +172,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_12,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -189,7 +183,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_13,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -200,7 +194,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_14,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -211,7 +205,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_15,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -222,7 +216,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_16,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -233,7 +227,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_17,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -243,7 +237,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "q_18",
         type: "radio",
         required: true,
-        validator: arrayChoice(options),
+        validator: v.q_18,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -254,7 +248,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         type: "radio",
         required: true,
 
-        validator: arrayChoice(options),
+        validator: v.q_19,
         options: options,
         page: 3,
         fieldsPerLine: 1,
@@ -264,7 +258,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "q_20",
         type: "radio",
         required: true,
-        validator: arrayChoice(options),
+        validator: v.q_20,
         options: options,
         page: 3,
         fieldsPerLine: 1,

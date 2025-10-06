@@ -1,11 +1,5 @@
-import {
-    arrayChoice,
-    validFile,
-    validNumber,
-    validString,
-} from "../../../../backend/zod";
-
 import { Institutes } from "../../../../backend/constants";
+import { ResearchFormField as v } from "../../zod/Forms/ResearchForm";
 import type { FormEntry } from "./types";
 
 const ResearchForm: FormEntry[] = [
@@ -14,7 +8,7 @@ const ResearchForm: FormEntry[] = [
         name: "faculty_name",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.faculty_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -23,19 +17,18 @@ const ResearchForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
-        validator: validString,
-
+        validator: v.designation,
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Institution",
-        name: "institution",
+        name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
         required: true,
-        validator: arrayChoice(Institutes),
+        validator: v.institution_name,
         options: Institutes,
         page: 1,
         fieldsPerLine: 2,
@@ -45,17 +38,16 @@ const ResearchForm: FormEntry[] = [
         name: "department",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.department,
         page: 1,
         fieldsPerLine: 2,
     },
     {
         title: "Affiliation with our Organization (tenure in years)",
         name: "tenure",
-        type: "text",
+        type: "number",
         required: true,
-        validator: validString,
-
+        validator: v.tenure,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -64,7 +56,7 @@ const ResearchForm: FormEntry[] = [
         name: "org_articles_count",
         type: "number",
         required: true,
-        validator: validNumber,
+        validator: v.org_articles_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -73,8 +65,7 @@ const ResearchForm: FormEntry[] = [
         name: "review_papers_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.review_papers_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -83,8 +74,7 @@ const ResearchForm: FormEntry[] = [
         name: "letters_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.letters_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -93,8 +83,7 @@ const ResearchForm: FormEntry[] = [
         name: "case_studies_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.case_studies_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -103,8 +92,7 @@ const ResearchForm: FormEntry[] = [
         name: "books_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.books_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -113,8 +101,7 @@ const ResearchForm: FormEntry[] = [
         name: "chapters_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.chapters_count,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -123,8 +110,7 @@ const ResearchForm: FormEntry[] = [
         name: "presentations_international_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.presentations_international_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -133,8 +119,7 @@ const ResearchForm: FormEntry[] = [
         name: "presentation_national_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.presentation_national_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -143,8 +128,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_seminar_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.international_seminar_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -153,8 +137,7 @@ const ResearchForm: FormEntry[] = [
         name: "national_seminar_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.national_seminar_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -163,8 +146,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_workshops_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.international_workshops_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -173,8 +155,7 @@ const ResearchForm: FormEntry[] = [
         name: "national_workshops_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.national_workshops_count,
         page: 3,
         fieldsPerLine: 2,
     },
@@ -183,8 +164,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_minorp_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.completed_minorp_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -193,8 +173,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_minorp_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.ongoing_minorp_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -203,8 +182,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_majorp_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.completed_majorp_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -213,8 +191,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_majorp_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.ongoing_majorp_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -223,8 +200,7 @@ const ResearchForm: FormEntry[] = [
         name: "completed_consultancy_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.completed_consultancy_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -233,8 +209,7 @@ const ResearchForm: FormEntry[] = [
         name: "ongoing_consultancy_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.ongoing_consultancy_count,
         page: 4,
         fieldsPerLine: 2,
     },
@@ -243,8 +218,7 @@ const ResearchForm: FormEntry[] = [
         name: "revenue_from_projects",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.revenue_from_projects,
         page: 4,
         fieldsPerLine: 1,
     },
@@ -253,8 +227,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_patents_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.granted_patents_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -263,8 +236,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_patents_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.filed_patents_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -273,8 +245,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_copyrights_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.granted_copyrights_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -283,8 +254,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_copyrights_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.filed_copyrights_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -293,8 +263,7 @@ const ResearchForm: FormEntry[] = [
         name: "granted_industrial_designs_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.granted_industrial_designs_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -303,8 +272,7 @@ const ResearchForm: FormEntry[] = [
         name: "filed_industrial_designs_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.filed_industrial_designs_count,
         page: 5,
         fieldsPerLine: 2,
     },
@@ -313,8 +281,7 @@ const ResearchForm: FormEntry[] = [
         name: "international_awards_won_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.international_awards_won_count,
         page: 6,
         fieldsPerLine: 2,
     },
@@ -323,8 +290,7 @@ const ResearchForm: FormEntry[] = [
         name: "national_awards_won_count",
         type: "number",
         required: true,
-        validator: validNumber,
-
+        validator: v.national_awards_won_count,
         page: 6,
         fieldsPerLine: 2,
     },
@@ -333,7 +299,7 @@ const ResearchForm: FormEntry[] = [
         name: "evidence_of_research",
         type: "file",
         required: true,
-        validator: validFile({ type: "pdf" }),
+        validator: v.evidence_of_research,
         accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,
@@ -343,7 +309,7 @@ const ResearchForm: FormEntry[] = [
         name: "evidence_of_data_provided",
         type: "file",
         required: true,
-        validator: validFile({ type: "pdf" }),
+        validator: v.evidence_of_data_provided,
         accept: ".pdf",
         page: 7,
         fieldsPerLine: 2,
@@ -353,7 +319,7 @@ const ResearchForm: FormEntry[] = [
         name: "confirmation_of_trueData",
         type: "radio",
         required: true,
-        validator: arrayChoice(["Agree"]),
+        validator: v.confirmation_of_trueData,
         options: ["Agree"] as const,
         page: 7,
         fieldsPerLine: 1,

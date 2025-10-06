@@ -4,7 +4,9 @@ import { Role } from "../types/role";
 import { Institutes } from "../constants";
 
 export const email = z.email({ error: "Invalid email address" });
-export const validNumber = z.coerce.number().gte(0, "Number should be greater than 0");
+export const validNumber = z.coerce
+    .number()
+    .gte(0, "Number should be greater than 0");
 export const role = z.enum(Role);
 export const validString = z
     .string({ error: "Value must not be empty" })
@@ -19,7 +21,9 @@ export const somaiyaMail = email.regex(/somaiya.edu$/, {
 export const phoneNumber = validString.regex(/^\d{10}/, {
     error: "Invalid Phone Number",
 });
-export const validDate = z.coerce.date({ error: "Invalid Date" })
+export const validDate: z.ZodCoercedDate<Date> = z.coerce.date({
+    error: "Invalid Date",
+});
 export const validYear = validString
     .regex(/^(19|20)\d{2}$/, { error: "Invalid Year" })
     .refine((year) => year <= new Date().getFullYear().toString(), {

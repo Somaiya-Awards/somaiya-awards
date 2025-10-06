@@ -57,8 +57,6 @@ export default function ScoreCard() {
 
                 const res = await Axios.get(endpoint, {
                     headers: {
-                        "x-user-id": localStorage.getItem("user_id"),
-                        "x-access-token": localStorage.getItem("token"),
                         "x-application-id":
                             window.location.href.split("/scorecard/")[1],
                     },

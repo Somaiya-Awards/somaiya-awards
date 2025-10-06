@@ -1,12 +1,6 @@
 import type { FormEntry } from "./types";
-import {
-    arrayChoice,
-    phoneNumber,
-    somaiyaMail,
-    textArea,
-    validString,
-} from "../../../../backend/zod";
 import Axios from "../../axios";
+import { PeerNonTeachingFeedbackFormField as v } from "../../zod/Forms/PeerNonTeachingFeedbackForm";
 
 const awards = [
     "Outstanding Employee Educational Institute",
@@ -29,7 +23,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "rater_name",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.rater_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -38,7 +32,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "institution_name",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.institution_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -47,7 +41,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "department",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.department,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -56,7 +50,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "designation",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.designation,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -65,7 +59,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "somaiya_mail_id",
         type: "email",
         required: true,
-        validator: somaiyaMail,
+        validator: v.somaiya_mail_id,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -74,7 +68,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "contact_no",
         type: "text",
         required: true,
-        validator: phoneNumber,
+        validator: v.contact_no,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -85,7 +79,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-        validator: validString,
+        validator: v.nominee_name,
         options: [] as string[],
         page: 1,
         fieldsPerLine: 2,
@@ -95,7 +89,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "category",
         type: "radio",
         required: true,
-        validator: arrayChoice(awards),
+        validator: v.category,
         options: awards,
         page: 1,
         fieldsPerLine: 1,
@@ -105,7 +99,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_01",
         type: "radio",
         required: true,
-        validator: arrayChoice(agree),
+        validator: v.q_01,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -115,8 +109,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_02",
         type: "radio",
         required: true,
-
-        validator: arrayChoice(agree),
+        validator: v.q_02,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -126,13 +119,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_03",
         type: "radio",
         required: true,
-        validator: arrayChoice([
-            "Outstanding",
-            "Excellent",
-            "Good",
-            "Average",
-            "Poor",
-        ]),
+        validator: v.q_03,
         options: [
             "Outstanding",
             "Excellent",
@@ -148,7 +135,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_04",
         type: "radio",
         required: true,
-        validator: arrayChoice(agree),
+        validator: v.q_04,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -158,8 +145,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_05",
         type: "radio",
         required: true,
-
-        validator: arrayChoice(agree),
+        validator: v.q_05,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -169,7 +155,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_06",
         type: "radio",
         required: true,
-        validator: arrayChoice(agree),
+        validator: v.q_06,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -179,8 +165,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_07",
         type: "radio",
         required: true,
-
-        validator: arrayChoice(agree),
+        validator: v.q_07,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -190,8 +175,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "q_08",
         type: "radio",
         required: true,
-
-        validator: arrayChoice(agree),
+        validator: v.q_08,
         options: agree,
         page: 2,
         fieldsPerLine: 1,
@@ -201,7 +185,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         name: "nomination_reason",
         type: "textarea",
         required: true,
-        validator: textArea({ maxLength: 300 }),
+        validator: v.nomination_reason,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -209,7 +193,6 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
 
 async function fetchNominatedNames() {
     try {
-        // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
         const response = await Axios.get("/ieac/data/nominated-staff-names", {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
@@ -218,10 +201,8 @@ async function fetchNominatedNames() {
             },
         });
 
-        // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;
 
-        // Update the options for "nominee_name"
         PeerNonTeachingFeedbackForm.find(
             (field) => field._name === "nominee_name"
         ).options = nominatedNames;
@@ -230,7 +211,6 @@ async function fetchNominatedNames() {
     }
 }
 
-// Call the function to fetch and update the options
 fetchNominatedNames();
 
 export default PeerNonTeachingFeedbackForm;

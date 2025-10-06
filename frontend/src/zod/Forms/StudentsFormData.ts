@@ -8,8 +8,9 @@ import {
 } from "../../../../backend/zod";
 
 import { Institutes } from "../../../../backend/constants";
+import { SportsStarFormField } from "./SportsStarForm";
 
-export const category = [
+export const studentAwardList = [
     "Somaiya Star -Girl",
     "Somaiya Star -Boy",
     "Somaiya Star Citizen",
@@ -17,22 +18,16 @@ export const category = [
     "Somaiya Star Innovator",
 ] as const;
 
-const StudentsFormDataValidator = z.object({
+export const StudentsFormDataField = {
     email_id: somaiyaMail,
-
     student_name: validString,
-
     students_class: validString,
-
     course: validString,
-
     institution_name: arrayChoice(Institutes),
-
-    nomination_category: arrayChoice(category),
-
+    nomination_category: arrayChoice(studentAwardList),
     recommendation_note: textArea({ maxLength: 600 }),
-
     supportings: validFile({ type: "pdf" }),
-});
+};
+const StudentsFormDataValidator = z.object(SportsStarFormField);
 
 export default StudentsFormDataValidator;

@@ -1,23 +1,34 @@
-import { DataGrid, type GridRowsProp, type GridColDef, GridToolbar } from '@mui/x-data-grid'
-import React from 'react';
+import {
+    DataGrid,
+    type GridRowsProp,
+    type GridColDef,
+    GridToolbar,
+} from "@mui/x-data-grid";
+import React from "react";
 
-
-function Datagrid(props: {rows: any}){
-
-    const rows: GridRowsProp = props.rows
+function Datagrid(props: { rows: { [key: string]: any }[] }) {
+    const rows: GridRowsProp = props.rows;
 
     const columns: GridColDef[] = [
-        { field: 'institute', headerName: 'Institute', width: 400 },
-        { field: 'institution_form', headerName: 'Institution Form', width: 150 },
-        { field: 'research_form', headerName: 'Research Form', width: 150 },
-        { field: 'sports_form', headerName: 'Sports Form', width: 150 },
-        { field: 'teaching_form', headerName: 'Teaching Form', width: 150 },
-        { field: 'non_teaching_form', headerName: 'Non-Teaching Form', width: 170 },
-        { field: 'students_form', headerName: 'Students Form', width: 170 },
+        { field: "institute", headerName: "Institute", width: 400 },
+        {
+            field: "institution_form",
+            headerName: "Institution Form",
+            width: 150,
+        },
+        { field: "research_form", headerName: "Research Form", width: 150 },
+        { field: "sports_form", headerName: "Sports Form", width: 150 },
+        { field: "teaching_form", headerName: "Teaching Form", width: 150 },
+        {
+            field: "non_teaching_form",
+            headerName: "Non-Teaching Form",
+            width: 170,
+        },
+        { field: "students_form", headerName: "Students Form", width: 170 },
     ];
 
     return (
-        <div className='w-[97%] p-2 flex justify-center items-center'>
+        <div className="w-[97%] p-2 flex justify-center items-center">
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -30,7 +41,7 @@ function Datagrid(props: {rows: any}){
                 }}
             />
         </div>
-    )
+    );
 }
 
-export default Datagrid
+export default Datagrid;

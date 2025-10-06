@@ -1,15 +1,10 @@
 import type { FormEntry } from "./types";
-import {
-    arrayChoice,
-    email,
-    textArea,
-    validString,
-    validYear,
-} from "../../../../backend/zod";
 import Axios from "../../axios";
-
-const good = ["Outstanding", "Very Good", "Good", "Average", "Poor"] as const;
-const score = ["1", "2", "3", "4", "5"] as const;
+import {
+    good,
+    StudentTeachingFeedbackFormField as v,
+} from "../../zod/Forms/StudentTeachingFeedbackForm";
+import { options } from "../../zod";
 
 const StudentTeachingFeedbackForm: FormEntry[] = [
     {
@@ -17,7 +12,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validator: email,
+        validator: v.email_id,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -26,7 +21,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "student_batch_year",
         type: "text",
         required: true,
-        validator: validYear,
+        validator: v.student_batch_year,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -35,7 +30,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "student_class_and_division",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.student_class_and_division,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -46,7 +41,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         dropOpt: "multiple",
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
-        validator: validString,
+        validator: v.teacher_name,
         options: [],
         page: 2,
         fieldsPerLine: 2,
@@ -56,7 +51,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "teacher_designation",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.teacher_designation,
         page: 2,
         fieldsPerLine: 2,
     },
@@ -65,8 +60,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         name: "teaching_subject",
         type: "text",
         required: true,
-        validator: validString,
-
+        validator: v.teaching_subject,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -75,8 +69,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_01",
-
-        validator: arrayChoice(good),
+        validator: v.q_01,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -86,8 +79,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_02",
-
-        validator: arrayChoice(good),
+        validator: v.q_02,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -97,9 +89,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_03",
-
-        validator: arrayChoice(score),
-        options: score,
+        validator: v.q_03,
+        options: options,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -108,9 +99,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_04",
-
-        validator: arrayChoice(score),
-        options: score,
+        validator: v.q_04,
+        options: options,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -119,9 +109,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_05",
-
-        validator: arrayChoice(score),
-        options: score,
+        validator: v.q_05,
+        options: options,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -130,8 +119,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_06",
-
-        validator: arrayChoice(good),
+        validator: v.q_06,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -141,8 +129,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_07",
-
-        validator: arrayChoice(good),
+        validator: v.q_07,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -152,9 +139,8 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_08",
-
-        validator: arrayChoice(score),
-        options: score,
+        validator: v.q_08,
+        options: options,
         page: 3,
         fieldsPerLine: 1,
     },
@@ -163,8 +149,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_09",
-
-        validator: arrayChoice(good),
+        validator: v.q_09,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -174,7 +159,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_10",
-        validator: arrayChoice(["Yes", "No"]),
+        validator: v.q_10,
         options: ["Yes", "No"] as const,
         page: 3,
         fieldsPerLine: 1,
@@ -184,8 +169,7 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         name: "q_11",
-
-        validator: arrayChoice(good),
+        validator: v.q_11,
         options: good,
         page: 3,
         fieldsPerLine: 1,
@@ -195,17 +179,14 @@ const StudentTeachingFeedbackForm: FormEntry[] = [
         type: "textarea",
         required: true,
         name: "nominating_reasons",
-        validator: textArea({ maxLength: 300 }),
+        validator: v.nominating_reasons,
         page: 4,
         fieldsPerLine: 1,
     },
 ];
 
 async function fetchNominatedNames() {
-    console.log(Axios.defaults.baseURL);
     try {
-        // Make an HTTP request to fetch the data from your backend
-        // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-faculty-names',{
         const response = await Axios.get("/ieac/data/nominated-faculty-names", {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
@@ -213,20 +194,15 @@ async function fetchNominatedNames() {
                 "x-institute-name": localStorage.getItem("institution"),
             },
         });
-
-        // Assuming the backend returns an array of nominated names
         const nominatedNames = response.data.data;
-
-        // Update the options for "nominee_name"
         StudentTeachingFeedbackForm.find(
-            (field) => field._name === "teacher_name"
+            (field) => field.name === "teacher_name"
         ).options = nominatedNames;
     } catch (error) {
         console.error("Error fetching nominated names:", error);
     }
 }
 
-// Call the function to fetch and update the options
 fetchNominatedNames();
 
 export default StudentTeachingFeedbackForm;

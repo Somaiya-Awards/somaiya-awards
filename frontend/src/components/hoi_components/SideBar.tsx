@@ -6,7 +6,7 @@ import SportsSoccerRoundedIcon from "@mui/icons-material/SportsSoccerRounded";
 import BookRoundedIcon from "@mui/icons-material/BookRounded";
 import BusinessIcon from "@mui/icons-material/Business";
 import SupervisorAccountRoundedIcon from "@mui/icons-material/SupervisorAccountRounded";
-import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
+// import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -82,12 +82,6 @@ function SideBar() {
                             component={<Link to="/hoi/analysis/students" />}
                         >
                             Students Form
-                        </MenuItem>
-                        <MenuItem
-                            icon={<ShieldRoundedIcon />}
-                            component={<Link to="/hoi/analysis/house" />}
-                        >
-                            House Form
                         </MenuItem>
                     </SubMenu>
 

@@ -6,6 +6,8 @@ import {
     validString,
     validYear,
 } from "../../../../backend/zod";
+import { options } from "..";
+import { SportsStarFormField } from "./SportsStarForm";
 
 export const good = [
     "Outstanding",
@@ -15,9 +17,7 @@ export const good = [
     "Poor",
 ] as const;
 
-export const score = ["1", "2", "3", "4", "5"] as const;
-
-const StudentTeachingFeedbackFormValidator = z.object({
+export const StudentTeachingFeedbackFormField = {
     email_id: email,
 
     student_batch_year: validYear,
@@ -34,17 +34,17 @@ const StudentTeachingFeedbackFormValidator = z.object({
 
     q_02: arrayChoice(good),
 
-    q_03: arrayChoice(score),
+    q_03: arrayChoice(options),
 
-    q_04: arrayChoice(score),
+    q_04: arrayChoice(options),
 
-    q_05: arrayChoice(score),
+    q_05: arrayChoice(options),
 
     q_06: arrayChoice(good),
 
     q_07: arrayChoice(good),
 
-    q_08: arrayChoice(score),
+    q_08: arrayChoice(options),
 
     q_09: arrayChoice(good),
 
@@ -53,6 +53,7 @@ const StudentTeachingFeedbackFormValidator = z.object({
     q_11: arrayChoice(good),
 
     nominating_reasons: textArea({ maxLength: 300 }),
-});
+};
+const StudentTeachingFeedbackFormValidator = z.object(SportsStarFormField);
 
 export default StudentTeachingFeedbackFormValidator;

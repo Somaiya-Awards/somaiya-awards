@@ -12,7 +12,7 @@ export type BaseFormEntry = {
 type T = string | File;
 
 export type Validate = {
-    validator: z.ZodType<T, T>;
+    validator: z.ZodType<T, T> | z.ZodCoercedDate | z.ZodCoercedNumber;
 };
 
 export type FormEntry =

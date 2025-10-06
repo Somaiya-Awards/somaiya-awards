@@ -6,16 +6,10 @@ import {
     validDate,
     validString,
 } from "../../../../backend/zod";
+import { agreeList } from "..";
+import { SportsStarFormField } from "./SportsStarForm";
 
-export const agree = [
-    "Strongly Agree",
-    "Agree",
-    "Sometimes",
-    "Disagree",
-    "Strongly Disagree",
-] as const;
-
-const StudentNonTeachingFeedbackFormValidator = z.object({
+export const StudentNonTeachingFeedbackFormField = {
     email_id: email,
 
     student_batch_year: validDate,
@@ -26,17 +20,18 @@ const StudentNonTeachingFeedbackFormValidator = z.object({
 
     employee_designation: validString,
 
-    q_01: arrayChoice(agree),
+    q_01: arrayChoice(agreeList),
 
-    q_02: arrayChoice(agree),
+    q_02: arrayChoice(agreeList),
 
-    q_03: arrayChoice(agree),
+    q_03: arrayChoice(agreeList),
 
-    q_04: arrayChoice(agree),
+    q_04: arrayChoice(agreeList),
 
-    q_05: arrayChoice(agree),
+    q_05: arrayChoice(agreeList),
 
     nomination_reason: textArea({ maxLength: 300 }),
-});
+};
+const StudentNonTeachingFeedbackFormValidator = z.object(SportsStarFormField);
 
 export default StudentNonTeachingFeedbackFormValidator;

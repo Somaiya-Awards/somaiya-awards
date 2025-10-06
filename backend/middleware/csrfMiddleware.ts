@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { CSRF, CSRF_SIZE } from "../constants";
+import { CSRF, CSRF_SIZE, CsrfName } from "../constants";
 import { setCookie } from "./cookie";
 import { Request, Response } from "express";
 
@@ -47,3 +47,59 @@ function unmaskSecret(token: string) {
 
     return secret;
 }
+
+export function setCsrfCookie(req: Request, res: Response) {
+    var cookie;
+
+    if (!req.cookies[CsrfName]) {
+        cookie = randomString();
+        setCookie(res, CsrfName, cookie, "1h");
+    } else {
+        cookie = req.cookies[CsrfName];
+    }
+
+    const csrfToken = maskSecret(cookie);
+
+    res.setHeader(CsrfName, csrfToken as string);
+}
+
+/**
+ * CSRF Workflow:
+ *   Header Token -> x-csrf (CSRF Token)
+ * */
+const csrfMiddleware = asyncHandler(async (req, res, next) => {
+    const csrfTokenHeader = req.headers[CsrfName];
+    const csrfTokenCookie = req.cookies[CsrfName];
+
+    setCsrfCookie(req, res);
+
+    if (req.method === "GET") {
+        next();
+        return;
+    }
+
+    if (!(csrfTokenCookie && csrfTokenHeader)) {
+        res.status(400).json({
+            message: "Malformed CSRF Request",
+        });
+        return;
+    }
+
+    if (Array.isArray(csrfTokenCookie) || Array.isArray(csrfTokenHeader)) {
+        res.status(400).json({
+            error: "Received Multiple CSRF Tokens",
+        });
+        return;
+    }
+
+    if (csrfTokenCookie !== unmaskSecret(csrfTokenHeader)) {
+        res.status(400).json({
+            error: "Incorrect CSRF Token",
+        });
+        return;
+    }
+
+    next();
+});
+
+export default csrfMiddleware;

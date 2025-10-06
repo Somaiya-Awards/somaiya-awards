@@ -7,10 +7,9 @@ import {
     validString,
 } from "../../../../backend/zod";
 import { Institutes } from "../../../../backend/constants";
+import { options } from "..";
 
-export const option = ["1", "2", "3", "4", "5"] as const;
-
-const SportsStarFormValidator = z.object({
+export const SportsStarFormField = {
     email_id: email,
 
     institution_name: arrayChoice(Institutes),
@@ -23,45 +22,45 @@ const SportsStarFormValidator = z.object({
 
     nominee_coach_supportings: validFile({ type: "pdf" }),
 
-    q_01: arrayChoice(option),
+    q_01: arrayChoice(options),
 
-    q_02: arrayChoice(option),
+    q_02: arrayChoice(options),
 
-    q_03: arrayChoice(option),
+    q_03: arrayChoice(options),
 
-    q_04: arrayChoice(option),
+    q_04: arrayChoice(options),
 
-    q_05: arrayChoice(option),
+    q_05: arrayChoice(options),
 
-    q_06: arrayChoice(option),
+    q_06: arrayChoice(options),
 
-    q_07: arrayChoice(option),
+    q_07: arrayChoice(options),
 
-    q_08: arrayChoice(option),
+    q_08: arrayChoice(options),
 
-    q_09: arrayChoice(option),
+    q_09: arrayChoice(options),
 
-    q_10: arrayChoice(option),
+    q_10: arrayChoice(options),
 
-    q_11: arrayChoice(option),
+    q_11: arrayChoice(options),
 
-    q_12: arrayChoice(option),
+    q_12: arrayChoice(options),
 
-    q_13: arrayChoice(option),
+    q_13: arrayChoice(options),
 
-    q_14: arrayChoice(option),
+    q_14: arrayChoice(options),
 
-    q_15: arrayChoice(option),
+    q_15: arrayChoice(options),
 
-    q_16: arrayChoice(option),
+    q_16: arrayChoice(options),
 
-    q_17: arrayChoice(option),
+    q_17: arrayChoice(options),
 
-    q_18: arrayChoice(option),
+    q_18: arrayChoice(options),
 
-    q_19: arrayChoice(option),
+    q_19: arrayChoice(options),
 
-    q_20: arrayChoice(option),
+    q_20: arrayChoice(options),
 
     nominee_ss_girl: validString,
 
@@ -71,13 +70,13 @@ const SportsStarFormValidator = z.object({
 
     nominee_ss_girl_supportings: validFile({ type: "pdf" }),
 
-    q_21: arrayChoice(option),
+    q_21: arrayChoice(options),
 
-    q_22: arrayChoice(option),
+    q_22: arrayChoice(options),
 
-    q_23: arrayChoice(option),
+    q_23: arrayChoice(options),
 
-    q_24: arrayChoice(option),
+    q_24: arrayChoice(options),
 
     nominee_ss_boy: validString,
 
@@ -87,13 +86,14 @@ const SportsStarFormValidator = z.object({
 
     nominee_ss_boy_supportings: validFile({ type: "pdf" }),
 
-    q_25: arrayChoice(option),
+    q_25: arrayChoice(options),
 
-    q_26: arrayChoice(option),
+    q_26: arrayChoice(options),
 
-    q_27: arrayChoice(option),
+    q_27: arrayChoice(options),
 
-    q_28: arrayChoice(option),
-});
+    q_28: arrayChoice(options),
+};
+const SportsStarFormValidator = z.object(SportsStarFormField);
 
 export default SportsStarFormValidator;

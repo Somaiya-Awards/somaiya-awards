@@ -44,7 +44,7 @@ export const researchDataHandler = asyncHandler(async (req, res) => {
         where: sequelize.and(
             // raw SQL query using and operator
             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institution: user_institution }
+            { institution_name: user_institution }
         ),
     });
 
@@ -66,7 +66,7 @@ export const sportsDataHandler = asyncHandler(async (req, res) => {
         where: sequelize.and(
             // raw SQL query using and operator
             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
+            { institution_name: user_institution }
         ),
     });
 
@@ -88,7 +88,7 @@ export const teachingDataHandler = asyncHandler(async (req, res) => {
         where: sequelize.and(
             // raw SQL query using and operator
             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
+            { institution_name: user_institution }
         ),
     });
 
@@ -110,7 +110,7 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
         where: sequelize.and(
             // raw SQL query using and operator
             sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
+            { institution_name: user_institution }
         ),
     });
 
