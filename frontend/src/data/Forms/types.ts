@@ -9,12 +9,17 @@ export type BaseFormEntry = {
     page: number;
 } & Validate;
 
+type T = string | File;
+
 export type Validate = {
-    validator: z.ZodType<any,any>;
-}
+    validator: z.ZodType<T, T>;
+};
 
 export type FormEntry =
-    | (BaseFormEntry & { type: "radio"; options: readonly string[] | readonly number[] })
+    | (BaseFormEntry & {
+          type: "radio";
+          options: readonly string[] | readonly number[];
+      })
     | (BaseFormEntry &
           (
               | {
@@ -30,8 +35,8 @@ export type FormEntry =
                 }
           ))
     | (BaseFormEntry & { type: "textarea" })
-    | (BaseFormEntry & { type: "password",placeholder?: string })
-    | (BaseFormEntry & { type: "file"; accept: ".pdf" | ".jpg"})
+    | (BaseFormEntry & { type: "password"; placeholder?: string })
+    | (BaseFormEntry & { type: "file"; accept: ".pdf" | ".jpg" })
     | (BaseFormEntry & { type: "number" })
     | (BaseFormEntry & { type: "text"; placeholder?: string })
     | (BaseFormEntry & { type: "email"; placeholder?: string })

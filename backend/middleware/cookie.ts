@@ -11,10 +11,10 @@ function setCookieOption(
 
     switch (timeout) {
         case "1h":
-            expire +=  1000 * 60 * 60;
+            expire += 1000 * 60 * 60;
             break;
         case "1d":
-            expire +=  1000 * 60 * 60 * 24;
+            expire += 1000 * 60 * 60 * 24;
             break;
         default:
             throw new Error("Invalid expiration time");
@@ -41,7 +41,7 @@ export function setCookie(
     cookieValue: string,
     timeout: JwtTimeout,
     path: string | null = null,
-    httpOnly: boolean = true
+    httpOnly: boolean = false
 ) {
     res.cookie(
         cookieName,
@@ -51,17 +51,17 @@ export function setCookie(
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    setCookie(res, AccessCookie, cookie, "1h");
+    res.setHeader(AccessCookie, cookie);
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
-    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh");
+    res.setHeader(RefreshCookie, cookie);
 }
 
 export function removeAccessCookie(res: Response) {
-    res.clearCookie(AccessCookie, setCookieOption("1h"));
+    res.setHeader(RefreshCookie, null);
 }
 
 export function removeRefreshCookie(res: Response) {
-    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"));
+    res.setHeader(RefreshCookie, null);
 }

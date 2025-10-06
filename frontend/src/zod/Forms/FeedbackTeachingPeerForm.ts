@@ -7,9 +7,12 @@ import {
     validString,
 } from "../../../../backend/zod";
 
-const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
+export const stringOption = [
+    "Promising Teacher",
+    "Excellence in Teaching",
+] as const;
 
-const agreeList = [
+export const agreeList = [
     "Strongly Agree",
     "Agree",
     "Sometimes",
@@ -17,7 +20,7 @@ const agreeList = [
     "Strongly Disagree",
 ] as const;
 
-const feedList = [
+export const feedList = [
     "Outstanding",
     "Excellent",
     "Good",
@@ -27,7 +30,7 @@ const feedList = [
 
 const FeedbackTeachingPeerValidator = z.object({
     rater_name: validString,
-    institute_name: validString,
+    institution_name: validString,
     department_name: validString,
     designation: validString,
     somaiya_mail_id: somaiyaMail,

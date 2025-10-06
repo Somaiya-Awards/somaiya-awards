@@ -9,7 +9,7 @@ import {
 import { Institutes } from "../../../../backend/constants";
 import type { FormEntry } from "./types";
 
-const option = [1, 2, 3, 4, 5] as const;
+const option = ["1", "2", "3", "4", "5"] as const;
 
 const SportsStarForm: FormEntry[] = [
     {
@@ -23,7 +23,7 @@ const SportsStarForm: FormEntry[] = [
     },
     {
         title: "Institute Name",
-        name: "institute_name",
+        name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,

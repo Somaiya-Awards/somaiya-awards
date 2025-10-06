@@ -18,12 +18,7 @@ declare module "*.gif" {
     export default value;
 }
 
-declare module "*.json" {
-    const value: any;
-    export default value;
-}
-
 declare module "*.hdr" {
-    const value: any;
+    const value: string;
     export default value;
 }

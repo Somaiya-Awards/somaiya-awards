@@ -12,7 +12,7 @@ const ResearchFormValidator = z.object({
 
     designation: validString,
 
-    institution: arrayChoice(Institutes),
+    institution_name: arrayChoice(Institutes),
 
     department: validString,
 

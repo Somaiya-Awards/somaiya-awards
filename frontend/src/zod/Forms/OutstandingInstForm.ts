@@ -11,19 +11,19 @@ import {
     validYear,
 } from "../../../../backend/zod";
 
-const nominationCategory = [
+export const nominationCategory = [
     "Outstanding School",
     "Outstanding College",
 ] as const;
 
-import {Institutes} from "../../../../backend/constants"
+import { Institutes } from "../../../../backend/constants";
 
 const OutstandingInstFormValidator = z.object({
     email_id: email,
     nomination_category: arrayChoice(nominationCategory),
     institution_name: arrayChoice(Institutes),
     established_In: validYear,
-    hoi_name: validString,
+    head_of_institution: validString,
     hoi_designation: validString,
     hoi_joining_date: validDate,
     somaiya_mail_id: somaiyaMail,
@@ -62,7 +62,7 @@ const OutstandingInstFormValidator = z.object({
 
     q_17: textArea({ maxLength: 500 }),
 
-    institution_ratings: arrayChoice([1, 2, 3, 4, 5]),
+    institution_ratings: arrayChoice(["1", "2", "3", "4", "5"]),
 
     q_18: textArea({ maxLength: 1000 }),
 

@@ -18,6 +18,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { Link } from 'react-router-dom'
+import React from 'react';
 
 const baseURL = 'https://apisomaiyaawards.somaiya.edu'
 // const baseURL = 'http://localhost:5001'
@@ -213,7 +214,7 @@ const columns04: GridColDef[] = [
     { field: 'email_id', headerName: 'Email ID', width: 200 },
     { field: 'faculty_name', headerName: 'Faculty Name', width: 200 },
     { field: 'awards_category', headerName: 'Awards Category', width: 200 },
-    { field: 'institute_name', headerName: 'Institute Name', width: 200 },
+    { field: 'institution_name', headerName: 'Institute Name', width: 200 },
     { field: 'department', headerName: 'Department', width: 200 },
     { field: 'designation', headerName: 'Designation', width: 200 },
     { field: 'date_of_appointment', headerName: 'Date of Appointment', width: 200 },
@@ -300,7 +301,7 @@ const columns05: GridColDef[] = [
     { field: 'email_id', headerName: 'Email ID', width: 200 },
     { field: 'staff_name', headerName: 'Staff Name', width: 200 },
     { field: 'award_category', headerName: 'Award Category', width: 200 },
-    { field: 'institute_name', headerName: 'Institute Name', width: 200 },
+    { field: 'institution_name', headerName: 'Institute Name', width: 200 },
     { field: 'department', headerName: 'Department', width: 200 },
     { field: 'designation', headerName: 'Designation', width: 200 },
     { field: 'appointment_date', headerName: 'Appointment Date', width: 200 },
@@ -417,7 +418,7 @@ const columns06: GridColDef[] = [
 const columns07: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'rater_name', headerName: 'Rater Name', width: 200 },
-    { field: 'institute_name', headerName: 'Institute Name', width: 200 },
+    { field: 'institution_name', headerName: 'Institute Name', width: 200 },
     { field: 'department_name', headerName: 'Department Name', width: 200 },
     { field: 'designation', headerName: 'Designation', width: 200 },
     { field: 'somaiya_mail_id', headerName: 'Somaiya Mail ID', width: 200 },
@@ -493,7 +494,7 @@ const columns10: GridColDef[] = [
         width: 200,
     },
     {
-        field: 'institute_name',
+        field: 'institution_name',
         headerName: 'Institute Name',
         width: 250,
 
@@ -597,7 +598,7 @@ const columns11: GridColDef[] = [
 
     },
     {
-        field: 'institute_name',
+        field: 'institution_name',
         headerName: 'Institute Name',
         width: 250,
 
@@ -699,7 +700,7 @@ const columns12: GridColDef[] = [
 
     },
     {
-        field: 'institute_name',
+        field: 'institution_name',
         headerName: 'Institute Name',
         width: 250,
 

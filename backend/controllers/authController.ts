@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import { RefreshCookie } from "../constants";
+import { AccessCookie, RefreshCookie } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
@@ -19,7 +19,7 @@ import {
     setCookie,
     setRefreshCookie,
 } from "../middleware/cookie";
-import { randomString, setCsrfCookie } from "../middleware/csrfMiddleware";
+import { randomString } from "../middleware/csrfMiddleware";
 import { AuthRequest } from "../types/request";
 
 //@desc handle login
@@ -53,10 +53,11 @@ export const userLogin = asyncHandler(async (req, res) => {
         setAccessCookie(res, accessCookie);
         setRefreshCookie(res, refreshCookie);
         setCookie(res, "isLoggedIn", randomString(), "1d");
-        setCsrfCookie(req, res);
 
         res.status(200).json({
             role: user.role,
+            [AccessCookie]: accessCookie,
+            [RefreshCookie]: refreshCookie,
             institution: user.institution,
         });
     } else {
@@ -116,7 +117,6 @@ export const userRefresh = asyncHandler(async (req, res) => {
 
     setAccessCookie(res, setJwtToken(user, "1h"));
     setRefreshCookie(res, refreshToken);
-    setCsrfCookie(req, res);
 
     res.status(200).json({});
 });

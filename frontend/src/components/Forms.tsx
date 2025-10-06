@@ -58,18 +58,14 @@ export default function Forms(props: FormProps) {
         }
     };
 
-    const { display, getData, handleChange, data, setData } = dataHandler<
-        z.infer<typeof props.validator>
-    >(props.validator);
+    const { setDisplay, display, getData, handleChange, data, setData } =
+        dataHandler<z.infer<typeof props.validator>>(props.validator);
 
-    const handleFieldChange = useCallback(
-        (name: string, value: string, actionType: "add" | "delete") => {
-            handleChange(name, value, actionType);
-            setPercentage(Object.keys(data).length / props.data.length);
-        },
-        []
-    );
-    console.error(display, data);
+    useEffect(() => {
+        const dataName = formName + "Data";
+        setPercentage(Object.keys(data).length / props.data.length);
+        localStorage.setItem(dataName, JSON.stringify(data));
+    }, [data, props.data, formName]);
     /**
      * @returns page number of field which is not present in formData state
      */
@@ -186,7 +182,7 @@ export default function Forms(props: FormProps) {
                             value={display[entry.name] || ""}
                             {...entry}
                             formType={formName}
-                            onChange={handleFieldChange}
+                            onChange={handleChange}
                             key={index}
                         />
                     );
@@ -196,7 +192,7 @@ export default function Forms(props: FormProps) {
                         value={display[entry.name] || ""}
                         {...entry}
                         formType={formName}
-                        onChange={handleFieldChange}
+                        onChange={handleChange}
                         key={index}
                     />
                 );
@@ -212,6 +208,7 @@ export default function Forms(props: FormProps) {
             setData({});
         } else {
             setData(JSON.parse(localStorage.getItem(dataName) || "{}"));
+            setDisplay(JSON.parse(localStorage.getItem(dataName) || "{}"));
         }
     }, []);
 
@@ -285,7 +282,7 @@ export default function Forms(props: FormProps) {
                         ) : (
                             <button
                                 onClick={handleNext}
-                                className="shadow-md w-28 border-red-700  bg-white border-2 hover:bg-red-700 hover:text-white text-lg p-3 rounded-xl"
+                                className="shadow-md w-28 border-red-700  bg-white border-2 ml-5 hover:bg-red-700 hover:text-white text-lg p-3 rounded-xl"
                             >
                                 Next
                             </button>

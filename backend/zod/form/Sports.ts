@@ -1,35 +1,55 @@
 import * as z from "zod";
-import { email, validBoolean, validNumber, validString } from "..";
+import { arrayChoice, email, validBoolean, validNumber, validString } from "..";
 
+import { option } from "../../../frontend/src/zod/Forms/SportsStarForm";
 export const SportsForm = z.object({
-    id: validNumber,
     email_id: email,
     institution_name: validString,
     nominee_inspiring_coach: validString,
     nominee_coach_comments: validString,
     nominee_coach_photo: validString,
     nominee_coach_supportings: validString,
+
     q_01: validNumber,
+
     q_02: validNumber,
+
     q_03: validNumber,
+
     q_04: validNumber,
+
     q_05: validNumber,
+
     q_06: validNumber,
+
     q_07: validNumber,
+
     q_08: validNumber,
+
     q_09: validNumber,
+
     q_10: validNumber,
+
     q_11: validNumber,
+
     q_12: validNumber,
+
     q_13: validNumber,
+
     q_14: validNumber,
+
     q_15: validNumber,
+
     q_16: validNumber,
+
     q_17: validNumber,
+
     q_18: validNumber,
+
     q_19: validNumber,
+
     q_20: validNumber,
-    isApprovedCoach: validBoolean,
+    isApprovedCoach: validBoolean.optional(),
     nominee_ss_girl: validString,
     nominee_ss_girl_sport: validString,
     nominee_ss_girl_photo: validString,
@@ -38,7 +58,7 @@ export const SportsForm = z.object({
     q_22: validNumber,
     q_23: validNumber,
     q_24: validNumber,
-    isApprovedSportsGirl: validBoolean,
+    isApprovedSportsGirl: validBoolean.optional(),
     nominee_ss_boy: validString,
     nominee_ss_boy_sport: validString,
     nominee_ss_boy_photo: validString,
@@ -47,7 +67,7 @@ export const SportsForm = z.object({
     q_26: validNumber,
     q_27: validNumber,
     q_28: validNumber,
-    isApprovedSportsBoy: validBoolean,
+    isApprovedSportsBoy: validBoolean.optional(),
 });
 
 export type SportsType = z.infer<typeof SportsForm>;

@@ -99,5 +99,6 @@ router.route("/feedback-03").post(submitFeedback_03);
 router.route("/feedback-04").post(submitFeedback_04);
 
 router.route("/feedback-05").post(submitFeedback_05);
+router.route("/house").post(submitFeedback_05);
 
 export default router;

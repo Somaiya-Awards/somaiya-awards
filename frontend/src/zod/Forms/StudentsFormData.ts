@@ -9,7 +9,7 @@ import {
 
 import { Institutes } from "../../../../backend/constants";
 
-const category = [
+export const category = [
     "Somaiya Star -Girl",
     "Somaiya Star -Boy",
     "Somaiya Star Citizen",

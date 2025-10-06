@@ -1,59 +1,111 @@
 import * as z from "zod";
-import { email, institute, validBoolean, validNumber, validString } from "..";
+import {
+    arrayChoice,
+    email,
+    phoneNumber,
+    somaiyaMail,
+    textArea,
+    validBoolean,
+    validDate,
+    validFile,
+    validNumber,
+    validString,
+    validYear,
+} from "..";
+import { Institutes } from "../../constants";
+import { nominationCategory } from "../../../frontend/src/zod/Forms/OutstandingInstForm";
 
 export const OutstandingInstitutionForm = z.object({
-    id: validNumber,
     email_id: email,
-    nomination_category: validString,
-    institution_name: institute,
-    established_In: validString,
+    nomination_category: arrayChoice(nominationCategory),
+    institution_name: arrayChoice(Institutes),
+    established_In: validYear,
     head_of_institution: validString,
     hoi_designation: validString,
-    hoi_joining_date: z.date(),
-    somaiya_mail_id: validString,
-    contact_number: validString,
-    q_01: validString,
-    q_02: validString,
-    q_03: validString,
-    q_04: validString,
-    q_05: validString,
-    q_06: validString,
-    q_07: validString,
-    q_08: validString,
-    q_09: validString,
-    q_10: validString,
-    q_11: validString,
-    q_12: validString,
-    q_13: validString,
-    q_14: validString,
-    q_15: validString,
-    q_16: validString,
-    q_17: validString,
-    institution_ratings: validString,
-    q_18: validString,
-    q_19: validString,
-    q_20: validString,
-    q_21: validString,
-    q_22: validString,
-    q_23: validString,
-    q_24: validString,
-    q_25: validString,
-    q_26: validString,
-    q_27: validString,
-    q_28: validString,
-    q_29: validString,
-    q_30: validString,
-    q_31: validString,
-    q_32: validString,
-    q_33: validString,
-    q_34: validString,
-    q_35: validString,
-    q_36: validString,
-    q_37: validString,
-    q_38: validString,
+    hoi_joining_date: validDate,
+    somaiya_mail_id: somaiyaMail,
+    contact_number: phoneNumber,
+    q_01: textArea({ minLength: 500, maxLength: 700 }),
+
+    q_02: textArea({ maxLength: 500 }),
+
+    q_03: textArea({ maxLength: 500 }),
+
+    q_04: textArea({ maxLength: 500 }),
+
+    q_05: textArea({ maxLength: 500 }),
+
+    q_06: textArea({ maxLength: 500 }),
+
+    q_07: textArea({ maxLength: 250 }),
+
+    q_08: textArea({ maxLength: 500 }),
+
+    q_09: textArea({ maxLength: 500 }),
+
+    q_10: textArea({ maxLength: 500 }),
+
+    q_11: textArea({ maxLength: 500 }),
+
+    q_12: textArea({ maxLength: 250 }),
+
+    q_13: textArea({ maxLength: 750 }),
+
+    q_14: textArea({ maxLength: 750 }),
+
+    q_15: textArea({ maxLength: 500 }),
+
+    q_16: textArea({ maxLength: 500 }),
+
+    q_17: textArea({ maxLength: 500 }),
+
+    institution_ratings: validNumber,
+
+    q_18: textArea({ maxLength: 1000 }),
+
+    q_19: textArea({ maxLength: 300 }),
+
+    q_20: textArea({ maxLength: 500 }),
+
+    q_21: textArea({ maxLength: 750 }),
+
+    q_22: textArea({ maxLength: 500 }),
+
+    q_23: textArea({ maxLength: 1000 }),
+
+    q_24: textArea({ maxLength: 500 }),
+
+    q_25: textArea({ maxLength: 500 }),
+
+    q_26: textArea({ maxLength: 500 }),
+
+    q_27: textArea({ maxLength: 500 }),
+
+    q_28: textArea({ maxLength: 500 }),
+
+    q_29: textArea({ maxLength: 500 }),
+
+    q_30: textArea({ maxLength: 500 }),
+
+    q_31: textArea({ maxLength: 500 }),
+
+    q_32: textArea({ maxLength: 500 }),
+
+    q_33: textArea({ maxLength: 300 }),
+
+    q_34: textArea({ maxLength: 300 }),
+
+    q_35: textArea({ maxLength: 300 }),
+
+    q_36: textArea({ maxLength: 300 }),
+
+    q_37: textArea({ maxLength: 300 }),
+
+    q_38: textArea({ maxLength: 500 }),
+
     supportings: validString,
-    ieac_approved: validBoolean,
-    hr_approved: validBoolean,
+    ieac_approved: validBoolean.optional(),
+    hr_approved: validBoolean.optional(),
 });
 
 export type OutstandingInstitutionType = z.infer<

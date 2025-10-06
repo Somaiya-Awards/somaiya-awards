@@ -168,7 +168,7 @@ const columns01: GridColDef[] = [
         width: 200,
     },
     {
-        field: "institute_name",
+        field: "institution_name",
         headerName: "Institute Name",
         width: 250,
     },
@@ -277,7 +277,7 @@ const columns02: GridColDef[] = [
         width: 200,
     },
     {
-        field: "institute_name",
+        field: "institution_name",
         headerName: "Institute Name",
         width: 250,
     },
@@ -385,7 +385,7 @@ const columns03: GridColDef[] = [
         width: 200,
     },
     {
-        field: "institute_name",
+        field: "institution_name",
         headerName: "Institute Name",
         width: 250,
     },

@@ -5,12 +5,12 @@ import { OrbitControls, Environment } from "@react-three/drei";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Lottie from "lottie-react";
-import CertificateData from "../assets/certificate.json";
-import TrophyData from "../assets/trophy.json";
-import MoneyData from "../assets/money.json";
-//@ts-expect-error Import
-import EnvMapTexture from "../assets/skyfire.hdr";
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import Certificate from "../../container/assets/certificate.json";
+import Money from "../../container/assets/money.json";
+import SkyFire from "../../container/assets/skyfire.hdr";
+import Trophy from "../../container/assets/trophy.json";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -26,35 +26,40 @@ export default function Home() {
             {/* SECTION BANNER */}
             <div className="w-full flex bg-red-800 h-[650px]">
                 <div className="w-[40%]">
-                    <Canvas
-                        camera={{ position: [-1, 0, 4.5], near: 0.1, far: 100 }}
-                    >
-                        <OrbitControls />
+                    <ErrorBoundary fallback={<p> SOmething </p>}>
+                        <Canvas
+                            camera={{
+                                position: [-1, 0, 4.5],
+                                near: 0.1,
+                                far: 100,
+                            }}
+                        >
+                            <OrbitControls />
+                            <pointLight
+                                position={[0, 10, 0]}
+                                intensity={2.0}
+                                color="#ffffff"
+                            />
+                            <spotLight
+                                position={[0, 10, 5]}
+                                intensity={5.0}
+                                angle={Math.PI / 6}
+                                penumbra={0.1}
+                                color="#ff9900"
+                            />
+                            <directionalLight
+                                position={[-10, 5, -5]}
+                                intensity={1.5}
+                                color="#00ccff"
+                            />
+                            <ambientLight intensity={0.5} color="#ffffff" />
 
-                        <pointLight
-                            position={[0, 10, 0]}
-                            intensity={2.0}
-                            color="#ffffff"
-                        />
-                        <spotLight
-                            position={[0, 10, 5]}
-                            intensity={5.0}
-                            angle={Math.PI / 6}
-                            penumbra={0.1}
-                            color="#ff9900"
-                        />
-                        <directionalLight
-                            position={[-10, 5, -5]}
-                            intensity={1.5}
-                            color="#00ccff"
-                        />
-                        <ambientLight intensity={0.5} color="#ffffff" />
+                            {/* Environment Map */}
+                            <Environment files={SkyFire} intensity={2} />
 
-                        {/* Environment Map */}
-                        <Environment files={EnvMapTexture} intensity={2} />
-
-                        <Model />
-                    </Canvas>
+                            <Model />
+                        </Canvas>
+                    </ErrorBoundary>
                 </div>
 
                 <div className="w-full text-center">
@@ -199,27 +204,28 @@ export default function Home() {
                     Awards Prizes
                     <hr className="w-[4%] border-slate-300 border-2" />
                 </h2>
-
-                <div className="flex my-7 justify-evenly p-6">
-                    <div style={{ width: "200px", height: "200px" }}>
-                        <Lottie animationData={CertificateData} />
-                        <p className="text-center font-Poppins text-sm text-red-800">
-                            Certificate of Appreciation
-                        </p>
+                <ErrorBoundary fallback={<p> Something </p>}>
+                    <div className="flex my-7 justify-evenly p-6">
+                        <div style={{ width: "200px", height: "200px" }}>
+                            <Lottie animationData={Certificate} />
+                            <p className="text-center font-Poppins text-sm text-red-800">
+                                Certificate of Appreciation
+                            </p>
+                        </div>
+                        <div style={{ width: "200px", height: "200px" }}>
+                            <Lottie animationData={Trophy} />
+                            <p className="text-center font-Poppins text-sm text-red-800">
+                                Souvenir trophy
+                            </p>
+                        </div>
+                        <div style={{ width: "200px", height: "200px" }}>
+                            <Lottie animationData={Money} />
+                            <p className="text-center font-Poppins text-sm text-red-800">
+                                Symbolic financial reward
+                            </p>
+                        </div>
                     </div>
-                    <div style={{ width: "200px", height: "200px" }}>
-                        <Lottie animationData={TrophyData} />
-                        <p className="text-center font-Poppins text-sm text-red-800">
-                            Souvenir trophy
-                        </p>
-                    </div>
-                    <div style={{ width: "200px", height: "200px" }}>
-                        <Lottie animationData={MoneyData} />
-                        <p className="text-center font-Poppins text-sm text-red-800">
-                            Symbolic financial reward
-                        </p>
-                    </div>
-                </div>
+                </ErrorBoundary>
             </div>
 
             <Footer />

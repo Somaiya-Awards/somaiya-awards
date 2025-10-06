@@ -1,10 +1,11 @@
 import * as z from "zod";
-import { arrayChoice, email, textArea, validDate, validString, validYear } from "..";
+import { email, validDate, validString, arrayChoice, textArea } from "..";
 import { agree } from "../../../frontend/src/zod/Forms/StudentNonTeachingFeedbackForm";
+
 export const FeedbackThreeForm = z.object({
     email_id: email,
 
-    student_batch_year: validYear,
+    student_batch_year: validDate,
 
     student_class_and_division: validString,
 
@@ -24,5 +25,3 @@ export const FeedbackThreeForm = z.object({
 
     nomination_reason: textArea({ maxLength: 300 }),
 });
-
-export type FeedbackThreeType = z.infer<typeof FeedbackThreeForm>;

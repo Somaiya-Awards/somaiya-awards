@@ -10,14 +10,14 @@ import { getJwtToken } from "./jwt";
  *   Header Token -> x-access (Main Token), x-refresh (Refresh Token to refresh access)
  * */
 const userAuthenticator = asyncHandler(async (req, res, next) => {
-    const accessToken = req.cookies[AccessCookie];
+    const accessToken = req.headers[AccessCookie];
 
     /**
      * WARN: (Don't Follow that):
      *
      * if something breaks remove this if statement due to token or userID while TESTING
      * */
-
+    console.log(accessToken, req.headers);
     // Both absent
     if (!accessToken) {
         res.status(400).json({

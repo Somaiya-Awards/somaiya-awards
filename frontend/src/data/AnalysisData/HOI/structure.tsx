@@ -523,7 +523,7 @@ const columns02: GridColDef[] = [
 
 const columns03: GridColDef[] = [
     { field: "email_id", headerName: "Email ID", width: 150 },
-    { field: "institute_name", headerName: "Institute Name", width: 150 },
+    { field: "institution_name", headerName: "Institute Name", width: 150 },
     {
         field: "nominee_inspiring_coach",
         headerName: "Nominee Inspiring Coach",
@@ -798,7 +798,7 @@ const columns04: GridColDef[] = [
     { field: "email_id", headerName: "Email ID", width: 150 },
     { field: "faculty_name", headerName: "Faculty Name", width: 150 },
     { field: "awards_category", headerName: "Awards Category", width: 150 },
-    { field: "institute_name", headerName: "Institute Name", width: 150 },
+    { field: "institution_name", headerName: "Institute Name", width: 150 },
     { field: "department", headerName: "Department", width: 150 },
     { field: "designation", headerName: "Designation", width: 150 },
     {
@@ -997,7 +997,7 @@ const columns05: GridColDef[] = [
     { field: "email_id", headerName: "Email ID", width: 150 },
     { field: "staff_name", headerName: "Staff Name", width: 150 },
     { field: "award_category", headerName: "Award Category", width: 150 },
-    { field: "institute_name", headerName: "Institute Name", width: 150 },
+    { field: "institution_name", headerName: "Institute Name", width: 150 },
     { field: "department", headerName: "Department", width: 150 },
     { field: "designation", headerName: "Designation", width: 150 },
     { field: "appointment_date", headerName: "Appointment Date", width: 200 },

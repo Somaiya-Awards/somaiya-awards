@@ -38,7 +38,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
     },
     {
         title: "Name of the Institute:",
-        name: "institute_name",
+        name: "institution_name",
         type: "text",
         required: true,
         validator: validString,

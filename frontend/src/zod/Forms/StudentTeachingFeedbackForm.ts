@@ -7,8 +7,15 @@ import {
     validYear,
 } from "../../../../backend/zod";
 
-const good = ["Outstanding", "Very Good", "Good", "Average", "Poor"] as const;
-const score = [1, 2, 3, 4, 5] as const;
+export const good = [
+    "Outstanding",
+    "Very Good",
+    "Good",
+    "Average",
+    "Poor",
+] as const;
+
+export const score = ["1", "2", "3", "4", "5"] as const;
 
 const StudentTeachingFeedbackFormValidator = z.object({
     email_id: email,

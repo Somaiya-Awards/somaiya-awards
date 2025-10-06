@@ -16,7 +16,8 @@ import dotenv from "dotenv";
 import userAuthenticator from "./middleware/userAuthenticator";
 import roleMiddle from "./middleware/role";
 import cookieParser from "cookie-parser";
-import csrfMiddleware from "./middleware/csrfMiddleware";
+import { sequelize, User } from "./models";
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -52,7 +53,6 @@ app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
 app.use("/auth", authRoute);
 app.use(
     "/forms",
-    csrfMiddleware,
     userAuthenticator,
     /** --Guy who fills form -- ,*/
     formRoute
@@ -81,20 +81,20 @@ app.use(
 app.use(errorHandler);
 
 // server listen and database configuration (do it once, only. Uncomment once, then comment out)
-// sequelize.sync({ alter: false }).then(async (req) => {
+// sequelize.sync({ alter: true }).then(async (req) => {
 //     try {
 //         const userCount = await User.count();
-//
+
 //         if (userCount === 0) {
 //             await User.create({
 //                 email_id: "sas.tech@somaiya.edu",
 //                 password: await bcrypt.hash("Sas@1234", 10),
 //                 role: Role.Admin,
 //             });
-//
+
 //             console.log("Default user created successfully!");
 //         }
-//
+
 //         serverLogger.info(`Connected to database ${req.config.database}`);
 //         console.log("Connected to MySQL database");
 //     } catch (error) {
@@ -102,12 +102,12 @@ app.use(errorHandler);
 //             "Error creating default user: OR User already exists. " + error
 //         );
 //         throw error;
-//     }
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    serverLogger.info(`Server started running at port ${PORT}`);
-    console.log(`Server started running at port ${PORT}`);
-});
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+        serverLogger.info(`Server started running at port ${PORT}`);
+        console.log(`Server started running at port ${PORT}`);
+    });
 // });
-// }
+

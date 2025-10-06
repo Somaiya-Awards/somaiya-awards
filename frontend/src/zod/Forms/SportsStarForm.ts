@@ -8,13 +8,12 @@ import {
 } from "../../../../backend/zod";
 import { Institutes } from "../../../../backend/constants";
 
-
-const option = [1, 2, 3, 4, 5] as const;
+export const option = ["1", "2", "3", "4", "5"] as const;
 
 const SportsStarFormValidator = z.object({
     email_id: email,
 
-    institute_name: arrayChoice(Institutes),
+    institution_name: arrayChoice(Institutes),
 
     nominee_inspiring_coach: validString,
 

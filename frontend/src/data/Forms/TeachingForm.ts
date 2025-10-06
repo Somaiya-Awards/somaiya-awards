@@ -50,7 +50,7 @@ const TeachingForm: FormEntry[] = [
     },
     {
         title: "Name of the Institute",
-        name: "institute_name",
+        name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,

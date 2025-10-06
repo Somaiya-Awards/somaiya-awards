@@ -11,6 +11,7 @@ import ResultsInit from "./Results";
 import SportsInit from "./Sports";
 import StudentsInit from "./Students";
 import TeachingInit from "./Teaching";
+import HouseInit from "./House";
 import { Sequelize } from "sequelize";
 
 export default function InitDB(sequelize: Sequelize) {
@@ -28,5 +29,6 @@ export default function InitDB(sequelize: Sequelize) {
         Sports: SportsInit(sequelize),
         Students: StudentsInit(sequelize),
         Teaching: TeachingInit(sequelize),
+        House: HouseInit(sequelize),
     };
 }

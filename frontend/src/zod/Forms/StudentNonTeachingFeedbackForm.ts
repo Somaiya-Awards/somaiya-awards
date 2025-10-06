@@ -7,7 +7,7 @@ import {
     validString,
 } from "../../../../backend/zod";
 
-const agree = [
+export const agree = [
     "Strongly Agree",
     "Agree",
     "Sometimes",

@@ -1,16 +1,7 @@
 import * as z from "zod";
-import {
-    arrayChoice,
-    email,
-    textArea,
-    validNumber,
-    validString,
-    validYear,
-} from "..";
-import {
-    good,
-    score,
-} from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+import { email, validYear, validString, arrayChoice, textArea } from "..";
+import { good, score } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+
 export const FeedbackOneForm = z.object({
     email_id: email,
 
@@ -28,17 +19,17 @@ export const FeedbackOneForm = z.object({
 
     q_02: arrayChoice(good),
 
-    q_03: validNumber,
+    q_03: arrayChoice(score),
 
-    q_04: validNumber,
+    q_04: arrayChoice(score),
 
-    q_05: validNumber,
+    q_05: arrayChoice(score),
 
     q_06: arrayChoice(good),
 
     q_07: arrayChoice(good),
 
-    q_08: validNumber,
+    q_08: arrayChoice(score),
 
     q_09: arrayChoice(good),
 
@@ -48,5 +39,3 @@ export const FeedbackOneForm = z.object({
 
     nominating_reasons: textArea({ maxLength: 300 }),
 });
-
-export type FeedbackOneType = z.infer<typeof FeedbackOneForm>;

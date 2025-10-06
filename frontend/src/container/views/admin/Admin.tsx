@@ -6,15 +6,15 @@ import LineGraph from "../../../components/status components/LineGraph";
 import Datagrid from "../../../components/status components/Datagrid";
 import Piechart from "../../../components/status components/Piechart";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { MoonLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import React from "react";
 import Axios from "../../../axios";
+import React from "react";
 
 const Admin = () => {
     const [pastData, setPastData] = useState("");
     const [rows, setRows] = useState("");
     const [pieData, setPieData] = useState([]);
+    const [counts, setCounts] = useState([]);
 
     const navigate = useNavigate();
 
@@ -26,9 +26,6 @@ const Admin = () => {
     const loadDashboardData = () => {
         // all Counts
         Axios.get("/admin/data/count/all", {
-            headers: {
-                "x-access-token": localStorage.getItem("token"),
-            },
         })
             .then((res) => {
                 setCounts(res.data.data);
@@ -48,10 +45,6 @@ const Admin = () => {
 
         // institution Wise count
         Axios.get("/admin/data/count/institution-wise", {
-            headers: {
-                "x-user-id": localStorage.getItem("user_id"),
-                "x-access-token": localStorage.getItem("token"),
-            },
         })
             .then((res) => {
                 setRows(res.data.data);
@@ -63,10 +56,6 @@ const Admin = () => {
         // group Wise count
 
         Axios.get("/admin/data/count/group", {
-            headers: {
-                "x-user-id": localStorage.getItem("user_id"),
-                "x-access-token": localStorage.getItem("token"),
-            },
         })
             .then((res) => {
                 setPieData(res.data.data);

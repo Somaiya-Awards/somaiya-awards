@@ -321,9 +321,6 @@ export const getInstitutionWiseCount = asyncHandler(
         // get feedback One Data
 
         //@ts-ignore
-        await FeedbackOne.findAll(conditions);
-
-        //@ts-ignore
         const studentsData: InstituteCount[] =
             await Students.findAll(conditions);
 

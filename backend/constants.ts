@@ -6,7 +6,6 @@ export enum StatusCode {
     METHOD_NOT_ALLOWED = 405,
 }
 export const AccessCookie = "x-access";
-export const CsrfName = "x-csrf";
 export const RefreshCookie = "x-refresh";
 export const CSRF =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

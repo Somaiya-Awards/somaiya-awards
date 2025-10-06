@@ -5,16 +5,13 @@ import SideBar3 from "../container/views/ieac/ieacComponents/Sidebar";
 import SideBar4 from "../container/views/researchAdmin/components/Sidebar";
 import SideBar5 from "../container/views/sportsAdmin/components/Sidebar";
 import SideBar6 from "../container/views/studentsAdmin/components/Sidebar";
-
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
 import React from "react";
 
 const Tutorial = () => {
     const [role, setRole] = useState();
     let ytlink;
     //   let sidebar
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem("role") && localStorage.getItem("token")) {

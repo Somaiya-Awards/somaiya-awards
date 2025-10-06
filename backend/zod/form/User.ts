@@ -1,8 +1,7 @@
 import * as z from "zod";
-import { email, role, validNumber, validString } from "..";
+import { email, role, validString } from "..";
 
 export const UserForm = z.object({
-    id: validNumber,
     email_id: email,
     institution: validString,
     password: validString,

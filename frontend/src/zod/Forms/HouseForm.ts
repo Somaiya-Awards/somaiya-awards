@@ -1,8 +1,8 @@
 import z from "zod";
-import { arrayChoice } from "../../../../backend/zod";
+import { arrayChoice, validFile } from "../../../../backend/zod";
 import { Houses } from "../../../../backend/constants";
 
-const options = [1, 2, 3, 4, 5] as const;
+const options = ["1", "2", "3", "4", "5"] as const;
 
 const HouseEvaluationValidator = z.object({
     house_name: arrayChoice(Houses),
@@ -38,6 +38,7 @@ const HouseEvaluationValidator = z.object({
     // House Spirit / Participation (50 points)
     q_17: arrayChoice(options),
     q_18: arrayChoice(options),
+    proof_docs: validFile({ type: "pdf" }),
 });
 
 export default HouseEvaluationValidator;

@@ -20,7 +20,8 @@ const awardsList = [
     "Outstanding Employee - K. J. Somaiya Hospital",
     "Promising Employee - K. J. Somaiya Hospital",
 ] as const;
-const options = [1, 2, 3, 4, 5] as const;
+
+const options = ["1", "2", "3", "4", "5"] as const;
 
 const NonTeachingForm: FormEntry[] = [
     {
@@ -53,7 +54,7 @@ const NonTeachingForm: FormEntry[] = [
     },
     {
         title: "Name of institute",
-        name: "institute_name",
+        name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,

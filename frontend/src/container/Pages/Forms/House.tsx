@@ -15,7 +15,7 @@ export default function HouseEvaluation() {
         "The House Evaluation Form is designed to assess the overall performance of each house across multiple dimensions including academics, co-curricular activities, sports, discipline, leadership, community service, and house spirit. The evaluation ensures a holistic judgment of the house's contribution and achievements towards the institution’s values and goals.";
 
     const message =
-        "Please score each parameter on a scale of 1 – 5, with 1 being the lowest score and 5 being the highest. Ensure fair judgment based on observations and supporting evidence";
+        "Please score each parameter on a scale of 1 – 5, with 1 being the lowest score and 5 being the highest. Ensure fair judgment based on observations and supporting evidence. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.";
 
     const headings = [
         "Select House",
@@ -35,7 +35,7 @@ export default function HouseEvaluation() {
         <div>
             <div className="flex">
                 <SideBar />
-                <div className="flex flex-col w-full overflow-y-scroll">
+                <div className="flex flex-col w-full overflow-y-scroll h-screen pb-10">
                     <FormInfo title={title} info={award_info} />
                     <Forms
                         pageHeadings={headings}

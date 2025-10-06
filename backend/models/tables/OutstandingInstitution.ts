@@ -28,7 +28,7 @@ interface OutstandingInstitutionAttributes {
     q_15: string;
     q_16: string;
     q_17: string;
-    institution_ratings: string;
+    institution_ratings: number;
     q_18: string;
     q_19: string;
     q_20: string;
@@ -94,7 +94,7 @@ export class OutstandingInstitution
     declare q_15: string;
     declare q_16: string;
     declare q_17: string;
-    declare institution_ratings: string;
+    declare institution_ratings: number;
     declare q_18: string;
     declare q_19: string;
     declare q_20: string;
@@ -237,7 +237,7 @@ export default function OutstandingInstitutionInit(sequelize: Sequelize) {
                 allowNull: false,
             },
             institution_ratings: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             q_18: {

@@ -22,7 +22,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 2 - Academics (100 points)
     {
         title: "Q1. Demonstrates strong knowledge and understanding of academic subjects",
-        name: "academics_subject_knowledge",
+        name: "q_01",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -32,7 +32,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q2. Maintains high quality and effectiveness in teaching and learning methods",
-        name: "academics_teaching_quality",
+        name: "q_02",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -42,7 +42,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q3. Ensures student participation, engagement, and active learning",
-        name: "academics_student_engagement",
+        name: "q_03",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -52,7 +52,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q4. Achieves strong academic results and improvements over time",
-        name: "academics_results",
+        name: "q_04",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -64,7 +64,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 3 - Co-Curricular (100 points)
     {
         title: "Q5. Encourages participation and creativity in arts and cultural activities",
-        name: "co_curricular_arts",
+        name: "q_05",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -74,7 +74,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q6. Promotes involvement in clubs, groups, and extra-curricular activities",
-        name: "co_curricular_clubs",
+        name: "q_06",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -84,7 +84,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q7. Demonstrates innovation and creativity through co-curricular programs",
-        name: "co_curricular_innovation",
+        name: "q_07",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -96,7 +96,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 4 - Sports (100 points)
     {
         title: "Q8. Performs well in individual sports events with dedication and effort",
-        name: "sports_individual",
+        name: "q_08",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -106,7 +106,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q9. Shows teamwork, cooperation, and competitive spirit in team sports",
-        name: "sports_team",
+        name: "q_09",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -116,7 +116,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q10. Demonstrates consistency, discipline, and sportsmanship in competitions",
-        name: "sports_sportsmanship",
+        name: "q_10",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -128,7 +128,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 5 - Discipline & Behavior (50 points)
     {
         title: "Q11. Demonstrates punctuality, regularity, and responsibility in all activities",
-        name: "discipline_punctuality",
+        name: "q_11",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -138,7 +138,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q12. Maintains discipline, good conduct, and respectful behavior consistently",
-        name: "discipline_conduct",
+        name: "q_12",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -150,7 +150,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 6 - Leadership & Initiative (50 points)
     {
         title: "Q13. Takes initiative and shows responsibility in school-wide activities",
-        name: "leadership_initiative_activities",
+        name: "q_13",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -160,7 +160,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q14. Provides mentorship, guidance, and support to peers and juniors",
-        name: "leadership_mentorship",
+        name: "q_14",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -172,7 +172,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 7 - Community Service (50 points)
     {
         title: "Q15. Participates actively in community service and social welfare activities",
-        name: "community_service_participation",
+        name: "q_15",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -182,7 +182,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q16. Creates a positive impact through consistent efforts in social work",
-        name: "community_service_impact",
+        name: "q_16",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -194,7 +194,7 @@ const HouseEvaluationForm: FormEntry[] = [
     // Page 8 - House Spirit / Participation (50 points)
     {
         title: "Q17. Shows enthusiasm and active participation in inter-house events",
-        name: "house_spirit_participation",
+        name: "q_17",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),
@@ -204,7 +204,7 @@ const HouseEvaluationForm: FormEntry[] = [
     },
     {
         title: "Q18. Demonstrates leadership, encouragement, and contribution in house activities",
-        name: "house_spirit_leadership",
+        name: "q_18",
         type: "radio",
         options: scoreOptions,
         validator: arrayChoice(scoreOptions),

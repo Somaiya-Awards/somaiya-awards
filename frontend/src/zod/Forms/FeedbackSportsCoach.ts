@@ -5,14 +5,14 @@ import {
     institute,
     arrayChoice,
 } from "../../../../backend/zod";
-const options = [1, 2, 3, 4, 5] as const;
+const options = ["1", "2", "3", "4", "5"] as const;
 
 const FeedbackSportsCoachValidator = z.object({
     rater_name: validString,
 
     somaiya_mail_id: somaiyaMail,
 
-    institution: institute,
+    institution_name: institute,
 
     nominee_name: validString,
 

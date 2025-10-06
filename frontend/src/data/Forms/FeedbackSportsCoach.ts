@@ -8,7 +8,8 @@ import {
 import Axios from "../../axios";
 
 import { Institutes } from "../../../../backend/constants";
-const options = [1, 2, 3, 4, 5] as const;
+
+const options = ["1", "2", "3", "4", "5"] as const;
 
 const FeedbackSportsCoach: FormEntry[] = [
     {
@@ -31,7 +32,7 @@ const FeedbackSportsCoach: FormEntry[] = [
     },
     {
         title: "Institution",
-        name: "institution",
+        name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",

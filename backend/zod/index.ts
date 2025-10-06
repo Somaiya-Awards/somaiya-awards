@@ -4,7 +4,7 @@ import { Role } from "../types/role";
 import { Institutes } from "../constants";
 
 export const email = z.email({ error: "Invalid email address" });
-export const validNumber = z.number().gte(0, "Number should be greater than 0");
+export const validNumber = z.coerce.number().gte(0, "Number should be greater than 0");
 export const role = z.enum(Role);
 export const validString = z
     .string({ error: "Value must not be empty" })
@@ -19,10 +19,7 @@ export const somaiyaMail = email.regex(/somaiya.edu$/, {
 export const phoneNumber = validString.regex(/^\d{10}/, {
     error: "Invalid Phone Number",
 });
-export const validDate = validString.refine(
-    (date) => !Number.isNaN(new Date(date).valueOf()),
-    { error: "Invalid Date" }
-);
+export const validDate = z.coerce.date({ error: "Invalid Date" })
 export const validYear = validString
     .regex(/^(19|20)\d{2}$/, { error: "Invalid Year" })
     .refine((year) => year <= new Date().getFullYear().toString(), {
@@ -85,9 +82,6 @@ export function validFile({
 export function lastDate(beforeYears: number) {
     return validDate.refine(
         (date) => {
-            const myDate = new Date(date);
-            const isDate = !Number.isNaN(myDate.valueOf());
-
             const now = new Date();
             const previousDate = new Date(
                 now.getFullYear() - beforeYears,
@@ -99,9 +93,9 @@ export function lastDate(beforeYears: number) {
                 "Previous allowed date:",
                 previousDate,
                 "Given date:",
-                myDate
+                date
             );
-            return isDate && myDate <= previousDate;
+            return date <= previousDate;
         },
         { error: `Date should be at least ${beforeYears} years before today` }
     );

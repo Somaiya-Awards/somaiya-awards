@@ -40,7 +40,7 @@ function Field(props: FieldProp) {
         const { name, files } = event.target;
 
         if (!files) return;
-
+        console.log(files[0], files[0] instanceof File);
         const response = props.validator.safeParse(files[0]);
 
         if (!response.success) {
@@ -270,10 +270,10 @@ export function dataHandler<T>(validator: z.ZodType) {
     ) => {
         setData((prev) => {
             const newData = { ...prev };
+            console.log(newData);
             newData[name] = actionType === "add" ? value : null;
             return newData;
         });
-
         setDisplay((prevData) => ({
             ...prevData,
             [name]: value,
@@ -282,7 +282,7 @@ export function dataHandler<T>(validator: z.ZodType) {
 
     const getData = (): T | null => {
         const response = validator.safeParse(data);
-
+        console.log(response);
         if (response.success) {
             return response.data as T;
         } else {
@@ -290,7 +290,7 @@ export function dataHandler<T>(validator: z.ZodType) {
         }
     };
 
-    return { getData, display, handleChange, data, setData };
+    return { getData, display, handleChange, data, setData, setDisplay };
 }
 
 export default Field;

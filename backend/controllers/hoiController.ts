@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { AuthRequest } from "../types/request";
-import { NonTeaching, sequelize } from "../models";
+import { House, NonTeaching, sequelize } from "../models";
 import {
     OutstandingInstitution,
     Research,
@@ -140,3 +140,26 @@ export const studentsDataHandler = asyncHandler(async (req, res) => {
         data: data,
     });
 });
+
+//@desc get data of students to HOI
+//@route GET /hoi/data/students
+//@access private
+
+export const houseDataHandler = asyncHandler(async (req, res) => {
+    const user_institution = (req as AuthRequest).user.institution;
+
+    const currentYear = new Date().getFullYear();
+
+    const data = await House.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
+
+    res.status(200).json({
+        data: data,
+    });
+});
+

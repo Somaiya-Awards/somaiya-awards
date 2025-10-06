@@ -1,25 +1,35 @@
 import * as z from "zod";
-import { email, institute, validNumber, validString } from "..";
-
+import {
+    arrayChoice,
+    phoneNumber,
+    somaiyaMail,
+    textArea,
+    validString,
+} from "..";
+import {
+    agreeList,
+    feedList,
+    stringOption,
+} from "../../../frontend/src/zod/Forms/FeedbackTeachingPeerForm";
 export const FeedbackFourForm = z.object({
-    id: validNumber,
     rater_name: validString,
-    institution_name: institute,
-    department: validString,
+    institute_name: validString,
+    department_name: validString,
     designation: validString,
-    somaiya_mail_id: email,
-    contact_no: validString,
-    nominee_name: validString,
-    category: validString,
-    q_01: validString,
-    q_02: validString,
-    q_03: validString,
-    q_04: validString,
-    q_05: validString,
-    q_06: validString,
-    q_07: validString,
-    q_08: validString,
-    nomination_reason: validString,
+    somaiya_mail_id: somaiyaMail,
+    contact_number: phoneNumber,
+    teacher_name: validString,
+    nomination_category: arrayChoice(stringOption),
+    q_01: arrayChoice(agreeList),
+    q_02: arrayChoice(agreeList),
+    q_03: arrayChoice(agreeList),
+    q_04: arrayChoice(agreeList),
+    q_05: arrayChoice(agreeList),
+    q_06: arrayChoice(agreeList),
+    q_07: arrayChoice(agreeList),
+    q_08: arrayChoice(feedList),
+    q_09: arrayChoice(agreeList),
+    nomination_reason: textArea({ maxLength: 600 }),
 });
 
 export type FeedbackFourType = z.infer<typeof FeedbackFourForm>;

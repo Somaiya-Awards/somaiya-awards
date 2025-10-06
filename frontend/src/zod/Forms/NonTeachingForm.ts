@@ -10,7 +10,7 @@ import {
     validString,
 } from "../../../../backend/zod";
 
-const awardsList = [
+export const awardsList = [
     "Outstanding Employee - Institute (More than 3 years of Service)",
     "Promising Employee - Institute (2 to 3 years of Service)",
     "Outstanding Employee - Somaiya Trust",
@@ -21,18 +21,18 @@ const awardsList = [
     "Promising Employee - K. J. Somaiya Hospital",
 ] as const;
 
-const options = [1, 2, 3, 4, 5] as const;
+export const options = ["1", "2", "3", "4", "5"] as const;
 
 const NonTeachingValidator = z.object({
     email_id: email,
     staff_name: validString,
     award_category: arrayChoice(awardsList),
-    institute_name: institute,
+    institution_name: institute,
     department: validString,
     designation: validString,
-    appointment_date: lastDate(3),
+    date_of_appointment: lastDate(3),
     somaiya_email_id: somaiyaMail,
-    phone_number: phoneNumber,
+    contact_number: phoneNumber,
     q_01: arrayChoice(options),
     q_02: arrayChoice(options),
     q_03: arrayChoice(options),

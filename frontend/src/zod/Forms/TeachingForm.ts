@@ -12,12 +12,12 @@ import {
 import { Institutes } from "../../../../backend/constants";
 import z from "zod";
 
-const awards = [
+export const awards = [
     "Excellence in Teaching (more than 3 years of service)",
     "Promising Teacher of the year (2 to 3 years of service)",
 ] as const;
 
-const score = [1, 2, 3, 4, 5] as const;
+export const score = ["1", "2", "3", "4", "5"] as const;
 
 const TeachingFormValidator = z.object({
     email_id: email,
@@ -26,7 +26,7 @@ const TeachingFormValidator = z.object({
 
     awards_category: arrayChoice(awards),
 
-    institute_name: arrayChoice(Institutes),
+    institution_name: arrayChoice(Institutes),
 
     department: validString,
 

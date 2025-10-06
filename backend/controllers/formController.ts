@@ -15,6 +15,7 @@ import {
     Sports,
     Students,
     Teaching,
+    House,
 } from "../models";
 
 import asyncHandler from "express-async-handler";
@@ -27,16 +28,17 @@ import { sequelize } from "../models";
 import { TeachingForm, TeachingType } from "../zod/form/Teaching";
 import { NonTeachingForm, NonTeachingType } from "../zod/form/NonTeaching";
 import { StudentsForm, StudentsType } from "../zod/form/Students";
-import { FeedbackOneForm, FeedbackOneType } from "../zod/form/FeedbackOne";
+import { FeedbackOneType } from "../zod/form/FeedbackOne";
+import { FeedbackOneForm } from "../zod/form/FeedbackOneForm";
 import { FeedbackTwoForm, FeedbackTwoType } from "../zod/form/FeedbackTwo";
-import {
-    FeedbackThreeForm,
-    FeedbackThreeType,
-} from "../zod/form/FeedbackThree";
+import { FeedbackThreeType } from "../zod/form/FeedbackThree";
+import { FeedbackThreeForm } from "../zod/form/FeedbackThreeForm";
 import { FeedbackFourForm, FeedbackFourType } from "../zod/form/FeedbackFour";
 import { FeedbackFiveForm, FeedbackFiveType } from "../zod/form/FeedbackFive";
 import z from "zod";
 import { validString, email } from "../zod";
+import TeachingFormValidator from "../../frontend/src/zod/Forms/TeachingForm";
+import { HouseType } from "../zod/form/House";
 
 //@desc handle institution form submission
 //@route POST /forms/outstanding-institution
@@ -452,6 +454,68 @@ export const submitFeedback_05 = asyncHandler(async (req, res) => {
     }
 
     formLogger.info(`Feedback 05 form successfully filled by client ${req.ip}`);
+    res.status(200).json({
+        message: "Form submitted successfully",
+        submitted: true,
+    });
+});
+
+//@desc handle non-teaching/staff  form submission
+//@route POST /forms/non-teaching
+//@access private
+
+export const submitForm_06 = asyncHandler(async (req, res) => {
+    let quick = z.object({
+        somaiya_mail_id: email,
+        awards_category: validString,
+    });
+    const { somaiya_mail_id, awards_category } = checkObject<
+        z.infer<typeof quick>
+    >(req.body, quick, res);
+
+    // Check if an entry with the same year, email, and awards category already exists
+    const existingNonTeachingEntry = await NonTeaching.findOne({
+        where: {
+            [Op.and]: [
+                { somaiya_email_id: somaiya_mail_id },
+                { award_category: awards_category },
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+            ],
+        },
+    });
+
+    if (existingNonTeachingEntry) {
+        res.status(400).json({
+            message:
+                "A duplicate entry already exists for this year, email, and awards category.",
+            submitted: false,
+            data: existingNonTeachingEntry,
+        });
+        return;
+    }
+
+    const files = checkFiles(req, res);
+
+    const proof_docs = files.proof_docs[0].path;
+
+    const response = checkObject<HouseType>(
+        { ...req.body, proof_docs },
+        NonTeachingForm,
+        res
+    );
+
+    const result = await House.create(response);
+
+    if (!result) {
+        // throw error
+        res.status(500);
+        formLogger.info(
+            `Failed to save House form filled by client ${req.ip}`
+        );
+        throw new Error("Failed to accept your response");
+    }
+
+    formLogger.info(`House form filled by client ${req.ip}`);
     res.status(200).json({
         message: "Form submitted successfully",
         submitted: true,

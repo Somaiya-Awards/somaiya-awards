@@ -1,8 +1,7 @@
 import * as z from "zod";
-import { validNumber, validString } from "..";
+import { validString } from "..";
 
 export const ResultsForm = z.object({
-    id: validNumber,
     result: validString,
 });
 

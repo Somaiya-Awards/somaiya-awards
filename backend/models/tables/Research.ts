@@ -25,7 +25,7 @@ interface ResearchAttributes {
     ongoing_majorp_count: number;
     completed_consultancy_count: number;
     ongoing_consultancy_count: number;
-    revenue_from_projects: string;
+    revenue_from_projects: number;
     granted_patents_count: number;
     filed_patents_count: number;
     granted_copyrights_count: number;
@@ -73,7 +73,7 @@ export class Research
     declare ongoing_majorp_count: number;
     declare completed_consultancy_count: number;
     declare ongoing_consultancy_count: number;
-    declare revenue_from_projects: string;
+    declare revenue_from_projects: number;
     declare granted_patents_count: number;
     declare filed_patents_count: number;
     declare granted_copyrights_count: number;

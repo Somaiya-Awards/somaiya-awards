@@ -8,7 +8,7 @@ interface TeachingAttributes {
     institution_name: string;
     department: string;
     designation: string;
-    date_of_appointment: string;
+    date_of_appointment: Date;
     somaiya_mail_id: string;
     contact_number: string;
     q_01: number;
@@ -31,7 +31,7 @@ interface TeachingAttributes {
     q_18: number;
     q_19: number;
     q_20: number;
-    q_21: number;
+    q_21: string;
     data_evidence: string;
     profile_photograph: string;
     ieacApproved: boolean;
@@ -65,7 +65,7 @@ export class Teaching
     declare institution_name: string;
     declare department: string;
     declare designation: string;
-    declare date_of_appointment: string;
+    declare date_of_appointment: Date;
     declare somaiya_mail_id: string;
     declare contact_number: string;
     declare q_01: number;
@@ -88,7 +88,7 @@ export class Teaching
     declare q_18: number;
     declare q_19: number;
     declare q_20: number;
-    declare q_21: number;
+    declare q_21: string;
     declare data_evidence: string;
     declare profile_photograph: string;
     declare ieacApproved: boolean;

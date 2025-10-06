@@ -1,17 +1,30 @@
 import * as z from "zod";
-import { email, institute, validBoolean, validNumber, validString } from "..";
-
+import {
+    arrayChoice,
+    email,
+    institute,
+    lastDate,
+    phoneNumber,
+    somaiyaMail,
+    validBoolean,
+    validFile,
+    validNumber,
+    validString,
+} from "..";
+import {
+    awardsList,
+    options,
+} from "../../../frontend/src/zod/Forms/NonTeachingForm";
 export const NonTeachingForm = z.object({
-    id: validNumber,
     email_id: email,
     staff_name: validString,
-    award_category: validString,
+    award_category: arrayChoice(awardsList),
     institution_name: institute,
     department: validString,
     designation: validString,
-    appointment_date: validString,
-    somaiya_email_id: validString,
-    phone_number: validString,
+    date_of_appointment: lastDate(3),
+    somaiya_email_id: somaiyaMail,
+    contact_number: phoneNumber,
     q_01: validNumber,
     q_02: validNumber,
     q_03: validNumber,
@@ -38,11 +51,12 @@ export const NonTeachingForm = z.object({
     q_24: validNumber,
     proof_docs: validString,
     nominee_photograph: validString,
-    ieacApproved: validBoolean,
-    ieac_scoreA: validNumber.nullable(),
-    ieac_scoreB: validNumber.nullable(),
-    ieacApprovedFile: validString.nullable(),
-    hr_approved: validBoolean,
+
+    ieacApproved: validBoolean.optional(),
+    ieac_scoreA: validNumber.optional().nullable(),
+    ieac_scoreB: validNumber.optional().nullable(),
+    ieacApprovedFile: validString.optional().nullable(),
+    hr_approved: validBoolean.optional(),
 });
 
 export type NonTeachingType = z.infer<typeof NonTeachingForm>;

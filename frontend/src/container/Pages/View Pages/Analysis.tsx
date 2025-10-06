@@ -12,6 +12,7 @@ import {
     columns07,
 } from "../../../data/AnalysisData/HOI/structure";
 import Axios from "../../../axios";
+import React from "react";
 
 export default function Analysis() {
     const [title, setTitle] = useState<string>("");
