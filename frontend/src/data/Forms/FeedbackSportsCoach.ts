@@ -1,10 +1,4 @@
 import type { FormEntry } from "./types";
-import {
-    arrayChoice,
-    institute,
-    somaiyaMail,
-    validString,
-} from "../../../../backend/zod";
 import Axios from "../../axios";
 import { FeedbackSportsCoachField as v } from "../../zod/Forms/FeedbackSportsCoach";
 import { Institutes } from "../../../../backend/constants";
