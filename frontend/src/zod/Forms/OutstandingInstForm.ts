@@ -11,16 +11,15 @@ import {
     validYear,
 } from "../../../../backend/zod";
 
-export const nominationCategory = [
+export const OutstandingInstList = [
     "Outstanding School",
     "Outstanding College",
 ] as const;
 
 import { Institutes } from "../../../../backend/constants";
-
-const OutstandingInstFormValidator = z.object({
+export const OutstandingInstFormField = {
     email_id: email,
-    nomination_category: arrayChoice(nominationCategory),
+    nomination_category: arrayChoice(OutstandingInstList),
     institution_name: arrayChoice(Institutes),
     established_In: validYear,
     head_of_institution: validString,
@@ -107,6 +106,7 @@ const OutstandingInstFormValidator = z.object({
     q_38: textArea({ maxLength: 500 }),
 
     supportings: validFile({ type: "pdf" }),
-});
+};
+const OutstandingInstFormValidator = z.object(OutstandingInstFormField);
 
 export default OutstandingInstFormValidator;

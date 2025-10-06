@@ -6,8 +6,7 @@ import {
     validString,
 } from "../../../../backend/zod";
 import { Institutes } from "../../../../backend/constants";
-
-const ResearchFormValidator = z.object({
+export const ResearchFormField = {
     faculty_name: validString,
 
     designation: validString,
@@ -16,7 +15,7 @@ const ResearchFormValidator = z.object({
 
     department: validString,
 
-    tenure: validString,
+    tenure: validNumber,
 
     org_articles_count: validNumber,
 
@@ -77,6 +76,7 @@ const ResearchFormValidator = z.object({
     evidence_of_data_provided: validFile({ type: "pdf" }),
 
     confirmation_of_trueData: arrayChoice(["Agree"]),
-});
+};
+const ResearchFormValidator = z.object(ResearchFormField);
 
 export default ResearchFormValidator;

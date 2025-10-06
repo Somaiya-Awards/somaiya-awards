@@ -1,21 +1,9 @@
-import {
-    arrayChoice,
-    somaiyaMail,
-    textArea,
-    validFile,
-    validString,
-} from "../../../../backend/zod";
-
 import { Institutes } from "../../../../backend/constants";
+import {
+    studentAwardList,
+    StudentsFormDataField as v,
+} from "../../zod/Forms/StudentsFormData";
 import type { FormEntry } from "./types";
-
-const category = [
-    "Somaiya Star -Girl",
-    "Somaiya Star -Boy",
-    "Somaiya Star Citizen",
-    "Somaiya Green Star/ Green Force",
-    "Somaiya Star Innovator",
-] as const;
 
 const StudentsFormData: FormEntry[] = [
     {
@@ -23,7 +11,7 @@ const StudentsFormData: FormEntry[] = [
         name: "email_id",
         type: "email",
         required: true,
-        validator: somaiyaMail,
+        validator: v.email_id,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -32,7 +20,7 @@ const StudentsFormData: FormEntry[] = [
         name: "student_name",
         type: "text",
         required: true,
-        validator: validString,
+        validator: v.student_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -41,8 +29,7 @@ const StudentsFormData: FormEntry[] = [
         name: "students_class",
         type: "text",
         required: true,
-        validator: validString,
-
+        validator: v.students_class,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -51,8 +38,7 @@ const StudentsFormData: FormEntry[] = [
         name: "course",
         type: "text",
         required: true,
-        validator: validString,
-
+        validator: v.course,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -63,7 +49,7 @@ const StudentsFormData: FormEntry[] = [
         required: true,
         dropdownHiddenItem: "Select your institute",
         dropOpt: "multiple",
-        validator: arrayChoice(Institutes),
+        validator: v.institution_name,
         options: Institutes,
         page: 1,
         fieldsPerLine: 2,
@@ -73,8 +59,8 @@ const StudentsFormData: FormEntry[] = [
         type: "radio",
         required: true,
         name: "nomination_category",
-        validator: arrayChoice(category),
-        options: category,
+        validator: v.nomination_category,
+        options: studentAwardList,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -82,7 +68,7 @@ const StudentsFormData: FormEntry[] = [
         title: "Recommendation Note (Max 600 words )",
         name: "recommendation_note",
         type: "textarea",
-        validator: textArea({ maxLength: 600 }),
+        validator: v.recommendation_note,
         required: true,
         page: 2,
         fieldsPerLine: 1,
@@ -92,7 +78,7 @@ const StudentsFormData: FormEntry[] = [
         type: "file",
         required: true,
         name: "supportings",
-        validator: validFile({ type: "pdf" }),
+        validator: v.supportings,
         accept: ".pdf",
         page: 3,
         fieldsPerLine: 1,
