@@ -39,7 +39,6 @@ function getErrorJson(
         return {
             title: getTitle(statusCode),
             message: err.message,
-            stack: err.stack,
         };
     }
 }
