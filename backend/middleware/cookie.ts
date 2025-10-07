@@ -25,14 +25,14 @@ function setCookieOption(
         maxAge,
         httpOnly,
         secure: prod,
-        sameSite: prod ? "none" : "lax"
-    }
+        sameSite: prod ? "none" : "lax",
+    };
 
     if (path) {
-        config.path = path
+        config.path = path;
     }
 
-    return config
+    return config;
 }
 
 export function setCookie(
@@ -51,7 +51,7 @@ export function setCookie(
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    setCookie(res, AccessCookie, cookie, "1h")
+    setCookie(res, AccessCookie, cookie, "1h");
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
@@ -59,9 +59,9 @@ export function setRefreshCookie(res: Response, cookie: string) {
 }
 
 export function removeAccessCookie(res: Response) {
-    res.clearCookie(AccessCookie, setCookieOption("1h"))
+    res.clearCookie(AccessCookie, setCookieOption("1h"));
 }
 
 export function removeRefreshCookie(res: Response) {
-    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"))
+    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"));
 }
