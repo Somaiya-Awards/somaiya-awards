@@ -108,7 +108,7 @@ if (cluster.isPrimary) {
     app.use(errorHandler);
 
     // server listen and database configuration(do it once, only.Uncomment once, then comment out)
-    sequelize.sync({ alter: true }).then(async (req) => {
+    sequelize.sync({ alter: false }).then(async (req) => {
         try {
             const userCount = await User.count();
 
