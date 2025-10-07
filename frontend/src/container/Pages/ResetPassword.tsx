@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
-import Field, { dataHandler } from "../../components/utils/Field";
+import Field from "../../components/utils/Field";
 import React from "react";
 import ForgotValidator, { ForgotType } from "../../zod/Forms/ForgotPassword";
 import { email, validString } from "../../../../backend/zod";
 import Axios from "../../axios";
+import { useData } from "../../hooks/data";
 
 export default function ResetPassword() {
     const { id, token } = useParams();
-    const [authorized, setAuthorized] = useState(false);
-    const {display, getData, handleChange} = dataHandler<ForgotType>(ForgotValidator)
+    const { display, getData, handleChange } = useData<ForgotType>(ForgotValidator)
     const [confirmation, setConfirmation] = useState(false);
     const navigate = useNavigate();
 
     const handleClick = () => {
         Axios
             .post(`/auth/${id}/${token}`, getData())
-            .then((res) => {
-                console.log(res);
+            .then(() => {
                 setConfirmation(true);
                 setTimeout(() => {
                     navigate("/auth/login");
@@ -30,17 +29,6 @@ export default function ResetPassword() {
             });
     };
 
-    useEffect(() => {
-        Axios.get(`/auth/${id}/${token}`)
-            .then((res) => {
-                setAuthorized(res.data.authorized)
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, []);
-
     return (
         <div>
             <Navbar />
@@ -50,15 +38,12 @@ export default function ResetPassword() {
                     <div>
                         <h2 className="text-center text-2xl text-red-700 font-Poppins font-semibold">
                             {!confirmation
-                                ? authorized
                                     ? "Reset Password"
-                                    : " Unauthorized Access"
                                 : null}
                         </h2>
                     </div>
 
                     {!confirmation ? (
-                        authorized ? (
                             <>
                                 <div className="p-5 mt-3 font-Poppins">
                                     <Field
@@ -101,20 +86,6 @@ export default function ResetPassword() {
                                     </button>
                                 </div>
                             </>
-                        ) : (
-                            <>
-                                <div className="p-5 my-6">
-                                    <p className="font-Poppins">
-                                        Sorry , we could not recognize you as
-                                        per our security checks. Please contact
-                                        out I.T team for further assistance
-                                    </p>
-                                    <p className="font-Poppins text-center mt-6 text-md text-red-700">
-                                        Mail us at &lt; itsupport@gmail.com &gt;
-                                    </p>
-                                </div>
-                            </>
-                        )
                     ) : (
                         <>
                             <div className="p-5 text-center font-Poppins">

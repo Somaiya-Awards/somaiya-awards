@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
@@ -9,7 +9,6 @@ import FormCard from "../../../components/utils/FormCard";
 import Teaching from "/teaching.jpeg";
 //@ts-expect-error JPEG load
 import NonTeaching from "/non-teaching.jpeg";
-import { MoonLoader } from "react-spinners";
 import Axios, { URL } from "../../../axios";
 
 export default function Student() {

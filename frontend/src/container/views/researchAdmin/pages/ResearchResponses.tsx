@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import SideBar from "../components/Sidebar";
 import { columns01 } from "../../../../data/AnalysisData/RESEARCH ADMIN/structure";
-import { MoonLoader } from "react-spinners";
 import Axios from "../../../../axios";
+import React from "react";
 
 export default function ResearchResponses() {
     const [rows, setRows] = useState([]);
     const [columns] = useState(columns01);
+    const url = "/research-admin/data/research";
 
     useEffect(() => {
-        const url = "/research-admin/data/research";
         Axios.get(url)
             .then((res) => {
                 setRows(res.data.data);

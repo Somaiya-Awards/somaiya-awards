@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Tile from "../studentsAdmin/components/Tile";
 import Axios, { URL } from "../../../axios";
+import React from "react";
 
 export default function ResearchAdmin() {
     const navigate = useNavigate();

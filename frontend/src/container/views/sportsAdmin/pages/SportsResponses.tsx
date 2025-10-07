@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SideBar from "../components/Sidebar";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
     columns01,
     columns02,
     columns03,
 } from "../../../../data/AnalysisData/SPORTS ADMIN/structure";
 import Axios from "../../../../axios";
+import React from "react";
 
 export default function SportsResponses() {
     const [rows, setRows] = useState([]);
-    const [columns, setColumns] = useState([]);
-    const [title, setTitle] = useState();
+    const [columns, setColumns] = useState<GridColDef[]>([]);
+    const [title, setTitle] = useState<string>();
 
     const location = useLocation();
     const navigate = useNavigate();
+    const path = location.pathname.split("/responses/")[1];
+    const name = path.replaceAll("-", " ");
 
     useEffect(() => {
-        const path = location.pathname.split("/responses/")[1];
-        const name = path.replaceAll("-", " ");
 
         switch (path) {
             case "sports-star-girl":
@@ -49,7 +50,7 @@ export default function SportsResponses() {
             });
 
         setTitle(name);
-    }, []);
+    }, [navigate, path]);
 
     return (
         <div className="flex">

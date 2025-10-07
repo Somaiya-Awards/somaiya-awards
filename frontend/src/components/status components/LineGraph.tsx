@@ -1,7 +1,7 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
-function LineGraph(props:any) {
+function LineGraph(props: {data: []}) {
 
   const data = props.data
 

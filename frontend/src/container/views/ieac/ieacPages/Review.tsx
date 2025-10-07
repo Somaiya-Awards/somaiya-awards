@@ -15,12 +15,12 @@ import React from "react";
 export default function Review() {
     const [title, setTitle] = useState("");
     const [columns, setColumns] = useState<GridColDef[]>([]);
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState<{ieacApprovedFile: File}[]>([]);
     const location = useLocation();
     const navigate = useNavigate();
+    const pathLabel = location.pathname.split("/review/")[1];
 
     useEffect(() => {
-        const pathLabel = location.pathname.split("/review/")[1];
         setTitle(pathLabel);
 
         switch (pathLabel) {
@@ -51,7 +51,7 @@ export default function Review() {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [navigate, pathLabel]);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const data = {
@@ -119,7 +119,7 @@ export default function Review() {
                         />
                     </div>
                     {rows[0] ? (
-                        rows[0].ieacApprovedFile != null ? null : (
+                        rows[0]?.ieacApprovedFile != null ? null : (
                             <div>
                                 <input
                                     type="file"

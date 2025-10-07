@@ -8,7 +8,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-function Piechart(props: any) {
+function Piechart(props: {data: []}) {
     const data = props.data;
 
     const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50"];

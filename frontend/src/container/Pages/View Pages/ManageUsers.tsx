@@ -88,8 +88,7 @@ export default function ManageUsers() {
 
     const handleChange = (
         name: string,
-        value: string | File,
-        actionType: "add" | "delete"
+        value: string | File
     ) => {
         if (name === "user_email_id") {
             setCredentials({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import FormStages from "./FormStages";
-import Field, { dataHandler } from "./utils/Field";
+import Field from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -10,6 +10,7 @@ import swalAlert from "./utils/swal";
 import type { FormEntry } from "../data/Forms/types";
 import z from "zod";
 import { lastDate } from "../../../backend/zod";
+import { useData } from "../hooks/data";
 
 export type FormProps = {
     pageCount: number;
@@ -59,7 +60,7 @@ export default function Forms(props: FormProps) {
     };
 
     const { setDisplay, display, getData, handleChange, data, setData } =
-        dataHandler<z.infer<typeof props.validator>>(props.validator);
+        useData<z.infer<typeof props.validator>>(props.validator);
 
     useEffect(() => {
         const dataName = formName + "Data";
@@ -201,7 +202,7 @@ export default function Forms(props: FormProps) {
             }
             return null;
         });
-    }, [props.data, current, display]);
+    }, [props.data, current, display, formName, handleChange]);
 
     useEffect(() => {
         const dataName = formName + "Data";
@@ -212,7 +213,7 @@ export default function Forms(props: FormProps) {
             setData(JSON.parse(localStorage.getItem(dataName) || "{}"));
             setDisplay(JSON.parse(localStorage.getItem(dataName) || "{}"));
         }
-    }, []);
+    }, [formName, setData, setDisplay]);
 
     useEffect(() => {
         // is this necessary?

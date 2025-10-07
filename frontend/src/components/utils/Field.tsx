@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
@@ -84,14 +84,14 @@ function Field(props: FieldProp) {
         ));
     }
 
-    function DropwDownProp(props: FieldProp) {
+    function DropDownProp(props: FieldProp) {
         if (props.type !== "dropdown") return null;
         return props.dropOpt === "single" ? (
             <select
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={props.value ? props.value : ""}
+                value={props.value ? props.value as string: ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -104,7 +104,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={props.value ? props.value : ""}
+                value={props.value ? props.value as string : ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -121,7 +121,7 @@ function Field(props: FieldProp) {
             <textarea
                 className="border-black p-3 border-2 rounded-lg w-full h-48"
                 name={props.name}
-                value={props.value ? props.value : ""}
+                value={props.value ? props.value as string : ""}
                 onChange={handleTextChange}
             ></textarea>
         );
@@ -163,7 +163,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                value={props.value ? props.value : ""}
+                value={props.value ? props.value as string : ""}
                 onChange={handleTextChange}
             />
         );
@@ -188,7 +188,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                value={props.value ? props.value : ""}
+                value={props.value ? props.value as string : ""}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleTextChange}
@@ -207,7 +207,7 @@ function Field(props: FieldProp) {
             case "radio":
                 return RadioProp(props);
             case "dropdown":
-                return DropwDownProp(props);
+                return DropDownProp(props);
             case "text":
             case "email":
             case "date":
@@ -260,40 +260,5 @@ function Field(props: FieldProp) {
     );
 }
 
-export function dataHandler<T>(validator: z.ZodType) {
-    const [data, setData] = useState<T | {}>({});
-    const [display, setDisplay] = useState<{ [key: string]: string | File }>(
-        {}
-    );
-
-    const handleChange = (
-        name: string,
-        value: string | File,
-        actionType: "add" | "delete"
-    ) => {
-        setData((prev) => {
-            const newData = { ...prev };
-            console.log(newData);
-            newData[name] = actionType === "add" ? value : null;
-            return newData;
-        });
-        setDisplay((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
-    const getData = (): T | null => {
-        const response = validator.safeParse(data);
-        console.log(response);
-        if (response.success) {
-            return response.data as T;
-        } else {
-            return null;
-        }
-    };
-
-    return { getData, display, handleChange, data, setData, setDisplay };
-}
 
 export default Field;

@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../../components/utils/FormCard";
-import { MoonLoader } from "react-spinners";
 import React from "react";
 import Axios, { URL } from "../../../axios";
 
@@ -15,8 +13,6 @@ export default function Student() {
     const handleLogout = () => {
         // remove token from local storage
         Axios.post(URL.AUTH.LOGOUT);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
 
         Swal.fire({
             title: "Successfully Logged Out",

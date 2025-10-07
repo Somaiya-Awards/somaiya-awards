@@ -6,7 +6,7 @@ import {
 } from "@mui/x-data-grid";
 import React from "react";
 
-function Datagrid(props: { rows: { [key: string]: any }[] }) {
+function Datagrid(props: { rows: { [key: string]: [] }[] }) {
     const rows: GridRowsProp = props.rows;
 
     const columns: GridColDef[] = [

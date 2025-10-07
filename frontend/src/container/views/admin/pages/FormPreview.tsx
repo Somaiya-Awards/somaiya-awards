@@ -8,6 +8,7 @@ import NonTeachingForm from "../../../../data/Forms/NonTeachingForm";
 import { useReactToPrint } from "react-to-print";
 import type { FormEntry } from "../../../../data/Forms/types";
 import Axios from "../../../../axios";
+import React from "react";
 
 type IdkData = {
     [key: string]: string;

@@ -1,15 +1,15 @@
 import { isAxiosError } from 'axios';
-import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import * as z from "zod";
 import { Config, getAxiosMethod, RequestMethod } from '.';
 
 
-async function process(config: Config, url: string, method: RequestMethod): Promise<> {
+async function process(config: Config, url: string, method: RequestMethod) {
 
     try {   
-        let data = await config.validator.parseAsync(config.data);
+        const data = await config.validator.parseAsync(config.data);
         const response = await getAxiosMethod(method)(url, data);
-        let res = await config.response.parseAsync(response.data);
+        const res = await config.response.parseAsync(response.data);
         return {type: "success", data: res };
 
     } catch(Error){
@@ -20,7 +20,7 @@ async function process(config: Config, url: string, method: RequestMethod): Prom
 
         if(isAxiosError(Error)){
             try {
-                let { error } = await config.response.parseAsync(Error.response?.data)
+                const { error } = await config.response.parseAsync(Error.response?.data)
 
                 if(Error.response?.status !== 500){
                     return { type: "failure", error };

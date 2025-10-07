@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SideBar from "./ieacComponents/Sidebar";
-import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "./ieacComponents/Tile";
-import Axios from "../../../axios";
 
 export default function Ieac() {
     const navigate = useNavigate();

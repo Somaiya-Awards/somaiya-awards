@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
-import Field, { dataHandler } from "../../components/utils/Field";
+import Field from "../../components/utils/Field";
 import React from "react";
 import Axios from "../../axios";
 import {
@@ -9,9 +9,10 @@ import {
     ForgotPasswordValidator,
 } from "../../zod/Forms/ForgotPassword";
 import { email } from "../../../../backend/zod";
+import { useData } from "../../hooks/data";
 
 export default function ForgotPassword() {
-    const { display, getData, handleChange } = dataHandler<ForgotPasswordType>(
+    const { display, getData, handleChange } = useData<ForgotPasswordType>(
         ForgotPasswordValidator
     );
     const [submitted, setSubmitted] = useState(false);

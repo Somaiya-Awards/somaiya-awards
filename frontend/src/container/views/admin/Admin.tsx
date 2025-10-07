@@ -7,14 +7,16 @@ import Datagrid from "../../../components/status components/Datagrid";
 import Piechart from "../../../components/status components/Piechart";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
-import Axios from "../../../axios";
+import Axios, { URL } from "../../../axios";
 import React from "react";
 
 const Admin = () => {
-    const [pastData, setPastData] = useState("");
-    const [rows, setRows] = useState("");
-    const [pieData, setPieData] = useState([]);
-    const [counts, setCounts] = useState([]);
+    const [pastData, setPastData] = useState<[]>([]);
+    const [rows, setRows] = useState<{
+        [key: string]: [];
+    }[]>([]);
+    const [pieData, setPieData] = useState<[]>([]);
+    const [counts, setCounts] = useState<{[key: string]: number}>({});
 
     const navigate = useNavigate();
 
@@ -71,9 +73,8 @@ const Admin = () => {
 
     const handleLogout = () => {
         // remove token from local storage
+        Axios.post(URL.AUTH.LOGOUT);
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
 
         Swal.fire({
             title: "Successfully Logged Out",

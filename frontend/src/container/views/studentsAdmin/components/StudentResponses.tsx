@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SideBar from "./Sidebar";
 import { useLocation } from "react-router-dom";
 import { DataGrid, type GridColDef, GridToolbar } from "@mui/x-data-grid";
 import columns01 from "../../../../data/AnalysisData/STUDENTS ADMIN/structure";
-import { MoonLoader } from "react-spinners";
 import Axios from "../../../../axios";
+import React from "react";
+
 export default function StudentResponses() {
     const [title, setTitle] = useState<string>();
-    const [columns, setColumns] = useState<GridColDef[]>([columns01]);
+    const [columns] = useState<GridColDef[]>([columns01]);
     const [rows, setRows] = useState([]);
     const location = useLocation();
 

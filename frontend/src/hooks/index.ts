@@ -2,7 +2,7 @@ import z from "zod";
 import Axios from '../axios';
 
 export type Data = {
-    [key: string]: any
+    [key: string]: string
 }
 /** Data and it's validator */
 export type Config = {data: Data, validator: z.ZodObject, response: z.ZodObject };
