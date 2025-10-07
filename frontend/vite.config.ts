@@ -7,5 +7,9 @@ export default defineConfig({
     assetsInclude: ["**/*.hdr"],
     build: {
         target: "es2021"
+    },
+    esbuild: {
+        include: /\.tsx?$/, 
+        exclude: /\.jsx?$/,
     }
 });
