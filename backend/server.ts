@@ -65,7 +65,7 @@ if (cluster.isPrimary) {
         "/forms",
         csrfMiddleware,
         userAuthenticator,
-        /** --Guy who fills form -- ,*/
+        roleMiddle(Role.Hoi),
         formRoute
     );
     app.use(
