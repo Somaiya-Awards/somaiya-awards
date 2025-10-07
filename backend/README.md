@@ -3,47 +3,28 @@
 
 Backend server for somaiya awards project . The backend API is created using Node JS and Express JS 
 
-
-
-
 ## Run Locally
 
-Clone the project
-
-```bash
-  git clone https://github.com/trushildhokiya/somaiya-awards.git
-```
-
-Go to the project directory
-
-```bash
-  cd backend
-```
-
-Install dependencies
+1) Install dependencies
 
 ```bash
   npm install
 ```
 
-Start the development server
+2) Start the development server
 
 ```bash
   npm run dev
 ```
 
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`MYSQL database Password` ~ Inside config.js File 
+`MYSQL database Password` ~ Inside config.js File
 
-`Your Gmail address and APP KEY`
-
-
+`Other variables` (follow .env.template to make .env)
 
 ## Tech Stack
 
-**Server:** Node, Express , MYSQL  
-
+**Server:** Node, Express, TypeScript, Zod, MYSQL  
