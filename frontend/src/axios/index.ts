@@ -2,7 +2,7 @@ import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { validString } from "../../../backend/zod";
 import { CsrfName } from "../../../backend/constants";
 
-const BASE_URL = "http://localhost:5001";
+export const BASE_URL = "http://localhost:5001";
 
 interface Config extends AxiosRequestConfig {
     retry?: boolean;
