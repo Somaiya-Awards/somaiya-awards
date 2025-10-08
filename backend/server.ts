@@ -83,13 +83,7 @@ if (cluster.isPrimary) {
         roleMiddle(Role.StudentAdmin),
         studentAdminRoutes
     );
-    app.use(
-        "/sports-admin/data",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.SportsAdmin),
-        sportsAdminRoutes
-    );
+    app.use("/sports-admin/data", sportsAdminRoutes);
     app.use(
         "/research-admin/data",
         csrfMiddleware,
