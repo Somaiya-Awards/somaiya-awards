@@ -7,6 +7,10 @@ import {
     somaiyaGreenStarDataHandler,
     studentsDataUpdater,
 } from "../controllers/studentAdminController";
+import csrfMiddleware from "../middleware/csrfMiddleware";
+import userAuthenticator from "../middleware/userAuthenticator";
+import roleMiddle from "../middleware/role";
+import { Role } from "../types/role";
 
 const router = express.Router();
 
@@ -24,6 +28,13 @@ router.route("/somaiya-green-star").get(somaiyaGreenStarDataHandler);
  * Put REQUEST
  */
 
-router.route("/update").put(studentsDataUpdater);
+router
+    .route("/update")
+    .put(
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle(Role.SportsAdmin),
+        studentsDataUpdater
+    );
 
 export default router;
