@@ -18,6 +18,16 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
      * if something breaks remove this if statement due to token or userID while TESTING
      * */
     // Both absent
+    //
+
+    const disable = process.env.AuthDisable === "1";
+
+    /** Might break further user based requests */
+    if (disable) {
+        next();
+        return;
+    }
+
     if (!accessToken) {
         res.status(400).json({
             message: "Malformed Request",

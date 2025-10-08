@@ -18,7 +18,6 @@ router.route("/nominated-coach-names").get(getNominatedNames);
 /**
  * PUT REQUEST
  */
-
 router.route("/update").put(sportsDataUpdater);
 
 export default router;

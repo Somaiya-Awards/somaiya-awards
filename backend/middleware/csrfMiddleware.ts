@@ -71,33 +71,40 @@ const csrfMiddleware = asyncHandler(async (req, res, next) => {
     const csrfTokenHeader = req.headers[CsrfName];
     const csrfTokenCookie = req.cookies[CsrfName];
 
-    // setCsrfCookie(req, res);
-    //
-    // if (req.method === "GET") {
-    //     next();
-    //     return;
-    // }
+    const disable = process.env.CsrfDisable === "1";
 
-    // if (!(csrfTokenCookie && csrfTokenHeader)) {
-    //     res.status(400).json({
-    //         message: "Malformed CSRF Request",
-    //     });
-    //     return;
-    // }
-    //
-    // if (Array.isArray(csrfTokenCookie) || Array.isArray(csrfTokenHeader)) {
-    //     res.status(400).json({
-    //         error: "Received Multiple CSRF Tokens",
-    //     });
-    //     return;
-    // }
-    //
-    // if (csrfTokenCookie !== unmaskSecret(csrfTokenHeader)) {
-    //     res.status(400).json({
-    //         error: "Incorrect CSRF Token",
-    //     });
-    //     return;
-    // }
+    if (disable) {
+        next();
+        return;
+    }
+
+    setCsrfCookie(req, res);
+
+    if (req.method === "GET") {
+        next();
+        return;
+    }
+
+    if (!(csrfTokenCookie && csrfTokenHeader)) {
+        res.status(400).json({
+            message: "Malformed CSRF Request",
+        });
+        return;
+    }
+
+    if (Array.isArray(csrfTokenCookie) || Array.isArray(csrfTokenHeader)) {
+        res.status(400).json({
+            error: "Received Multiple CSRF Tokens",
+        });
+        return;
+    }
+
+    if (csrfTokenCookie !== unmaskSecret(csrfTokenHeader)) {
+        res.status(400).json({
+            error: "Incorrect CSRF Token",
+        });
+        return;
+    }
 
     next();
 });
