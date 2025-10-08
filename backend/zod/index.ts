@@ -10,7 +10,10 @@ export const validNumber = z.coerce
 export const role = z.enum(Role);
 export const validString = z
     .string({ error: "Value must not be empty" })
-    .refine((data) => data !== "", { error: "Value must not be empty" });
+    .regex(/^[a-zA-Z0-9-_./\\\s]+$/, {
+        error: "Value can only contain the following characters: a-z, A-Z, 0-9 and spaces",
+    });
+
 export const institute = z.enum(Institutes);
 export const validBoolean = z.boolean();
 export const numberList = z.array(z.number());

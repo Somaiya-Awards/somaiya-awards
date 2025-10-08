@@ -1,10 +1,5 @@
 import * as z from "zod";
-import {
-    institute,
-    somaiyaMail,
-    validNumber,
-    validString,
-} from "..";
+import { institute, somaiyaMail, validNumber, validString } from "..";
 
 export const FeedbackFiveForm = z.object({
     rater_name: validString,
