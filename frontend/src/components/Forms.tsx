@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import FormStages from "./FormStages";
 import Field from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
@@ -35,8 +35,11 @@ export default function Forms(props: FormProps) {
     const navigate = useNavigate();
 
     const [current, setCurrent] = useState(0);
-    const [percentage] = useState(0);
-    const formName = window.location.href.split("/forms/")[1];
+    const [percentage, setPercentage] = useState(0);
+    const formName = useMemo(
+        () => window.location.href.split("/forms/")[1],
+        []
+    );
 
     /**
      * functions
@@ -56,9 +59,17 @@ export default function Forms(props: FormProps) {
         }
     };
 
-    const { display, getData, handleChange } = useData<
-        z.infer<typeof props.validator>
-    >(props.validator);
+    const { setDisplay, display, getData, handleChange, data, setData, focus } =
+        useData<z.infer<typeof props.validator>>(props.validator);
+
+    const handleFieldChange = (
+        name: string,
+        value: string | File,
+        actionType: "add" | "delete"
+    ) => {
+        handleChange(name, value, actionType);
+        setPercentage(Object.keys(data).length / props.data.length);
+    };
 
     /**
      * @returns page number of field which is not present in formData state
@@ -130,51 +141,78 @@ export default function Forms(props: FormProps) {
         }
     };
 
+    const colorChange = () => {
+        const stagesList = document.querySelectorAll(".stages");
+
+        for (const stages of stagesList) {
+            const stageNumber = Number(stages.innerHTML);
+
+            if (stageNumber < current + 1) {
+                stages.classList.add("bg-red-500");
+                stages.classList.add("text-white");
+                stages.classList.remove("bg-white");
+            } else {
+                stages.classList.remove("bg-red-500");
+                stages.classList.remove("text-white");
+                stages.classList.add("bg-white");
+            }
+        }
+    };
+
     const handleFormStageChange = (e: React.MouseEvent<HTMLElement>) => {
         //@ts-expect-error Event type matching ignore
         const value = Number(e.target.innerHTML) - 1;
         setCurrent(value); // renders everything
+
+        // color change logic
+        colorChange();
     };
 
     /**
      * Renderers
      */
 
-    const RenderFields = useCallback(() => {
-        return props.data.map((entry) => {
-            if (current === entry.page - 1) {
-                if (entry.name === "date_of_appointment") {
-                    const years =
-                        display["awards_category"] ===
-                        "Promising Teacher of the year (2 to 3 years of service)"
-                            ? 2
-                            : 3;
+    const RenderFields = useMemo(() => {
+        return props.data
+            .filter((entry) => current === entry.page - 1)
+            .map((entry) => {
+                const value = display[entry.name] || "";
 
-                    entry.validator = lastDate(years) as z.ZodCoercedDate<Date>;
+                const validator =
+                    entry.name === "date_of_appointment"
+                        ? lastDate(
+                            display["awards_category"] ===
+                                "Promising Teacher of the year (2 to 3 years of service)"
+                                ? 2
+                                : 3
+                        )
+                        : entry.validator;
 
-                    return (
-                        <Field
-                            key={entry.name}
-                            {...entry}
-                            value={display[entry.name] || ""}
-                            formType={formName}
-                            onChange={handleChange}
-                        />
-                    );
-                }
                 return (
                     <Field
                         key={entry.name}
                         {...entry}
-                        value={display[entry.name] || ""}
+                        value={value}
+                        validator={validator}
                         formType={formName}
-                        onChange={handleChange}
+                        onChange={handleFieldChange}
                     />
                 );
-            }
-            return null;
-        });
-    }, [props.data, current, display, formName, handleChange]);
+            });
+    }, [props.data, current, display, formName]);
+
+
+    useEffect(() => {
+        const dataName = formName + "Data";
+        console.log("setting")
+
+        if (!localStorage.getItem(dataName)) {
+            setData({});
+        } else {
+            setData(JSON.parse(localStorage.getItem(dataName) || "{}"));
+            setDisplay(JSON.parse(localStorage.getItem(dataName) || "{}"));
+        }
+    }, [formName, setData, setDisplay]);
 
     useEffect(() => {
         // is this necessary?
@@ -226,7 +264,7 @@ export default function Forms(props: FormProps) {
                 </div>
 
                 <div className="form py-5 px-3">
-                    <RenderFields />
+                    {RenderFields}
 
                     <div className="mt-10 px-3 flex justify-between">
                         <button

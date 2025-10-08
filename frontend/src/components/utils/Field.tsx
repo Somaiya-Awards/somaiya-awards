@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./css/config.css";
-import type { FormEntry } from "../../data/Forms/types";
+import type { FormEntry } from "../../props.value/Forms/types";
 import * as z from "zod";
 
 export type FieldProp = {
@@ -14,250 +14,204 @@ export type FieldProp = {
     value: string | File;
 } & FormEntry;
 
-function Field(props: FieldProp) {
+function Field({
+    name,
+    type,
+    title,
+    required,
+    options = [],
+    value,
+    validator,
+    link,
+    dropOpt,
+    dropdownHiddenItem,
+    accept,
+    fieldsPerLine,
+    onChange,
+}: FieldProp) {
     const [error, setError] = useState<string | null>(null);
-    const [, setFocused] = useState<boolean>(false);
 
-    function handleTextChange<
-        T extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
-    >(event: React.ChangeEvent<T>) {
-        const { name, value } = event.target;
-        const validator = props.validator;
-        const response = validator.safeParse(value);
+    const handleTextChange = useCallback(
+        <T extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+            event: React.ChangeEvent<T>
+        ) => {
+            const { name, value } = event.target;
+            const res = validator.safeParse(value);
+            if (!res.success) {
+                setError(
+                    z.treeifyError(res.error as z.ZodError).errors.join(", ")
+                );
+                onChange(name, value, "delete");
+            } else {
+                setError(null);
+                onChange(name, value, "add");
+            }
+        },
+        [onChange, validator]
+    );
 
-        if (!response.success) {
-            setError(
-                z.treeifyError(response.error as z.ZodError).errors.join(", ")
-            );
-            props.onChange(name, value, "delete");
-        } else {
-            props.onChange(name, value as string, "add");
-            setError(null);
-        }
-    }
+    const handleFileChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, files } = event.target;
+            if (!files) return;
+            const file = files[0];
+            const res = validator.safeParse(file);
+            if (!res.success) {
+                setError(
+                    z.treeifyError(res.error as z.ZodError).errors.join(", ")
+                );
+                onChange(name, file, "delete");
+            } else {
+                setError(null);
+                onChange(name, file, "add");
+            }
+        },
+        [onChange, validator]
+    );
 
-    function handleFileChange<T extends HTMLInputElement>(
-        event: React.ChangeEvent<T>
-    ) {
-        const { name, files } = event.target;
-
-        if (!files) return;
-        const response = props.validator.safeParse(files[0]);
-
-        if (!response.success) {
-            setError(
-                z.treeifyError(response.error as z.ZodError).errors.join(", ")
-            );
-            props.onChange(name, files[0], "delete");
-        } else {
-            props.onChange(name, response.data as File, "add");
-            setError(null);
-        }
-    }
-
-    const handleFocus = () => {
-        setFocused(true);
-    };
-
-    const handleBlur = () => {
-        setFocused(false);
-    };
-
-    function RadioProp(props: FieldProp) {
-        if (props.type !== "radio") return null;
-
-        return props.options.map((item: string | number, index: number) => (
-            <div key={index}>
-                <label>
-                    <input
-                        type={props.type}
-                        name={props.name}
-                        required={props.required}
-                        value={item}
-                        checked={props.value === item ? true : false}
-                        className=""
-                        onChange={handleTextChange}
-                    />{" "}
-                    {item}
-                </label>
-            </div>
-        ));
-    }
-
-    function DropDownProp(props: FieldProp) {
-        if (props.type !== "dropdown") return null;
-        return props.dropOpt === "single" ? (
-            <select
-                name={props.name}
-                required={props.required}
-                onChange={handleTextChange}
-                value={props.value ? (props.value as string) : ""}
-                className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
-            >
-                <option hidden> {props.dropdownHiddenItem} </option>
-                <option value={localStorage.getItem("institution") as string}>
-                    {localStorage.getItem("institution")}
-                </option>
-            </select>
-        ) : (
-            <select
-                name={props.name}
-                required={props.required}
-                onChange={handleTextChange}
-                value={props.value ? (props.value as string) : ""}
-                className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
-            >
-                <option hidden> {props.dropdownHiddenItem} </option>
-                {props.options.map((item) => {
-                    return <option value={item}>{item}</option>;
-                })}
-            </select>
-        );
-    }
-
-    function TextAreaProp(props: FieldProp) {
-        if (props.type !== "textarea") return null;
-        return (
-            <textarea
-                className="border-black p-3 border-2 rounded-lg w-full h-48"
-                name={props.name}
-                value={props.value ? (props.value as string) : ""}
-                onChange={handleTextChange}
-            ></textarea>
-        );
-    }
-
-    function FileProp(props: FieldProp) {
-        if (props.type !== "file") return null;
-
-        return (
-            <>
-                <input
-                    autoComplete="off"
-                    type={props.type}
-                    accept={props.accept}
-                    name={props.name}
-                    required={props.required}
-                    className={`focus:outline-none color-red-400 }`}
-                    onChange={handleFileChange}
-                />
-                <p className="p-2 ">
-                    {" "}
-                    <span className="text-red-700 font-semibold font-Poppins">
-                        {" "}
-                        selected File :{" "}
-                    </span>{" "}
-                    {(props.value as File).name}
-                </p>
-            </>
-        );
-    }
-
-    function NumberProp(props: FieldProp) {
-        if (props.type !== "number") return null;
-
-        return (
-            <input
-                autoComplete="off"
-                type={props.type}
-                name={props.name}
-                required={props.required}
-                className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                value={props.value ? (props.value as string) : ""}
-                onChange={handleTextChange}
-            />
-        );
-    }
-
-    function TextProp(props: FieldProp) {
-        switch (props.type) {
+    const renderInput = () => {
+        switch (type) {
             case "text":
             case "email":
             case "date":
             case "password":
-                break;
+                return (
+                    <input
+                        type={type}
+                        name={name}
+                        value={value as string}
+                        required={required}
+                        placeholder={title}
+                        className="border-b-2 w-64 focus:w-full focus:border-red-700 transition-all duration-500"
+                        onChange={handleTextChange}
+                    />
+                );
+
+            case "number":
+                return (
+                    <input
+                        type="number"
+                        name={name}
+                        required={required}
+                        value={value as string}
+                        className="w-64 border-b-2 focus:border-red-700"
+                        onChange={handleTextChange}
+                    />
+                );
+
+            case "textarea":
+                return (
+                    <textarea
+                        name={name}
+                        value={value as string}
+                        required={required}
+                        onChange={handleTextChange}
+                        className="border-2 border-black rounded-lg w-full h-48 p-3"
+                    />
+                );
+
+            case "file":
+                return (
+                    <>
+                        <input
+                            type="file"
+                            name={name}
+                            accept={accept}
+                            required={required}
+                            onChange={handleFileChange}
+                        />
+                        {value instanceof File && (
+                            <p className="p-2 text-sm">
+                                <span className="text-red-700 font-semibold">
+                                    Selected File:
+                                </span>{" "}
+                                {value.name}
+                            </p>
+                        )}
+                    </>
+                );
+
+            case "radio":
+                return options.map((item, index) => (
+                    <label key={index} className="mr-4">
+                        <input
+                            type="radio"
+                            name={name}
+                            value={item}
+                            checked={value === item}
+                            required={required}
+                            onChange={handleTextChange}
+                        />
+                        {item}
+                    </label>
+                ));
+
+            case "dropdown":
+                return (
+                    <select
+                        name={name}
+                        value={value as string}
+                        onChange={handleTextChange}
+                        required={required}
+                        className="w-72 p-2 rounded-md shadow-lg hover:w-full transition-all duration-500 outline-none"
+                    >
+                        <option hidden>{dropdownHiddenItem}</option>
+                        {dropOpt === "single" ? (
+                            <option value={localStorage.getItem("institution") ?? ""}>
+                                {localStorage.getItem("institution")}
+                            </option>
+                        ) : (
+                            options.map((opt) => (
+                                <option key={opt} value={opt}>
+                                    {opt}
+                                </option>
+                            ))
+                        )}
+                    </select>
+                );
+
             default:
                 return null;
         }
-
-        return (
-            <input
-                autoComplete="off"
-                type={props.type}
-                placeholder={!props.placeholder ? "" : props.placeholder}
-                name={props.name}
-                required={props.required}
-                className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                defaultValue={props.value ? (props.value as string) : ""}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChange={handleTextChange}
-            />
-        );
-    }
-
-    const WhoThatPokemon = () => {
-        switch (props.type) {
-            case "number":
-                return <NumberProp {...props} />;
-            case "file":
-                return <FileProp {...props} />;
-            case "textarea":
-                return <TextAreaProp {...props} />;
-            case "radio":
-                return <RadioProp {...props} />;
-            case "dropdown":
-                return <DropDownProp {...props} />;
-            case "text":
-            case "email":
-            case "date":
-            case "password":
-                return <TextProp {...props} />;
-        }
-        return null;
     };
-
-    function GiveJudgement() {
-        if (error) {
-            return <p className="font-Poppins text-red-700">{error}</p>;
-        }
-
-        return null;
-    }
 
     return (
         <div
             className={`my-3 p-3 inline-block ${
-                props.fieldsPerLine === 2 ? "w-1/2" : "w-full"
+                fieldsPerLine === 2 ? "w-1/2" : "w-full"
             }`}
         >
             <div className="mb-3">
                 <label className="font-Poppins">
-                    {props.title}
-                    <span className="px-2 text-red-600">
-                        {props.required ? "*" : null}
-                    </span>
+                    {title}
+                    {required && <span className="px-2 text-red-600">*</span>}
                 </label>
-                {props.link !== undefined ? (
+                {link && (
                     <p>
                         <a
-                            href={props.link}
-                            rel="noreferrer"
+                            href={link}
                             target="_blank"
-                            className="font-Poppins font-semibold text-red-700"
+                            rel="noreferrer"
+                            className="font-semibold text-red-700"
                         >
                             Click here
                         </a>
                     </p>
-                ) : null}
-
-                <GiveJudgement />
+                )}
+                {error && <p className="text-red-700">{error}</p>}
             </div>
-            <div>
-                <WhoThatPokemon />
-            </div>
+            {renderInput()}
         </div>
     );
 }
 
-export default React.memo(Field);
+function areEqual(prev: FieldProp, next: FieldProp) {
+    return (
+        prev.value === next.value &&
+        prev.validator === next.validator &&
+        prev.type === next.type &&
+        prev.name === next.name
+    );
+}
+
+export default React.memo(Field, areEqual);

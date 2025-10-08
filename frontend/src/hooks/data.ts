@@ -30,5 +30,12 @@ export function useData<T>(validator: z.ZodType) {
         return response.success ? (response.data as T) : null;
     };
 
-    return { getData, display, handleChange };
+    return {
+        setDisplay,
+        getData,
+        display,
+        handleChange,
+        setData,
+        data,
+    };
 }
