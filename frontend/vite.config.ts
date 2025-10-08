@@ -34,12 +34,12 @@ export default defineConfig({
                         // Ignore .js if both exist
                         return tsFile;
                     } else {
-                        return jsFile
+                        return jsFile;
                     }
                 }
 
                 return null;
             },
-        }
+        },
     ],
 });

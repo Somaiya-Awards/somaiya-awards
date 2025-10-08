@@ -64,9 +64,9 @@ var numCPUs = os_1.default.cpus().length;
 if (cluster_1.default.isPrimary) {
     console.log("Master ".concat(process.pid, " is running"));
     // Fork workers
-    //    for (let i = 0; i < numCPUs; i++) {
-    cluster_1.default.fork();
-    //  }
+    for (var i = 0; i < numCPUs; i++) {
+        cluster_1.default.fork();
+    }
     cluster_1.default.on("exit", function (worker, code, signal) {
         console.log("Worker ".concat(worker.process.pid, " died"));
         cluster_1.default.fork();

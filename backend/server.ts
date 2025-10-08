@@ -47,9 +47,9 @@ if (cluster.isPrimary) {
     if (prod) {
         frontendURL = "https://somaiyaawards.somaiya.edu/";
     } else {
-        frontendURL = "http:localhost:5173";
+        frontendURL = "http://localhost:5173";
     }
-
+    console.log(frontendURL);
     app.use(
         cors({
             origin: frontendURL, // your frontend URL
