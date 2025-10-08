@@ -21,7 +21,7 @@ export default defineConfig({
         {
             name: "prefer-ts-over-js",
             enforce: "pre",
-            resolveId(source: string, importer: string) {
+            resolveId: (source: string, importer: string | undefined) => {
                 if (!importer) return null;
 
                 if (source.startsWith(".")) {

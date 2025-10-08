@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx sequelize-cli db:create && node server.ts",
-    "dev": "npx sequelize-cli db:create && nodemon server"
+    "dev": "npx sequelize-cli db:create && nodemon server",
+    "build": "npx tsc --outDir build -p ./tsconfig.json"
   },
   "author": "Alpharius397",
   "license": "ISC",

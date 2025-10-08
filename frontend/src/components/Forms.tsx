@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import FormStages from "./FormStages";
 import Field from "./utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
@@ -59,17 +59,19 @@ export default function Forms(props: FormProps) {
         }
     };
 
-    const { setDisplay, display, getData, handleChange, data, setData, focus } =
+    const { setDisplay, display, getData, handleChange, data, setData } =
         useData<z.infer<typeof props.validator>>(props.validator);
 
-    const handleFieldChange = (
-        name: string,
-        value: string | File,
-        actionType: "add" | "delete"
-    ) => {
-        handleChange(name, value, actionType);
-        setPercentage(Object.keys(data).length / props.data.length);
-    };
+    const handleFieldChange = useCallback(
+        (name: string, value: string | File, actionType: "add" | "delete") => {
+            handleChange(name, value, actionType);
+            setData((prev) => {
+                setPercentage(Object.keys(prev).length / props.data.length);
+                return prev;
+            });
+        },
+        [handleChange, props.data.length, setData]
+    );
 
     /**
      * @returns page number of field which is not present in formData state
@@ -181,11 +183,11 @@ export default function Forms(props: FormProps) {
                 const validator =
                     entry.name === "date_of_appointment"
                         ? lastDate(
-                            display["awards_category"] ===
-                                "Promising Teacher of the year (2 to 3 years of service)"
-                                ? 2
-                                : 3
-                        )
+                              display["awards_category"] ===
+                                  "Promising Teacher of the year (2 to 3 years of service)"
+                                  ? 2
+                                  : 3
+                          )
                         : entry.validator;
 
                 return (
@@ -193,18 +195,18 @@ export default function Forms(props: FormProps) {
                         key={entry.name}
                         {...entry}
                         value={value}
+                        //@ts-expect-error TODO: fix Validator type
                         validator={validator}
                         formType={formName}
                         onChange={handleFieldChange}
                     />
                 );
             });
-    }, [props.data, current, display, formName]);
-
+    }, [props.data, current, display, formName, handleFieldChange]);
 
     useEffect(() => {
         const dataName = formName + "Data";
-        console.log("setting")
+        console.log("setting");
 
         if (!localStorage.getItem(dataName)) {
             setData({});
