@@ -1,3 +1,4 @@
+import babel from "vite-plugin-babel";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import fs from "fs";
@@ -12,6 +13,11 @@ export default defineConfig({
 
     plugins: [
         react(),
+        babel({
+            babelConfig: {
+                plugins: ["babel-plugin-react-compiler"],
+            },
+        }),
         {
             name: "prefer-ts-over-js",
             enforce: "pre",
