@@ -25,7 +25,7 @@ dotenv.config();
 
 const numCPUs = os.cpus().length;
 
-if (cluster.isPrimary) {
+if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
 
     // Fork workers

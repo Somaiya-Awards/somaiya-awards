@@ -1,10 +1,10 @@
 import * as z from "zod";
-import { email, institute, role, validString } from "..";
+import { anyString, email, institute, role } from "..";
 
 export const Register = z.object({
     user_email_id: email,
     user_institution: institute,
-    user_password: validString,
+    user_password: anyString,
     user_role: role,
 });
 
