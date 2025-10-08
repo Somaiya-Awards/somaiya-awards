@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import "./css/config.css";
-import type { FormEntry } from "../../props.value/Forms/types";
+import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
 
 export type FieldProp = {
@@ -19,12 +19,16 @@ function Field({
     type,
     title,
     required,
-    options = [],
+    //@ts-expect-error Prop mass definiton
+    options,
     value,
     validator,
     link,
+    //@ts-expect-error Prop mass definiton
     dropOpt,
+    //@ts-expect-error Prop mass definiton
     dropdownHiddenItem,
+    //@ts-expect-error Prop mass definiton
     accept,
     fieldsPerLine,
     onChange,
@@ -82,7 +86,7 @@ function Field({
                         value={value as string}
                         required={required}
                         placeholder={title}
-                        className="border-b-2 w-64 focus:w-full focus:border-red-700 transition-all duration-500"
+                        className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500`}
                         onChange={handleTextChange}
                     />
                 );
@@ -94,7 +98,7 @@ function Field({
                         name={name}
                         required={required}
                         value={value as string}
-                        className="w-64 border-b-2 focus:border-red-700"
+                        className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700`}
                         onChange={handleTextChange}
                     />
                 );
@@ -106,7 +110,7 @@ function Field({
                         value={value as string}
                         required={required}
                         onChange={handleTextChange}
-                        className="border-2 border-black rounded-lg w-full h-48 p-3"
+                        className="border-black p-3 border-2 rounded-lg w-full h-48"
                     />
                 );
 
@@ -119,10 +123,11 @@ function Field({
                             accept={accept}
                             required={required}
                             onChange={handleFileChange}
+                            className={`focus:outline-none color-red-400 }`}
                         />
                         {value instanceof File && (
-                            <p className="p-2 text-sm">
-                                <span className="text-red-700 font-semibold">
+                            <p className="p-2">
+                                <span className="text-red-700 font-semibold font-Poppins">
                                     Selected File:
                                 </span>{" "}
                                 {value.name}
@@ -132,18 +137,21 @@ function Field({
                 );
 
             case "radio":
-                return options.map((item, index) => (
-                    <label key={index} className="mr-4">
-                        <input
-                            type="radio"
-                            name={name}
-                            value={item}
-                            checked={value === item}
-                            required={required}
-                            onChange={handleTextChange}
-                        />
-                        {item}
-                    </label>
+                //@ts-expect-error Map error
+                return options!.map((item: string, index: number) => (
+                    <div key={index}>
+                        <label>
+                            <input
+                                type="radio"
+                                name={name}
+                                value={item}
+                                checked={value === item}
+                                required={required}
+                                onChange={handleTextChange}
+                            />
+                            {item}
+                        </label>
+                    </div>
                 ));
 
             case "dropdown":
@@ -153,15 +161,19 @@ function Field({
                         value={value as string}
                         onChange={handleTextChange}
                         required={required}
-                        className="w-72 p-2 rounded-md shadow-lg hover:w-full transition-all duration-500 outline-none"
+                        className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
                     >
                         <option hidden>{dropdownHiddenItem}</option>
                         {dropOpt === "single" ? (
-                            <option value={localStorage.getItem("institution") ?? ""}>
+                            <option
+                                value={
+                                    localStorage.getItem("institution") ?? ""
+                                }
+                            >
                                 {localStorage.getItem("institution")}
                             </option>
                         ) : (
-                            options.map((opt) => (
+                            options.map((opt: string) => (
                                 <option key={opt} value={opt}>
                                     {opt}
                                 </option>

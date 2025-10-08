@@ -32,7 +32,7 @@ export const {
     Students,
     Teaching,
     FeedbackFive,
-    House
+    House,
 } = InitDB(s);
 
 export const sequelize = s;
