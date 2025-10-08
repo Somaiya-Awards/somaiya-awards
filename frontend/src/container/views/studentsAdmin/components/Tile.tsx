@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Tile(props: { title: string; text: string }) {
     return (
         <div className="my-4">

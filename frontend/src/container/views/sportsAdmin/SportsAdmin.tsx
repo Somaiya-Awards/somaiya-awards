@@ -18,11 +18,9 @@ export default function SportsAdmin() {
             icon: "success",
             confirmButtonColor: "rgb(185,28,28)",
         });
-
         // navigate to login page
         navigate("/auth/login");
     };
-
 
     return (
         <div className="flex">
@@ -50,9 +48,7 @@ export default function SportsAdmin() {
                         </div>
                     </div>
 
-                    <h2 className="text-xl font-semibold my-3">
-                        Features
-                    </h2>
+                    <h2 className="text-xl font-semibold my-3">Features</h2>
 
                     <Tile
                         title="Columns Selection"

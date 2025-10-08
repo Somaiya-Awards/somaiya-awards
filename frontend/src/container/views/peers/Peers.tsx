@@ -5,9 +5,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../../components/utils/FormCard";
-//@ts-expect-error JPEG load
 import Teaching from "/teaching.jpeg";
-//@ts-expect-error JPEG load
 import NonTeaching from "/non-teaching.jpeg";
 import Axios, { URL } from "../../../axios";
 

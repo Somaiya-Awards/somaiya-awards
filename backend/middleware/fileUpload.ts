@@ -45,11 +45,11 @@ function multerFactory(idx: number) {
         storage: multer.diskStorage(
             multerDiskStorageFactory(destinations[idx])
         ),
-        fileFilter: (req, file, cb): multer.Options["fileFilter"] => {
+        fileFilter: (req, file, cb) => {
             if (ALLOWED_FILES.includes(file.mimetype)) {
                 cb(null, true);
             } else {
-                cb(new Error("Invalid File type"), false);
+                cb(new Error("Invalid File type"));
             }
         },
     });
