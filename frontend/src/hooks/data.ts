@@ -13,8 +13,10 @@ export function useData<T>(validator: z.ZodType) {
         actionType: "add" | "delete"
     ) => {
         setData((prev) => {
-            const newData = { ...prev };
-            newData[name] = actionType === "add" ? value : null;
+            const newData = {
+                ...prev,
+                [name]: actionType === "add" ? value : null,
+            };
             return newData;
         });
         setDisplay((prevData) => ({
@@ -25,13 +27,15 @@ export function useData<T>(validator: z.ZodType) {
 
     const getData = (): T | null => {
         const response = validator.safeParse(data);
-
-        if (response.success) {
-            return response.data as T;
-        } else {
-            return null;
-        }
+        return response.success ? (response.data as T) : null;
     };
 
-    return { getData, display, handleChange, data, setData, setDisplay };
+    return {
+        setDisplay,
+        getData,
+        display,
+        handleChange,
+        setData,
+        data,
+    };
 }

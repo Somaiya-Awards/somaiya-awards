@@ -21,7 +21,6 @@ import bcrypt from "bcrypt";
 import csrfMiddleware from "./middleware/csrfMiddleware";
 import { CsrfName } from "./constants";
 import cluster from "cluster";
-
 dotenv.config();
 
 const numCPUs = os.cpus().length;
@@ -47,9 +46,9 @@ if (cluster.isPrimary) {
     if (prod) {
         frontendURL = "https://somaiyaawards.somaiya.edu/";
     } else {
-        frontendURL = "http:localhost:5173";
+        frontendURL = "http://localhost:5173";
     }
-
+    console.log(frontendURL);
     app.use(
         cors({
             origin: frontendURL, // your frontend URL
@@ -130,7 +129,7 @@ if (cluster.isPrimary) {
             );
             throw error;
         }
-        const PORT = process.env.PORT || 5000;
+        const PORT = process.env.PORT || 5001;
 
         app.listen(PORT, () => {
             serverLogger.info(`Server started running at port ${PORT}`);
