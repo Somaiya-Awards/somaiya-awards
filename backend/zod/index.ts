@@ -13,6 +13,7 @@ export const validString = z
     .regex(/^[a-zA-Z0-9-_./\\\s]+$/, {
         error: "Value can only contain the following characters: a-z, A-Z, 0-9 and spaces",
     });
+export const anyString = z.string({ error: "Value must not be empty" });
 
 export const institute = z.enum(Institutes);
 export const validBoolean = z.boolean();
