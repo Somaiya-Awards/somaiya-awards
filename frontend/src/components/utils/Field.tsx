@@ -31,7 +31,7 @@ function Field(props: FieldProp) {
             );
             props.onChange(name, value, "delete");
         } else {
-            props.onChange(name, response.data as string, "add");
+            props.onChange(name, value as string, "add");
             setError(null);
         }
     }
@@ -91,7 +91,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={props.value ? props.value as string: ""}
+                value={props.value ? (props.value as string) : ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -104,7 +104,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 onChange={handleTextChange}
-                value={props.value ? props.value as string : ""}
+                value={props.value ? (props.value as string) : ""}
                 className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
             >
                 <option hidden> {props.dropdownHiddenItem} </option>
@@ -121,7 +121,7 @@ function Field(props: FieldProp) {
             <textarea
                 className="border-black p-3 border-2 rounded-lg w-full h-48"
                 name={props.name}
-                value={props.value ? props.value as string : ""}
+                value={props.value ? (props.value as string) : ""}
                 onChange={handleTextChange}
             ></textarea>
         );
@@ -163,7 +163,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none  w-64 shadow-lg p-2 border-gray-600 border-b-2 focus:border-red-700'`}
-                value={props.value ? props.value as string : ""}
+                value={props.value ? (props.value as string) : ""}
                 onChange={handleTextChange}
             />
         );
@@ -188,7 +188,7 @@ function Field(props: FieldProp) {
                 name={props.name}
                 required={props.required}
                 className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 `}
-                value={props.value ? props.value as string : ""}
+                defaultValue={props.value ? (props.value as string) : ""}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleTextChange}
@@ -196,23 +196,23 @@ function Field(props: FieldProp) {
         );
     }
 
-    const WhoThatPokemon = (props: FieldProp) => {
+    const WhoThatPokemon = () => {
         switch (props.type) {
             case "number":
-                return NumberProp(props);
+                return <NumberProp {...props} />;
             case "file":
-                return FileProp(props);
+                return <FileProp {...props} />;
             case "textarea":
-                return TextAreaProp(props);
+                return <TextAreaProp {...props} />;
             case "radio":
-                return RadioProp(props);
+                return <RadioProp {...props} />;
             case "dropdown":
-                return DropDownProp(props);
+                return <DropDownProp {...props} />;
             case "text":
             case "email":
             case "date":
             case "password":
-                return TextProp(props);
+                return <TextProp {...props} />;
         }
         return null;
     };
@@ -254,11 +254,10 @@ function Field(props: FieldProp) {
                 <GiveJudgement />
             </div>
             <div>
-                <WhoThatPokemon {...props} />
+                <WhoThatPokemon />
             </div>
         </div>
     );
 }
 
-
-export default Field;
+export default React.memo(Field);
