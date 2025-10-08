@@ -44,7 +44,7 @@ if (cluster.isMaster) {
     const prod = process.env.PROD === "1";
 
     if (prod) {
-        frontendURL = "https://somaiyaawards.somaiya.edu/";
+        frontendURL = "https://somaiyaawards.somaiya.edu";
     } else {
         frontendURL = "http://localhost:5173";
     }
