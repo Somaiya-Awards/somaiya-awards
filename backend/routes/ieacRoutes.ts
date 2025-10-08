@@ -12,6 +12,10 @@ import {
     institutionDataHandler,
 } from "../controllers/ieacController";
 import { upload08, upload09 } from "../middleware/fileUpload";
+import userAuthenticator from "../middleware/userAuthenticator";
+import csrfMiddleware from "../middleware/csrfMiddleware";
+import roleMiddle from "../middleware/role";
+import { Role } from "../types/role";
 
 /**GET Routes */
 router.route("/outstanding-institution").get(institutionDataHandler);
@@ -27,17 +31,43 @@ router.route("/nominated-staff-names").get(getNominatedStaffNames);
 
 // router.route('/research').put(researchDataUpdater);
 // router.route('/sports').put(sportsDataUpdater);
-router.route("/teaching").put(teachingDataUpdater);
-router.route("/non-teaching").put(nonTeachingDataUpdater);
+router
+    .route("/teaching")
+    .put(
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle(Role.Ieac),
+        teachingDataUpdater
+    );
+router
+    .route("/non-teaching")
+    .put(
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle(Role.Ieac),
+        nonTeachingDataUpdater
+    );
 
 /**POST Routes */
 
 // router.route('/research').post(researchRecFileHandler)
 router
     .route("/teaching")
-    .post(upload08.single("approvalFile"), teachingRecFileHandler);
+    .post(
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle(Role.Ieac),
+        upload08.single("approvalFile"),
+        teachingRecFileHandler
+    );
 router
     .route("/non-teaching")
-    .post(upload09.single("approvalFile"), nonTeachingRecFileHandler);
+    .post(
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle(Role.Ieac),
+        upload09.single("approvalFile"),
+        nonTeachingRecFileHandler
+    );
 // router.route('/sports').post(sportsRecFileHandler)
 export default router;

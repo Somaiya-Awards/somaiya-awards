@@ -139,17 +139,19 @@ function Field({
             case "radio":
                 //@ts-expect-error Map error
                 return options!.map((item: string, index: number) => (
-                    <label key={index} className="mr-4">
-                        <input
-                            type="radio"
-                            name={name}
-                            value={item}
-                            checked={value === item}
-                            required={required}
-                            onChange={handleTextChange}
-                        />
-                        {item}
-                    </label>
+                    <div key={index}>
+                        <label>
+                            <input
+                                type="radio"
+                                name={name}
+                                value={item}
+                                checked={value === item}
+                                required={required}
+                                onChange={handleTextChange}
+                            />
+                            {item}
+                        </label>
+                    </div>
                 ));
 
             case "dropdown":

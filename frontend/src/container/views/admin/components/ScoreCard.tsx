@@ -4,7 +4,6 @@ import { Download, User, Building2, Award } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "./BarGraph";
-//@ts-expect-error PNG Load
 import Logo from "/logo.png";
 import Axios from "../../../../axios";
 import React from "react";

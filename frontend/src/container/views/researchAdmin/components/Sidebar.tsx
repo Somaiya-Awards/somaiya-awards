@@ -2,8 +2,8 @@ import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
-
 import { Link } from "react-router-dom";
+import React from "react";
 
 const SideBar = () => {
     return (

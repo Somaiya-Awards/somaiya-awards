@@ -15,8 +15,14 @@ export function useData<T>(validator: z.ZodType) {
         setData((prev) => {
             const newData = {
                 ...prev,
-                [name]: actionType === "add" ? value : null,
             };
+
+            if (actionType === "add") {
+                newData[name] = value;
+            } else {
+                delete newData[name];
+            }
+
             return newData;
         });
         setDisplay((prevData) => ({

@@ -74,13 +74,7 @@ if (cluster.isPrimary) {
         roleMiddle(Role.Hoi),
         hoiRoutes
     );
-    app.use(
-        "/ieac/data",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.Ieac),
-        ieacRoutes
-    );
+    app.use("/ieac/data", ieacRoutes);
     app.use("/admin/data", adminRoutes);
     app.use(
         "/students-admin/data",
