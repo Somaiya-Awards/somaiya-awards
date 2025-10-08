@@ -130,7 +130,7 @@ Axios.interceptors.request.use(async (config) => {
     const token = localStorage.getItem("x-csrf");
 
     if (token !== null && config.headers) {
-        config.headers["x-csrf"] = `Bearer ${token}`;
+        config.headers["x-csrf"] = token;
     }
 
     return config;

@@ -27,6 +27,8 @@ const destinations = [
 
 type FileName = (typeof destinations)[number];
 
+const ALLOWED_FILES = ["application/pdf", "image/jpeg"];
+
 function multerDiskStorageFactory(folderName: FileName): DiskStorageOptions {
     return {
         destination: (req, file, cb) => {
@@ -43,6 +45,13 @@ function multerFactory(idx: number) {
         storage: multer.diskStorage(
             multerDiskStorageFactory(destinations[idx])
         ),
+        fileFilter: (req, file, cb): multer.Options["fileFilter"] => {
+            if (ALLOWED_FILES.includes(file.mimetype)) {
+                cb(null, true);
+            } else {
+                cb(new Error("Invalid File type"), false);
+            }
+        },
     });
 }
 
