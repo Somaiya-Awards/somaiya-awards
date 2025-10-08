@@ -59,14 +59,18 @@ export default function Forms(props: FormProps) {
         }
     };
 
-    const { setDisplay, display, getData, handleChange, data, setData } =
+    const { setDisplay, display, getData, handleChange, data, setData, focus } =
         useData<z.infer<typeof props.validator>>(props.validator);
 
-    useEffect(() => {
-        const dataName = formName + "Data";
+    const handleFieldChange = (
+        name: string,
+        value: string | File,
+        actionType: "add" | "delete"
+    ) => {
+        handleChange(name, value, actionType);
         setPercentage(Object.keys(data).length / props.data.length);
-        localStorage.setItem(dataName, JSON.stringify(data));
-    }, [data, props.data, formName]);
+    };
+
     /**
      * @returns page number of field which is not present in formData state
      */
@@ -168,44 +172,39 @@ export default function Forms(props: FormProps) {
      * Renderers
      */
 
-    const renderFields = useCallback(() => {
-        return props.data.map((entry, index) => {
-            if (current === entry.page - 1) {
-                if (entry.name === "date_of_appointment") {
-                    const years =
-                        display["awards_category"] ===
-                        "Promising Teacher of the year (2 to 3 years of service)"
-                            ? 2
-                            : 3;
+    const RenderFields = useMemo(() => {
+        return props.data
+            .filter((entry) => current === entry.page - 1)
+            .map((entry) => {
+                const value = display[entry.name] || "";
 
-                    entry.validator = lastDate(years);
+                const validator =
+                    entry.name === "date_of_appointment"
+                        ? lastDate(
+                            display["awards_category"] ===
+                                "Promising Teacher of the year (2 to 3 years of service)"
+                                ? 2
+                                : 3
+                        )
+                        : entry.validator;
 
-                    return (
-                        <Field
-                            value={display[entry.name] || ""}
-                            {...entry}
-                            formType={formName}
-                            onChange={handleChange}
-                            key={index}
-                        />
-                    );
-                }
                 return (
                     <Field
-                        value={display[entry.name] || ""}
+                        key={entry.name}
                         {...entry}
+                        value={value}
+                        validator={validator}
                         formType={formName}
-                        onChange={handleChange}
-                        key={index}
+                        onChange={handleFieldChange}
                     />
                 );
-            }
-            return null;
-        });
-    }, [props.data, current, display, formName, handleChange]);
+            });
+    }, [props.data, current, display, formName]);
+
 
     useEffect(() => {
         const dataName = formName + "Data";
+        console.log("setting")
 
         if (!localStorage.getItem(dataName)) {
             setData({});
@@ -265,7 +264,7 @@ export default function Forms(props: FormProps) {
                 </div>
 
                 <div className="form py-5 px-3">
-                    {renderFields()}
+                    {RenderFields}
 
                     <div className="mt-10 px-3 flex justify-between">
                         <button

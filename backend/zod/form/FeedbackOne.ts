@@ -7,10 +7,7 @@ import {
     validString,
     validYear,
 } from "..";
-import {
-    good,
-    score,
-} from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+import { good } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
 export const FeedbackOneForm = z.object({
     email_id: email,
 
