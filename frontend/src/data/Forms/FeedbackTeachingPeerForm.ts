@@ -199,7 +199,13 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
 
 async function fetchNominatedNames() {
     try {
-        const response = await Axios.get("/ieac/data/nominated-faculty-names");
+        const response = await Axios.get("/ieac/data/nominated-faculty-names", {
+            headers: {
+                "x-institute-name": localStorage.getItem(
+                    "institution"
+                ) as string,
+            },
+        });
         const nominatedNames = response.data.data;
         FeedbackTeachingPeerForm.find(
             (field) => field._name === "teacher_name"

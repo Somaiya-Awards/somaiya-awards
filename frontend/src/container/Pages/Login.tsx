@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import Wave from "react-wavify";
 import Field from "../../components/utils/Field";
 import React from "react";
-import { email, validString } from "../../../../backend/zod";
+import { anyString, email } from "../../../../backend/zod";
 import Axios from "../../axios";
 import LoginValidator, { type LoginType } from "../../zod/Forms/Login";
 import swalAlert from "../../components/utils/swal";
@@ -67,6 +67,12 @@ export default function Login() {
                         case "RESEARCH ADMIN":
                             navigate("/research-admin");
                             break;
+                        default:
+                            swalAlert({
+                                title: "Role was not found!",
+                                text: "User was found, but role was not",
+                                icon: "success",
+                            });
                     }
                 })
                 .catch(() => {
@@ -122,7 +128,7 @@ export default function Login() {
                             name="user_password"
                             fieldsPerLine={1}
                             required={true}
-                            validator={validString}
+                            validator={anyString}
                             onChange={handleChange}
                             value={display.user_password ?? ""}
                         />

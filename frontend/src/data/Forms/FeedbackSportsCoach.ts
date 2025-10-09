@@ -269,7 +269,14 @@ async function fetchNominatedNames() {
     try {
         // Make an HTTP request to fetch the data from your backend
         const response = await Axios.get(
-            "/sports-admin/data/nominated-coach-names"
+            "/sports-admin/data/nominated-coach-names",
+            {
+                headers: {
+                    "x-institute-name": localStorage.getItem(
+                        "institution"
+                    ) as string,
+                },
+            }
         );
 
         // Assuming the backend returns an array of nominated names

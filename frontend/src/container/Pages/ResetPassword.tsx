@@ -5,7 +5,7 @@ import Wave from "react-wavify";
 import Field from "../../components/utils/Field";
 import React from "react";
 import ForgotValidator, { ForgotType } from "../../zod/Forms/ForgotPassword";
-import { email, validString } from "../../../../backend/zod";
+import { email, anyString } from "../../../../backend/zod";
 import Axios from "../../axios";
 import { useData } from "../../hooks/data";
 
@@ -64,7 +64,7 @@ export default function ResetPassword() {
                                         placeholder="password"
                                         title="New Password"
                                         type="password"
-                                        validator={validString}
+                                        validator={anyString}
                                         fieldsPerLine={2}
                                         page={1}
                                         required={true}

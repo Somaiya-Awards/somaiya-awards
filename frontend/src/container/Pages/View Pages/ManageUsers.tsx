@@ -9,7 +9,7 @@ import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
 import Axios from "../../../axios";
 import { Institutes } from "../../../../../backend/constants";
-import { arrayChoice, email, validString } from "../../../../../backend/zod";
+import { arrayChoice, email, validString, anyString } from "../../../../../backend/zod";
 
 export default function ManageUsers() {
     const institutionOptions = Institutes;
@@ -237,7 +237,7 @@ export default function ManageUsers() {
                                             required={true}
                                             fieldsPerLine={2}
                                             page={1}
-                                            formType="Mangage"
+                                            formType="Manage"
                                             validator={validString}
                                             title="Institution"
                                             type="dropdown"
@@ -259,8 +259,8 @@ export default function ManageUsers() {
                                     required={true}
                                     fieldsPerLine={2}
                                     page={1}
-                                    formType="Mangage"
-                                    validator={validString}
+                                    formType="Manage"
+                                    validator={anyString}
                                     type="password"
                                     name="user_password"
                                     value={credentials.user_password || ""}

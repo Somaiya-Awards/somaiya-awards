@@ -1,12 +1,12 @@
 import z from "zod";
 import {
-    validString,
+    anyString,
     email,
 } from "../../../../backend/zod";
 
 const LoginValidator = z.object({
     user_email: email,
-    user_password: validString,
+    user_password: anyString,
 })
 
 export default LoginValidator;

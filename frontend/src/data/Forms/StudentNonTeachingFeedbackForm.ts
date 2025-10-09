@@ -123,8 +123,6 @@ async function fetchNominatedNames() {
         // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
         const response = await Axios.get("/ieac/data/nominated-staff-names", {
             headers: {
-                "x-access-token": localStorage.getItem("token"),
-                "x-user-id": localStorage.getItem("user_id"),
                 "x-institute-name": localStorage.getItem("institution"),
             },
         });
