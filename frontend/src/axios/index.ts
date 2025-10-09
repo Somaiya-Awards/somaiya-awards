@@ -15,8 +15,8 @@ export const URL = {
         FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
         REFRESH: `${BASE_URL}/auth/refresh`,
         OTP_RESET: (id: string, token: string) => {
-            const validId = validString.parse(id);
-            const validToken = validString.parse(token);
+            const validId = anyString.parse(id);
+            const validToken = anyString.parse(token);
             return `${BASE_URL}/auth/${validId}/${validToken}`;
         },
         VALIDATE: `${BASE_URL}/auth/validate`,
