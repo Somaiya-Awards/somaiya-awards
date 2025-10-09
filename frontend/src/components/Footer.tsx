@@ -63,7 +63,7 @@ function Footer() {
                                     href="https://www.linkedin.com/in/abhijit-patil-477a4760/"
                                     target="_blank"
                                 >
-                                    Prof. Abhijit Patil
+                                    Dr. Abhijit Patil
                                 </a>
                             </td>
                             <td>
@@ -75,6 +75,7 @@ function Footer() {
                     </table>
                     <br></br>
                     <h2 className="font-bold text-lg">Developed by</h2>
+                    {/* <br></br> */}
                     <div className="grid grid-cols-1  md:grid-cols-4 gap-6 my-2">
                         <div>
                             <a
@@ -97,7 +98,7 @@ function Footer() {
                                 href="https://linkedin.com/in/riya-kapadia-a571401bb/"
                                 target="_blank"
                             >
-                            Riya Kapadia
+                                Riya Kapadia
                             </a>
                         </div>
 
@@ -105,12 +106,47 @@ function Footer() {
                             <a
                                 href="https://linkedin.com/in/jash-joshi01/"
                                 target="_blank"
-                                >
+                            >
                                 Jash J. Joshi
                             </a>
                         </div>
                     </div>
-                </div>
+                    <br></br>
+                    <h2 className="font-bold text-lg">Updated by</h2>
+                    {/* <br></br> */}
+                    <div className="grid grid-cols-1  md:grid-cols-3 gap-6 my-2">
+                        <div>
+                            <a href="" target="_blank">
+                                Aryan Mandke
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank">
+                                Mitansh Gala
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank">
+                                Pranav Lohar
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank">
+                                Pratul Jagtap
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank">
+                                Pravir Dighe
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank">
+                                Raj More
+                            </a>
+                        </div>
+                    </div>
+                </div>{" "}
             </div>
         </>
     );

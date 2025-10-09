@@ -8,6 +8,7 @@ export enum StatusCode {
 export const AccessCookie = "x-access";
 export const RefreshCookie = "x-refresh";
 export const CsrfName = "x-csrf";
+export const instituteHeader = "x-institute-name";
 
 export const CSRF =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

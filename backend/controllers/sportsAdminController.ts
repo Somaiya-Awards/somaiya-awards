@@ -262,14 +262,9 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => {
 export const getNominatedNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.headers["x-institute-name"];
-
     const result = await Sports.findAll({
         where: {
-            [Op.and]: [
-                { institution_name: institute_name },
-                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-            ],
+            [Op.and]: [sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())")],
         },
     });
 

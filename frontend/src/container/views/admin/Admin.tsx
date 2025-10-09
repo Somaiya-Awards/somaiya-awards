@@ -12,11 +12,13 @@ import React from "react";
 
 const Admin = () => {
     const [pastData, setPastData] = useState<[]>([]);
-    const [rows, setRows] = useState<{
-        [key: string]: [];
-    }[]>([]);
+    const [rows, setRows] = useState<
+        {
+            [key: string]: [];
+        }[]
+    >([]);
     const [pieData, setPieData] = useState<[]>([]);
-    const [counts, setCounts] = useState<{[key: string]: number}>({});
+    const [counts, setCounts] = useState<{ [key: string]: number }>({});
 
     const navigate = useNavigate();
 
@@ -27,8 +29,7 @@ const Admin = () => {
 
     const loadDashboardData = () => {
         // all Counts
-        Axios.get("/admin/data/count/all", {
-        })
+        Axios.get("/admin/data/count/all", {})
             .then((res) => {
                 setCounts(res.data.data);
             })
@@ -46,8 +47,7 @@ const Admin = () => {
             });
 
         // institution Wise count
-        Axios.get("/admin/data/count/institution-wise", {
-        })
+        Axios.get("/admin/data/count/institution-wise", {})
             .then((res) => {
                 setRows(res.data.data);
             })
@@ -57,8 +57,7 @@ const Admin = () => {
 
         // group Wise count
 
-        Axios.get("/admin/data/count/group", {
-        })
+        Axios.get("/admin/data/count/group", {})
             .then((res) => {
                 setPieData(res.data.data);
             })
@@ -74,7 +73,6 @@ const Admin = () => {
     const handleLogout = () => {
         // remove token from local storage
         Axios.post(URL.AUTH.LOGOUT);
-
 
         Swal.fire({
             title: "Successfully Logged Out",
