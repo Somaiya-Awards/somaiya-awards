@@ -9,7 +9,7 @@ import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
 import Axios from "../../../axios";
 import { Institutes } from "../../../../../backend/constants";
-import { arrayChoice, email, validString, anyString } from "../../../../../backend/zod";
+import { arrayChoice, email, anyString } from "../../../../../backend/zod";
 
 export default function ManageUsers() {
     const institutionOptions = Institutes;
@@ -53,19 +53,20 @@ export default function ManageUsers() {
     };
 
     const handleUpload = async () => {
-        const file = files[0];
+        const file: File = files[0];
 
         if (!file) {
             alert("File is missing or invalid.");
             return;
         }
 
-        if (files[0].type !== "text/csv") {
+        if (file.type !== "text/csv") {
             alert("Invalid file type uploaded. Please upload valid file type");
             return;
         }
 
-        const text = await file.text();
+        console.log(file);
+        const text = await file.file.text();
         const parsedData = Papa.parse(text, {
             header: true,
             skipEmptyLines: true,
@@ -86,10 +87,7 @@ export default function ManageUsers() {
             });
     };
 
-    const handleChange = (
-        name: string,
-        value: string | File
-    ) => {
+    const handleChange = (name: string, value: string | File) => {
         if (name === "user_email_id") {
             setCredentials({
                 ...credentials,
@@ -238,7 +236,7 @@ export default function ManageUsers() {
                                             fieldsPerLine={2}
                                             page={1}
                                             formType="Manage"
-                                            validator={validString}
+                                            validator={anyString}
                                             title="Institution"
                                             type="dropdown"
                                             dropOpt="multiple"

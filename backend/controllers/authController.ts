@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { authLogger } from "../middleware/logger";
 import { UserLogin, UserLoginType } from "../zod/auth/login";
-import { AccessCookie, RefreshCookie } from "../constants";
+import { RefreshCookie } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
@@ -16,7 +16,6 @@ import {
     removeAccessCookie,
     removeRefreshCookie,
     setAccessCookie,
-    setCookie,
     setRefreshCookie,
 } from "../middleware/cookie";
 import { AuthRequest } from "../types/request";
@@ -187,8 +186,8 @@ export const passwordReset = asyncHandler(async (req, res) => {
         { expiresIn: "5m" }
     );
 
-    const link = `http://localhost:3000/auth/${user.id}/${token}`;
-    // const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`;
+    // const link = `http://localhost:3000/auth/${user.id}/${token}`;
+    const link = `https://somaiyaawards.somaiya.edu/auth/${user.id}/${token}`;
 
     // // mail the link to user
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../../../../components/SideBar";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Swal from "sweetalert2";
@@ -7,7 +7,7 @@ import React from "react";
 import Axios from "../../../../axios";
 
 export default function Users() {
-    const [rows] = useState([]);
+    const [rows, setRows] = useState([]);
     const [columns] = useState([
         {
             field: "id",
@@ -71,6 +71,16 @@ export default function Users() {
             }
         });
     };
+
+    useEffect(() => {
+        Axios.get("/admin/data/users", {})
+            .then((res) => {
+                setRows(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     return (
         <div className="flex">

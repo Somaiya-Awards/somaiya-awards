@@ -134,9 +134,7 @@ async function fetchNominatedNames() {
         StudentNonTeachingFeedbackForm.find(
             (field) => field._name === "employee_name"
         ).options = nominatedNames;
-    } catch (error) {
-        console.error("Error fetching nominated names:", error);
-    }
+    } catch (error) {}
 }
 
 // Call the function to fetch and update the options
