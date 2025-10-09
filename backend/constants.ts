@@ -9,7 +9,7 @@ export const AccessCookie = "x-access";
 export const RefreshCookie = "x-refresh";
 export const CsrfName = "x-csrf";
 export const instituteHeader = "x-institute-name";
-
+export const applicationHeader = "x-application-id";
 export const CSRF =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 export const CSRF_SIZE = 32;

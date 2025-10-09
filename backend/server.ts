@@ -19,7 +19,7 @@ import cookieParser from "cookie-parser";
 import { sequelize, User } from "./models";
 import bcrypt from "bcrypt";
 import csrfMiddleware from "./middleware/csrfMiddleware";
-import { CsrfName } from "./constants";
+import { applicationHeader, CsrfName, instituteHeader } from "./constants";
 import cluster from "cluster";
 dotenv.config();
 
@@ -59,6 +59,7 @@ if (cluster.isMaster) {
             origin: frontendURL, // your frontend URL
             credentials: true,
             exposedHeaders: [CsrfName],
+            allowedHeaders: `${CsrfName}, request-origin, content-type, ${instituteHeader}, ${applicationHeader}`,
         })
     );
     app.use(cookieParser());
