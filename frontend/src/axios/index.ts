@@ -1,7 +1,8 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
-import { validString } from "../../../backend/zod";
+import { anyString, validString } from "../../../backend/zod";
 import { CsrfName } from "../../../backend/constants";
 
+// export const BASE_URL = "https://apisomaiyaawards.somaiya.edu";
 export const BASE_URL = "http://localhost:5001";
 
 interface Config extends AxiosRequestConfig {

@@ -9,15 +9,12 @@ import { Op } from "sequelize";
 //@access private
 
 export const institutionDataHandler = asyncHandler(async (req, res) => {
-    const user_institution = (req as AuthRequest).user.institution;
-
     const currentYear = new Date().getFullYear();
 
     const data = await OutstandingInstitution.findAll({
         where: sequelize.and(
             // raw SQL query using and operator
-            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institution_name: user_institution }
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
         ),
     });
 
@@ -76,15 +73,12 @@ const sportsDataHandler = asyncHandler(async (req, res) => {});
 //@route GET /ieac/data/teaching
 //@access private
 export const teachingDataHandler = asyncHandler(async (req, res) => {
-    const user_institution = (req as AuthRequest).user.institution;
-
     const currentYear = new Date().getFullYear();
 
     const data = await Teaching.findAll({
         where: sequelize.and(
             // raw SQL query using and operator
-            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
         ),
     });
 
@@ -97,15 +91,12 @@ export const teachingDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/non-teaching
 //@access private
 export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
-    const user_institution = (req as AuthRequest).user.institution;
-
     const currentYear = new Date().getFullYear();
 
     const data = await NonTeaching.findAll({
         where: sequelize.and(
             // raw SQL query using and operator
-            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-            { institute_name: user_institution }
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
         ),
     });
 
@@ -382,7 +373,6 @@ export const getNominatedStaffNames = asyncHandler(async (req, res) => {
     const result = await NonTeaching.findAll({
         where: {
             [Op.and]: [
-                { institution_name: institute_name },
                 { ieacApproved: true },
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],

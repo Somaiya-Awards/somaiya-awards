@@ -162,4 +162,3 @@ export const houseDataHandler = asyncHandler(async (req, res) => {
         data: data,
     });
 });
-
