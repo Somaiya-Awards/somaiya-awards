@@ -288,9 +288,7 @@ async function fetchNominatedNames() {
         );
 
         if (opt) opt.options = nominatedNames;
-    } catch (error) {
-        console.error("Error fetching nominated names:", error);
-    }
+    } catch (error) {}
 }
 
 // Call the function to fetch and update the options

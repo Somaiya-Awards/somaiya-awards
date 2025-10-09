@@ -33,6 +33,7 @@ export function useData<T>(validator: z.ZodType) {
 
     const getData = (): T | null => {
         const response = validator.safeParse(data);
+        console.log(response.error);
         return response.success ? (response.data as T) : null;
     };
 

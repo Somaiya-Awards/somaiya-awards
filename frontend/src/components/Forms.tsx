@@ -66,11 +66,12 @@ export default function Forms(props: FormProps) {
         (name: string, value: string | File, actionType: "add" | "delete") => {
             handleChange(name, value, actionType);
             setData((prev) => {
+                localStorage.setItem(formName, JSON.stringify(prev));
                 setPercentage(Object.keys(prev).length / props.data.length);
                 return prev;
             });
         },
-        [handleChange, props.data.length, setData]
+        [formName, handleChange, props.data.length, setData]
     );
 
     /**
@@ -205,7 +206,7 @@ export default function Forms(props: FormProps) {
     }, [props.data, current, display, formName, handleFieldChange]);
 
     useEffect(() => {
-        const dataName = formName + "Data";
+        const dataName = formName;
         console.log("setting");
 
         if (!localStorage.getItem(dataName)) {

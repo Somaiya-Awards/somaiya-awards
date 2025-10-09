@@ -7,7 +7,7 @@ export function getJwtToken(token: string): JwtType | null {
         const secret = process.env.JWT_SECRET;
 
         if (secret === undefined) throw new Error("JWT Secret not found");
-
+        console.log(jwt.decode(token));
         return JwtForm.parse(jwt.verify(token, secret));
     } catch (err) {
         console.error(err);
@@ -34,12 +34,15 @@ export function setJwtToken(user: Model, expire: JwtTimeout) {
     return jwt.sign(payload, secret, { expiresIn: expire });
 }
 
-export function randomJwt(expire: JwtTimeout){
-    
+export function randomJwt(expire: JwtTimeout) {
     //@ts-ignore No Password on token
     const secret = process.env.JWT_SECRET;
 
     if (secret === undefined) throw new Error("JWT Secret not found");
 
-    return jwt.sign({key: Date.now() * Math.random(), value: Date.now() * Math.random()}, secret, { expiresIn: expire });
+    return jwt.sign(
+        { key: Date.now() * Math.random(), value: Date.now() * Math.random() },
+        secret,
+        { expiresIn: expire }
+    );
 }
