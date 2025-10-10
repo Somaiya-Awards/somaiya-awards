@@ -4,8 +4,8 @@ import { email, role, validNumber, validString } from "..";
 export const JwtForm = z.object({
     id: validNumber,
     email_id: email,
-    institution: validString.nullable(),
-    role: role.nullable(),
+    institution: validString.optional(),
+    role: role.optional(),
 });
 
 export type JwtType = z.infer<typeof JwtForm>;

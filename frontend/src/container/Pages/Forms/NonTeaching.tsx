@@ -5,6 +5,7 @@ import NonTeachingForm from "../../../data/Forms/NonTeachingForm";
 import NonTeachingFormStages from "../../../components/utils/data/NonTeachingFormStages";
 import NonTeachingValidator from "../../../zod/Forms/NonTeachingForm";
 import React from "react";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function NonTeaching() {
     /**
@@ -34,16 +35,20 @@ export default function NonTeaching() {
   being the lowest score and 5 the highest. Files should be uploaded in a single PDF Format only. All the relevant documents are to be combined into single pdf.`;
     return (
         <div>
-            <Navbar />
-            <FormInfo title={title} info={awards_info} />
-            <Forms
-                pageHeadings={headings}
-                pageCount={limit}
-                message={message}
-                data={NonTeachingForm}
-                stages={NonTeachingFormStages}
-                validator={NonTeachingValidator}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo title={title} info={awards_info} />
+                    <Forms
+                        pageHeadings={headings}
+                        pageCount={limit}
+                        message={message}
+                        data={NonTeachingForm}
+                        stages={NonTeachingFormStages}
+                        validator={NonTeachingValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

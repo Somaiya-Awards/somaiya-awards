@@ -5,6 +5,7 @@ import OutstandingInstForm from "../../../data/Forms/OutstandingInstForm";
 import OutsInstStages from "../../../components/utils/data/OutsInstStages";
 import OutstandingInstFormValidator from "../../../zod/Forms/OutstandingInstForm";
 import React from "react";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function OutstandingInstitution() {
     const message =
@@ -31,16 +32,20 @@ export default function OutstandingInstitution() {
 
     return (
         <div>
-            <Navbar />
-            <FormInfo info={info} title="Outstanding Institution" />
-            <Forms
-                pageHeadings={pageHeaders}
-                pageCount={limit}
-                data={OutstandingInstForm}
-                stages={OutsInstStages}
-                message={message}
-                validator={OutstandingInstFormValidator}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo info={info} title="Outstanding Institution" />
+                    <Forms
+                        pageHeadings={pageHeaders}
+                        pageCount={limit}
+                        data={OutstandingInstForm}
+                        stages={OutsInstStages}
+                        message={message}
+                        validator={OutstandingInstFormValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

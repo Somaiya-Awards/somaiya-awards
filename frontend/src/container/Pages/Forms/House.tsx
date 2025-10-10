@@ -33,9 +33,9 @@ export default function HouseEvaluation() {
 
     return (
         <div>
-            <div className="flex">
+            <div className="flex h-screen">
                 <SideBar />
-                <div className="flex flex-col w-full overflow-y-scroll h-screen pb-10">
+                <div className="h-full overflow-scroll pb-4">
                     <FormInfo title={title} info={award_info} />
                     <Forms
                         pageHeadings={headings}
