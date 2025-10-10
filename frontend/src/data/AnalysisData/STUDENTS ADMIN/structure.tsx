@@ -3,7 +3,8 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const baseURL = "https://apisomaiyaawards.somaiya.edu";
+import { BASE_URL as baseURL } from "../../../axios";
+import React from "react";
 
 const handleStudentsChange = (params, event) => {
     if (event.target.checked == true) {
@@ -49,7 +50,7 @@ const handleStudentsChange = (params, event) => {
     }
 };
 
-const columns01: GridColDef = [
+const columns01: GridColDef[] = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "email_id", headerName: "Email", width: 200 },
     { field: "student_name", headerName: "Student Name", width: 200 },

@@ -26,7 +26,7 @@ import type { GridColDef } from "@mui/x-data-grid";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 
-const baseURL = "https://apisomaiyaawards.somaiya.edu";
+import { BASE_URL as baseURL } from "../../../axios";
 
 const columns01: GridColDef[] = [
     { field: "email_id", headerName: "Email ID", width: 150 },

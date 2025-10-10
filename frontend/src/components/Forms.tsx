@@ -46,6 +46,28 @@ export default function Forms(props: FormProps) {
      */
 
     const handleNext = () => {
+        for (const i of props.data) {
+            console.log(i.validator.safeParse(data[i.name]));
+            if (
+                i.page - 1 === current &&
+                !i.validator.safeParse(data[i.name]).success
+            ) {
+                swalAlert({
+                    title: "Incomplete Form",
+                    text: "Please fill out this page completely",
+                    icon: "warning",
+                    backdrop: true,
+                    background: "rgba(255,250,250)",
+                    iconColor: "rgb(185,28,28)",
+                    confirmButtonColor: "rgb(185,28,28)",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "gradient-button",
+                    },
+                });
+                return;
+            }
+        }
         if (current < limit) {
             setCurrent(current + 1);
         }
@@ -54,6 +76,24 @@ export default function Forms(props: FormProps) {
     };
 
     const handlePrevious = () => {
+        for (const i of props.data) {
+            if (!i.validator.safeParse(data[i.name]).success) {
+                swalAlert({
+                    title: "Incomplete Form",
+                    text: "Please fill out this page completely",
+                    icon: "warning",
+                    backdrop: true,
+                    background: "rgba(255,250,250)",
+                    iconColor: "rgb(185,28,28)",
+                    confirmButtonColor: "rgb(185,28,28)",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "gradient-button",
+                    },
+                });
+                return;
+            }
+        }
         if (current > 0) {
             setCurrent(current - 1);
         }
@@ -207,7 +247,6 @@ export default function Forms(props: FormProps) {
 
     useEffect(() => {
         const dataName = formName;
-        console.log("setting");
 
         if (!localStorage.getItem(dataName)) {
             setData({});

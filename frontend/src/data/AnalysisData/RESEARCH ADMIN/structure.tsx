@@ -3,7 +3,7 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const baseURL = "https://apisomaiyaawards.somaiya.edu";
+import { BASE_URL as baseURL } from "../../../axios";
 
 const handleResearchChange = (params, event) => {
     if (event.target.checked == true) {
