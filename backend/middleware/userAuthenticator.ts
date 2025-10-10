@@ -23,10 +23,10 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     const disable = process.env.AuthDisable === "1";
 
     /** Might break further user based requests */
-    if (disable) {
+    /*if (disable) {
         next();
         return;
-    }
+    }*/
 
     if (!accessToken) {
         res.status(400).json({
