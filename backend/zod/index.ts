@@ -10,7 +10,7 @@ export const validNumber = z.coerce
 export const role = z.enum(Role);
 export const validString = z
     .string({ error: "Value must not be empty" })
-    .regex(/^[a-zA-Z0-9-_./\\\s]+$/, {
+    .regex(/^[A-Za-z0-9\s.,!?'"@#$%&*()_+\-=:;\/\\|<>~`[\]{}]+$/, {
         error: "Value can only contain the following characters: a-z, A-Z, 0-9 and spaces",
     });
 export const anyString = z.string({ error: "Value must not be empty" });
