@@ -7,7 +7,6 @@ export function getJwtToken(token: string): JwtType | null {
         const secret = process.env.JWT_SECRET;
 
         if (secret === undefined) throw new Error("JWT Secret not found");
-        console.log(jwt.decode(token));
         return JwtForm.parse(jwt.verify(token, secret));
     } catch (err) {
         console.error(err);

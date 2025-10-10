@@ -71,13 +71,13 @@ const csrfMiddleware = asyncHandler(async (req, res, next) => {
   const csrfTokenHeader = req.headers[CsrfName];
   const csrfTokenCookie = req.cookies[CsrfName];
 
-  // const disable = process.env.CsrfDisable === "1";
-  //
+  const disable = process.env.CsrfDisable === "1";
+
   // if (disable) {
   //     next();
   //     return;
   // }
-  //
+
   setCsrfCookie(req, res);
 
   if (req.method === "GET") {
