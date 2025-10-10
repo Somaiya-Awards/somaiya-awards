@@ -3,44 +3,17 @@ import SideBar from "../../../components/SideBar";
 import Field from "../../../components/utils/Field";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PasswordValidator from "password-validator";
-import Swal from "sweetalert2";
+import PasswordValid from "../../../zod/Forms/Password";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
 import Axios from "../../../axios";
 import { Institutes } from "../../../../../backend/constants";
 import { arrayChoice, email, anyString } from "../../../../../backend/zod";
+import { useData } from "../../../hooks/data.ts";
 
 export default function ManageUsers() {
     const institutionOptions = Institutes;
     // for password checks
-
-    const schema = new PasswordValidator();
-
-    schema
-        .is()
-        .min(8)
-        .is()
-        .max(20)
-        .has()
-        .uppercase()
-        .has()
-        .lowercase()
-        .has()
-        .digits(2)
-        .has()
-        .not()
-        .spaces()
-        .is()
-        .not()
-        .oneOf(["qwerty", "password", "123456"]);
-
-    const [credentials, setCredentials] = useState<{
-        user_password?: string;
-        user_role?: string;
-        user_institution?: string;
-        user_email_id?: string;
-    }>({});
 
     const [files, setFiles] = useState<File[]>([]);
 
@@ -65,7 +38,6 @@ export default function ManageUsers() {
             return;
         }
 
-        console.log(file);
         const text = await file.file.text();
         const parsedData = Papa.parse(text, {
             header: true,
@@ -87,19 +59,13 @@ export default function ManageUsers() {
             });
     };
 
-    const handleChange = (name: string, value: string | File) => {
-        if (name === "user_email_id") {
-            setCredentials({
-                ...credentials,
-                [name as string]: (value as string).toLowerCase(),
-            });
-        } else {
-            setCredentials({ ...credentials, [name]: value });
-        }
-    };
+    const { display, setDisplay, setData, handleChange, getData } =
+        useData(PasswordValid);
 
     const handleSubmit = async () => {
-        if (Object.keys(credentials).length < 3) {
+        const data = getData();
+
+        if (data === null) {
             toast.error("All fields required", {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -111,54 +77,33 @@ export default function ManageUsers() {
                 theme: "colored",
             });
         } else {
-            if (
-                credentials.user_password &&
-                !schema.validate(credentials.user_password)
-            ) {
-                const messages = schema.validate(credentials.user_password, {
-                    details: true,
+            await Axios.post("/auth/register", display)
+                .then(() => {
+                    setDisplay({});
+                    setData({});
+                    toast.success("User created successfully", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                })
+                .catch(() => {
+                    toast.error("Failed to create User", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 });
-
-                if (typeof messages !== "boolean") {
-                    const errorMessages = messages.map(
-                        (item) =>
-                            `<p class='text-sm text-justify font-Poppins text-red-800'>${item.message}</p>`
-                    );
-
-                    Swal.fire({
-                        icon: "error",
-                        html: errorMessages.join(""),
-                        confirmButtonColor: "rgb(185,28,28)",
-                    });
-                }
-            } else {
-                await Axios.post("/auth/register", credentials)
-                    .then(() => {
-                        setCredentials({});
-                        toast.success("User created successfully", {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    })
-                    .catch(() => {
-                        toast.error("Failed to create User", {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    });
-            }
         }
     };
 
@@ -187,7 +132,7 @@ export default function ManageUsers() {
                                     fieldsPerLine={1}
                                     page={1}
                                     required={true}
-                                    value={credentials["user_email_id"] || ""}
+                                    value={display["user_email_id"] || ""}
                                     onChange={handleChange}
                                 />
 
@@ -200,7 +145,7 @@ export default function ManageUsers() {
                                     type="dropdown"
                                     dropOpt="multiple"
                                     name="user_role"
-                                    value={credentials["user_role"] || ""}
+                                    value={display["user_role"] || ""}
                                     validator={arrayChoice([
                                         "ADMIN",
                                         "IEAC",
@@ -225,10 +170,10 @@ export default function ManageUsers() {
                                     onChange={handleChange}
                                 />
 
-                                {credentials.user_role === "ADMIN" ||
-                                credentials.user_role === "SPORTS ADMIN" ||
-                                credentials.user_role === "STUDENTS ADMIN" ||
-                                credentials.user_role ===
+                                {display.user_role === "ADMIN" ||
+                                display.user_role === "SPORTS ADMIN" ||
+                                display.user_role === "STUDENTS ADMIN" ||
+                                display.user_role ===
                                     "RESEARCH ADMIN" ? null : (
                                     <>
                                         <Field
@@ -242,8 +187,7 @@ export default function ManageUsers() {
                                             dropOpt="multiple"
                                             name="user_institution"
                                             value={
-                                                credentials.user_institution ||
-                                                ""
+                                                display.user_institution || ""
                                             }
                                             options={institutionOptions}
                                             dropdownHiddenItem="Select institution"
@@ -261,7 +205,7 @@ export default function ManageUsers() {
                                     validator={anyString}
                                     type="password"
                                     name="user_password"
-                                    value={credentials.user_password || ""}
+                                    value={display.user_password || ""}
                                     placeholder="set default password"
                                     onChange={handleChange}
                                 />
