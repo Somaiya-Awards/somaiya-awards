@@ -105,13 +105,19 @@ function Field({
 
             case "textarea":
                 return (
-                    <textarea
-                        name={name}
-                        value={value as string}
-                        required={required}
-                        onChange={handleTextChange}
-                        className="border-black p-3 border-2 rounded-lg w-full h-48"
-                    />
+                    <>
+                        <textarea
+                            name={name}
+                            value={value as string}
+                            required={required}
+                            onChange={handleTextChange}
+                            className="border-black p-3 border-2 rounded-lg w-full h-48"
+                        />
+                        <p className="text-right text-red-700">
+                            {" "}
+                            Current word count: {(value as string).length}{" "}
+                        </p>
+                    </>
                 );
 
             case "file":

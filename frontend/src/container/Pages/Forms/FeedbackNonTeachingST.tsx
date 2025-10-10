@@ -1,4 +1,3 @@
-import Navbar from "../../../components/Navbar";
 import FormInfo from "../../../components/FormInfo";
 import Forms from "../../../components/Forms";
 import StudentNonTeachingFeedback from "../../../components/utils/data/StudentNonTeachingFeedback";
@@ -6,6 +5,7 @@ import StudentNonTeachingFeedbackForm from "../../../data/Forms/StudentNonTeachi
 import Footer from "../../../components/Footer";
 import StudentNonTeachingFeedbackFormValidator from "../../../zod/Forms/StudentNonTeachingFeedbackForm";
 import React from "react";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function FeedbackNonTeachingST() {
     const headings = [
@@ -21,22 +21,26 @@ export default function FeedbackNonTeachingST() {
 
     return (
         <div>
-            <Navbar />
-            <FormInfo
-                title="Student's Feedback: Non-Teaching Staff"
-                info={aboutForm}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo
+                        title="Student's Feedback: Non-Teaching Staff"
+                        info={aboutForm}
+                    />
 
-            <Forms
-                pageHeadings={headings}
-                pageCount={limit}
-                data={StudentNonTeachingFeedbackForm}
-                stages={StudentNonTeachingFeedback}
-                validator={StudentNonTeachingFeedbackFormValidator}
-            />
+                    <Forms
+                        pageHeadings={headings}
+                        pageCount={limit}
+                        data={StudentNonTeachingFeedbackForm}
+                        stages={StudentNonTeachingFeedback}
+                        validator={StudentNonTeachingFeedbackFormValidator}
+                    />
 
-            <div className="mt-[5rem]">
-                <Footer />
+                    <div className="mt-[5rem]">
+                        <Footer />
+                    </div>
+                </div>
             </div>
         </div>
     );

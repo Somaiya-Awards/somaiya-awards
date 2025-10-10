@@ -1,10 +1,10 @@
-import Navbar from "../../../components/Navbar";
 import Forms from "../../../components/Forms";
 import StudentsFormData from "../../../data/Forms/StudentsFormData";
 import StudentsFormStages from "../../../components/utils/data/StudentsFormStages";
 import FormInfo from "../../../components/FormInfo";
 import React from "react";
 import StudentsFormDataValidator from "../../../zod/Forms/StudentsFormData";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function Students() {
     /**
@@ -29,16 +29,20 @@ export default function Students() {
 
     return (
         <div>
-            <Navbar />
-            <FormInfo title="Students Awards" info={awardInfo} />
-            <Forms
-                pageHeadings={pageHeaders}
-                pageCount={limit}
-                data={StudentsFormData}
-                stages={StudentsFormStages}
-                message={message}
-                validator={StudentsFormDataValidator}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo title="Students Awards" info={awardInfo} />
+                    <Forms
+                        pageHeadings={pageHeaders}
+                        pageCount={limit}
+                        data={StudentsFormData}
+                        stages={StudentsFormStages}
+                        message={message}
+                        validator={StudentsFormDataValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

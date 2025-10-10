@@ -1,11 +1,11 @@
 import FormInfo from "../../../components/FormInfo";
-import Navbar from "../../../components/Navbar";
 import Forms from "../../../components/Forms";
 import PeerNonTeachingFeedbackForm from "../../../data/Forms/PeerNonTeachingFeedbackForm";
 import FeedbackPeerNonTeaching from "../../../components/utils/data/FeebackPeerNonTeaching";
 import Footer from "../../../components/Footer";
 import React from "react";
 import PeerNonTeachingFeedbackFormValidator from "../../../zod/Forms/PeerNonTeachingFeedbackForm";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function FeedbackNonTeachingPR() {
     const title = "Peers Feedback Form for Non Teaching";
@@ -16,20 +16,23 @@ export default function FeedbackNonTeachingPR() {
 
     return (
         <div>
-            <Navbar />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo title={title} info={aboutForm} />
 
-            <FormInfo title={title} info={aboutForm} />
+                    <Forms
+                        pageHeadings={headings}
+                        pageCount={limit}
+                        data={PeerNonTeachingFeedbackForm}
+                        stages={FeedbackPeerNonTeaching}
+                        validator={PeerNonTeachingFeedbackFormValidator}
+                    />
 
-            <Forms
-                pageHeadings={headings}
-                pageCount={limit}
-                data={PeerNonTeachingFeedbackForm}
-                stages={FeedbackPeerNonTeaching}
-                validator={PeerNonTeachingFeedbackFormValidator}
-            />
-
-            <div className="mt-[5rem]">
-                <Footer />
+                    <div className="mt-[5rem]">
+                        <Footer />
+                    </div>
+                </div>
             </div>
         </div>
     );

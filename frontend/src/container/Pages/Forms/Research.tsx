@@ -5,6 +5,7 @@ import ResearchForm from "../../../data/Forms/ResearchForm";
 import ResearchFormStages from "../../../components/utils/data/ResearchFormStages";
 import React from "react";
 import ResearchFormValidator from "../../../zod/Forms/ResearchForm";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function Research() {
     /**
@@ -30,16 +31,20 @@ export default function Research() {
 
     return (
         <div>
-            <Navbar />
-            <FormInfo title={title} info={awardInfo} />
-            <Forms
-                pageCount={limit}
-                pageHeadings={headings}
-                data={ResearchForm}
-                stages={ResearchFormStages}
-                message={message}
-                validator={ResearchFormValidator}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo title={title} info={awardInfo} />
+                    <Forms
+                        pageCount={limit}
+                        pageHeadings={headings}
+                        data={ResearchForm}
+                        stages={ResearchFormStages}
+                        message={message}
+                        validator={ResearchFormValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

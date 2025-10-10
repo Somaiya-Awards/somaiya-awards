@@ -4,7 +4,7 @@ import TeachingForm from "../../../data/Forms/TeachingForm";
 import TeachingFormStages from "../../../components/utils/data/TeachingFormStages";
 import React from "react";
 import TeachingFormValidator from "../../../zod/Forms/TeachingForm";
-import Navbar from "../../../components/Navbar";
+import SideBar from "../../../components/hoi_components/SideBar";
 
 export default function Teaching() {
     /**
@@ -33,16 +33,20 @@ export default function Teaching() {
     const limit = headings.length - 1;
     return (
         <div>
-            <Navbar />
-            <FormInfo title={title} info={award_info} />
-            <Forms
-                pageHeadings={headings}
-                pageCount={limit}
-                data={TeachingForm}
-                stages={TeachingFormStages}
-                message={message}
-                validator={TeachingFormValidator}
-            />
+            <div className="flex h-screen">
+                <SideBar />
+                <div className="h-full overflow-scroll pb-4">
+                    <FormInfo title={title} info={award_info} />
+                    <Forms
+                        pageHeadings={headings}
+                        pageCount={limit}
+                        data={TeachingForm}
+                        stages={TeachingFormStages}
+                        message={message}
+                        validator={TeachingFormValidator}
+                    />
+                </div>
+            </div>
         </div>
     );
 }
