@@ -1,10 +1,10 @@
 import * as z from "zod";
-import { email, institute, role, validNumber, validString } from "..";
+import { email, role, validNumber, validString } from "..";
 
 export const JwtForm = z.object({
   id: validNumber,
   email_id: email,
-  institution: institute.optional(),
+  institution: validString.optional().nullable(),
   role: role.optional(),
 });
 

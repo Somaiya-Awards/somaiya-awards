@@ -19,3 +19,9 @@ npm run dev
 ```bash
 npm run build
 ```
+
+
+
+
+## TODO:
+1) Error Handling
