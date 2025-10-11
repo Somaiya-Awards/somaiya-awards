@@ -33,7 +33,7 @@ router
     .put(
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.SportsAdmin),
+        roleMiddle([Role.SportsAdmin]),
         studentsDataUpdater
     );
 

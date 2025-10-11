@@ -1,7 +1,6 @@
 import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 
 interface NonTeachingAttributes {
-
     id: number;
     email_id: string;
     staff_name: string;
@@ -9,7 +8,7 @@ interface NonTeachingAttributes {
     institution_name: string;
     department: string;
     designation: string;
-    appointment_date: string;
+    appointment_date: Date;
     somaiya_email_id: string;
     phone_number: string;
     q_01: number;
@@ -43,14 +42,19 @@ interface NonTeachingAttributes {
     ieac_scoreA: number | null;
     ieac_scoreB: number | null;
     ieacApprovedFile: string | null;
-    createdAt?: Date,
-    updatedAt?: Date,
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 interface NonTeachingCreationAttributes
     extends Optional<
         NonTeachingAttributes,
-        "id" | "createdAt" | "updatedAt" | "ieac_scoreA" | "ieac_scoreB" | "ieacApprovedFile"
+        | "id"
+        | "createdAt"
+        | "updatedAt"
+        | "ieac_scoreA"
+        | "ieac_scoreB"
+        | "ieacApprovedFile"
     > {}
 
 export class NonTeaching
@@ -64,7 +68,7 @@ export class NonTeaching
     declare institution_name: string;
     declare department: string;
     declare designation: string;
-    declare appointment_date: string;
+    declare appointment_date: Date;
     declare somaiya_email_id: string;
     declare phone_number: string;
     declare q_01: number;
@@ -116,7 +120,7 @@ export default function NonTeachingInit(sequelize: Sequelize) {
             institution_name: { type: DataTypes.STRING, allowNull: false },
             department: { type: DataTypes.STRING, allowNull: false },
             designation: { type: DataTypes.STRING, allowNull: false },
-            appointment_date: { type: DataTypes.STRING, allowNull: false },
+            appointment_date: { type: DataTypes.DATE, allowNull: false },
             somaiya_email_id: { type: DataTypes.STRING, allowNull: false },
             phone_number: { type: DataTypes.STRING, allowNull: false },
             q_01: { type: DataTypes.INTEGER, allowNull: false },

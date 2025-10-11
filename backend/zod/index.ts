@@ -12,8 +12,9 @@ export const validString = z
     .string({ error: "Value must not be empty" })
     .regex(/^[A-Za-z0-9\s.,!?'"@#$%&*()_+\-=:;\/\\|<>~`[\]{}]+$/, {
         // .regex(/^[A-Za-z0-9\s.,\-=:;\/\\]+$/, {
-        error: "Value can only contain the following characters: a-z, A-Z, 0-9 and spaces",
+        error: "Value cannot contain special characters",
     });
+
 export const anyString = z.string({ error: "Value must not be empty" });
 
 export const institute = z.enum(Institutes);
@@ -83,7 +84,7 @@ export function validFile({
                 file.size < (maxSizeInMb || 5) * 1024 * 1024 &&
                 ValidType.includes(file.type),
             {
-                error: `File should be a ${type} file and of max size ${maxSizeInMb} mB`,
+                error: `File should be a ${type} file and of max size ${maxSizeInMb || 5} mB`,
             }
         );
 }

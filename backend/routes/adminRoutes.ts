@@ -37,74 +37,74 @@ import csrfMiddleware from "../middleware/csrfMiddleware";
 
 router
     .route("/count/all")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getCounts);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getCounts);
 router
     .route("/count/15")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getDaysCount);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getDaysCount);
 router
     .route("/count/institution-wise")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getInstitutionWiseCount);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getInstitutionWiseCount);
 router
     .route("/count/group")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getGroupWiseCount);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getGroupWiseCount);
 router
     .route("/users")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getUsersData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getUsersData);
 
 // responses
 
 router
     .route("/forms/outstanding-institution")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getInstitutionData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getInstitutionData);
 router
     .route("/forms/research")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getResearchData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getResearchData);
 router
     .route("/forms/sports-girl")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsGirlData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getSportsGirlData);
 router
     .route("/forms/sports-boy")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsBoyData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getSportsBoyData);
 router
     .route("/forms/sports-coach")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getSportsCoachData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getSportsCoachData);
 router
     .route("/forms/students")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getStudentsData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getStudentsData);
 router
     .route("/forms/teaching")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getTeachingData);
 router
     .route("/forms/non-teaching")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getNonTeachingData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getNonTeachingData);
 router
     .route("/forms/feedback-01")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback01Data);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getFeedback01Data);
 router
     .route("/forms/feedback-02")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback02Data);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getFeedback02Data);
 router
     .route("/forms/feedback-03")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback03Data);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getFeedback03Data);
 router
     .route("/forms/feedback-04")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getFeedback04Data);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getFeedback04Data);
 
 // scorecard
 
 router
     .route("/teaching/scorecard")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingScoreCardData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getTeachingScoreCardData);
 router
     .route("/non-teaching/scorecard")
     .get(
         userAuthenticator,
-        roleMiddle(Role.Admin),
+        roleMiddle([Role.Admin]),
         getNonTeachingScoreCardData
     );
 router
     .route("/:formtype/preview")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getFormPreviewData);
+    .get(userAuthenticator, roleMiddle([Role.Admin]), getFormPreviewData);
 
 // Announce Results
 
@@ -113,7 +113,7 @@ router
     .post(
         userAuthenticator,
         csrfMiddleware,
-        roleMiddle(Role.Admin),
+        roleMiddle([Role.Admin]),
         upload11.single("result"),
         resultsDataHandler
     );
@@ -126,18 +126,27 @@ router.route("/results").get(getResultsData);
 
 router
     .route("/jury-summary/teaching")
-    .get(userAuthenticator, roleMiddle(Role.Admin), getTeachingJurySummaryData);
+    .get(
+        userAuthenticator,
+        roleMiddle([Role.Admin]),
+        getTeachingJurySummaryData
+    );
 router
     .route("/jury-summary/non-teaching")
     .get(
         userAuthenticator,
-        roleMiddle(Role.Admin),
+        roleMiddle([Role.Admin]),
         getNonTeachingJurySummaryData
     );
 
 // delete query
 router
     .route("/delete-user")
-    .delete(userAuthenticator,csrfMiddleware, roleMiddle(Role.Admin), deleteUser);
+    .delete(
+        userAuthenticator,
+        csrfMiddleware,
+        roleMiddle([Role.Admin]),
+        deleteUser
+    );
 
 export default router;

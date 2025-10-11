@@ -20,9 +20,9 @@ export const NonTeachingForm = z.object({
     institution_name: institute,
     department: validString,
     designation: validString,
-    date_of_appointment: lastDate(3),
+    appointment_date: lastDate(2),
     somaiya_email_id: somaiyaMail,
-    contact_number: phoneNumber,
+    phone_number: phoneNumber,
     q_01: validNumber,
     q_02: validNumber,
     q_03: validNumber,
@@ -50,11 +50,11 @@ export const NonTeachingForm = z.object({
     proof_docs: validString,
     nominee_photograph: validString,
 
-    ieacApproved: validBoolean.optional(),
+    ieacApproved: validBoolean.optional().nullable(),
     ieac_scoreA: validNumber.optional().nullable(),
     ieac_scoreB: validNumber.optional().nullable(),
     ieacApprovedFile: validString.optional().nullable(),
-    hr_approved: validBoolean.optional(),
+    hr_approved: validBoolean.optional().nullable(),
 });
 
 export type NonTeachingType = z.infer<typeof NonTeachingForm>;

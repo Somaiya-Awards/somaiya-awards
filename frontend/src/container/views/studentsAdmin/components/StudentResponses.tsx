@@ -8,7 +8,7 @@ import React from "react";
 
 export default function StudentResponses() {
     const [title, setTitle] = useState<string>();
-    const [columns] = useState<GridColDef[]>([columns01]);
+    const [columns] = useState<GridColDef[]>(columns01);
     const [rows, setRows] = useState([]);
     const location = useLocation();
 

@@ -17,6 +17,9 @@ function setCookieOption(
         case "1d":
             maxAge += 1000 * 60 * 60 * 24;
             break;
+        case "0s":
+            maxAge = 0;
+            break;
         default:
             throw new Error("Invalid expiration time");
     }
@@ -59,9 +62,9 @@ export function setRefreshCookie(res: Response, cookie: string) {
 }
 
 export function removeAccessCookie(res: Response) {
-    res.clearCookie(AccessCookie, setCookieOption("1h"));
+    setCookie(res, AccessCookie, "", "0s");
 }
 
 export function removeRefreshCookie(res: Response) {
-    res.clearCookie(RefreshCookie, setCookieOption("1d", "/auth/refresh"));
+    setCookie(res, RefreshCookie, "", "0s", "/auth/refresh");
 }

@@ -40,14 +40,16 @@ interface TeachingAttributes {
     ieac_scoreA: number | null;
     ieac_scoreB: number | null;
     ieac_scoreC: number | null;
-    createdAt?: Date,
-    updatedAt?: Date,
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 interface TeachingCreationAttributes
     extends Optional<
         TeachingAttributes,
-        | "id" | "createdAt" | "updatedAt"
+        | "id"
+        | "createdAt"
+        | "updatedAt"
         | "ieac_scoreA"
         | "ieac_scoreB"
         | "ieac_scoreC"
@@ -134,7 +136,7 @@ export default function TeachingInit(sequelize: Sequelize) {
                 allowNull: false,
             },
             date_of_appointment: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATE,
                 allowNull: false,
             },
             somaiya_mail_id: {

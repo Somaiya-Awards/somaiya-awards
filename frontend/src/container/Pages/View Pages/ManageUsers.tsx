@@ -178,7 +178,7 @@ export default function ManageUsers() {
                                     <>
                                         <Field
                                             required={true}
-                                            fieldsPerLine={2}
+                                            fieldsPerLine={1}
                                             page={1}
                                             formType="Manage"
                                             validator={anyString}
@@ -199,7 +199,7 @@ export default function ManageUsers() {
                                 <Field
                                     title="Password"
                                     required={true}
-                                    fieldsPerLine={2}
+                                    fieldsPerLine={1}
                                     page={1}
                                     formType="Manage"
                                     validator={anyString}

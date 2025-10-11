@@ -5,7 +5,7 @@ import StudentNonTeachingFeedbackForm from "../../../data/Forms/StudentNonTeachi
 import Footer from "../../../components/Footer";
 import StudentNonTeachingFeedbackFormValidator from "../../../zod/Forms/StudentNonTeachingFeedbackForm";
 import React from "react";
-import SideBar from "../../../components/hoi_components/SideBar";
+import Navbar from "../../../components/Navbar";
 
 export default function FeedbackNonTeachingST() {
     const headings = [
@@ -21,25 +21,23 @@ export default function FeedbackNonTeachingST() {
 
     return (
         <div>
-            <div className="flex h-screen">
-                <SideBar />
-                <div className="h-full overflow-scroll pb-4">
-                    <FormInfo
-                        title="Student's Feedback: Non-Teaching Staff"
-                        info={aboutForm}
-                    />
+            <Navbar />
+            <div className="h-full overflow-scroll pb-4">
+                <FormInfo
+                    title="Student's Feedback: Non-Teaching Staff"
+                    info={aboutForm}
+                />
 
-                    <Forms
-                        pageHeadings={headings}
-                        pageCount={limit}
-                        data={StudentNonTeachingFeedbackForm}
-                        stages={StudentNonTeachingFeedback}
-                        validator={StudentNonTeachingFeedbackFormValidator}
-                    />
+                <Forms
+                    pageHeadings={headings}
+                    pageCount={limit}
+                    data={StudentNonTeachingFeedbackForm}
+                    stages={StudentNonTeachingFeedback}
+                    validator={StudentNonTeachingFeedbackFormValidator}
+                />
 
-                    <div className="mt-[5rem]">
-                        <Footer />
-                    </div>
+                <div className="mt-[5rem]">
+                    <Footer />
                 </div>
             </div>
         </div>
