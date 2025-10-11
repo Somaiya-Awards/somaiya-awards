@@ -9,6 +9,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import Axios, { URL } from "../../../axios";
 import React from "react";
+import ErrorBoundary from "../../../components/utils/ErrorBoundary";
 
 const Admin = () => {
   const [pastData, setPastData] = useState<[]>([]);
@@ -29,41 +30,25 @@ const Admin = () => {
 
   const loadDashboardData = () => {
     // all Counts
-    Axios.get("/admin/data/count/all", {})
-      .then((res) => {
-        setCounts(res.data.data || []);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Axios.get("/admin/data/count/all", {}).then((res) => {
+      setCounts(res.data.data || []);
+    });
 
     // 15 days Count
-    Axios.get("/admin/data/count/15")
-      .then((res) => {
-        setPastData(res.data.data || []);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Axios.get("/admin/data/count/15").then((res) => {
+      setPastData(res.data.data || []);
+    });
 
     // institution Wise count
-    Axios.get("/admin/data/count/institution-wise", {})
-      .then((res) => {
-        setRows(res.data.data || []);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Axios.get("/admin/data/count/institution-wise", {}).then((res) => {
+      setRows(res.data.data || []);
+    });
 
     // group Wise count
 
-    Axios.get("/admin/data/count/group", {})
-      .then((res) => {
-        setPieData(res.data.data || []);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Axios.get("/admin/data/count/group", {}).then((res) => {
+      setPieData(res.data.data || []);
+    });
   };
 
   /**
@@ -117,31 +102,68 @@ const Admin = () => {
               <div>
                 <Box
                   title="Research Forms"
-                  count={counts.researchFormCount}
+                  count={
+                    counts
+                      ? counts.researchFormCount || 0
+                      : 0
+                  }
                 />
                 <Box
                   title="Non Teaching Forms"
-                  count={counts.nonTeachingFormCount}
+                  count={
+                    counts
+                      ? counts.nonTeachingFormCount || 0
+                      : 0
+                  }
                 />
               </div>
               <div>
                 <Box
                   title="Teaching Forms"
-                  count={counts.teachingFormCount}
+                  count={
+                    counts
+                      ? counts.teachingFormCount || 0
+                      : 0
+                  }
                 />
                 <Box
                   title="Total Forms Filled"
                   count={
-                    counts.institutionFormCount +
-                    counts.researchFormCount +
-                    counts.sportsFormCount +
-                    counts.teachingFormCount +
-                    counts.nonTeachingFormCount +
-                    counts.feedbackOneFormCount +
-                    counts.feedbackTwoFormCount +
-                    counts.feedbackThreeFormCount +
-                    counts.feedbackFourFormCount +
-                    counts.studentsFormCount
+                    (counts
+                      ? counts.institutionFormCount || 0
+                      : 0) +
+                    (counts
+                      ? counts.researchFormCount || 0
+                      : 0) +
+                    (counts
+                      ? counts.sportsFormCount || 0
+                      : 0) +
+                    (counts
+                      ? counts.teachingFormCount || 0
+                      : 0) +
+                    (counts
+                      ? counts.nonTeachingFormCount ||
+                      0
+                      : 0) +
+                    (counts
+                      ? counts.feedbackOneFormCount ||
+                      0
+                      : 0) +
+                    (counts
+                      ? counts.feedbackTwoFormCount ||
+                      0
+                      : 0) +
+                    (counts
+                      ? counts.feedbackThreeFormCount ||
+                      0
+                      : 0) +
+                    (counts
+                      ? counts.feedbackFourFormCount ||
+                      0
+                      : 0) +
+                    (counts
+                      ? counts.studentsFormCount
+                      : 0) || 0
                   }
                 />
               </div>
@@ -155,7 +177,7 @@ const Admin = () => {
 
           {/* flex row containing table and piechart  */}
           <div className="flex flex-row text-black p-5 h-full">
-            <div className="w-[70%] custom-scroll bg-[#FFFAFA] rounded-lg p-4 h-[25rem] overflow-y-scroll">
+            <div className="w-[70%] custom-scroll bg-[#FFFAFA] rounded-lg p-4 overflow-y-scroll">
               <Datagrid rows={rows} />
             </div>
             <div className="w-[30%]">
