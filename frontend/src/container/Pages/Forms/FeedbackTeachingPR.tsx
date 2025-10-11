@@ -5,7 +5,7 @@ import FeedbackPeerTeaching from "../../../components/utils/data/FeedbackPeerTea
 import Footer from "../../../components/Footer";
 import React from "react";
 import FeedbackTeachingPeerValidator from "../../../zod/Forms/FeedbackTeachingPeerForm";
-import SideBar from "../../../components/hoi_components/SideBar";
+import Navbar from "../../../components/Navbar";
 
 export default function FeedbackTeachingPR() {
     const headings = ["Basic Information", "Nominee Ratings", "Review"];
@@ -14,25 +14,23 @@ export default function FeedbackTeachingPR() {
         "The peers' feedback form for teaching enables colleagues to provide valuable insights on teaching effectiveness. This form fosters collaboration, encourages professional growth, and promotes a culture of continuous improvement. By collecting feedback from peers, teaching staff gain valuable perspectives to refine their teaching approaches and enhance the learning experience for students.";
     return (
         <div>
-            <div className="flex h-screen">
-                <SideBar />
-                <div className="h-full overflow-scroll pb-4">
-                    <FormInfo
-                        title="Peers Feedback Form for Teaching"
-                        info={aboutForm}
-                    />
+            <Navbar />
+            <div className="h-full overflow-scroll pb-4">
+                <FormInfo
+                    title="Peers Feedback Form for Teaching"
+                    info={aboutForm}
+                />
 
-                    <Forms
-                        pageHeadings={headings}
-                        pageCount={limit}
-                        data={FeedbackTeachingPeerForm}
-                        validator={FeedbackTeachingPeerValidator}
-                        stages={FeedbackPeerTeaching}
-                    />
+                <Forms
+                    pageHeadings={headings}
+                    pageCount={limit}
+                    data={FeedbackTeachingPeerForm}
+                    validator={FeedbackTeachingPeerValidator}
+                    stages={FeedbackPeerTeaching}
+                />
 
-                    <div className="mt-[5rem]">
-                        <Footer />
-                    </div>
+                <div className="mt-[5rem]">
+                    <Footer />
                 </div>
             </div>
         </div>

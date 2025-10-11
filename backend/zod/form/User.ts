@@ -3,9 +3,9 @@ import { email, role, validString, anyString } from "..";
 
 export const UserForm = z.object({
     email_id: email,
-    institution: validString,
+    institution: validString.optional().nullable(),
     password: anyString,
-    role: role.nullable(),
+    role: role.optional().nullable(),
 });
 
 export type UserType = z.infer<typeof UserForm>;

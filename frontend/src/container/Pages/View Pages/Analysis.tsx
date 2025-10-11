@@ -54,20 +54,11 @@ export default function Analysis() {
 
         const url = `/hoi/data/${formTitle}`;
 
-        Axios.get(url, {
-            headers: {
-                "x-user-id": localStorage.getItem("user_id"),
-                "x-access-token": localStorage.getItem("token"),
-            },
-        })
-            .then((res) => {
-                if (res.data) {
-                    setRows(res.data.data);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        Axios.get(url).then((res) => {
+            if (res.data && res.data.data) {
+                setRows(res.data.data);
+            }
+        });
 
         formTitle = formTitle.charAt(0).toUpperCase() + formTitle.slice(1);
 

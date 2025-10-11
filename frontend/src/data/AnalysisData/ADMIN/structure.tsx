@@ -280,9 +280,7 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={`${baseURL}/${params.value || ""}`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     target="_blank"
                     download

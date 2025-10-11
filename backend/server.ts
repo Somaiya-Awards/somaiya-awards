@@ -53,7 +53,6 @@ if (cluster.isMaster) {
         frontendURL = "http://localhost:5173";
     }
 
-    console.log(frontendURL);
     app.use(
         cors({
             origin: frontendURL, // your frontend URL
@@ -70,14 +69,14 @@ if (cluster.isMaster) {
         "/forms",
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Hoi),
+        roleMiddle([Role.Hoi]),
         formRoute
     );
     app.use(
         "/hoi/data",
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Hoi),
+        roleMiddle([Role.Hoi, Role.Ieac]),
         hoiRoutes
     );
     app.use("/ieac/data", ieacRoutes);
@@ -86,7 +85,7 @@ if (cluster.isMaster) {
         "/students-admin/data",
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.StudentAdmin),
+        roleMiddle([Role.StudentAdmin]),
         studentAdminRoutes
     );
     app.use("/sports-admin/data", sportsAdminRoutes);
@@ -94,7 +93,7 @@ if (cluster.isMaster) {
         "/research-admin/data",
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.ResearchAdmin),
+        roleMiddle([Role.ResearchAdmin]),
         researchRoutes
     );
 

@@ -5,7 +5,7 @@ import FeedbackSportsForm from "../../../data/Forms/FeedbackSportsCoach";
 import Footer from "../../../components/Footer";
 import FeedbackSportsCoachValidator from "../../../zod/Forms/FeedbackSportsCoach";
 import React from "react";
-import SideBar from "../../../components/hoi_components/SideBar";
+import Navbar from "../../../components/Navbar";
 
 export default function FeedbackSportsInc() {
     const headings = [
@@ -20,25 +20,23 @@ export default function FeedbackSportsInc() {
 
     return (
         <div>
-            <div className="flex h-screen">
-                <SideBar />
-                <div className="h-full overflow-scroll pb-4">
-                    <FormInfo
-                        title="Feedback Form: Sports Incharge/ Coach"
-                        info={aboutForm}
-                    />
+            <Navbar />
+            <div className="h-full overflow-scroll pb-4">
+                <FormInfo
+                    title="Feedback Form: Sports Incharge/ Coach"
+                    info={aboutForm}
+                />
 
-                    <Forms
-                        pageHeadings={headings}
-                        pageCount={limit}
-                        data={FeedbackSportsForm}
-                        stages={FeedbackSports}
-                        validator={FeedbackSportsCoachValidator}
-                    />
+                <Forms
+                    pageHeadings={headings}
+                    pageCount={limit}
+                    data={FeedbackSportsForm}
+                    stages={FeedbackSports}
+                    validator={FeedbackSportsCoachValidator}
+                />
 
-                    <div className="mt-[5rem]">
-                        <Footer />
-                    </div>
+                <div className="mt-[5rem]">
+                    <Footer />
                 </div>
             </div>
         </div>

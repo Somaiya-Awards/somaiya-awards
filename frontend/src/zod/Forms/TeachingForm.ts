@@ -31,7 +31,7 @@ export const TeachingFormField = {
 
     designation: validString,
 
-    date_of_appointment: lastDate(3),
+    date_of_appointment: lastDate(2),
 
     somaiya_mail_id: somaiyaMail,
 

@@ -36,7 +36,7 @@ router
     .put(
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Ieac),
+        roleMiddle([Role.Ieac]),
         teachingDataUpdater
     );
 router
@@ -44,7 +44,7 @@ router
     .put(
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Ieac),
+        roleMiddle([Role.Ieac]),
         nonTeachingDataUpdater
     );
 
@@ -56,7 +56,7 @@ router
     .post(
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Ieac),
+        roleMiddle([Role.Ieac]),
         upload08.single("approvalFile"),
         teachingRecFileHandler
     );
@@ -65,7 +65,7 @@ router
     .post(
         csrfMiddleware,
         userAuthenticator,
-        roleMiddle(Role.Ieac),
+        roleMiddle([Role.Ieac]),
         upload09.single("approvalFile"),
         nonTeachingRecFileHandler
     );

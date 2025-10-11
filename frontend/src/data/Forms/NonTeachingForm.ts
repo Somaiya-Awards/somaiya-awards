@@ -1,5 +1,6 @@
 import type { FormEntry } from "./types";
 import { NonTeachingField as v } from "../../zod/Forms/NonTeachingForm";
+import { Institutes } from "../../../../backend/constants";
 
 const awardsList = [
     "Outstanding Employee - Institute (More than 3 years of Service)",
@@ -49,7 +50,8 @@ const NonTeachingForm: FormEntry[] = [
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,
-        dropOpt: "single",
+        dropOpt: "multiple",
+        options: Institutes,
         validator: v.institution_name,
         page: 1,
         fieldsPerLine: 2,
@@ -355,7 +357,7 @@ const NonTeachingForm: FormEntry[] = [
         type: "file",
         required: true,
         validator: v.nominee_photograph,
-        accept: ".pdf",
+        accept: ".jpg",
         page: 8,
         fieldsPerLine: 1,
     },

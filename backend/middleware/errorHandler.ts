@@ -48,7 +48,7 @@ export default function errorHandler(
     res: Response,
     next: NextFunction
 ) {
-    const statusCode = res.statusCode ? res.statusCode : 500;
+    const statusCode = res.statusCode || 500;
 
     let json = err.message;
 

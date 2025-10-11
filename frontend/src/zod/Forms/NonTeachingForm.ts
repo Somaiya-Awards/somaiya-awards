@@ -29,7 +29,7 @@ export const NonTeachingField = {
     institution_name: institute,
     department: validString,
     designation: validString,
-    appointment_date: lastDate(3),
+    appointment_date: lastDate(2),
     somaiya_email_id: somaiyaMail,
     phone_number: phoneNumber,
     q_01: arrayChoice(options),
