@@ -1,10 +1,10 @@
 import { type GridColDef } from "@mui/x-data-grid";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
-import axios from "axios";
 
-import { BASE_URL as baseURL } from "../../../axios";
+import Axios, { BASE_URL as baseURL } from "../../../axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 /**
  * NOTE
@@ -39,13 +39,7 @@ const handleBoyChange = (params, event) => {
             .then((res) => {
                 if (res.isConfirmed == true) {
                     //axios put
-                    axios
-                        .put(`/sports-admin/data/update`, data, {
-                            headers: {
-                                "x-user-id": localStorage.getItem("user_id"),
-                                "x-access-token": localStorage.getItem("token"),
-                            },
-                        })
+                    Axios.put(`/sports-admin/data/update`, data)
                         .then((res) => {
                             console.log(res);
                             window.location.reload();
@@ -84,13 +78,7 @@ const handleGirlChange = (params, event) => {
             .then((res) => {
                 if (res.isConfirmed == true) {
                     //axios put
-                    axios
-                        .put(`/sports-admin/data/update`, data, {
-                            headers: {
-                                "x-user-id": localStorage.getItem("user_id"),
-                                "x-access-token": localStorage.getItem("token"),
-                            },
-                        })
+                    Axios.put(`/sports-admin/data/update`, data)
                         .then((res) => {
                             console.log(res);
                             window.location.reload();
@@ -129,13 +117,7 @@ const handleCoachChange = (params, event) => {
             .then((res) => {
                 if (res.isConfirmed == true) {
                     //axios put
-                    axios
-                        .put(`/sports-admin/data/update`, data, {
-                            headers: {
-                                "x-user-id": localStorage.getItem("user_id"),
-                                "x-access-token": localStorage.getItem("token"),
-                            },
-                        })
+                    Axios.put(`/sports-admin/data/update`, data)
                         .then((res) => {
                             console.log(res);
                             window.location.reload();
@@ -525,6 +507,20 @@ const columns03: GridColDef[] = [
         field: "final_score",
         headerName: "Final Score Percentage",
         width: 100,
+    },
+    {
+        field: "scorecard",
+        headerName: "ScoreCard",
+        width: 200,
+        renderCell: (params) => {
+            return (
+                <Link to={`/sports/sports-coach/scorecard/${params.id}`}>
+                    <a className="p-2 cursor-pointer bg-red-700 font-Poppins text-sm text-white rounded-2xl shadow-md">
+                        Download ScoreCard
+                    </a>
+                </Link>
+            );
+        },
     },
     {
         field: "isApprovedCoach",

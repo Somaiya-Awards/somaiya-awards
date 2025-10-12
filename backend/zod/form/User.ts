@@ -5,7 +5,7 @@ export const UserForm = z.object({
     email_id: email,
     institution: validString.optional().nullable(),
     password: anyString,
-    role: role.optional().nullable(),
+    role: role,
 });
 
 export type UserType = z.infer<typeof UserForm>;

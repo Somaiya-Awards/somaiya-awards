@@ -130,7 +130,7 @@ export default function Forms(props: FormProps) {
 
         return null;
     };
-
+    console.log(props.data);
     const handleSubmit = () => {
         // Check for phone number validation
         const Data = getData();

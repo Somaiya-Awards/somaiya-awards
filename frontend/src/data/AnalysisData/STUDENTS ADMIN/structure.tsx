@@ -1,8 +1,7 @@
 import { type GridColDef } from "@mui/x-data-grid";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
-import axios from "axios";
-import { BASE_URL as baseURL } from "../../../axios";
+import Axios, { BASE_URL as baseURL } from "../../../axios";
 import React from "react";
 
 const handleStudentsChange = (params, event) => {
@@ -25,13 +24,7 @@ const handleStudentsChange = (params, event) => {
             .then((res) => {
                 if (res.isConfirmed == true) {
                     //axios put
-                    axios
-                        .put(`/students-admin/data/update`, data, {
-                            headers: {
-                                "x-user-id": localStorage.getItem("user_id"),
-                                "x-access-token": localStorage.getItem("token"),
-                            },
-                        })
+                    Axios.put(`/students-admin/data/update`, data)
                         .then((res) => {
                             console.log(res);
                             window.location.reload();

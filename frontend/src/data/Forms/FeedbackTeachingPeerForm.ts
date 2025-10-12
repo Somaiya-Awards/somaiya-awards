@@ -197,22 +197,23 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
     },
 ];
 
-async function fetchNominatedNames() {
-    try {
-        const response = await Axios.get("/ieac/data/nominated-faculty-names", {
-            headers: {
-                "x-institute-name": localStorage.getItem(
-                    "institution"
-                ) as string,
-            },
-        });
+export function fetchNominatedNames() {
+    Axios.get("/ieac/data/nominated-faculty-names", {
+        headers: {
+            "x-institute-name": localStorage.getItem("institution") as string,
+        },
+    }).then((response) => {
         const nominatedNames = response.data.data;
-        FeedbackTeachingPeerForm.find(
-            (field) => field._name === "teacher_name"
-        ).options = nominatedNames;
-    } catch (error) {}
-}
+        const a = FeedbackTeachingPeerForm.findIndex(
+            (field) => field.name === "teacher_name"
+        );
 
-fetchNominatedNames();
+        //@ts-expect-error Index that
+        if (a > 0 && FeedbackTeachingPeerForm[a].options) {
+            //@ts-expect-error Index this
+            FeedbackTeachingPeerForm[a].options = nominatedNames;
+        }
+    });
+}
 
 export default FeedbackTeachingPeerForm;
