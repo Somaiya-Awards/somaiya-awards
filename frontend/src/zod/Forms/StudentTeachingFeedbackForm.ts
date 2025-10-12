@@ -54,6 +54,8 @@ export const StudentTeachingFeedbackFormField = {
 
     nominating_reasons: textArea({ maxLength: 300 }),
 };
-const StudentTeachingFeedbackFormValidator = z.object(SportsStarFormField);
+const StudentTeachingFeedbackFormValidator = z.object(
+    StudentTeachingFeedbackFormField
+);
 
 export default StudentTeachingFeedbackFormValidator;

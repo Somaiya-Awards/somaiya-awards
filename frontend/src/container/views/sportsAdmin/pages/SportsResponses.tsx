@@ -21,7 +21,6 @@ export default function SportsResponses() {
     const name = path.replaceAll("-", " ");
 
     useEffect(() => {
-
         switch (path) {
             case "sports-star-girl":
                 setColumns(columns01);
@@ -50,7 +49,7 @@ export default function SportsResponses() {
             });
 
         setTitle(name);
-    }, [navigate, path]);
+    }, [name, navigate, path]);
 
     return (
         <div className="flex">

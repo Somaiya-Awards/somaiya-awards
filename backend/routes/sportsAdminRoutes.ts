@@ -1,11 +1,15 @@
 import express from "express";
 import {
-    sportsStarGirlDataHandler,
-    sportsStarBoyDataHandler,
-    inspiringCoachDataHandler,
-    sportsDataUpdater,
-    getNominatedNames,
+  sportsStarGirlDataHandler,
+  sportsStarBoyDataHandler,
+  inspiringCoachDataHandler,
+  sportsDataUpdater,
+  getNominatedNames,
 } from "../controllers/sportsAdminController";
+import csrfMiddleware from "../middleware/csrfMiddleware";
+import roleMiddle from "../middleware/role";
+import userAuthenticator from "../middleware/userAuthenticator";
+import { Role } from "../types/role";
 const router = express.Router();
 
 /**GET REQUEST */
@@ -18,6 +22,13 @@ router.route("/nominated-coach-names").get(getNominatedNames);
 /**
  * PUT REQUEST
  */
-router.route("/update").put(sportsDataUpdater);
+router
+  .route("/update")
+  .put(
+    csrfMiddleware,
+    userAuthenticator,
+    roleMiddle([Role.SportsAdmin]),
+    sportsDataUpdater
+  );
 
 export default router;

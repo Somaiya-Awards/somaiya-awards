@@ -161,6 +161,7 @@ function Field({
                 ));
 
             case "dropdown":
+                console.log(name, options);
                 return (
                     <select
                         name={name}
@@ -228,7 +229,9 @@ function areEqual(prev: FieldProp, next: FieldProp) {
         prev.value === next.value &&
         prev.validator === next.validator &&
         prev.type === next.type &&
-        prev.name === next.name
+        prev.name === next.name &&
+        //@ts-expect-error options
+        (prev.options && next.options ? prev.options === next.options : true)
     );
 }
 

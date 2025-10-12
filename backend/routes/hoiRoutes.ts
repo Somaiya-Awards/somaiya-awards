@@ -36,6 +36,6 @@ router.route("/non-teaching").get(nonTeachingDataHandler);
 
 router.route("/students").get(studentsDataHandler);
 
-router.route("/house").get(houseDataHandler);
+// router.route("/house").get(houseDataHandler);
 
 export default router;

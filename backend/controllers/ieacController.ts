@@ -3,6 +3,7 @@ import { AuthRequest, FileRequest } from "../types/request";
 import { NonTeaching, sequelize } from "../models";
 import { OutstandingInstitution, Teaching } from "../models";
 import { Op } from "sequelize";
+import { instituteHeader } from "../constants";
 
 //@desc get data of institution forms to ieac
 //@route GET /ieac/data/outstanding-institution
@@ -338,7 +339,7 @@ export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
 export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
   let names = [];
 
-  const institute_name = req.query.institute_name as string;
+  const institute_name = req.headers[instituteHeader] || "";
 
   const result = await Teaching.findAll({
     where: {
@@ -348,7 +349,7 @@ export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
         sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
       ],
     },
-    attributes: ["staff_name"],
+    attributes: ["faculty_name"],
   });
 
   for (const feedback of result) {

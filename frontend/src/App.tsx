@@ -1,6 +1,5 @@
 import OutstandingInstitution from "./container/Pages/Forms/OutstandingInstitution";
 import SportsStar from "./container/Pages/Forms/SportsStar";
-import House from "./container/Pages/Forms/House";
 import Teaching from "./container/Pages/Forms/Teaching";
 import Research from "./container/Pages/Forms/Research";
 import FormPreview from "./container/views/admin/pages/FormPreview";
@@ -24,6 +23,7 @@ import ManageUsers from "./container/Pages/View Pages/ManageUsers";
 import Analysis from "./container/Pages/View Pages/Analysis";
 import Review from "./container/views/ieac/ieacPages/Review";
 import ScoreCard from "./container/views/admin/components/ScoreCard";
+import SportsScoreCard from "./container/views/sportsAdmin/components/ScoreCard";
 import Students from "./container/Pages/Forms/Students";
 import StudentsAdmin from "./container/views/studentsAdmin/StudentsAdmin";
 import SportsAdmin from "./container/views/sportsAdmin/SportsAdmin";
@@ -73,9 +73,14 @@ function App() {
                     element={<Responses />}
                 />
                 <Route
+                    path="/sports/sports-coach/scorecard/:id"
+                    element={<SportsScoreCard />}
+                />
+                <Route
                     path="/admin/:formType/scorecard/:id"
                     element={<ScoreCard />}
                 />
+
                 <Route
                     path="/admin/:formType/preview/:id"
                     element={<FormPreview />}
@@ -106,7 +111,6 @@ function App() {
                 <Route path="/forms/research" element={<Research />} />
                 <Route path="/forms/teaching" element={<Teaching />} />
                 <Route path="/forms/non-teaching" element={<NonTeaching />} />
-                <Route path="/forms/house" element={<House />} />
                 <Route path="/forms/students" element={<Students />} />
                 <Route
                     path="/forms/feedback-01"
