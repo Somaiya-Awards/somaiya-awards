@@ -19,7 +19,7 @@ export const sportsStarGirlDataHandler = asyncHandler(async (req, res) => {
   const data = [];
 
   for (const response of rawData) {
-    const object = {
+    const obj = {
       id: response.id,
       email_id: response.email_id,
       institute_name: response.institution_name,
@@ -39,11 +39,10 @@ export const sportsStarGirlDataHandler = asyncHandler(async (req, res) => {
         response.q_24 * 0.1,
     };
 
-    data.push(object);
+    data.push(obj);
   }
-
+  console.log(data);
   res.status(200).json({
-    message: "Request Successful",
     data: data,
   });
 });
@@ -187,6 +186,28 @@ export const inspiringCoachDataHandler = asyncHandler(async (req, res) => {
       q_18: response.q_18,
       q_19: response.q_19,
       q_20: response.q_20,
+      admin_score:
+        response.q_01 +
+        response.q_02 +
+        response.q_03 +
+        response.q_04 +
+        response.q_05 +
+        response.q_06 +
+        response.q_07 +
+        response.q_08 +
+        response.q_09 +
+        response.q_10 +
+        response.q_11 +
+        response.q_12 +
+        response.q_13 +
+        response.q_14 +
+        response.q_15 +
+        response.q_16 +
+        response.q_17 +
+        response.q_18 +
+        response.q_19 +
+        response.q_20,
+      feed_score: feedbackScore,
       final_score:
         0.4 *
         (response.q_01 +
@@ -208,7 +229,8 @@ export const inspiringCoachDataHandler = asyncHandler(async (req, res) => {
           response.q_17 +
           response.q_18 +
           response.q_19 +
-          response.q_20),
+          response.q_20) +
+        0.6 * feedbackScore,
     };
 
     data.push(object);
@@ -222,9 +244,8 @@ export const inspiringCoachDataHandler = asyncHandler(async (req, res) => {
 });
 
 //@desc update recommendation of sports form nominees
-//@route GET sports-admin/data/update
+//@route PUT sports-admin/data/update
 //@access PRIVATE
-
 export const sportsDataUpdater = asyncHandler(async (req, res) => {
   const { type, applicationID } = req.body;
 

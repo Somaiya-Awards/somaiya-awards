@@ -25,86 +25,48 @@ export const OutstandingInstitutionForm = z.object({
     somaiya_mail_id: somaiyaMail,
     contact_number: phoneNumber,
     q_01: textArea({ minLength: 500, maxLength: 700 }),
-
     q_02: textArea({ maxLength: 500 }),
-
     q_03: textArea({ maxLength: 500 }),
-
     q_04: textArea({ maxLength: 500 }),
-
     q_05: textArea({ maxLength: 500 }),
-
     q_06: textArea({ maxLength: 500 }),
-
     q_07: textArea({ maxLength: 250 }),
-
     q_08: textArea({ maxLength: 500 }),
-
     q_09: textArea({ maxLength: 500 }),
-
     q_10: textArea({ maxLength: 500 }),
-
     q_11: textArea({ maxLength: 500 }),
-
     q_12: textArea({ maxLength: 250 }),
-
     q_13: textArea({ maxLength: 750 }),
-
     q_14: textArea({ maxLength: 750 }),
-
     q_15: textArea({ maxLength: 500 }),
-
     q_16: textArea({ maxLength: 500 }),
-
     q_17: textArea({ maxLength: 500 }),
-
     institution_ratings: validNumber,
-
     q_18: textArea({ maxLength: 1000 }),
-
     q_19: textArea({ maxLength: 300 }),
-
     q_20: textArea({ maxLength: 500 }),
-
     q_21: textArea({ maxLength: 750 }),
-
     q_22: textArea({ maxLength: 500 }),
-
     q_23: textArea({ maxLength: 1000 }),
-
     q_24: textArea({ maxLength: 500 }),
-
     q_25: textArea({ maxLength: 500 }),
-
     q_26: textArea({ maxLength: 500 }),
-
     q_27: textArea({ maxLength: 500 }),
-
     q_28: textArea({ maxLength: 500 }),
-
     q_29: textArea({ maxLength: 500 }),
-
     q_30: textArea({ maxLength: 500 }),
-
     q_31: textArea({ maxLength: 500 }),
-
     q_32: textArea({ maxLength: 500 }),
-
     q_33: textArea({ maxLength: 300 }),
-
     q_34: textArea({ maxLength: 300 }),
-
     q_35: textArea({ maxLength: 300 }),
-
     q_36: textArea({ maxLength: 300 }),
-
     q_37: textArea({ maxLength: 300 }),
-
     q_38: textArea({ maxLength: 500 }),
 
     supportings: validString,
-    ieac_approved: validBoolean.optional(),
-    hr_approved: validBoolean.optional(),
+    ieac_approved: validBoolean.optional().nullable(),
+    hr_approved: validBoolean.optional().nullable(),
 });
 
 export type OutstandingInstitutionType = z.infer<

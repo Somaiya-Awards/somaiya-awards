@@ -54,7 +54,13 @@ export const submitForm_01 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await OutstandingInstitution.create(response);
+  var result: unknown;
+  try {
+    result = await OutstandingInstitution.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -93,7 +99,13 @@ export const submitForm_02 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await Research.create(response);
+  var result: unknown;
+  try {
+    result = await Research.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -140,7 +152,13 @@ export const submitForm_03 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await Sports.create(response);
+  var result: unknown;
+  try {
+    result = await Sports.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -204,7 +222,14 @@ export const submitForm_04 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await Teaching.create(response);
+  console.log(response);
+  var result: unknown;
+  try {
+    result = await Teaching.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -228,10 +253,10 @@ export const submitForm_04 = asyncHandler(async (req, res) => {
 
 export const submitForm_05 = asyncHandler(async (req, res) => {
   let quick = z.object({
-    somaiya_mail_id: email,
-    awards_category: validString,
+    somaiya_email_id: email,
+    award_category: validString,
   });
-  const { somaiya_mail_id, awards_category } = checkObject<
+  const { somaiya_email_id, award_category } = checkObject<
     z.infer<typeof quick>
   >(req.body, quick, res);
 
@@ -239,8 +264,8 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
   const existingNonTeachingEntry = await NonTeaching.findOne({
     where: {
       [Op.and]: [
-        { somaiya_email_id: somaiya_mail_id },
-        { award_category: awards_category },
+        { somaiya_email_id: somaiya_email_id },
+        { award_category: award_category },
         sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
       ],
     },
@@ -267,7 +292,13 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await NonTeaching.create(response);
+  var result: unknown;
+  try {
+    result = await NonTeaching.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -297,7 +328,13 @@ export const submitForm_10 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await Students.create(response);
+  var result: unknown;
+  try {
+    result = await Students.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -326,7 +363,13 @@ export const submitFeedback_01 = asyncHandler(async (req, res) => {
     FeedbackOneForm,
     res
   );
-  const result = await FeedbackOne.create(response);
+  var result: unknown;
+  try {
+    result = await FeedbackOne.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -355,7 +398,13 @@ export const submitFeedback_02 = asyncHandler(async (req, res) => {
     FeedbackTwoForm,
     res
   );
-  const result = await FeedbackTwo.create(response);
+  var result: unknown;
+  try {
+    result = await FeedbackTwo.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -384,7 +433,13 @@ export const submitFeedback_03 = asyncHandler(async (req, res) => {
     FeedbackThreeForm,
     res
   );
-  const result = await FeedbackThree.create(response);
+  var result: unknown;
+  try {
+    result = await FeedbackThree.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -414,7 +469,13 @@ export const submitFeedback_04 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await FeedbackFour.create(response);
+  var result: unknown;
+  try {
+    result = await FeedbackFour.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -442,7 +503,13 @@ export const submitFeedback_05 = asyncHandler(async (req, res) => {
     FeedbackFiveForm,
     res
   );
-  const result = await FeedbackFive.create(response);
+  var result: unknown;
+  try {
+    result = await FeedbackFive.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error
@@ -504,7 +571,13 @@ export const submitForm_06 = asyncHandler(async (req, res) => {
     res
   );
 
-  const result = await House.create(response);
+  var result: unknown;
+  try {
+    result = await House.create(response);
+  } catch (err: unknown) {
+    res.status(500);
+    throw err;
+  }
 
   if (!result) {
     // throw error

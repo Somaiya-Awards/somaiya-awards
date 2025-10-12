@@ -19,8 +19,9 @@ import cookieParser from "cookie-parser";
 import { sequelize, User } from "./models";
 import bcrypt from "bcrypt";
 import csrfMiddleware from "./middleware/csrfMiddleware";
-import { CsrfName } from "./constants";
+import { applicationHeader, CsrfName, instituteHeader } from "./constants";
 import cluster from "cluster";
+
 dotenv.config();
 
 const numCPUs = os.cpus().length;
@@ -28,74 +29,8 @@ const numCPUs = os.cpus().length;
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
 
-    // Fork workers
-    for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-    }
-
-    cluster.on("exit", (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died`);
-        cluster.fork();
-    });
-} else {
-    const app = express();
-    let frontendURL: string;
-
-    const prod = process.env.PROD === "1";
-
-    if (prod) {
-        frontendURL = "https://somaiyaawards.somaiya.edu";
-    } else {
-        frontendURL = "http://localhost:5173";
-    }
-    console.log(frontendURL);
-    app.use(
-        cors({
-            origin: frontendURL, // your frontend URL
-            credentials: true,
-            exposedHeaders: [CsrfName],
-        })
-    );
-    app.use(cookieParser());
-    app.use(express.json());
-    app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
-    app.use("/auth", authRoute);
-    app.use(
-        "/forms",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.Hoi),
-        formRoute
-    );
-    app.use(
-        "/hoi/data",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.Hoi),
-        hoiRoutes
-    );
-    app.use("/ieac/data", ieacRoutes);
-    app.use("/admin/data", adminRoutes);
-    app.use(
-        "/students-admin/data",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.StudentAdmin),
-        studentAdminRoutes
-    );
-    app.use("/sports-admin/data", sportsAdminRoutes);
-    app.use(
-        "/research-admin/data",
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.ResearchAdmin),
-        researchRoutes
-    );
-
-    app.use(errorHandler);
-
-    // server listen and database configuration(do it once, only.Uncomment once, then comment out)
-    sequelize.sync({ alter: false }).then(async (req) => {
+    /** Do it once on Master Process */
+    sequelize.sync({ alter: true }).then(async (req) => {
         try {
             const userCount = await User.count();
 
@@ -117,11 +52,65 @@ if (cluster.isMaster) {
             );
             throw error;
         }
-        const PORT = process.env.PORT || 5001;
 
-        app.listen(PORT, () => {
-            serverLogger.info(`Server started running at port ${PORT}`);
-            console.log(`Server started running at port ${PORT}`);
+        if (process.env.DEBUG === "1") {
+            cluster.fork();
+        } else {
+            // Fork workers
+            for (let i = 0; i < numCPUs; i++) {
+                cluster.fork();
+            }
+        }
+
+        cluster.on("exit", (worker, code, signal) => {
+            console.log(`Worker ${worker.process.pid} died`);
+            cluster.fork();
         });
+    });
+} else {
+    const app = express();
+    let frontendURL: string;
+
+    const prod = process.env.PROD === "1";
+
+    if (prod) {
+        frontendURL = "https://somaiyaawards.somaiya.edu";
+    } else {
+        frontendURL = "http://localhost:5173";
+    }
+
+    app.use(
+        cors({
+            origin: frontendURL, // your frontend URL
+            credentials: true,
+            exposedHeaders: [CsrfName],
+            allowedHeaders: `request-origin, content-type, ${CsrfName}, ${instituteHeader}, ${applicationHeader}`,
+        })
+    );
+    app.use(cookieParser());
+    app.use(express.json());
+    app.use("/data", userAuthenticator, express.static(`${__dirname}/data`));
+    app.use("/auth", authRoute);
+    app.use("/forms", csrfMiddleware, userAuthenticator, formRoute);
+    app.use(
+        "/hoi/data",
+        csrfMiddleware,
+        userAuthenticator,
+        roleMiddle([Role.Hoi, Role.Ieac]),
+        hoiRoutes
+    );
+    app.use("/ieac/data", ieacRoutes);
+    app.use("/admin/data", adminRoutes);
+    app.use("/students-admin/data", studentAdminRoutes);
+    app.use("/sports-admin/data", sportsAdminRoutes);
+    app.use("/research-admin/data", researchRoutes);
+
+    app.use(errorHandler);
+
+    const PORT = process.env.PORT || 5001;
+
+    app.listen(PORT, () => {
+        serverLogger.info(`Server started running at port ${PORT}`);
+        console.log(`Server started running at port ${PORT}`);
     });
 }

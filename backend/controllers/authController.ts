@@ -51,7 +51,7 @@ export const userLogin = asyncHandler(async (req, res) => {
 
     setAccessCookie(res, accessCookie);
     setRefreshCookie(res, refreshCookie);
-    setCsrfCookie(req, res);
+    setCsrfCookie(req, res, true);
 
     res.status(200).json({
       role: user.role,
@@ -393,14 +393,14 @@ export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
 export const userLogout = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
 
+  removeRefreshCookie(res);
+  removeAccessCookie(res);
+
   if (!user) {
     res.status(301).json({
       message: "Already logged out",
     });
   }
-
-  removeAccessCookie(res);
-  removeRefreshCookie(res);
 
   res.status(200).json({
     message: "Successfully logged out",

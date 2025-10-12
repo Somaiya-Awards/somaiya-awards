@@ -1,11 +1,11 @@
 import express from "express";
 import {
-    somaiyaStarGirlDataHandler,
-    somaiyaStarBoyDataHandler,
-    somaiyaStarInnovatorDataHandler,
-    somaiyaStarCitizenDataHandler,
-    somaiyaGreenStarDataHandler,
-    studentsDataUpdater,
+  somaiyaStarGirlDataHandler,
+  somaiyaStarBoyDataHandler,
+  somaiyaStarInnovatorDataHandler,
+  somaiyaStarCitizenDataHandler,
+  somaiyaGreenStarDataHandler,
+  studentsDataUpdater,
 } from "../controllers/studentAdminController";
 import csrfMiddleware from "../middleware/csrfMiddleware";
 import userAuthenticator from "../middleware/userAuthenticator";
@@ -29,12 +29,12 @@ router.route("/somaiya-green-star").get(somaiyaGreenStarDataHandler);
  */
 
 router
-    .route("/update")
-    .put(
-        csrfMiddleware,
-        userAuthenticator,
-        roleMiddle(Role.SportsAdmin),
-        studentsDataUpdater
-    );
+  .route("/update")
+  .put(
+    csrfMiddleware,
+    userAuthenticator,
+    roleMiddle([Role.StudentAdmin]),
+    studentsDataUpdater
+  );
 
 export default router;

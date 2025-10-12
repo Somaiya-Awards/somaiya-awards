@@ -11,8 +11,10 @@ export const role = z.enum(Role);
 export const validString = z
     .string({ error: "Value must not be empty" })
     .regex(/^[A-Za-z0-9\s.,!?'"@#$%&*()_+\-=:;\/\\|<>~`[\]{}]+$/, {
-        error: "Value can only contain the following characters: a-z, A-Z, 0-9 and spaces",
+        // .regex(/^[A-Za-z0-9\s.,\-=:;\/\\]+$/, {
+        error: "Value cannot contain special characters",
     });
+
 export const anyString = z.string({ error: "Value must not be empty" });
 
 export const institute = z.enum(Institutes);
@@ -55,7 +57,7 @@ export function textArea({
     minLength?: number;
     maxLength: number;
 }) {
-    return validString.regex(RegExp(`^\\w{${minLength || 1},${maxLength}}$`), {
+    return z.string().regex(RegExp(`^\\w{${minLength || 1},${maxLength}}$`), {
         error: `Min word limit: ${minLength || 1} and Max word limit: ${maxLength}`,
     });
 }
@@ -82,7 +84,7 @@ export function validFile({
                 file.size < (maxSizeInMb || 5) * 1024 * 1024 &&
                 ValidType.includes(file.type),
             {
-                error: `File should be a ${type} file and of max size ${maxSizeInMb} mB`,
+                error: `File should be a ${type} file and of max size ${maxSizeInMb || 5} mB`,
             }
         );
 }

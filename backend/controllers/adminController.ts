@@ -32,9 +32,10 @@ import {
   Students,
   Teaching,
   sequelize,
+  FeedbackFive,
 } from "../models";
 import { Op } from "sequelize";
-import { Group, Groups, Institutes } from "../constants";
+import { applicationHeader, Group, Groups, Institutes } from "../constants";
 
 function textToScore(text: string) {
   let score = 0;
@@ -963,7 +964,7 @@ export const getTeachingScoreCardData = asyncHandler(
 
     let hoiScore = 0;
     // const applicationID = req.headers.applicationid;
-    const applicationID = req.headers["x-application-id"];
+    const applicationID = req.headers[applicationHeader];
 
     const applicationData = await Teaching.findOne({
       where: { id: applicationID },
@@ -973,7 +974,8 @@ export const getTeachingScoreCardData = asyncHandler(
       res.status(404).json({ error: "Application Not Found" });
       return;
     }
-    const facultyName = applicationData.faculty_name;
+    const facultyName = applicationData.faculty_name.trim().toLowerCase();
+
     const studentFeedbackData = await FeedbackOne.findAll({
       where: {
         [Op.and]: [
@@ -1139,7 +1141,7 @@ export const getNonTeachingScoreCardData = asyncHandler(
     const studentValidFeedbacks = [];
     const peerValidFeedbacks = [];
 
-    const applicationID = req.headers["x-application-id"];
+    const applicationID = req.headers[applicationHeader];
 
     const applicationData = await NonTeaching.findOne({
       where: { id: applicationID },
@@ -1149,7 +1151,7 @@ export const getNonTeachingScoreCardData = asyncHandler(
       res.status(404).json({ error: "Application Not Found" });
       return;
     }
-    const theGuy = applicationData.staff_name;
+    const theGuy = applicationData.staff_name.trim().toLowerCase();
 
     const studentFeedbacks = await FeedbackThree.findAll({
       where: {
@@ -1162,7 +1164,10 @@ export const getNonTeachingScoreCardData = asyncHandler(
           sequelize.where(
             sequelize.fn(
               "TRIM",
-              sequelize.fn("LOWER", sequelize.col("teacher_name"))
+              sequelize.fn(
+                "LOWER",
+                sequelize.col("employee_name")
+              )
             ),
             theGuy
           ),
@@ -1181,7 +1186,7 @@ export const getNonTeachingScoreCardData = asyncHandler(
           sequelize.where(
             sequelize.fn(
               "TRIM",
-              sequelize.fn("LOWER", sequelize.col("teacher_name"))
+              sequelize.fn("LOWER", sequelize.col("nominee_name"))
             ),
             theGuy
           ),
@@ -1304,6 +1309,103 @@ export const getNonTeachingScoreCardData = asyncHandler(
   }
 );
 
+export const getInspiringCoachScorecard = asyncHandler(async (req, res) => {
+  const currentYear = new Date().getFullYear();
+
+  const applicationID = req.headers[applicationHeader];
+
+  const response = await Sports.findOne({
+    where: { id: applicationID },
+  });
+
+  if (!response) {
+    res.status(404).json({ error: "Application Not Found" });
+    return;
+  }
+
+  const theCoach = response.nominee_inspiring_coach;
+
+  const feedbacks = await FeedbackFive.findAll({
+    where: {
+      [Op.and]: [
+        sequelize.where(
+          sequelize.fn("YEAR", sequelize.col("createdAt")),
+          currentYear
+        ),
+
+        sequelize.where(
+          sequelize.fn(
+            "TRIM",
+            sequelize.fn("LOWER", sequelize.col("nominee_name"))
+          ),
+          theCoach
+        ),
+      ],
+    },
+  });
+
+  let feedbackScore = 0;
+
+  for (const answers of feedbacks) {
+    feedbackScore =
+      feedbackScore +
+      (answers.q_01 +
+        answers.q_02 +
+        answers.q_03 +
+        answers.q_04 +
+        answers.q_05 +
+        answers.q_06 +
+        answers.q_07 +
+        answers.q_08 +
+        answers.q_09 +
+        answers.q_10 +
+        answers.q_11 +
+        answers.q_12 +
+        answers.q_13 +
+        answers.q_14 +
+        answers.q_15 +
+        answers.q_16 +
+        answers.q_17 +
+        answers.q_18 +
+        answers.q_19 +
+        answers.q_20);
+  }
+
+  feedbackScore = feedbackScore / feedbacks.length;
+
+  const admin_score =
+    response.q_01 +
+    response.q_02 +
+    response.q_03 +
+    response.q_04 +
+    response.q_05 +
+    response.q_06 +
+    response.q_07 +
+    response.q_08 +
+    response.q_09 +
+    response.q_10 +
+    response.q_11 +
+    response.q_12 +
+    response.q_13 +
+    response.q_14 +
+    response.q_15 +
+    response.q_16 +
+    response.q_17 +
+    response.q_18 +
+    response.q_19 +
+    response.q_20;
+
+  const final_score = 0.4 * admin_score + 0.6 * feedbackScore;
+
+  res.status(200).json({
+    name: response.nominee_inspiring_coach,
+    institute: response.institution_name,
+    admin_score,
+    feed_score: feedbackScore,
+    final_score,
+  });
+});
+
 //@desc POST results file
 //@route POST admin/data/announce-results
 //@access Private
@@ -1363,7 +1465,7 @@ export const getUsersData = asyncHandler(
 export const getFormPreviewData = asyncHandler(
   async (req: Request, res: Response) => {
     const formType = req.params.formtype;
-    const applicationID = req.headers["x-application-id"];
+    const applicationID = req.headers[applicationHeader];
 
     let application: MyModel | null = null;
 

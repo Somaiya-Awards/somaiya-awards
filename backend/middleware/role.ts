@@ -2,7 +2,8 @@ import asyncHandler from "express-async-handler";
 import { AuthRequest } from "../types/request";
 import { Role } from "../types/role";
 
-export default function roleMiddle(role: Role) {
+/** Thanks ieac */
+export default function roleMiddle(roles: Role[]) {
     return asyncHandler(async (req, res, next) => {
         const user = (req as AuthRequest).user;
 
@@ -11,7 +12,7 @@ export default function roleMiddle(role: Role) {
             throw new Error("User not found");
         }
 
-        if (user.role !== role) {
+        if (!roles.includes(user.role)) {
             res.status(403);
             throw new Error("Forbidden Access");
         }
