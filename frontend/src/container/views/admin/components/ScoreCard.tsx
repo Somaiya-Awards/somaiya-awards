@@ -172,7 +172,7 @@ export default function ScoreCard() {
                                     loading={loading}
                                 />
                                 <ApplicationScoreHighlight
-                                    label="Application Score (40% of A+B )"
+                                    label="Application Score (40% of A + B)"
                                     value={
                                         apiData
                                             ? Math.round(
@@ -188,24 +188,24 @@ export default function ScoreCard() {
                                     loading={loading}
                                 />
                                 <ScoreRow
-                                    label="Student Feedback"
+                                    label="Student Feedback (C)"
                                     value={apiData ? apiData.student_avg : 0}
                                     loading={loading}
                                 />
                                 <ScoreRow
-                                    label="Peer Feedback"
+                                    label="Peer Feedback (D)"
                                     value={apiData ? apiData.peers_avg : 0}
                                     loading={loading}
                                 />
                                 <FeedbackScoreHighlight
-                                    label="360 degree Feedback Score (60%)"
+                                    label="360 degree Feedback Score (60% of C + D)"
                                     value={
                                         loading ? 0 : calculateFeedbackScore()
                                     }
                                     loading={loading}
                                 />
                                 <FinalScoreHighlight
-                                    label="Final Score"
+                                    label="Final Score (Application Score + Feedback Score)"
                                     value={loading ? 0 : calculateFinalScore()}
                                     loading={loading}
                                 />
@@ -224,7 +224,7 @@ export default function ScoreCard() {
 }
 
 // Helper Components
-function DetailRow({
+export function DetailRow({
     label,
     value,
     loading,
@@ -249,13 +249,14 @@ function DetailRow({
         </div>
     );
 }
-type NumberScore = {
+
+export type NumberScore = {
     label: string;
     value: number;
     loading: boolean;
 };
 
-function ScoreRow({ label, value, loading }: NumberScore) {
+export function ScoreRow({ label, value, loading }: NumberScore) {
     return (
         <div className="flex justify-between items-center">
             <span className="text-xs sm:text-sm text-gray-600">{label}</span>
@@ -272,10 +273,16 @@ function ScoreRow({ label, value, loading }: NumberScore) {
     );
 }
 
-function ApplicationScoreHighlight({ label, value, loading }: NumberScore) {
+export function ApplicationScoreHighlight({
+    label,
+    value,
+    loading,
+}: NumberScore) {
     return (
         <div className="bg-blue-100 text-blue-800 p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
+            <span className="font-medium text-sm sm:text-base pr-3">
+                {label}
+            </span>
             <span className="text-lg sm:text-xl font-bold">
                 {loading ? (
                     <Skeleton width={50} />
@@ -289,10 +296,12 @@ function ApplicationScoreHighlight({ label, value, loading }: NumberScore) {
     );
 }
 
-function FeedbackScoreHighlight({ label, value, loading }: NumberScore) {
+export function FeedbackScoreHighlight({ label, value, loading }: NumberScore) {
     return (
         <div className="bg-green-100 text-green-800 p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
+            <span className="font-medium text-sm sm:text-base pr-5">
+                {label}
+            </span>
             <span className="text-lg sm:text-xl font-bold">
                 {loading ? (
                     <Skeleton width={50} />
@@ -305,10 +314,13 @@ function FeedbackScoreHighlight({ label, value, loading }: NumberScore) {
         </div>
     );
 }
-function FinalScoreHighlight({ label, value, loading }: NumberScore) {
+
+export function FinalScoreHighlight({ label, value, loading }: NumberScore) {
     return (
         <div className="bg-red-800 text-white p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
+            <span className="font-medium text-sm sm:text-base pr-3">
+                {label}
+            </span>
             <span className="text-lg sm:text-xl font-bold">
                 {loading ? (
                     <Skeleton width={50} />

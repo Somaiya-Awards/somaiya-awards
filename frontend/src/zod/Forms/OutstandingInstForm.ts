@@ -27,7 +27,7 @@ export const OutstandingInstFormField = {
     hoi_joining_date: validDate,
     somaiya_mail_id: somaiyaMail,
     contact_number: phoneNumber,
-    q_01: textArea({ minLength: 500, maxLength: 700 }),
+    q_01: textArea({ maxLength: 500 }),
 
     q_02: textArea({ maxLength: 500 }),
 

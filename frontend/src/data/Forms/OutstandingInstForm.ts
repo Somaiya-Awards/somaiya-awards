@@ -94,7 +94,7 @@ const OutstandingInstForm: FormEntry[] = [
         fieldsPerLine: 2,
     },
     {
-        title: "Q1. Submit a short paragraph/ summary of why you believe your Institution qualifies for the award. (500 – 700 words only)",
+        title: "Q1. Submit a short paragraph/ summary of why you believe your Institution qualifies for the award. (Max. 500 words only)",
         name: "q_01",
         type: "textarea",
         validator: v.q_01,

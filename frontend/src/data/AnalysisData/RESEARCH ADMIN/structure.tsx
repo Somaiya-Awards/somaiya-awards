@@ -2,7 +2,7 @@ import { type GridColDef } from "@mui/x-data-grid";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
 
-import Axios, { BASE_URL as baseURL } from "../../../axios";
+import Axios, { DATA_URL as baseURL } from "../../../axios";
 import React from "react";
 
 const handleResearchChange = (params, event) => {
@@ -180,7 +180,7 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value != null
                             ? params.value.split("data")[1]
                             : null
@@ -200,7 +200,7 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value != null
                             ? params.value.split("data")[1]
                             : null
