@@ -57,7 +57,7 @@ export function textArea({
     minLength?: number;
     maxLength: number;
 }) {
-    return z.string().regex(RegExp(`^\\w{${minLength || 1},${maxLength}}$`), {
+    return z.string().regex(RegExp(`^\.{${minLength || 1},${maxLength}}$`), {
         error: `Min word limit: ${minLength || 1} and Max word limit: ${maxLength}`,
     });
 }
