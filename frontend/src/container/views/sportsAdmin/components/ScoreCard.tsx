@@ -1,12 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Download, User, Building2, Award } from "lucide-react";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "../../admin/components/BarGraph";
 import Logo from "/logo.png";
 import Axios from "../../../../axios";
 import React from "react";
+import {
+    ApplicationScoreHighlight,
+    DetailRow,
+    FeedbackScoreHighlight,
+    FinalScoreHighlight,
+    ScoreRow,
+} from "../../admin/components/ScoreCard";
 
 export default function ScoreCard() {
     const cardRef = useRef(null);
@@ -133,27 +139,27 @@ export default function ScoreCard() {
                             </h2>
                             <div className="space-y-2">
                                 <ScoreRow
-                                    label="HOI Average"
+                                    label="HOI Average (A)"
                                     value={admin}
                                     loading={loading}
                                 />
                                 <ApplicationScoreHighlight
-                                    label="Application Score (40%)"
+                                    label="Application Score (40% of A)"
                                     value={admin}
                                     loading={loading}
                                 />
                                 <ScoreRow
-                                    label="Student Feedback"
+                                    label="Student Feedback (B)"
                                     value={feed}
                                     loading={loading}
                                 />
                                 <FeedbackScoreHighlight
-                                    label="360 degree Feedback Score (60%)"
+                                    label="360 degree Feedback Score (60% of B)"
                                     value={feed}
                                     loading={loading}
                                 />
                                 <FinalScoreHighlight
-                                    label="Final Score"
+                                    label="Final Score (Application Score + Feedback Score)"
                                     value={final}
                                     loading={loading}
                                 />
@@ -167,105 +173,6 @@ export default function ScoreCard() {
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
-
-// Helper Components
-function DetailRow({
-    label,
-    value,
-    loading,
-    Icon,
-}: {
-    label: string;
-    value: string | number;
-    loading: boolean;
-    Icon: React.JSX.ElementType;
-}) {
-    return (
-        <div className="">
-            <div className="flex items-center space-x-3">
-                {Icon && <Icon className="text-red-800 w-5 h-5" />}
-                <span className="text-red-800 font-semibold text-sm sm:text-base">
-                    {label}
-                </span>
-            </div>
-            <div className="bg-gray-100 p-3 rounded-lg m-2">
-                {loading ? <Skeleton width={150} /> : value || "N/A"}
-            </div>
-        </div>
-    );
-}
-type NumberScore = {
-    label: string;
-    value: number;
-    loading: boolean;
-};
-
-function ScoreRow({ label, value, loading }: NumberScore) {
-    return (
-        <div className="flex justify-between items-center">
-            <span className="text-xs sm:text-sm text-gray-600">{label}</span>
-            <span className="font-semibold text-blue-800 text-sm sm:text-base">
-                {loading ? (
-                    <Skeleton width={50} />
-                ) : value != null ? (
-                    value.toFixed(2)
-                ) : (
-                    "N/A"
-                )}
-            </span>
-        </div>
-    );
-}
-
-function ApplicationScoreHighlight({ label, value, loading }: NumberScore) {
-    return (
-        <div className="bg-blue-100 text-blue-800 p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
-            <span className="text-lg sm:text-xl font-bold">
-                {loading ? (
-                    <Skeleton width={50} />
-                ) : value != null ? (
-                    value.toFixed(2)
-                ) : (
-                    "N/A"
-                )}
-            </span>
-        </div>
-    );
-}
-
-function FeedbackScoreHighlight({ label, value, loading }: NumberScore) {
-    return (
-        <div className="bg-green-100 text-green-800 p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
-            <span className="text-lg sm:text-xl font-bold">
-                {loading ? (
-                    <Skeleton width={50} />
-                ) : value != null ? (
-                    value.toFixed(2)
-                ) : (
-                    "N/A"
-                )}
-            </span>
-        </div>
-    );
-}
-function FinalScoreHighlight({ label, value, loading }: NumberScore) {
-    return (
-        <div className="bg-red-800 text-white p-3 rounded-lg flex justify-between items-center">
-            <span className="font-medium text-sm sm:text-base">{label}</span>
-            <span className="text-lg sm:text-xl font-bold">
-                {loading ? (
-                    <Skeleton width={50} />
-                ) : value != null ? (
-                    value.toFixed(2)
-                ) : (
-                    "N/A"
-                )}
-            </span>
         </div>
     );
 }

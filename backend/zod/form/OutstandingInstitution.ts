@@ -24,7 +24,7 @@ export const OutstandingInstitutionForm = z.object({
     hoi_joining_date: validDate,
     somaiya_mail_id: somaiyaMail,
     contact_number: phoneNumber,
-    q_01: textArea({ minLength: 500, maxLength: 700 }),
+    q_01: textArea({ maxLength: 500 }),
     q_02: textArea({ maxLength: 500 }),
     q_03: textArea({ maxLength: 500 }),
     q_04: textArea({ maxLength: 500 }),

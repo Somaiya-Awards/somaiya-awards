@@ -216,7 +216,7 @@ export default function ManageUsers() {
                                     onClick={handleSubmit}
                                     className="bg-red-700 rounded-lg p-3 w-[30%] text-center text-white font-Poppins hover:bg-red-600"
                                 >
-                                    Create User
+                                    Create New User
                                 </div>
                                 <ToastContainer />
                             </div>

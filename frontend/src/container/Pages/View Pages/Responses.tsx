@@ -459,12 +459,9 @@ export default function Responses() {
                                 {
                                     label: "File",
                                     value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
-                                            : null,
+                                        backendUrl +
+                                        "/data" +
+                                        row.ieacApprovedFile.split("data")[1],
                                 },
                             ],
                             content: res.data.array001,

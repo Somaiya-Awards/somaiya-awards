@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
+import { NurgleTallyMan } from "../../../../backend/zod";
 
 export type FieldProp = {
     onChange: (
@@ -115,7 +116,10 @@ function Field({
                         />
                         <p className="text-right text-red-700">
                             {" "}
-                            Current word count: {(value as string).length}{" "}
+                            Current word count:{" "}
+                            {(value as string) === ""
+                                ? 0
+                                : NurgleTallyMan(value as string)}
                         </p>
                     </>
                 );

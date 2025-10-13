@@ -5,6 +5,8 @@ import { CsrfName } from "../../../backend/constants";
 export const BASE_URL = "https://apisomaiyaawards.somaiya.edu";
 // export const BASE_URL = "http://localhost:5001";
 
+export const DATA_URL = `${BASE_URL}/data`;
+
 interface Config extends AxiosRequestConfig {
     retry?: boolean;
 }

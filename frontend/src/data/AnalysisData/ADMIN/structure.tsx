@@ -19,7 +19,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { Link } from "react-router-dom";
 import React from "react";
-import { BASE_URL as baseURL } from "../../../axios";
+import { DATA_URL as baseURL } from "../../../axios";
 
 const columns01: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
@@ -280,7 +280,9 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${params.value || ""}`}
+                    href={`${baseURL}${
+                        params.value ? params.value.split("data")[1] : null
+                    }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     target="_blank"
                     download
@@ -447,7 +449,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -465,7 +467,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -550,7 +552,7 @@ const columns03: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -721,7 +723,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -739,7 +741,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -788,7 +790,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -959,7 +961,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -977,7 +979,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1026,7 +1028,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1249,7 +1251,7 @@ const columns10: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1268,7 +1270,7 @@ const columns10: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1368,7 +1370,7 @@ const columns11: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1387,7 +1389,7 @@ const columns11: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1567,7 +1569,7 @@ const columns12: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
@@ -1586,7 +1588,7 @@ const columns12: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}/${
+                    href={`${baseURL}${
                         params.value ? params.value.split("data")[1] : null
                     }`}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
