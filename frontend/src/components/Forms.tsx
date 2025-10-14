@@ -130,7 +130,7 @@ export default function Forms(props: FormProps) {
 
         return null;
     };
-    console.log(props.data);
+
     const handleSubmit = () => {
         // Check for phone number validation
         const Data = getData();
@@ -166,9 +166,7 @@ export default function Forms(props: FormProps) {
                 },
             })
                 .then(() => {
-                    localStorage.removeItem(
-                        window.location.href.split("/forms/")[1] + "Data"
-                    );
+                    localStorage.removeItem(formName);
                     navigate({
                         pathname: "/forms/cards",
                         search: createSearchParams({
@@ -254,13 +252,11 @@ export default function Forms(props: FormProps) {
     }, [props.data, current, display, formName, handleFieldChange]);
 
     useEffect(() => {
-        const dataName = formName;
-
-        if (!localStorage.getItem(dataName)) {
+        if (!localStorage.getItem(formName)) {
             setData({});
         } else {
-            setData(JSON.parse(localStorage.getItem(dataName) || "{}"));
-            setDisplay(JSON.parse(localStorage.getItem(dataName) || "{}"));
+            setData(JSON.parse(localStorage.getItem(formName) || "{}"));
+            setDisplay(JSON.parse(localStorage.getItem(formName) || "{}"));
         }
     }, [formName, setData, setDisplay]);
 

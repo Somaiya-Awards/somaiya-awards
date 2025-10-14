@@ -29,7 +29,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         name: "institution_name",
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
-        dropOpt: "multiple",
+        dropOpt: "single",
         required: true,
         validator: v.institution_name,
         options: Institutes,

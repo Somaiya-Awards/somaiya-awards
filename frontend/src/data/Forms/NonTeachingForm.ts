@@ -50,7 +50,7 @@ const NonTeachingForm: FormEntry[] = [
         type: "dropdown",
         dropdownHiddenItem: "Select your institute",
         required: true,
-        dropOpt: "multiple",
+        dropOpt: "single",
         options: Institutes,
         validator: v.institution_name,
         page: 1,

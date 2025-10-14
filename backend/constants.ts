@@ -5,13 +5,20 @@ export enum StatusCode {
     NOT_FOUND = 404,
     METHOD_NOT_ALLOWED = 405,
 }
+
 export const AccessCookie = "x-access";
+
 export const RefreshCookie = "x-refresh";
+
 export const CsrfName = "x-csrf";
+
 export const instituteHeader = "x-institute-name";
+
 export const applicationHeader = "x-application-id";
+
 export const CSRF =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
 export const CSRF_SIZE = 32;
 
 export const Groups = {
@@ -58,54 +65,15 @@ export const Groups = {
         [3],
     "K. J. Somaiya Institute of Physiotherapy": [3],
     "K. J. Somaiya School and  Institute  of Nursing": [3],
+    "Somaiya School of Design": [2],
+    "S. K. Somaiya Balvatika Vidyavihar": [0],
+    "Somaiya Vidya Mandir Bhopal Rehti": [0],
 } as const;
 
 export type Group = (typeof Groups)[keyof typeof Groups];
+export type InstitutesType = keyof typeof Groups
 
-export const Institutes = [
-    "The Somaiya School, Mumbai",
-    "S. K. Somaiya Prathmik Shala, Mumbai",
-    "S. K. Somaiya Vinay Mandir High School, Mumbai",
-    "Somaiya Vidyamandir, Sakarwadi",
-    "Somaiya Vidyamandir,  Laxmiwadi",
-    "Somaiya Shishu Niketan Primary School, Sameerwadi",
-    "Somaiya Vinaymandir High School, Sameerwadi",
-    "Nareshwadi Learning Centre, Dahanu",
-    "Somaiya Vinay Mandir, Rehti",
-    "S. K. Somaiya Vinay Mandir Junior Institute, Mumbai",
-    "Shri Sharda English Medium School,  Kopargaon",
-    "Somaiya Vidyamandir, Laxmiwadi",
-    "Smt. Sakarbai K. Somaiya Junior Institute of Education (D. Ed)",
-    "K J Somaiya Madhyamik Vidyalaya, Nareshwadi Learning Centre, Dahanu",
-    "K. J. Somaiya Private Industrial Training Institute",
-    "K. J. Somaiya English Medium School, Sameerwadi",
-    "K. J. Somaiya Junior Institute of Science and Commerce",
-    "K. J. Somaiya Junior Institute of Arts and Commerce",
-    "K. J. Somaiya Institute of Technology",
-    "K. J. Somaiya School of Engineering",
-    "K. J. Somaiya Institute of Management",
-    "K. J. Somaiya Polytechnic",
-    "K. J. Somaiya Institute Arts and Commerce",
-    "K. J. Somaiya Institute of Science and Commerce",
-    "S. K. Somaiya Institute of Arts, Science and Commerce",
-    "K. J. Somaiya School of Education",
-    "K J Somaiya Institute of Dharma Studies",
-    "Maya Somaiya School of Music & Performing Arts",
-    "Somaiya Institute of Research and Consultancy",
-    "Somaiya Sports Academy",
-    "Faculty & Staff Development Centre, SVU",
-    "School of Civilization Studies",
-    "Department of Library and Information Science",
-    "Admission and Student Outreach",
-    "Dr. Shantilal K Somaiya School of Art",
-    "S K Somaiya School of Commerce & Business Studies",
-    "Somaiya School of Humanities & Social Sciences",
-    "Somaiya School of Basic & Applied Science",
-    "Somaiya Dhwani Chitram",
-    "K. J. Somaiya Medical Institute and Research Centre & K. J. Somaiya Hospital",
-    "K. J. Somaiya Institute of Physiotherapy",
-    "K. J. Somaiya School and  Institute  of Nursing",
-] as const;
+export const Institutes = Object.keys(Groups) as InstitutesType[];
 
 export const Houses = [
     "Hemis Snow Leopords",

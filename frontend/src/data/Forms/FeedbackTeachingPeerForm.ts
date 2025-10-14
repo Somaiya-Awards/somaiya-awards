@@ -1,6 +1,7 @@
 import type { FormEntry } from "./types";
 import Axios from "../../axios";
 import { FeedbackTeachingPeerField as v } from "../../zod/Forms/FeedbackTeachingPeerForm";
+import { Institutes } from "../../../../backend/constants";
 const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
 
 const agreeList = [
@@ -32,9 +33,11 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
     {
         title: "Name of the Institute:",
         name: "institution_name",
-        type: "text",
+        dropdownHiddenItem: "Select your institute",
+        dropOpt: "single",
         required: true,
         validator: v.institution_name,
+        options: Institutes,
         page: 1,
         fieldsPerLine: 2,
     },

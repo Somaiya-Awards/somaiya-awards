@@ -20,8 +20,10 @@ npm run dev
 npm run build
 ```
 
-
-
+## DONE
+- [x] Error Handling
 
 ## TODO:
-1) Error Handling
+- [ ] Playwright Test Cases
+
+
