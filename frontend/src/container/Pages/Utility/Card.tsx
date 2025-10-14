@@ -1,16 +1,18 @@
 import Wave from "react-wavify";
-import { useSearchParams } from "react-router-dom";
-import Navbar from "../../../components/Navbar";
-import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useCallback } from "react";
 
 /** HOI Component */
 export default function Card() {
     const [searchParams] = useSearchParams();
 
+    const navigate = useNavigate();
+    const backToThePit = useCallback(() => {
+        navigate(-1);
+    }, [navigate]);
+
     return (
         <div>
-            <Navbar />
-
             <div className="flex items-center mt-[3rem]">
                 <div className="mx-auto font-Poppins shadow-xl w-[30%] p-5 rounded-md">
                     <div className="p-4">
@@ -41,6 +43,15 @@ export default function Card() {
                                 </>
                             )}
                         </p>
+                    </div>
+
+                    <div className="px-3 flex justify-center">
+                        <button
+                            className="shadow-md w-28 bg-red-700 text-white text-lg p-3 rounded-xl"
+                            onClick={backToThePit}
+                        >
+                            Back
+                        </button>
                     </div>
                 </div>
             </div>

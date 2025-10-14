@@ -48,7 +48,7 @@ const StudentsFormData: FormEntry[] = [
         type: "dropdown",
         required: true,
         dropdownHiddenItem: "Select your institute",
-        dropOpt: "multiple",
+        dropOpt: "single",
         validator: v.institution_name,
         options: Institutes,
         page: 1,

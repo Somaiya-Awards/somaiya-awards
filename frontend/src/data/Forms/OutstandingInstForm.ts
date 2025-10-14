@@ -31,7 +31,7 @@ const OutstandingInstForm: FormEntry[] = [
         title: "Name of Institution",
         name: "institution_name",
         type: "dropdown",
-        dropOpt: "multiple",
+        dropOpt: "single",
         required: true,
         dropdownHiddenItem: "Select your institute",
         validator: v.institution_name,
@@ -457,4 +457,5 @@ const OutstandingInstForm: FormEntry[] = [
     },
 ];
 
+console.log("J");
 export default OutstandingInstForm;

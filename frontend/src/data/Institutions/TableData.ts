@@ -12,6 +12,8 @@ const TableData = {
         "K. J. Somaiya English Medium School, Sameerwadi",
         "Nareshwadi Learning Centre, Dahanu",
         "Somaiya Vinay Mandir, Rehti",
+        "S. K. Somaiya Balvatika Vidyavihar",
+        "Somaiya Vidya Mandir Bhopal Rehti",
     ],
     Group2: [
         "Secondary and Higher Secondary (IX to XII)",
@@ -52,6 +54,7 @@ const TableData = {
         "Somaiya School of Humanities & Social Sciences",
         "Somaiya School of Basic & Applied Science",
         "Somaiya Dhwani Chitram",
+        "Somaiya School of Design",
     ],
     Group4: [
         "Health Sciences",
@@ -61,21 +64,18 @@ const TableData = {
     ],
 } as const;
 
-const a : {[key: string]: [number]}= {};
-Object.values(TableData).forEach((key, idx) => {
+const a: { [key: string]: [number] } = {};
 
-    key.forEach((val, i) => {
+Object.values(TableData).forEach((key, idx) => {
+    key.forEach((val: string, i: number) => {
         if (i == 0) return;
-        
+
         if (!a[val]) {
             a[val] = [idx];
         } else {
             a[val].push(idx);
         }
-
-    })
-})
-
-console.log(a);
+    });
+});
 
 export default TableData;

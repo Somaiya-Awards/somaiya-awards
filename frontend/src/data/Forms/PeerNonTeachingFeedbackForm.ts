@@ -30,8 +30,10 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "Name of the Institute:",
         name: "institution_name",
-        type: "text",
+        type: "dropdown",
+        dropOpt: "single",
         required: true,
+        dropdownHiddenItem: "Select your institute",
         validator: v.institution_name,
         page: 1,
         fieldsPerLine: 2,

@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
 import { NurgleTallyMan } from "../../../../backend/zod";
+import { Eye, EyeOff } from "lucide-react";
 
 export type FieldProp = {
     onChange: (
@@ -74,12 +75,25 @@ function Field({
         [onChange, validator]
     );
 
+    const [reveal, setReveal] = useState<boolean>(false);
+
+    const handleReveal = () => {
+        setReveal((prev) => !prev);
+    };
+
+    const instituteOption = useMemo(() => {
+        const inst = localStorage.getItem("institution") || "";
+
+        return options && (options as string[]).includes(inst)
+            ? [inst]
+            : options;
+    }, [options]);
+
     const renderInput = () => {
         switch (type) {
             case "text":
             case "email":
             case "date":
-            case "password":
                 return (
                     <input
                         type={type}
@@ -90,6 +104,42 @@ function Field({
                         className={`focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500`}
                         onChange={handleTextChange}
                     />
+                );
+
+            case "password":
+                return (
+                    <div className="w-64">
+                        <input
+                            type={reveal ? "text" : "password"}
+                            name={name}
+                            value={value as string}
+                            required={required}
+                            placeholder={title}
+                            className={
+                                "focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 inline"
+                            }
+                            onChange={handleTextChange}
+                        />
+                        <button
+                            onClick={handleReveal}
+                            type="button"
+                            className="w-0 overflow-visible text-gray-500 hover:text-red-700 transition-colors -translate-x-1/2 duration-200 translate-y-1"
+                        >
+                            {!reveal ? (
+                                <Eye
+                                    size={20}
+                                    strokeWidth={2}
+                                    className="-translate-x-5"
+                                />
+                            ) : (
+                                <EyeOff
+                                    size={20}
+                                    strokeWidth={2}
+                                    className="-translate-x-5"
+                                />
+                            )}
+                        </button>
+                    </div>
                 );
 
             case "number":
@@ -165,7 +215,6 @@ function Field({
                 ));
 
             case "dropdown":
-                console.log(name, options);
                 return (
                     <select
                         name={name}
@@ -175,21 +224,17 @@ function Field({
                         className="w-72 p-2 rounded-md shadow-lg active:shadow-2xl hover:w-full transition-all duration-500 outline-none"
                     >
                         <option hidden>{dropdownHiddenItem}</option>
-                        {dropOpt === "single" ? (
-                            <option
-                                value={
-                                    localStorage.getItem("institution") ?? ""
-                                }
-                            >
-                                {localStorage.getItem("institution")}
-                            </option>
-                        ) : (
-                            options.map((opt: string) => (
-                                <option key={opt} value={opt}>
-                                    {opt}
-                                </option>
-                            ))
-                        )}
+                        {dropOpt === "single"
+                            ? (instituteOption || []).map((opt: string) => (
+                                  <option key={opt} value={opt}>
+                                      {opt}
+                                  </option>
+                              ))
+                            : options.map((opt: string) => (
+                                  <option key={opt} value={opt}>
+                                      {opt}
+                                  </option>
+                              ))}
                     </select>
                 );
 
