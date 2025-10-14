@@ -29,8 +29,8 @@ const numCPUs = os.cpus().length;
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
 
-    /** Do it once on Master Process */
-    sequelize.sync({ alter: true }).then(async (req) => {
+    /** Do it once on Master Process, we have done this i think */
+    sequelize.sync({ alter: false }).then(async (req) => {
         try {
             const userCount = await User.count();
 
