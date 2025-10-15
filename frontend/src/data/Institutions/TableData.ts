@@ -61,21 +61,10 @@ const TableData = {
         "K. J. Somaiya Medical Institute and Research Centre & K. J. Somaiya Hospital",
         "K. J. Somaiya Institute of Physiotherapy",
         "K. J. Somaiya School and  Institute  of Nursing",
+        "Somaiya Vidyavihar Trust",
+        "Somaiya Vidyavihar University",
+        "Research Innovation Incubation Design Labs",
     ],
 } as const;
-
-const a: { [key: string]: [number] } = {};
-
-Object.values(TableData).forEach((key, idx) => {
-    key.forEach((val: string, i: number) => {
-        if (i == 0) return;
-
-        if (!a[val]) {
-            a[val] = [idx];
-        } else {
-            a[val].push(idx);
-        }
-    });
-});
 
 export default TableData;

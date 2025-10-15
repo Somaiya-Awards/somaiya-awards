@@ -4,12 +4,15 @@ import Field from "../../../components/utils/Field";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PasswordValid from "../../../zod/Forms/Password";
+import { csvReader } from "../../../zod/Auth/register";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
-import Axios from "../../../axios";
+import Axios, { DATA_URL } from "../../../axios";
 import { Institutes } from "../../../../../backend/constants";
 import { arrayChoice, email, anyString } from "../../../../../backend/zod";
-import { useData } from "../../../hooks/data.ts";
+import { useData } from "../../../hooks/data";
+import swalAlert from "../../../components/utils/swal";
+import { Download } from "lucide-react";
 
 export default function ManageUsers() {
     const institutionOptions = Institutes;
@@ -21,8 +24,8 @@ export default function ManageUsers() {
         setFiles(incomingFiles);
     };
 
-    const removeFile = (name: string) => {
-        setFiles(files.filter((x) => x.name !== name));
+    const removeFile = () => {
+        setFiles([]);
     };
 
     const handleUpload = async () => {
@@ -39,13 +42,33 @@ export default function ManageUsers() {
         }
 
         const text = await file.file.text();
+
         const parsedData = Papa.parse(text, {
             header: true,
             skipEmptyLines: true,
         });
 
+        const validCsv = csvReader.safeParse(parsedData.data || []);
+
+        if (!validCsv.success) {
+            swalAlert({
+                title: "Incomplete Form",
+                text: "Please ensure that uploaded csv matches the provided csv template",
+                icon: "warning",
+                backdrop: true,
+                background: "rgba(255,250,250)",
+                iconColor: "rgb(185,28,28)",
+                confirmButtonColor: "rgb(185,28,28)",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: "gradient-button",
+                },
+            });
+            return;
+        }
+
         const data = {
-            formData: parsedData.data,
+            formData: validCsv.data,
         };
 
         Axios.post("/auth/bulk-create", data)
@@ -55,7 +78,18 @@ export default function ManageUsers() {
             })
             .catch((err) => {
                 console.error(err);
-                alert(err);
+                swalAlert({
+                    title: "Failed to create users",
+                    icon: "warning",
+                    backdrop: true,
+                    background: "rgba(255,250,250)",
+                    iconColor: "rgb(185,28,28)",
+                    confirmButtonColor: "rgb(185,28,28)",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "gradient-button",
+                    },
+                });
             });
     };
 
@@ -232,19 +266,20 @@ export default function ManageUsers() {
                                     maxFiles={1}
                                     actionButtons={{
                                         position: "after",
-                                        cleanButton: {
+                                        deleteButton: {
                                             style: {
                                                 backgroundColor: "#ff8175",
                                             },
+                                            onClick: removeFile,
                                         },
                                         uploadButton: {
                                             style: {
-                                                textTransform: "uppercase",
                                                 backgroundColor: "#32a852",
                                             },
                                             onClick: handleUpload,
                                             label: "Submit",
                                         },
+                                        myButton: {},
                                     }}
                                     footerConfig={{
                                         customMessage:
@@ -264,6 +299,15 @@ export default function ManageUsers() {
                                         />
                                     ))}
                                 </Dropzone>
+                                <a
+                                    target="_blank"
+                                    href={`${DATA_URL}/template/User_Register_Template.csv`}
+                                    download
+                                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition m-1 -translate-y-10"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    Download Template
+                                </a>
                             </div>
                         </div>
                     </div>
