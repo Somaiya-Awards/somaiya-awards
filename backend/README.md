@@ -32,4 +32,3 @@ To run this project, you will need to add the following environment variables to
 ### ENV Guide
 - AuthDisable: disables auth middleware completely
 - CsrfDisable: disables CSRF middleware completely
-

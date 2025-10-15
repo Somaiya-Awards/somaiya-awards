@@ -116,7 +116,7 @@ function Field({
                             required={required}
                             placeholder={title}
                             className={
-                                "focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 inline"
+                                "focus:outline-none border-b-2 font-Poppins border-gray-700 focus:border-red-700 w-64 focus:w-full transition-all  duration-500 inline pr-7"
                             }
                             onChange={handleTextChange}
                         />
@@ -129,13 +129,13 @@ function Field({
                                 <Eye
                                     size={20}
                                     strokeWidth={2}
-                                    className="-translate-x-5"
+                                    className="-translate-x-6"
                                 />
                             ) : (
                                 <EyeOff
                                     size={20}
                                     strokeWidth={2}
-                                    className="-translate-x-5"
+                                    className="-translate-x-6"
                                 />
                             )}
                         </button>
@@ -180,7 +180,7 @@ function Field({
                         <input
                             type="file"
                             name={name}
-                            accept={accept}
+                            accept={accept === ".jpg" ? ".jpg,.jpeg" : accept}
                             required={required}
                             onChange={handleFileChange}
                             className={`focus:outline-none color-red-400 }`}
@@ -197,22 +197,25 @@ function Field({
                 );
 
             case "radio":
-                //@ts-expect-error Map error
-                return options!.map((item: string, index: number) => (
-                    <div key={index}>
-                        <label>
-                            <input
-                                type="radio"
-                                name={name}
-                                value={item}
-                                checked={value === item}
-                                required={required}
-                                onChange={handleTextChange}
-                            />
-                            {item}
-                        </label>
-                    </div>
-                ));
+                return !options
+                    ? null
+                    : (options as string[]).map(
+                          (item: string, index: number) => (
+                              <div key={index}>
+                                  <label>
+                                      <input
+                                          type="radio"
+                                          name={name}
+                                          value={item}
+                                          checked={value === item}
+                                          required={required}
+                                          onChange={handleTextChange}
+                                      />
+                                      {item}
+                                  </label>
+                              </div>
+                          )
+                      );
 
             case "dropdown":
                 return (
@@ -226,12 +229,20 @@ function Field({
                         <option hidden>{dropdownHiddenItem}</option>
                         {dropOpt === "single"
                             ? (instituteOption || []).map((opt: string) => (
-                                  <option key={opt} value={opt}>
+                                  <option
+                                      key={opt}
+                                      value={opt}
+                                      selected={value === opt}
+                                  >
                                       {opt}
                                   </option>
                               ))
                             : options.map((opt: string) => (
-                                  <option key={opt} value={opt}>
+                                  <option
+                                      key={opt}
+                                      value={opt}
+                                      selected={value === opt}
+                                  >
                                       {opt}
                                   </option>
                               ))}

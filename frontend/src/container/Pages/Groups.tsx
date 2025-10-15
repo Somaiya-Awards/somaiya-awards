@@ -24,16 +24,16 @@ export default function Groups() {
                         <thead>
                             <tr>
                                 <th>Group</th>
-                                <th className=" p-3 border-2 border-slate-600 bg-teal-200">
+                                <th className="p-3 border-2 border-slate-600 bg-teal-200">
                                     Group 1
                                 </th>
-                                <th className=" p-3 border-2 border-slate-600 bg-indigo-200">
+                                <th className="p-3 border-2 border-slate-600 bg-indigo-200">
                                     Group 2
                                 </th>
-                                <th className=" p-3 border-2 border-slate-600 bg-orange-200">
+                                <th className="p-3 border-2 border-slate-600 bg-orange-200">
                                     Group 3
                                 </th>
-                                <th className=" p-3 border-2 border-slate-600 bg-blue-200">
+                                <th className="p-3 border-2 border-slate-600 bg-blue-200">
                                     Group 4
                                 </th>
                             </tr>

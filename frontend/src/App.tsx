@@ -39,7 +39,6 @@ import Announce from "./container/views/admin/pages/Announce";
 import ResearchAdmin from "./container/views/researchAdmin/ResearchAdmin";
 import ResearchResponses from "./container/views/researchAdmin/pages/ResearchResponses";
 import Users from "./container/views/admin/pages/Users";
-import Dev from "./container/Pages/Utility/Dev";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
 import Tutorial from "./components/Tutorial";
 import React from "react";
@@ -50,7 +49,6 @@ function App() {
             <Routes>
                 <Route index element={<Home />} />
                 <Route path="/results" element={<Results />} />
-                <Route path="/org-dev" element={<Dev />} />
                 <Route path="/groups" element={<Groups />} />
                 <Route path="/guidelines" element={<Guidelines />} />
                 <Route path="/about" element={<About />} />
