@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { FileRequest } from "../types/request";
 import asyncHandler from "express-async-handler";
 import {

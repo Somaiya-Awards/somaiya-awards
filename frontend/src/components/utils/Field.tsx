@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import "./css/config.css";
 import type { FormEntry } from "../../data/Forms/types";
 import * as z from "zod";
@@ -74,6 +74,19 @@ function Field({
         },
         [onChange, validator]
     );
+
+    useEffect(() => {
+        if (!value) {
+            return;
+        }
+
+        const res = validator.safeParse(value);
+        if (!res.success) {
+            setError(z.treeifyError(res.error as z.ZodError).errors.join(", "));
+        } else {
+            setError(null);
+        }
+    }, [validator, value]);
 
     const [reveal, setReveal] = useState<boolean>(false);
 

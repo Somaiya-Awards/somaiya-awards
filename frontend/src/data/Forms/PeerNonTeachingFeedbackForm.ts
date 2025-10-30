@@ -206,7 +206,9 @@ async function fetchNominatedNames() {
         PeerNonTeachingFeedbackForm.find(
             (field) => field._name === "nominee_name"
         ).options = nominatedNames;
-    } catch (error) {}
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 fetchNominatedNames();

@@ -7,7 +7,6 @@ import {
     validYear,
 } from "../../../../backend/zod";
 import { options } from "..";
-import { SportsStarFormField } from "./SportsStarForm";
 
 export const good = [
     "Outstanding",

@@ -55,10 +55,12 @@ const TableData = {
         "Somaiya School of Basic & Applied Science",
         "Somaiya Dhwani Chitram",
         "Somaiya School of Design",
+        "Dr. Shantilal K. Somaiya School of commerce and Business Studies",
     ],
     Group4: [
         "Health Sciences",
-        "K. J. Somaiya Medical Institute and Research Centre & K. J. Somaiya Hospital",
+        "K. J. Somaiya Medical College",
+        "K. J. Somaiya Hospital",
         "K. J. Somaiya Institute of Physiotherapy",
         "K. J. Somaiya School and  Institute  of Nursing",
         "Somaiya Vidyavihar Trust",

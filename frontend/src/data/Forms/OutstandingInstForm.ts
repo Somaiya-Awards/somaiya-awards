@@ -457,5 +457,4 @@ const OutstandingInstForm: FormEntry[] = [
     },
 ];
 
-console.log("J");
 export default OutstandingInstForm;

@@ -47,7 +47,6 @@ export default function Forms(props: FormProps) {
 
     const handleNext = () => {
         for (const i of props.data) {
-            console.log(i.validator.safeParse(data[i.name]));
             if (
                 i.page - 1 === current &&
                 !i.validator.safeParse(data[i.name]).success
@@ -132,7 +131,6 @@ export default function Forms(props: FormProps) {
     };
 
     const handleSubmit = () => {
-        // Check for phone number validation
         const Data = getData();
 
         if (!Data) {
@@ -155,7 +153,7 @@ export default function Forms(props: FormProps) {
             if (incompletePageNumber !== null)
                 setCurrent(incompletePageNumber - 1);
         } else {
-            const formType = window.location.href.split("/forms/")[1]; // TODO: remove this and make it a prop
+            const formType = formName;
             const postUrl = `/forms/${formType}`;
 
             Axios.post(postUrl, Data, {
@@ -215,27 +213,31 @@ export default function Forms(props: FormProps) {
      * Renderers
      */
 
+    function youAreSpecial(
+        name: string,
+        value: string,
+        defaultValidator: z.ZodType
+    ) {
+        if (!["appointment_date", "date_of_appointment"].includes(name))
+            return defaultValidator;
+
+        if (value.startsWith("Promising")) {
+            return lastDate(2);
+        } else {
+            return lastDate(3);
+        }
+    }
+
     const RenderFields = useMemo(() => {
         return props.data
             .filter((entry) => current === entry.page - 1)
             .map((entry) => {
                 const value = display[entry.name] || "";
-                const validator = [
-                    "appointment_date",
-                    "date_of_appointment",
-                ].includes(entry.name)
-                    ? lastDate(
-                          [
-                              "Promising Teacher of the year (2 to 3 years of service)",
-                              "Promising Employee - Institute (2 to 3 years of Service)",
-                          ].includes(
-                              (display["awards_category"] ||
-                                  display["award_category"]) as string
-                          )
-                              ? 2
-                              : 3
-                      )
-                    : entry.validator;
+                const validator = youAreSpecial(
+                    entry.name,
+                    (display["awards_category"] as string) || "",
+                    entry.validator
+                );
 
                 return (
                     <Field

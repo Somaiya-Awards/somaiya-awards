@@ -201,22 +201,28 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
 ];
 
 export function fetchNominatedNames() {
-    Axios.get("/ieac/data/nominated-faculty-names", {
-        headers: {
-            "x-institute-name": localStorage.getItem("institution") as string,
-        },
-    }).then((response) => {
-        const nominatedNames = response.data.data;
-        const a = FeedbackTeachingPeerForm.findIndex(
-            (field) => field.name === "teacher_name"
-        );
+    try {
+        Axios.get("/ieac/data/nominated-faculty-names", {
+            headers: {
+                "x-institute-name": localStorage.getItem(
+                    "institution"
+                ) as string,
+            },
+        }).then((response) => {
+            const nominatedNames = response.data.data;
+            const a = FeedbackTeachingPeerForm.findIndex(
+                (field) => field.name === "teacher_name"
+            );
 
-        //@ts-expect-error Index that
-        if (a > 0 && FeedbackTeachingPeerForm[a].options) {
-            //@ts-expect-error Index this
-            FeedbackTeachingPeerForm[a].options = nominatedNames;
-        }
-    });
+            //@ts-expect-error Index that
+            if (a > 0 && FeedbackTeachingPeerForm[a].options) {
+                //@ts-expect-error Index this
+                FeedbackTeachingPeerForm[a].options = nominatedNames;
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export default FeedbackTeachingPeerForm;
