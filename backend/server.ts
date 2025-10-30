@@ -26,6 +26,8 @@ dotenv.config();
 
 const numCPUs = os.cpus().length;
 
+const prod = process.env.PROD === "1";
+
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
 
@@ -53,16 +55,15 @@ if (cluster.isMaster) {
             throw error;
         }
 
-        if (process.env.DEBUG === "1") {
-            cluster.fork();
-        } else {
-            // Fork workers
+        if (prod) {
             for (let i = 0; i < numCPUs; i++) {
                 cluster.fork();
             }
+        } else {
+            cluster.fork();
         }
 
-        cluster.on("exit", (worker, code, signal) => {
+        cluster.on("exit", (worker) => {
             console.log(`Worker ${worker.process.pid} died`);
             cluster.fork();
         });
@@ -70,8 +71,6 @@ if (cluster.isMaster) {
 } else {
     const app = express();
     let frontendURL: string;
-
-    const prod = process.env.PROD === "1";
 
     if (prod) {
         frontendURL = "https://somaiyaawards.somaiya.edu";

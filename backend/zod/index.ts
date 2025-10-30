@@ -12,9 +12,9 @@ export const validNumber = z.coerce
 export const role = z.enum(Role);
 
 export const anyString = z
-    .string({ error: "Value must not be empty" })
+    .string({ error: "Value must be a string" })
     .trim()
-    .nonempty();
+    .nonempty({ error: "Value cannot be empty" });
 
 export const validString = anyString
     .regex(
