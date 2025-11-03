@@ -30,7 +30,7 @@ export const institute = z.enum(Institutes);
 
 export const validBoolean = z.boolean();
 
-export const numberList = z.array(z.number());
+export const numberList = z.array(validNumber);
 
 export const stringList = z.array(validString);
 
@@ -117,17 +117,30 @@ export function validFile({
 }
 
 export function lastDate(beforeYears: number) {
-    return validDate.refine(
+    return validDate; /** .refine(
         (date) => {
-            const now = new Date();
-            const previousDate = new Date(
-                now.getFullYear() - beforeYears,
-                now.getMonth(),
-                now.getDate()
-            );
-
+            const previousDate = new Date();
+            previousDate.setFullYear(previousDate.getFullYear() - beforeYears);
             return date <= previousDate;
         },
         { error: `Date should be at least ${beforeYears} years before today` }
-    );
+    );*/
+}
+
+export function rangeDate(startYear: number, endYear: number) {
+    return validDate; /** .refine(
+        (date) => {
+            const now = new Date();
+            const startDate = new Date(now);
+            const endDate = new Date(now);
+
+            startDate.setFullYear(now.getFullYear() - endYear);
+            endDate.setFullYear(now.getFullYear() - startYear);
+
+            return date >= startDate && date <= endDate;
+        },
+        {
+            error: `Date should be at least ${startYear}-${endYear} years before today`,
+        }
+    ); */
 }
