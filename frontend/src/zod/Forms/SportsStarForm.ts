@@ -2,12 +2,11 @@ import z from "zod";
 import {
     arrayChoice,
     email,
-    textArea,
     validFile,
     validString,
 } from "../../../../backend/zod";
 import { Institutes } from "../../../../backend/constants";
-import { options } from "..";
+import { options, clientTextArea } from "..";
 
 export const SportsStarFormField = {
     email_id: email,
@@ -16,7 +15,7 @@ export const SportsStarFormField = {
 
     nominee_inspiring_coach: validString,
 
-    nominee_coach_comments: textArea({ maxLength: 500 }),
+    nominee_coach_comments: clientTextArea({ maxLength: 500 }),
 
     nominee_coach_photo: validFile({ type: "jpg" }),
 

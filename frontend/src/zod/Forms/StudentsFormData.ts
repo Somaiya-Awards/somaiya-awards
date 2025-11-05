@@ -2,11 +2,11 @@ import z from "zod";
 import {
   arrayChoice,
   somaiyaMail,
-  textArea,
   validFile,
   validString,
 } from "../../../../backend/zod";
 import { Institutes } from "../../../../backend/constants";
+import { clientTextArea } from "..";
 export const studentAwardList = [
   "Somaiya Star -Girl",
   "Somaiya Star -Boy",
@@ -22,7 +22,7 @@ export const StudentsFormDataField = {
   course: validString,
   institution_name: arrayChoice(Institutes),
   nomination_category: arrayChoice(studentAwardList),
-  recommendation_note: textArea({ maxLength: 600 }),
+  recommendation_note: clientTextArea({ maxLength: 600 }),
   supportings: validFile({ type: "pdf" }),
 };
 

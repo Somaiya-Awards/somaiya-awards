@@ -3,10 +3,9 @@ import {
     arrayChoice,
     phoneNumber,
     somaiyaMail,
-    textArea,
     validString,
 } from "../../../../backend/zod";
-import { agreeList, ratingList } from "..";
+import { agreeList, clientTextArea, ratingList } from "..";
 
 export const feedTeacherCategory = [
     "Promising Teacher",
@@ -31,7 +30,7 @@ export const FeedbackTeachingPeerField = {
     q_07: arrayChoice(agreeList),
     q_08: arrayChoice(ratingList),
     q_09: arrayChoice(agreeList),
-    nomination_reason: textArea({ maxLength: 600 }),
+    nomination_reason: clientTextArea({ maxLength: 600 }),
 };
 
 const FeedbackTeachingPeerValidator = z.object(FeedbackTeachingPeerField);

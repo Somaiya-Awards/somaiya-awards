@@ -9,7 +9,7 @@ import type { StagesType } from "./utils/data/types";
 import swalAlert from "./utils/swal";
 import type { FormEntry } from "../data/Forms/types";
 import z from "zod";
-import { lastDate } from "../../../backend/zod";
+import { lastDate, rangeDate } from "../../../backend/zod";
 import { useData } from "../hooks/data";
 
 export type FormProps = {
@@ -222,7 +222,7 @@ export default function Forms(props: FormProps) {
             return defaultValidator;
 
         if (value.startsWith("Promising")) {
-            return lastDate(2);
+            return rangeDate(2, 3);
         } else {
             return lastDate(3);
         }
@@ -235,7 +235,8 @@ export default function Forms(props: FormProps) {
                 const value = display[entry.name] || "";
                 const validator = youAreSpecial(
                     entry.name,
-                    (display["awards_category"] as string) || "",
+                    ((display["awards_category"] ||
+                        display["award_category"]) as string) || "",
                     entry.validator
                 );
 

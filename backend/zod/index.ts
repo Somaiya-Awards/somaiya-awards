@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { Role } from "../types/role";
-
+import fs from "node:fs";
 import { Institutes } from "../constants";
 
 export const email = z.email({ error: "Invalid email address" });
@@ -30,7 +30,7 @@ export const institute = z.enum(Institutes);
 
 export const validBoolean = z.boolean();
 
-export const numberList = z.array(z.number());
+export const numberList = z.array(validNumber);
 
 export const stringList = z.array(validString);
 
@@ -68,8 +68,8 @@ export function NurgleTallyMan(str: string): number {
         .filter((it) => it).length;
 }
 
-export function textArea({
-    minLength,
+export function serverTextArea({
+    minLength = 1,
     maxLength,
 }: {
     minLength?: number;
@@ -78,13 +78,20 @@ export function textArea({
     return z
         .string()
         .transform((str) => str.trim())
+        .transform((str) => {
+            try {
+                return Buffer.from(str, "base64").toString("utf-8");
+            } catch (err) {
+                return str;
+            }
+        })
         .refine(
             (str) => {
                 let clean = NurgleTallyMan(str);
                 return !(clean < minLength || clean > maxLength) && clean;
             },
             {
-                error: `Min word limit: ${minLength || 1} and Max word limit: ${maxLength}`,
+                error: `Min word limit: ${minLength} and Max word limit: ${maxLength}`,
             }
         );
 }
@@ -117,17 +124,30 @@ export function validFile({
 }
 
 export function lastDate(beforeYears: number) {
-    return validDate.refine(
+    return validDate; /** .refine(
         (date) => {
-            const now = new Date();
-            const previousDate = new Date(
-                now.getFullYear() - beforeYears,
-                now.getMonth(),
-                now.getDate()
-            );
-
+            const previousDate = new Date();
+            previousDate.setFullYear(previousDate.getFullYear() - beforeYears);
             return date <= previousDate;
         },
         { error: `Date should be at least ${beforeYears} years before today` }
-    );
+    );*/
+}
+
+export function rangeDate(startYear: number, endYear: number) {
+    return validDate; /** .refine(
+        (date) => {
+            const now = new Date();
+            const startDate = new Date(now);
+            const endDate = new Date(now);
+
+            startDate.setFullYear(now.getFullYear() - endYear);
+            endDate.setFullYear(now.getFullYear() - startYear);
+
+            return date >= startDate && date <= endDate;
+        },
+        {
+            error: `Date should be at least ${startYear}-${endYear} years before today`,
+        }
+    ); */
 }

@@ -2,11 +2,10 @@ import z from "zod";
 import {
     arrayChoice,
     email,
-    textArea,
     validString,
     validYear,
 } from "../../../../backend/zod";
-import { options } from "..";
+import { clientTextArea, options } from "..";
 
 export const good = [
     "Outstanding",
@@ -51,7 +50,7 @@ export const StudentTeachingFeedbackFormField = {
 
     q_11: arrayChoice(good),
 
-    nominating_reasons: textArea({ maxLength: 300 }),
+    nominating_reasons: clientTextArea({ maxLength: 300 }),
 };
 const StudentTeachingFeedbackFormValidator = z.object(
     StudentTeachingFeedbackFormField

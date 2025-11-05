@@ -43,7 +43,7 @@ function multerDiskStorageFactory(folderName: FileName): DiskStorageOptions {
 function multerFactory(idx: number) {
     return multer({
         storage: multer.diskStorage(
-            multerDiskStorageFactory(destinations[idx])
+            multerDiskStorageFactory(destinations[idx - 1]) // Oops
         ),
         fileFilter: (req, file, cb) => {
             if (ALLOWED_FILES.includes(file.mimetype)) {

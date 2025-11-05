@@ -6,7 +6,8 @@
         "jsx": "react",
         "allowImportingTsExtensions": false,
         "strictNullChecks": true,
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "noEmit": true
     },
     "exclude": [
         "node_modules",

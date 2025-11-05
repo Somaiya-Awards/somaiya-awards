@@ -1,11 +1,17 @@
 import * as z from "zod";
-import { email, validBoolean, validNumber, validString } from "..";
+import {
+    email,
+    serverTextArea,
+    validBoolean,
+    validNumber,
+    validString,
+} from "..";
 
 export const SportsForm = z.object({
     email_id: email,
     institution_name: validString,
     nominee_inspiring_coach: validString,
-    nominee_coach_comments: validString,
+    nominee_coach_comments: serverTextArea({ maxLength: 500 }),
     nominee_coach_photo: validString,
     nominee_coach_supportings: validString,
     q_01: validNumber,

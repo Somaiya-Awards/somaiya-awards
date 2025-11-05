@@ -57,7 +57,7 @@ export function setCsrfCookie(
 
     if (!req.cookies[CsrfName] || force) {
         cookie = randomString();
-        setCookie(res, CsrfName, cookie, "1h");
+        setCookie(res, CsrfName, cookie, "1h", null, true);
     } else {
         cookie = req.cookies[CsrfName];
     }
@@ -67,9 +67,9 @@ export function setCsrfCookie(
     res.setHeader(CsrfName, csrfToken as string);
 }
 
-// export function removeCsrfCookie(res: Response) {
-//   setCookie(res, CsrfName, "", "0s");
-// }
+export function removeCsrfCookie(res: Response) {
+    setCookie(res, CsrfName, "", "0s", null, true);
+}
 
 /**
  * CSRF Workflow:

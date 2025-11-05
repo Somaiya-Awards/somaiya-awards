@@ -8,7 +8,13 @@ import FeedbackTeachingST from "./container/Pages/Forms/FeedbackTeachingST";
 import FeedbackTeachingPR from "./container/Pages/Forms/FeedbackTeachingPR";
 import FeedbackNonTeachingST from "./container/Pages/Forms/FeedbackNonTeachingST";
 import FeedbackNonTeachingPR from "./container/Pages/Forms/FeedbackNonTeachingPR";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter,
+    Route,
+    Routes,
+    useLocation,
+    useNavigate,
+} from "react-router-dom";
 import Login from "./container/Pages/Login";
 import ForgotPassword from "./container/Pages/ForgotPassword";
 import ResetPassword from "./container/Pages/ResetPassword";
@@ -41,11 +47,45 @@ import ResearchResponses from "./container/views/researchAdmin/pages/ResearchRes
 import Users from "./container/views/admin/pages/Users";
 import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
 import Tutorial from "./components/Tutorial";
-import React from "react";
+import React, { useEffect } from "react";
+import { unauthorizedSwal } from "./components/utils/swal";
+
+const noAuthNeeded = ["/results", "/groups", "/guidelines", "/about", "/auth"];
+
+function isLogged() {
+    return /x-login=\w{128}/.test(document.cookie);
+}
+
+function authRoute(path: string) {
+    for (const url of noAuthNeeded) {
+        if (!(path.startsWith(url) || path === "/")) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function RouteWatcher() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const path = location.pathname;
+        const isUser = isLogged();
+
+        if (authRoute(path) && !isUser) {
+            navigate("/auth/login");
+            unauthorizedSwal();
+        }
+    }, [location.pathname, navigate]);
+
+    return <></>;
+}
 
 function App() {
     return (
         <BrowserRouter>
+            <RouteWatcher />
             <Routes>
                 <Route index element={<Home />} />
                 <Route path="/results" element={<Results />} />

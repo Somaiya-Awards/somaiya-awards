@@ -4,6 +4,7 @@ import { User } from "../models";
 import { AccessCookie } from "../constants";
 import { AuthRequest } from "../types/request";
 import { getJwtToken } from "./jwt";
+import { setCookie } from "./cookie";
 
 /**
  * Auth Workflow:
@@ -65,7 +66,6 @@ const userAuthenticator = asyncHandler(async (req, res, next) => {
     }
 
     (req as AuthRequest).user = user;
-
     next();
 });
 

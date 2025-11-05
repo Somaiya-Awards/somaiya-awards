@@ -2,7 +2,7 @@ import * as z from "zod";
 import {
     arrayChoice,
     email,
-    textArea,
+    serverTextArea,
     validNumber,
     validString,
     validYear,
@@ -27,7 +27,7 @@ export const FeedbackOneForm = z.object({
     q_09: arrayChoice(good),
     q_10: arrayChoice(["Yes", "No"]),
     q_11: arrayChoice(good),
-    nominating_reasons: textArea({ maxLength: 300 }),
+    nominating_reasons: serverTextArea({ maxLength: 300 }),
 });
 
 export type FeedbackOneType = z.infer<typeof FeedbackOneForm>;

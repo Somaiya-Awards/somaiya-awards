@@ -32,12 +32,18 @@ export default function ManageUsers() {
         const file: File = files[0];
 
         if (!file) {
-            alert("File is missing or invalid.");
+            swalAlert({
+                text: "File is missing or invalid.",
+                icon: "error",
+            });
             return;
         }
 
         if (file.type !== "text/csv") {
-            alert("Invalid file type uploaded. Please upload valid file type");
+            swalAlert({
+                text: "Invalid file type uploaded. Please upload valid file type",
+                icon: "error",
+            });
             return;
         }
 
@@ -72,8 +78,13 @@ export default function ManageUsers() {
         };
 
         Axios.post("/auth/bulk-create", data)
-            .then((res) => {
-                alert(res.data.message);
+            .then(() => {
+                swalAlert({
+                    title: "Users were created successfully",
+                    icon: "success",
+                    confirmButtonColor: "rgb(185,28,28)",
+                });
+
                 setFiles([]);
             })
             .catch((err) => {

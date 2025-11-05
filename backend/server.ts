@@ -21,6 +21,8 @@ import bcrypt from "bcrypt";
 import csrfMiddleware from "./middleware/csrfMiddleware";
 import { applicationHeader, CsrfName, instituteHeader } from "./constants";
 import cluster from "cluster";
+import fs from "node:fs";
+import { join } from "node:path";
 
 dotenv.config();
 
@@ -28,8 +30,33 @@ const numCPUs = os.cpus().length;
 
 const prod = process.env.PROD === "1";
 
+function initFolders() {
+    const folders = [
+        "approvals/IEAC",
+        "faculty",
+        "institution",
+        "research",
+        "results",
+        "sports",
+        "students",
+        "support",
+        "template",
+    ];
+
+    for (const path of folders) {
+        fs.mkdirSync(join(__dirname, "data", path), { recursive: true });
+    }
+
+    fs.writeFileSync(
+        join(__dirname, "data", "template", "User_Register_Template.csv"),
+        "Sr. No.,Email ID,Role,Institution Name,Password"
+    );
+}
+
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
+
+    initFolders();
 
     /** Do it once on Master Process, we have done this i think */
     sequelize.sync({ alter: false }).then(async (req) => {

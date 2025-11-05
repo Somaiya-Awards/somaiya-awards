@@ -4,14 +4,13 @@ import {
     arrayChoice,
     somaiyaMail,
     phoneNumber,
-    textArea,
     validFile,
     lastDate,
 } from "../../../../backend/zod";
 
 import { Institutes } from "../../../../backend/constants";
 import z from "zod";
-import { options } from "..";
+import { options, clientTextArea } from "..";
 
 export const awards = [
     "Excellence in Teaching (more than 3 years of service)",
@@ -77,7 +76,7 @@ export const TeachingFormField = {
 
     q_20: arrayChoice(options),
 
-    q_21: textArea({ maxLength: 300 }),
+    q_21: clientTextArea({ maxLength: 300 }),
 
     data_evidence: validFile({ type: "pdf" }),
 
