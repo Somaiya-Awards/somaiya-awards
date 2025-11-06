@@ -5,7 +5,7 @@ import {
     lastDate,
     phoneNumber,
     somaiyaMail,
-    textArea,
+    serverTextArea,
     validBoolean,
     validNumber,
     validString,
@@ -42,7 +42,7 @@ export const TeachingForm = z.object({
     q_18: validNumber,
     q_19: validNumber,
     q_20: validNumber,
-    q_21: textArea({ maxLength: 300 }),
+    q_21: serverTextArea({ maxLength: 300 }),
     profile_photograph: validString,
     data_evidence: validString,
 

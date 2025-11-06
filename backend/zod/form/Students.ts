@@ -2,7 +2,7 @@ import * as z from "zod";
 import {
     arrayChoice,
     somaiyaMail,
-    textArea,
+    serverTextArea,
     validBoolean,
     validString,
 } from "..";
@@ -16,7 +16,7 @@ export const StudentsForm = z.object({
     course: validString,
     institution_name: arrayChoice(Institutes),
     nomination_category: arrayChoice(studentAwardList),
-    recommendation_note: textArea({ maxLength: 600 }),
+    recommendation_note: serverTextArea({ maxLength: 600 }),
     supportings: validString,
 
     approved: validBoolean.optional().nullable(),

@@ -3,7 +3,7 @@ import {
     arrayChoice,
     phoneNumber,
     somaiyaMail,
-    textArea,
+    serverTextArea,
     validString,
 } from "..";
 import { feedTeacherCategory } from "../../../frontend/src/zod/Forms/FeedbackTeachingPeerForm";
@@ -27,7 +27,7 @@ export const FeedbackTwoForm = z.object({
     q_07: arrayChoice(agreeList),
     q_08: arrayChoice(ratingList),
     q_09: arrayChoice(agreeList),
-    nomination_reason: textArea({ maxLength: 600 }),
+    nomination_reason: serverTextArea({ maxLength: 600 }),
 });
 
 export type FeedbackTwoType = z.infer<typeof FeedbackTwoForm>;

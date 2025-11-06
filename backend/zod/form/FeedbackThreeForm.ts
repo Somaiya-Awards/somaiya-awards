@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, validDate, validString, arrayChoice, textArea } from "..";
+import { email, validDate, validString, arrayChoice, serverTextArea } from "..";
 import { agreeList } from "../../../frontend/src/zod";
 
 export const FeedbackThreeForm = z.object({
@@ -13,5 +13,5 @@ export const FeedbackThreeForm = z.object({
     q_03: arrayChoice(agreeList),
     q_04: arrayChoice(agreeList),
     q_05: arrayChoice(agreeList),
-    nomination_reason: textArea({ maxLength: 300 }),
+    nomination_reason: serverTextArea({ maxLength: 300 }),
 });

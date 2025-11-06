@@ -3,7 +3,7 @@ import {
     arrayChoice,
     phoneNumber,
     somaiyaMail,
-    textArea,
+    serverTextArea,
     validString,
 } from "..";
 import { agreeList, ratingList } from "../../../frontend/src/zod/";
@@ -27,7 +27,7 @@ export const FeedbackFourForm = z.object({
     q_07: arrayChoice(agreeList),
     q_08: arrayChoice(ratingList),
     q_09: arrayChoice(agreeList),
-    nomination_reason: textArea({ maxLength: 600 }),
+    nomination_reason: serverTextArea({ maxLength: 600 }),
 });
 
 export type FeedbackFourType = z.infer<typeof FeedbackFourForm>;

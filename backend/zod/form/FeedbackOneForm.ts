@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { email, validYear, validString, arrayChoice, textArea } from "..";
+import { email, validYear, validString, arrayChoice, serverTextArea } from "..";
 import { good } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
 import { options } from "../../../frontend/src/zod";
 
@@ -21,5 +21,5 @@ export const FeedbackOneForm = z.object({
     q_09: arrayChoice(good),
     q_10: arrayChoice(["Yes", "No"]),
     q_11: arrayChoice(good),
-    nominating_reasons: textArea({ maxLength: 300 }),
+    nominating_reasons: serverTextArea({ maxLength: 300 }),
 });

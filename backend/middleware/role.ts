@@ -16,7 +16,6 @@ export default function roleMiddle(roles: Role[]) {
             res.status(403);
             throw new Error("Forbidden Access");
         }
-
         next();
     });
 }

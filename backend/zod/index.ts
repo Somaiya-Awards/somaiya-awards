@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { Role } from "../types/role";
-
+import fs from "node:fs";
 import { Institutes } from "../constants";
 
 export const email = z.email({ error: "Invalid email address" });
@@ -68,8 +68,8 @@ export function NurgleTallyMan(str: string): number {
         .filter((it) => it).length;
 }
 
-export function textArea({
-    minLength,
+export function serverTextArea({
+    minLength = 1,
     maxLength,
 }: {
     minLength?: number;
@@ -78,13 +78,20 @@ export function textArea({
     return z
         .string()
         .transform((str) => str.trim())
+        .transform((str) => {
+            try {
+                return Buffer.from(str, "base64").toString("utf-8");
+            } catch (err) {
+                return str;
+            }
+        })
         .refine(
             (str) => {
                 let clean = NurgleTallyMan(str);
                 return !(clean < minLength || clean > maxLength) && clean;
             },
             {
-                error: `Min word limit: ${minLength || 1} and Max word limit: ${maxLength}`,
+                error: `Min word limit: ${minLength} and Max word limit: ${maxLength}`,
             }
         );
 }

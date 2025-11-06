@@ -1,6 +1,8 @@
 import { CookieOptions, Response } from "express";
 import { AccessCookie, RefreshCookie } from "../constants";
 import { JwtTimeout } from "./jwt";
+import tr from "zod/v4/locales/tr.js";
+import { randomString } from "./csrfMiddleware";
 
 function setCookieOption(
     timeout: JwtTimeout | "0s",
@@ -54,17 +56,25 @@ export function setCookie(
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    setCookie(res, AccessCookie, cookie, "1h");
+    setCookie(res, AccessCookie, cookie, "1h", null, true);
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
-    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh");
+    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh", true);
 }
 
 export function removeAccessCookie(res: Response) {
-    setCookie(res, AccessCookie, "", "0s");
+    setCookie(res, AccessCookie, "", "0s", null, true);
 }
 
 export function removeRefreshCookie(res: Response) {
-    setCookie(res, RefreshCookie, "", "0s", "/auth/refresh");
+    setCookie(res, RefreshCookie, "", "0s", "/auth/refresh", true);
+}
+
+export function setLoginCookie(res: Response) {
+    setCookie(res, "x-login", randomString(128), "1h", null, false);
+}
+
+export function removeLoginCookie(res: Response) {
+    setCookie(res, "x-login", "", "0s", null, false);
 }
