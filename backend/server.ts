@@ -23,6 +23,7 @@ import { applicationHeader, CsrfName, instituteHeader } from "./constants";
 import cluster from "cluster";
 import fs from "node:fs";
 import { join } from "node:path";
+import { destinations } from "./middleware/fileUpload";
 
 dotenv.config();
 
@@ -31,26 +32,20 @@ const numCPUs = os.cpus().length;
 const prod = process.env.PROD === "1";
 
 function initFolders() {
-    const folders = [
-        "approvals/IEAC",
-        "faculty",
-        "institution",
-        "research",
-        "results",
-        "sports",
-        "students",
-        "support",
-        "template",
-    ];
+    const folders = destinations;
 
-    for (const path of folders) {
-        fs.mkdirSync(join(__dirname, "data", path), { recursive: true });
+    try {
+        for (const path of folders) {
+            fs.mkdirSync(join(__dirname, "data", path), { recursive: true });
+        }
+
+        fs.writeFileSync(
+            join(__dirname, "data", "template", "User_Register_Template.csv"),
+            "Sr. No.,Email ID,Role,Institution Name,Password"
+        );
+    } catch (err) {
+        console.warn(`Error Creating Folders: ${err}`);
     }
-
-    fs.writeFileSync(
-        join(__dirname, "data", "template", "User_Register_Template.csv"),
-        "Sr. No.,Email ID,Role,Institution Name,Password"
-    );
 }
 
 if (cluster.isMaster) {

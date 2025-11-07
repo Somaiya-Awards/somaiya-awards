@@ -58,11 +58,11 @@ function isLogged() {
 
 function authRoute(path: string) {
     for (const url of noAuthNeeded) {
-        if (!(path.startsWith(url) || path === "/")) {
-            return true;
+        if (path.startsWith(url) || path === "/") {
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 function RouteWatcher() {

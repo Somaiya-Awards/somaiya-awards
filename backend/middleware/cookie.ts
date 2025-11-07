@@ -1,7 +1,6 @@
 import { CookieOptions, Response } from "express";
 import { AccessCookie, RefreshCookie } from "../constants";
 import { JwtTimeout } from "./jwt";
-import tr from "zod/v4/locales/tr.js";
 import { randomString } from "./csrfMiddleware";
 
 function setCookieOption(

@@ -1,9 +1,17 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { anyString, validString } from "../../../backend/zod";
 import { CsrfName } from "../../../backend/constants";
+import { LOCAL_DEVELOPMENT } from "../constants";
 
-export const BASE_URL = "https://apisomaiyaawards.somaiya.edu";
-// export const BASE_URL = "http://localhost:5001";
+let url: string;
+
+if (LOCAL_DEVELOPMENT) {
+    url = "http://localhost:5001";
+} else {
+    url = "https://apisomaiyaawards.somaiya.edu";
+}
+
+export const BASE_URL = url;
 
 export const DATA_URL = `${BASE_URL}/data`;
 

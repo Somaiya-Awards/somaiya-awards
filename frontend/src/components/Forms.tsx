@@ -11,6 +11,7 @@ import type { FormEntry } from "../data/Forms/types";
 import z from "zod";
 import { lastDate, rangeDate } from "../../../backend/zod";
 import { useData } from "../hooks/data";
+import { DISABLE_CLEAR_FORM } from "../constants";
 
 export type FormProps = {
     pageCount: number;
@@ -164,7 +165,9 @@ export default function Forms(props: FormProps) {
                 },
             })
                 .then(() => {
-                    localStorage.removeItem(formName);
+                    if (!DISABLE_CLEAR_FORM) {
+                        localStorage.removeItem(formName);
+                    }
                     navigate({
                         pathname: "/forms/cards",
                         search: createSearchParams({
