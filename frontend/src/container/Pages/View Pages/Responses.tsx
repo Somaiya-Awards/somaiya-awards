@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import SideBar from "../../../components/SideBar";
+import SideBar from "@/components/SideBar";
 import { motion } from "framer-motion";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
@@ -17,9 +17,9 @@ import {
     columns10,
     columns11,
     columns12,
-} from "../../../data/AnalysisData/ADMIN/structure";
+} from "@/data/AnalysisData/ADMIN/structure";
 import xlsx from "json-as-xlsx";
-import Axios, { BASE_URL } from "../../../axios";
+import Axios, { BASE_URL } from "@/axios";
 import React from "react";
 
 export default function Responses() {
@@ -146,32 +146,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -203,32 +203,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -260,32 +260,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -317,32 +317,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -384,32 +384,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -438,23 +438,23 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
@@ -489,32 +489,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -543,32 +543,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -597,32 +597,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -651,32 +651,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -705,32 +705,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -759,32 +759,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -813,32 +813,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -867,32 +867,32 @@ export default function Responses() {
                                     value: (row) =>
                                         row.totalScore
                                             ? Number(
-                                                  Number(
-                                                      row.totalScore
-                                                  ).toFixed(2)
-                                              )
+                                                Number(
+                                                    row.totalScore
+                                                ).toFixed(2)
+                                            )
                                             : Number(
-                                                  (
-                                                      Number(
-                                                          row.applicationScore
-                                                      ) +
-                                                      Number(row.feedbackScore)
-                                                  ).toFixed(2)
-                                              ),
+                                                (
+                                                    Number(
+                                                        row.applicationScore
+                                                    ) +
+                                                    Number(row.feedbackScore)
+                                                ).toFixed(2)
+                                            ),
                                 },
                                 {
                                     label: "Group",
                                     value: (row) =>
-                                        row.groups ? row.groups[0] : "null",
+                                        row.groups ? row.groups[0] + 1 : "null",
                                 },
                                 {
                                     label: "File",
                                     value: (row) =>
                                         row.ieacApprovedFile
                                             ? backendUrl +
-                                              row.ieacApprovedFile.split(
-                                                  "data"
-                                              )[1]
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
                                             : null,
                                 },
                             ],
@@ -932,7 +932,7 @@ export default function Responses() {
                         </h2>
                         {location.pathname.split("/responses/")[1] ===
                             "teaching" ||
-                        location.pathname.split("/responses/")[1] ===
+                            location.pathname.split("/responses/")[1] ===
                             "non-teaching" ? (
                             <div className="">
                                 <button

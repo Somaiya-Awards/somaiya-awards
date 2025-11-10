@@ -1,16 +1,24 @@
 {
-    "compilerOptions": {
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "target": "es2022",
-        "jsx": "react",
-        "allowImportingTsExtensions": false,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "noEmit": true
-    },
-    "exclude": [
-        "node_modules",
-        "**/node_modules/*"
-    ]
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "es2022",
+    "jsx": "react",
+    "allowImportingTsExtensions": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noEmit": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/backend/*": [
+        "../backend/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
 }

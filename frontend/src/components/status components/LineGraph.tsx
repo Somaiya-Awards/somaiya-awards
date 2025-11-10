@@ -7,7 +7,10 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-import ErrorBoundary, { DefaultError, EmptyData } from "../utils/ErrorBoundary";
+import ErrorBoundary, {
+    DefaultError,
+    EmptyData,
+} from "@/components/utils/ErrorBoundary";
 
 function LineGraph(props: { data: { [key: string]: number } }) {
     const data = useMemo(() => {
@@ -48,7 +51,7 @@ function LineGraph(props: { data: { [key: string]: number } }) {
     );
 }
 
-export default function ActualLine(props: { data: number[] }) {
+export default function ActualLine(props: { data: { [key: string]: number } }) {
     return (
         <ErrorBoundary fallback={<DefaultError />}>
             <LineGraph {...props} />

@@ -18,7 +18,7 @@ import { type GridColDef } from "@mui/x-data-grid";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
-import Axios, { DATA_URL as baseURL } from "../../../axios";
+import Axios, { DATA_URL as baseURL } from "@/axios";
 import React from "react";
 
 /**

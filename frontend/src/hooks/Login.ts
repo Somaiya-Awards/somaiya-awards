@@ -1,7 +1,7 @@
 import { isAxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import * as z from "zod";
-import { Config, getAxiosMethod, RequestMethod } from ".";
+import { Config, getAxiosMethod, RequestMethod } from "@/hooks";
 
 async function process(config: Config, url: string, method: RequestMethod) {
     try {

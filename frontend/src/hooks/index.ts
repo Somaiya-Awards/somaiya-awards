@@ -3,7 +3,7 @@
  */
 
 import z from "zod";
-import Axios from "../axios";
+import Axios from "@/axios";
 
 export type Data = {
     [key: string]: string;

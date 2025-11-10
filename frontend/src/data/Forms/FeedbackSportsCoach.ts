@@ -1,9 +1,7 @@
-import type { FormEntry } from "./types";
-import Axios from "../../axios";
-import { FeedbackSportsCoachField as v } from "../../zod/Forms/FeedbackSportsCoach";
-import { Institutes } from "../../../../backend/constants";
-
-const options = ["1", "2", "3", "4", "5"] as const;
+import type { FormEntry } from "@/data/Forms/types";
+import Axios from "@/axios";
+import { FeedbackSportsCoachField as v } from "@/zod/Forms/FeedbackSportsCoach";
+import { instituteHeader, Institutes, options } from "@/backend/constants";
 
 const FeedbackSportsCoach: FormEntry[] = [
     {
@@ -49,7 +47,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         fieldsPerLine: 2,
     },
     {
-        title: "Q1. The PE teacher is able to explain the training and competition demands of exceling at the top level.",
+        title: "Q1. The PE teacher is able to explain the training and competition demands of excelling at the top level.",
         name: "q_01",
         type: "radio",
         required: true,
@@ -272,7 +270,7 @@ async function fetchNominatedNames() {
             "/sports-admin/data/nominated-coach-names",
             {
                 headers: {
-                    "x-institute-name": localStorage.getItem(
+                    [instituteHeader]: localStorage.getItem(
                         "institution"
                     ) as string,
                 },
@@ -280,14 +278,15 @@ async function fetchNominatedNames() {
         );
 
         // Assuming the backend returns an array of nominated names
-        const nominatedNames = response.data.data;
+        const nominatedNames = response.data.data as string[];
 
         // Update the options for "nominee_name"
-        const opt = FeedbackSportsCoach.find(
-            (field) => field.name === "nominee_name"
+        //@ts-expect-error ERR
+        const opt: (FormEntry & { options: string[], }) | undefined = FeedbackSportsCoach.find(
+            (field) => (field.name === "nominee_name" && field.type === "dropdown" && field.dropOpt === "multiple" && field.options)
         );
 
-        if (opt) opt.options = nominatedNames;
+        if (opt && opt.options) opt.options = nominatedNames;
     } catch (error) {
         console.error(error);
     }

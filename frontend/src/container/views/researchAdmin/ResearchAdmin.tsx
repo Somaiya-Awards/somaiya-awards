@@ -1,9 +1,9 @@
-import SideBar from "./components/Sidebar";
+import SideBar from "@/container/views/researchAdmin/components/Sidebar";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Tile from "../studentsAdmin/components/Tile";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 import React from "react";
 
 export default function ResearchAdmin() {

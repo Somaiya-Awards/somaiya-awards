@@ -7,7 +7,10 @@ import {
     Cell,
     ResponsiveContainer,
 } from "recharts";
-import ErrorBoundary, { DefaultError, EmptyData } from "../utils/ErrorBoundary";
+import ErrorBoundary, {
+    DefaultError,
+    EmptyData,
+} from "@/components/utils/ErrorBoundary";
 
 function Piechart({ data = [] }: { data: number[] }) {
     const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50"];

@@ -1,19 +1,6 @@
-import type { FormEntry } from "./types";
-import { NonTeachingField as v } from "../../zod/Forms/NonTeachingForm";
-import { Institutes } from "../../../../backend/constants";
-
-const awardsList = [
-    "Outstanding Employee - Institute (More than 3 years of Service)",
-    "Promising Employee - Institute (2 to 3 years of Service)",
-    "Outstanding Employee - Somaiya Trust",
-    "Outstanding Employee - Somaiya Vidyavihar University",
-    "Promising Employee - Somaiya Trust",
-    "Promising Employee - Somaiya Vidyavihar University",
-    "Outstanding Employee - K. J. Somaiya Hospital",
-    "Promising Employee - K. J. Somaiya Hospital",
-] as const;
-
-const options = ["1", "2", "3", "4", "5"] as const;
+import type { FormEntry } from "@/data/Forms/types";
+import { NonTeachingField as v } from "@/zod/Forms/NonTeachingForm";
+import { Institutes, options, NonTeachingAwardList } from "@/backend/constants";
 
 const NonTeachingForm: FormEntry[] = [
     {
@@ -40,7 +27,7 @@ const NonTeachingForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.award_category,
-        options: awardsList,
+        options: NonTeachingAwardList,
         page: 1,
         fieldsPerLine: 1,
     },

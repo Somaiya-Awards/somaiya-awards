@@ -1,19 +1,7 @@
 import z from "zod";
-import {
-    arrayChoice,
-    email,
-    validString,
-    validYear,
-} from "../../../../backend/zod";
-import { clientTextArea, options } from "..";
-
-export const good = [
-    "Outstanding",
-    "Very Good",
-    "Good",
-    "Average",
-    "Poor",
-] as const;
+import { arrayChoice, email, validString, validYear } from "@/backend/zod";
+import { good, options } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const StudentTeachingFeedbackFormField = {
     email_id: email,

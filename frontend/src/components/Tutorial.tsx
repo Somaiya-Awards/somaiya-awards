@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import SideBar1 from "../components/SideBar";
-import SideBar2 from "../components/hoi_components/SideBar";
-import SideBar3 from "../container/views/ieac/ieacComponents/Sidebar";
-import SideBar4 from "../container/views/researchAdmin/components/Sidebar";
-import SideBar5 from "../container/views/sportsAdmin/components/Sidebar";
-import SideBar6 from "../container/views/studentsAdmin/components/Sidebar";
+import SideBar1 from "@/components/SideBar";
+import SideBar2 from "@/components/hoi_components/SideBar";
+import SideBar3 from "@/container/views/ieac/ieacComponents/Sidebar";
+import SideBar4 from "@/container/views/researchAdmin/components/Sidebar";
+import SideBar5 from "@/container/views/sportsAdmin/components/Sidebar";
+import SideBar6 from "@/container/views/studentsAdmin/components/Sidebar";
 import React from "react";
 
 const Tutorial = () => {

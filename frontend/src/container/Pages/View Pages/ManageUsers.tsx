@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import SideBar from "../../../components/SideBar";
-import Field from "../../../components/utils/Field";
+import SideBar from "@/components/SideBar";
+import Field from "@/components/utils/Field";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PasswordValid from "../../../zod/Forms/Password";
-import { csvReader } from "../../../zod/Auth/register";
+import PasswordValid from "@/zod/Forms/Password";
+import { csvReader } from "@/zod/Auth/register";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import Papa from "papaparse";
-import Axios, { DATA_URL } from "../../../axios";
-import { Institutes } from "../../../../../backend/constants";
-import { arrayChoice, email, anyString } from "../../../../../backend/zod";
-import { useData } from "../../../hooks/data";
-import swalAlert from "../../../components/utils/swal";
+import Axios, { DATA_URL } from "@/axios";
+import { Institutes } from "@/../../backend/constants";
+import { arrayChoice, email, anyString } from "@/../../backend/zod";
+import { useData } from "@/hooks/data";
+import swalAlert from "@/components/utils/swal";
 import { Download } from "lucide-react";
 
 export default function ManageUsers() {

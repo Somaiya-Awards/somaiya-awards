@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import SideBar from "./Sidebar";
 import { useLocation } from "react-router-dom";
 import { DataGrid, type GridColDef, GridToolbar } from "@mui/x-data-grid";
-import columns01 from "../../../../data/AnalysisData/STUDENTS ADMIN/structure";
-import Axios from "../../../../axios";
+import columns01 from "@/data/AnalysisData/STUDENTS ADMIN/structure";
+import Axios from "@/axios";
 import React from "react";
 
 export default function StudentResponses() {

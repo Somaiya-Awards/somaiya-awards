@@ -19,7 +19,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { Link } from "react-router-dom";
 import React from "react";
-import { DATA_URL as baseURL } from "../../../axios";
+import { DATA_URL as baseURL } from "@/axios";
 
 const columns01: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },

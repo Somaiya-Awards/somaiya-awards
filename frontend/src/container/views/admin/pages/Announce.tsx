@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import SideBar from "../../../../components/SideBar";
+import SideBar from "@/components/SideBar";
 import { FileUploader } from "react-drag-drop-files";
 import Swal from "sweetalert2";
 import xlsx from "json-as-xlsx";
-import Axios from "../../../../axios";
+import Axios from "@/axios";
 import React from "react";
 
 export default function Announce() {

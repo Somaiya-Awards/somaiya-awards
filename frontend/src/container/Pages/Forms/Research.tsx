@@ -1,10 +1,10 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import ResearchForm from "../../../data/Forms/ResearchForm";
-import ResearchFormStages from "../../../components/utils/data/ResearchFormStages";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import ResearchForm from "@/data/Forms/ResearchForm";
+import ResearchFormStages from "@/components/utils/data/ResearchFormStages";
 import React from "react";
-import ResearchFormValidator from "../../../zod/Forms/ResearchForm";
-import SideBar from "../../../components/hoi_components/SideBar";
+import ResearchFormValidator from "@/zod/Forms/ResearchForm";
+import SideBar from "@/components/hoi_components/SideBar";
 
 export default function Research() {
     /**

@@ -1,8 +1,7 @@
 import z from "zod";
-import { arrayChoice, validFile } from "../../../../backend/zod";
-import { Houses } from "../../../../backend/constants";
-import { options } from "..";
-//
+import { arrayChoice, validFile } from "@/backend/zod";
+import { options, Houses } from "@/backend/constants";
+
 const HouseEvaluationValidator = z.object({
     house_name: arrayChoice(Houses),
     //

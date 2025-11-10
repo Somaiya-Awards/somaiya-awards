@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import "./css/config.css";
-import type { FormEntry } from "../../data/Forms/types";
+import "@/components/utils/css/config.css";
+import type { FormEntry } from "@/data/Forms/types";
 import * as z from "zod";
-import { NurgleTallyMan } from "../../../../backend/zod";
+import { NurgleTallyMan } from "@/backend/zod";
 import { Eye, EyeOff } from "lucide-react";
 
 export type FieldProp = {

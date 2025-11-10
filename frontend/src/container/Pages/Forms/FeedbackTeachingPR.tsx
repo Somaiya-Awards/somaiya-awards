@@ -1,12 +1,12 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import FeedbackTeachingPeerForm from "../../../data/Forms/FeedbackTeachingPeerForm";
-import FeedbackPeerTeaching from "../../../components/utils/data/FeedbackPeerTeaching";
-import Footer from "../../../components/Footer";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import FeedbackTeachingPeerForm from "@/data/Forms/FeedbackTeachingPeerForm";
+import FeedbackPeerTeaching from "@/components/utils/data/FeedbackPeerTeaching";
+import Footer from "@/components/Footer";
 import React, { useEffect, useMemo, useState } from "react";
-import FeedbackTeachingPeerValidator from "../../../zod/Forms/FeedbackTeachingPeerForm";
-import Navbar from "../../../components/Navbar";
-import Axios from "../../../axios";
+import FeedbackTeachingPeerValidator from "@/zod/Forms/FeedbackTeachingPeerForm";
+import Navbar from "@/components/Navbar";
+import Axios from "@/axios";
 
 export default function FeedbackTeachingPR() {
     const headings = ["Basic Information", "Nominee Ratings", "Review"];
@@ -19,7 +19,7 @@ export default function FeedbackTeachingPR() {
     useEffect(() => {
         Axios.get("/ieac/data/nominated-faculty-names", {
             headers: {
-                "x-institute-name": localStorage.getItem(
+                [instituteHeader]: localStorage.getItem(
                     "institution"
                 ) as string,
             },

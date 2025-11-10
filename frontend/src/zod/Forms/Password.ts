@@ -1,5 +1,5 @@
 import z from "zod";
-import { role, validString, anyString, email } from "../../../../backend/zod";
+import { role, validString, anyString, email } from "@/backend/zod";
 
 const PasswordValid = z.object({
     user_password: anyString,

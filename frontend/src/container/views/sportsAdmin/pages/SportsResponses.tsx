@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import SideBar from "../components/Sidebar";
+import SideBar from "@/container/views/sportsAdmin/components/Sidebar";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
     columns01,
     columns02,
     columns03,
-} from "../../../../data/AnalysisData/SPORTS ADMIN/structure";
-import Axios from "../../../../axios";
+} from "@/data/AnalysisData/SPORTS ADMIN/structure";
+import Axios from "@/axios";
 import React from "react";
 
 export default function SportsResponses() {

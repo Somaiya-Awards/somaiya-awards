@@ -1,6 +1,6 @@
-import { Institutes } from "../../../../backend/constants";
-import { ResearchFormField as v } from "../../zod/Forms/ResearchForm";
-import type { FormEntry } from "./types";
+import { Institutes } from "@/backend/constants";
+import { ResearchFormField as v } from "@/zod/Forms/ResearchForm";
+import type { FormEntry } from "@/data/Forms/types";
 
 const ResearchForm: FormEntry[] = [
     {

@@ -1,8 +1,8 @@
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import FormCard from "../../../components/utils/FormCard";
-import swalAlert from "../../../components/utils/swal";
+import FormCard from "@/components/utils/FormCard";
+import swalAlert from "@/components/utils/swal";
 import { useNavigate } from "react-router-dom";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 import React from "react";
 
 export default function FormCards() {

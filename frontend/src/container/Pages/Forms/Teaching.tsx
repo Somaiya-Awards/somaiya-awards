@@ -1,10 +1,10 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import TeachingForm from "../../../data/Forms/TeachingForm";
-import TeachingFormStages from "../../../components/utils/data/TeachingFormStages";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import TeachingForm from "@/data/Forms/TeachingForm";
+import TeachingFormStages from "@/components/utils/data/TeachingFormStages";
 import React from "react";
-import TeachingFormValidator from "../../../zod/Forms/TeachingForm";
-import SideBar from "../../../components/hoi_components/SideBar";
+import TeachingFormValidator from "@/zod/Forms/TeachingForm";
+import SideBar from "@/components/hoi_components/SideBar";
 
 export default function Teaching() {
     /**

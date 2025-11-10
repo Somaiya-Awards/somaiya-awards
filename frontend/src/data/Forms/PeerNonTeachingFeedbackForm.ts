@@ -1,21 +1,12 @@
-import type { FormEntry } from "./types";
-import Axios from "../../axios";
-import { PeerNonTeachingFeedbackFormField as v } from "../../zod/Forms/PeerNonTeachingFeedbackForm";
-
-const awards = [
-    "Outstanding Employee Educational Institute",
-    "Promising Employee Educational Institute (≤ 3 years of service)",
-    "Outstanding Administrator Somaiya Trust/GVPM",
-    "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
-] as const;
-
-const agree = [
-    "Strongly Agree",
-    "Agree",
-    "Sometimes",
-    "Disagree",
-    "Strongly Disagree",
-] as const;
+import type { FormEntry } from "@/data/Forms/types";
+import Axios from "@/axios";
+import { PeerNonTeachingFeedbackFormField as v } from "@/zod/Forms/PeerNonTeachingFeedbackForm";
+import {
+    agreeList,
+    instituteHeader,
+    PeerNonTeachingFeedbackList,
+    ratingList,
+} from "@/backend/constants";
 
 const PeerNonTeachingFeedbackForm: FormEntry[] = [
     {
@@ -92,7 +83,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.category,
-        options: awards,
+        options: PeerNonTeachingFeedbackList,
         page: 1,
         fieldsPerLine: 1,
     },
@@ -102,7 +93,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_01,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -112,7 +103,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_02,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -122,13 +113,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_03,
-        options: [
-            "Outstanding",
-            "Excellent",
-            "Good",
-            "Average",
-            "Poor",
-        ] as const,
+        options: ratingList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -138,7 +123,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_04,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -148,7 +133,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_05,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -158,7 +143,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_06,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -168,17 +153,17 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_07,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
     {
-        title: "Conflict resolution: He or she uses his/her knowledge and expertise to analyse problems and provide solutions",
+        title: "Conflict resolution: He or she uses his/her knowledge and expertise to analyze problems and provide solutions",
         name: "q_08",
         type: "radio",
         required: true,
         validator: v.q_08,
-        options: agree,
+        options: agreeList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -197,15 +182,23 @@ async function fetchNominatedNames() {
     try {
         const response = await Axios.get("/ieac/data/nominated-staff-names", {
             headers: {
-                "x-institute-name": localStorage.getItem("institution"),
+                [instituteHeader]: localStorage.getItem("institution"),
             },
         });
 
         const nominatedNames = response.data.data;
 
-        PeerNonTeachingFeedbackForm.find(
-            (field) => field._name === "nominee_name"
-        ).options = nominatedNames;
+        //@ts-expect-error ERR
+        const opt: (FormEntry & { options: string[] }) | undefined =
+            PeerNonTeachingFeedbackForm.find(
+                (field) =>
+                    field.name === "nominee_name" &&
+                    field.type === "dropdown" &&
+                    field.dropOpt === "multiple" &&
+                    field.options
+            );
+
+        if (opt && opt.options) opt.options = nominatedNames;
     } catch (error) {
         console.error(error);
     }

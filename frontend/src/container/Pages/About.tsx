@@ -1,5 +1,5 @@
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import React from "react";
 

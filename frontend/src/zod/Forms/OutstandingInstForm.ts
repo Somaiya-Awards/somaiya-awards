@@ -8,16 +8,10 @@ import {
     validFile,
     validString,
     validYear,
-} from "../../../../backend/zod";
+} from "@/backend/zod";
+import { Institutes, OutstandingInstList } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
-export const OutstandingInstList = [
-    "Outstanding School",
-    "Outstanding College",
-] as const;
-
-import { clientTextArea } from "..";
-
-import { Institutes } from "../../../../backend/constants";
 export const OutstandingInstFormField = {
     email_id: email,
     nomination_category: arrayChoice(OutstandingInstList),

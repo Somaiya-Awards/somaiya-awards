@@ -1,12 +1,7 @@
 import z from "zod";
-import {
-    arrayChoice,
-    email,
-    validDate,
-    validString,
-} from "../../../../backend/zod";
-import { agreeList, clientTextArea } from "..";
-import { SportsStarFormField } from "./SportsStarForm";
+import { arrayChoice, email, validDate, validString } from "@/backend/zod";
+import { agreeList } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const StudentNonTeachingFeedbackFormField = {
     email_id: email,
@@ -31,6 +26,8 @@ export const StudentNonTeachingFeedbackFormField = {
 
     nomination_reason: clientTextArea({ maxLength: 300 }),
 };
-const StudentNonTeachingFeedbackFormValidator = z.object(SportsStarFormField);
+const StudentNonTeachingFeedbackFormValidator = z.object(
+    StudentNonTeachingFeedbackFormField
+);
 
 export default StudentNonTeachingFeedbackFormValidator;

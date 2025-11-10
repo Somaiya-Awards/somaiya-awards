@@ -1,11 +1,11 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import FeedbackSports from "../../../components/utils/data/FeedbackPeerTeaching";
-import FeedbackSportsForm from "../../../data/Forms/FeedbackSportsCoach";
-import Footer from "../../../components/Footer";
-import FeedbackSportsCoachValidator from "../../../zod/Forms/FeedbackSportsCoach";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import FeedbackSports from "@/components/utils/data/FeedbackPeerTeaching";
+import FeedbackSportsForm from "@/data/Forms/FeedbackSportsCoach";
+import Footer from "@/components/Footer";
+import FeedbackSportsCoachValidator from "@/zod/Forms/FeedbackSportsCoach";
 import React from "react";
-import Navbar from "../../../components/Navbar";
+import Navbar from "@/components/Navbar";
 
 export default function FeedbackSportsInc() {
     const headings = [

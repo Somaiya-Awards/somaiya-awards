@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import SideBar from "../../../components/hoi_components/SideBar";
+import SideBar from "@/components/hoi_components/SideBar";
 import { DataGrid, type GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
     columns01,
@@ -10,8 +10,8 @@ import {
     columns05,
     columns06,
     columns07,
-} from "../../../data/AnalysisData/HOI/structure";
-import Axios from "../../../axios";
+} from "@/data/AnalysisData/HOI/structure";
+import Axios from "@/axios";
 import React from "react";
 
 export default function Analysis() {

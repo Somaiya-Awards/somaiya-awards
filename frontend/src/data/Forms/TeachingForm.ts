@@ -1,12 +1,8 @@
-import type { FormEntry } from "./types";
-import { Institutes } from "../../../../backend/constants";
-import { TeachingFormField as v } from "../../zod/Forms/TeachingForm";
-import { options } from "../../zod";
+import type { FormEntry } from "@/data/Forms/types";
+import { Institutes } from "@/backend/constants";
+import { TeachingFormField as v } from "@/zod/Forms/TeachingForm";
+import { options, awards } from "@/backend/constants";
 
-const awards = [
-    "Excellence in Teaching (more than 3 years of service)",
-    "Promising Teacher of the year (2 to 3 years of service)",
-] as const;
 
 const TeachingForm: FormEntry[] = [
     {

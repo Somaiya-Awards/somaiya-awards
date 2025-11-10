@@ -1,10 +1,10 @@
-import SideBar from "./components/Sidebar";
+import SideBar from "@/container/views/studentsAdmin/components/Sidebar";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Tile from "./components/Tile";
 import React from "react";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 
 export default function StudentsAdmin() {
     const navigate = useNavigate();

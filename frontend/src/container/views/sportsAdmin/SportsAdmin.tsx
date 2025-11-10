@@ -1,10 +1,10 @@
-import SideBar from "./components/Sidebar";
+import SideBar from "@/container/views/sportsAdmin/components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "../studentsAdmin/components/Tile";
 import React from "react";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 
 export default function SportsAdmin() {
     const navigate = useNavigate();

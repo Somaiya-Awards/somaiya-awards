@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import SideBar from "../../../../components/SideBar";
+import SideBar from "@/components/SideBar";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Swal from "sweetalert2";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import React from "react";
-import Axios from "../../../../axios";
+import Axios from "@/axios";
 
 export default function Users() {
     const [rows, setRows] = useState([]);

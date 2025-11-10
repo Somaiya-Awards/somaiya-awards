@@ -1,6 +1,6 @@
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import TableData from "../../data/Institutions/TableData";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import TableData from "@/data/Institutions/TableData";
 import React, { useMemo } from "react";
 
 export default function Groups() {

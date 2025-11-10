@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import SideBar from "../components/Sidebar";
-import { columns01 } from "../../../../data/AnalysisData/RESEARCH ADMIN/structure";
-import Axios from "../../../../axios";
+import SideBar from "@/container/views/researchAdmin/components/Sidebar";
+import { columns01 } from "@/data/AnalysisData/RESEARCH ADMIN/structure";
+import Axios from "@/axios";
 import React from "react";
 
 export default function ResearchResponses() {

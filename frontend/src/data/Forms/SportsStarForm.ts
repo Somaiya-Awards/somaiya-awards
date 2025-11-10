@@ -1,7 +1,6 @@
-import { Institutes } from "../../../../backend/constants";
-import { options } from "../../zod";
-import { SportsStarFormField as v } from "../../zod/Forms/SportsStarForm";
-import type { FormEntry } from "./types";
+import { Institutes, options } from "@/backend/constants";
+import { SportsStarFormField as v } from "@/zod/Forms/SportsStarForm";
+import type { FormEntry } from "@/data/Forms/types";
 
 const SportsStarForm: FormEntry[] = [
     {

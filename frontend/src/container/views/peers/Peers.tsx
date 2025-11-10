@@ -1,13 +1,13 @@
 import React from "react";
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import FormCard from "../../../components/utils/FormCard";
+import FormCard from "@/components/utils/FormCard";
 import Teaching from "/teaching.jpeg";
 import NonTeaching from "/non-teaching.jpeg";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 
 export default function Student() {
     const navigate = useNavigate();

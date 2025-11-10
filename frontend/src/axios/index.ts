@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
-import { anyString, validString } from "../../../backend/zod";
-import { CsrfName } from "../../../backend/constants";
-import { LOCAL_DEVELOPMENT } from "../constants";
+import { anyString, validString } from "@/backend/zod";
+import { CsrfName } from "@/backend/constants";
+import { LOCAL_DEVELOPMENT } from "@/constants";
 
 let url: string;
 

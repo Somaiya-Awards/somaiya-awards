@@ -9,13 +9,8 @@ export type BaseFormEntry = {
     page: number;
 } & Validate;
 
-type T = string | File;
-
 export type Validate = {
-    validator:
-        | z.ZodType<T, T>
-        | z.ZodCoercedDate<Date>
-        | z.ZodCoercedNumber<number>;
+    validator: z.ZodType;
 };
 
 export type FormEntry =

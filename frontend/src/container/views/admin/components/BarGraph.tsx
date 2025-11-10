@@ -12,7 +12,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import ErrorBoundary, {
     DefaultError,
     EmptyData,
-} from "../../../../components/utils/ErrorBoundary";
+} from "@/components/utils/ErrorBoundary";
 
 export type AvgScore = {
     name: "HOI" | "IEAC" | "Students" | "Peers";

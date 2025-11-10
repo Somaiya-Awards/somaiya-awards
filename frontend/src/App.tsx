@@ -1,13 +1,13 @@
-import OutstandingInstitution from "./container/Pages/Forms/OutstandingInstitution";
-import SportsStar from "./container/Pages/Forms/SportsStar";
-import Teaching from "./container/Pages/Forms/Teaching";
-import Research from "./container/Pages/Forms/Research";
-import FormPreview from "./container/views/admin/pages/FormPreview";
-import NonTeaching from "./container/Pages/Forms/NonTeaching";
-import FeedbackTeachingST from "./container/Pages/Forms/FeedbackTeachingST";
-import FeedbackTeachingPR from "./container/Pages/Forms/FeedbackTeachingPR";
-import FeedbackNonTeachingST from "./container/Pages/Forms/FeedbackNonTeachingST";
-import FeedbackNonTeachingPR from "./container/Pages/Forms/FeedbackNonTeachingPR";
+import OutstandingInstitution from "@/container/Pages/Forms/OutstandingInstitution";
+import SportsStar from "@/container/Pages/Forms/SportsStar";
+import Teaching from "@/container/Pages/Forms/Teaching";
+import Research from "@/container/Pages/Forms/Research";
+import FormPreview from "@/container/views/admin/pages/FormPreview";
+import NonTeaching from "@/container/Pages/Forms/NonTeaching";
+import FeedbackTeachingST from "@/container/Pages/Forms/FeedbackTeachingST";
+import FeedbackTeachingPR from "@/container/Pages/Forms/FeedbackTeachingPR";
+import FeedbackNonTeachingST from "@/container/Pages/Forms/FeedbackNonTeachingST";
+import FeedbackNonTeachingPR from "@/container/Pages/Forms/FeedbackNonTeachingPR";
 import {
     BrowserRouter,
     Route,
@@ -15,40 +15,40 @@ import {
     useLocation,
     useNavigate,
 } from "react-router-dom";
-import Login from "./container/Pages/Login";
-import ForgotPassword from "./container/Pages/ForgotPassword";
-import ResetPassword from "./container/Pages/ResetPassword";
-import Card from "./container/Pages/Utility/Card";
-import Admin from "./container/views/admin/Admin";
-import Responses from "./container/Pages/View Pages/Responses";
-import Home from "./container/Pages/Home";
-import Hoi from "./container/views/hoi/Hoi";
-import PageNotFound from "./container/Pages/Utility/PageNotFound";
-import Ieac from "./container/views/ieac/Ieac";
-import ManageUsers from "./container/Pages/View Pages/ManageUsers";
-import Analysis from "./container/Pages/View Pages/Analysis";
-import Review from "./container/views/ieac/ieacPages/Review";
-import ScoreCard from "./container/views/admin/components/ScoreCard";
-import SportsScoreCard from "./container/views/sportsAdmin/components/ScoreCard";
-import Students from "./container/Pages/Forms/Students";
-import StudentsAdmin from "./container/views/studentsAdmin/StudentsAdmin";
-import SportsAdmin from "./container/views/sportsAdmin/SportsAdmin";
-import Results from "./container/Pages/Results";
-import Groups from "./container/Pages/Groups";
-import Guidelines from "./container/Pages/Guidelines";
-import About from "./container/Pages/About";
-import Student from "./container/views/students/Student";
-import Peers from "./container/views/peers/Peers";
-import StudentResponses from "./container/views/studentsAdmin/components/StudentResponses";
-import SportsResponses from "./container/views/sportsAdmin/pages/SportsResponses";
-import Announce from "./container/views/admin/pages/Announce";
-import ResearchAdmin from "./container/views/researchAdmin/ResearchAdmin";
-import ResearchResponses from "./container/views/researchAdmin/pages/ResearchResponses";
-import Users from "./container/views/admin/pages/Users";
-import FeedbackSportsInc from "./container/Pages/Forms/FeedbackSportsInc";
-import Tutorial from "./components/Tutorial";
+import Login from "@/container/Pages/Login";
+import ForgotPassword from "@/container/Pages/ForgotPassword";
+import ResetPassword from "@/container/Pages/ResetPassword";
+import Card from "@/container/Pages/Utility/Card";
+import Admin from "@/container/views/admin/Admin";
+import Responses from "@/container/Pages/View Pages/Responses";
+import Home from "@/container/Pages/Home";
+import Hoi from "@/container/views/hoi/Hoi";
+import PageNotFound from "@/container/Pages/Utility/PageNotFound";
+import Ieac from "@/container/views/ieac/Ieac";
+import ManageUsers from "@/container/Pages/View Pages/ManageUsers";
+import Analysis from "@/container/Pages/View Pages/Analysis";
+import Review from "@/container/views/ieac/ieacPages/Review";
+import ScoreCard from "@/container/views/admin/components/ScoreCard";
+import SportsScoreCard from "@/container/views/sportsAdmin/components/ScoreCard";
+import Students from "@/container/Pages/Forms/Students";
+import StudentsAdmin from "@/container/views/studentsAdmin/StudentsAdmin";
+import SportsAdmin from "@/container/views/sportsAdmin/SportsAdmin";
+import Results from "@/container/Pages/Results";
+import Groups from "@/container/Pages/Groups";
+import Guidelines from "@/container/Pages/Guidelines";
+import About from "@/container/Pages/About";
+import Student from "@/container/views/students/Student";
+import Peers from "@/container/views/peers/Peers";
+import StudentResponses from "@/container/views/studentsAdmin/components/StudentResponses";
+import SportsResponses from "@/container/views/sportsAdmin/pages/SportsResponses";
+import Announce from "@/container/views/admin/pages/Announce";
+import ResearchAdmin from "@/container/views/researchAdmin/ResearchAdmin";
+import ResearchResponses from "@/container/views/researchAdmin/pages/ResearchResponses";
+import Users from "@/container/views/admin/pages/Users";
+import FeedbackSportsInc from "@/container/Pages/Forms/FeedbackSportsInc";
+import Tutorial from "@/components/Tutorial";
 import React, { useEffect } from "react";
-import { unauthorizedSwal } from "./components/utils/swal";
+import { unauthorizedSwal } from "@/components/utils/swal";
 
 const noAuthNeeded = ["/results", "/groups", "/guidelines", "/about", "/auth"];
 

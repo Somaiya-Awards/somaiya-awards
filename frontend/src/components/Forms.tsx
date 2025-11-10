@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import FormStages from "./FormStages";
-import Field from "./utils/Field";
+import FormStages from "@/components/FormStages";
+import Field from "@/components/utils/Field";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Axios from "../axios";
-import type { StagesType } from "./utils/data/types";
-import swalAlert from "./utils/swal";
-import type { FormEntry } from "../data/Forms/types";
+import Axios from "@/axios";
+import type { StagesType } from "@/components/utils/data/types";
+import swalAlert from "@/components/utils/swal";
+import type { FormEntry } from "@/data/Forms/types";
 import z from "zod";
-import { lastDate, rangeDate } from "../../../backend/zod";
-import { useData } from "../hooks/data";
-import { DISABLE_CLEAR_FORM } from "../constants";
+import { lastDate, rangeDate } from "@/backend/zod";
+import { useData } from "@/hooks/data";
+import { DISABLE_CLEAR_FORM } from "@/constants";
 
 export type FormProps = {
     pageCount: number;

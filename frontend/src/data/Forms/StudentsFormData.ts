@@ -1,9 +1,9 @@
-import { Institutes } from "../../../../backend/constants";
+import { Institutes, studentAwardList } from "@/backend/constants";
 import {
-    studentAwardList,
     StudentsFormDataField as v,
-} from "../../zod/Forms/StudentsFormData";
-import type { FormEntry } from "./types";
+} from "@/zod/Forms/StudentsFormData";
+
+import type { FormEntry } from "@/data/Forms/types";
 
 const StudentsFormData: FormEntry[] = [
     {

@@ -6,16 +6,12 @@ import {
     phoneNumber,
     validFile,
     lastDate,
-} from "../../../../backend/zod";
+} from "@/backend/zod";
 
-import { Institutes } from "../../../../backend/constants";
+import { awards, Institutes } from "@/backend/constants";
 import z from "zod";
-import { options, clientTextArea } from "..";
-
-export const awards = [
-    "Excellence in Teaching (more than 3 years of service)",
-    "Promising Teacher of the year (2 to 3 years of service)",
-] as const;
+import { options } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const TeachingFormField = {
     email_id: email,

@@ -4,9 +4,9 @@ import {
     email,
     validFile,
     validString,
-} from "../../../../backend/zod";
-import { Institutes } from "../../../../backend/constants";
-import { options, clientTextArea } from "..";
+} from "@/backend/zod";
+import { options, Institutes } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const SportsStarFormField = {
     email_id: email,

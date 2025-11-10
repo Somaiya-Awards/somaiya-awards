@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import OutstandingInstForm from "../../../../data/Forms/OutstandingInstForm";
-import ResearchForm from "../../../../data/Forms/ResearchForm";
-import SportsStarForm from "../../../../data/Forms/SportsStarForm";
-import StudentsFormData from "../../../../data/Forms/StudentsFormData";
-import TeachingForm from "../../../../data/Forms/TeachingForm";
-import NonTeachingForm from "../../../../data/Forms/NonTeachingForm";
+import OutstandingInstForm from "@/data/Forms/OutstandingInstForm";
+import ResearchForm from "@/data/Forms/ResearchForm";
+import SportsStarForm from "@/data/Forms/SportsStarForm";
+import StudentsFormData from "@/data/Forms/StudentsFormData";
+import TeachingForm from "@/data/Forms/TeachingForm";
+import NonTeachingForm from "@/data/Forms/NonTeachingForm";
 import { useReactToPrint } from "react-to-print";
-import type { FormEntry } from "../../../../data/Forms/types";
-import Axios from "../../../../axios";
+import type { FormEntry } from "@/data/Forms/types";
+import Axios from "@/axios";
 import React from "react";
+import { applicationHeader } from "@/backend/constants";
 
 type IdkData = {
     [key: string]: string;
@@ -52,7 +53,7 @@ const FormPreview = () => {
 
         Axios.get(url, {
             headers: {
-                "x-application-id": applicationID,
+                [applicationHeader]: applicationID,
             },
         })
             .then((res) => {

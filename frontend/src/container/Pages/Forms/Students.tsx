@@ -1,10 +1,10 @@
-import Forms from "../../../components/Forms";
-import StudentsFormData from "../../../data/Forms/StudentsFormData";
-import StudentsFormStages from "../../../components/utils/data/StudentsFormStages";
-import FormInfo from "../../../components/FormInfo";
+import Forms from "@/components/Forms";
+import StudentsFormData from "@/data/Forms/StudentsFormData";
+import StudentsFormStages from "@/components/utils/data/StudentsFormStages";
+import FormInfo from "@/components/FormInfo";
 import React from "react";
-import StudentsFormDataValidator from "../../../zod/Forms/StudentsFormData";
-import SideBar from "../../../components/hoi_components/SideBar";
+import StudentsFormDataValidator from "@/zod/Forms/StudentsFormData";
+import SideBar from "@/components/hoi_components/SideBar";
 
 export default function Students() {
     /**

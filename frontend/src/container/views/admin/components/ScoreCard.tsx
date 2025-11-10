@@ -5,8 +5,9 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "./BarGraph";
 import Logo from "/logo.png";
-import Axios from "../../../../axios";
+import Axios from "@/axios";
 import React from "react";
+import { applicationHeader } from "@/backend/constants";
 
 type CompleteData = {
     name: string;
@@ -56,7 +57,7 @@ export default function ScoreCard() {
 
                 const res = await Axios.get(endpoint, {
                     headers: {
-                        "x-application-id":
+                        [applicationHeader]:
                             window.location.href.split("/scorecard/")[1],
                     },
                 });
@@ -66,7 +67,7 @@ export default function ScoreCard() {
 
                 setData([
                     { name: "HOI", AvgScore: res.data.hoi_avg },
-                    { name: "IEAC", AvgScore: res.data.ieac_avg },
+                    { name: "IEAC", AvgScore: res.data.ieac_avg / 2 },
                     { name: "Students", AvgScore: res.data.student_avg },
                     { name: "Peers", AvgScore: res.data.peers_avg },
                 ]);
@@ -176,13 +177,13 @@ export default function ScoreCard() {
                                     value={
                                         apiData
                                             ? Math.round(
-                                                  0.4 *
-                                                      ((apiData.hoi_avg +
-                                                          apiData.ieac_avg /
-                                                              2) /
-                                                          2) *
-                                                      100
-                                              ) / 100
+                                                0.4 *
+                                                ((apiData.hoi_avg +
+                                                    apiData.ieac_avg /
+                                                    2) /
+                                                    2) *
+                                                100
+                                            ) / 100
                                             : 0
                                     }
                                     loading={loading}

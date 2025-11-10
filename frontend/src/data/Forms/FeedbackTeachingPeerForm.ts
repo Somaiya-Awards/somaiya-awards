@@ -1,24 +1,7 @@
-import type { FormEntry } from "./types";
-import Axios from "../../axios";
-import { FeedbackTeachingPeerField as v } from "../../zod/Forms/FeedbackTeachingPeerForm";
-import { Institutes } from "../../../../backend/constants";
-const stringOption = ["Promising Teacher", "Excellence in Teaching"] as const;
-
-const agreeList = [
-    "Strongly Agree",
-    "Agree",
-    "Sometimes",
-    "Disagree",
-    "Strongly Disagree",
-] as const;
-
-const feedList = [
-    "Outstanding",
-    "Excellent",
-    "Good",
-    "Average",
-    "Poor",
-] as const;
+import type { FormEntry } from "@/data/Forms/types";
+import Axios from "@/axios";
+import { FeedbackTeachingPeerField as v } from "@/zod/Forms/FeedbackTeachingPeerForm";
+import { agreeList, instituteHeader, Institutes, peerTeachingOption, ratingList } from "@/backend/constants";
 
 const FeedbackTeachingPeerForm: FormEntry[] = [
     {
@@ -95,7 +78,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.nomination_category,
-        options: stringOption,
+        options: peerTeachingOption,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -175,7 +158,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         type: "radio",
         required: true,
         validator: v.q_08,
-        options: feedList,
+        options: ratingList,
         page: 2,
         fieldsPerLine: 1,
     },
@@ -200,29 +183,41 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
     },
 ];
 
-export function fetchNominatedNames() {
-    try {
-        Axios.get("/ieac/data/nominated-faculty-names", {
-            headers: {
-                "x-institute-name": localStorage.getItem(
-                    "institution"
-                ) as string,
-            },
-        }).then((response) => {
-            const nominatedNames = response.data.data;
-            const a = FeedbackTeachingPeerForm.findIndex(
-                (field) => field.name === "teacher_name"
+export async function fetchNominatedNames() {
+
+        try {
+            // Make an HTTP request to fetch the data from your backend
+            const response = await Axios.get(
+                "/ieac/data/nominated-faculty-names",
+                {
+                    headers: {
+                        [instituteHeader]: localStorage.getItem(
+                            "institution"
+                        ) as string,
+                    },
+                }
             );
 
-            //@ts-expect-error Index that
-            if (a > 0 && FeedbackTeachingPeerForm[a].options) {
-                //@ts-expect-error Index this
-                FeedbackTeachingPeerForm[a].options = nominatedNames;
-            }
-        });
-    } catch (error) {
-        console.error(error);
-    }
+            // Assuming the backend returns an array of nominated names
+            const nominatedNames = response.data.data as string[];
+
+            // Update the options for "nominee_name"
+            //@ts-expect-error ERR
+            const opt: (FormEntry & { options: string[] }) | undefined =
+                FeedbackTeachingPeerForm.find(
+                    (field) =>
+                        field.name === "nominee_name" &&
+                        field.type === "dropdown" &&
+                        field.dropOpt === "multiple" &&
+                        field.options
+                );
+
+            if (opt && opt.options) opt.options = nominatedNames;
+        } catch (error) {
+            console.error(error);
+        }
 }
+
+fetchNominatedNames();
 
 export default FeedbackTeachingPeerForm;

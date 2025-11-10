@@ -4,8 +4,9 @@ import {
     validFile,
     validNumber,
     validString,
-} from "../../../../backend/zod";
-import { Institutes } from "../../../../backend/constants";
+} from "@/backend/zod";
+import { Institutes } from "@/backend/constants";
+
 export const ResearchFormField = {
     faculty_name: validString,
 

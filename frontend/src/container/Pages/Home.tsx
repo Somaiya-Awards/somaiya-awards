@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
-import { Model } from "../../components/Scene";
+import { Model } from "@/components/Scene";
 import { OrbitControls, Environment } from "@react-three/drei";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Lottie from "lottie-react";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import Certificate from "../../container/assets/certificate.json";
-import Money from "../../container/assets/money.json";
-import SkyFire from "../../container/assets/skyfire.hdr";
-import Trophy from "../../container/assets/trophy.json";
+import Certificate from "@/container/assets/certificate.json";
+import Money from "@/container/assets/money.json";
+import SkyFire from "@/container/assets/skyfire.hdr";
+import Trophy from "@/container/assets/trophy.json";
 
 export default function Home() {
     const navigate = useNavigate();

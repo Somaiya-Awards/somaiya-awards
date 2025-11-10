@@ -1,10 +1,10 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import SportsStarForm from "../../../data/Forms/SportsStarForm";
-import SportsStarStages from "../../../components/utils/data/SportsStarStages";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import SportsStarForm from "@/data/Forms/SportsStarForm";
+import SportsStarStages from "@/components/utils/data/SportsStarStages";
 import React from "react";
-import SportsStarFormValidator from "../../../zod/Forms/SportsStarForm";
-import SideBar from "../../../components/hoi_components/SideBar";
+import SportsStarFormValidator from "@/zod/Forms/SportsStarForm";
+import SideBar from "@/components/hoi_components/SideBar";
 
 export default function SportsStar() {
     /***

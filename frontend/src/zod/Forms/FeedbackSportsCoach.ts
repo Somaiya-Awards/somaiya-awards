@@ -4,8 +4,9 @@ import {
     somaiyaMail,
     institute,
     arrayChoice,
-} from "../../../../backend/zod";
-import { options } from "..";
+} from "@/backend/zod";
+
+import { options } from "@/backend/constants";
 
 export const FeedbackSportsCoachField = {
     rater_name: validString,
@@ -55,7 +56,7 @@ export const FeedbackSportsCoachField = {
     q_19: arrayChoice(options),
 
     q_20: arrayChoice(options),
-}
+};
 
 const FeedbackSportsCoachValidator = z.object(FeedbackSportsCoachField);
 

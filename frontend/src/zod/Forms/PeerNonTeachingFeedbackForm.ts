@@ -4,15 +4,9 @@ import {
     phoneNumber,
     somaiyaMail,
     validString,
-} from "../../../../backend/zod";
-import { agreeList, clientTextArea } from "..";
-
-const PeerNonTeachingFeedbackList = [
-    "Outstanding Employee Educational Institute",
-    "Promising Employee Educational Institute (≤ 3 years of service)",
-    "Outstanding Administrator Somaiya Trust/GVPM",
-    "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
-] as const;
+} from "@/backend/zod";
+import { agreeList, PeerNonTeachingFeedbackList } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const PeerNonTeachingFeedbackFormField = {
     rater_name: validString,

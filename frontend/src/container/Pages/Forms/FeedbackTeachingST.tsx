@@ -1,11 +1,11 @@
-import FormInfo from "../../../components/FormInfo";
-import Forms from "../../../components/Forms";
-import StudentTeachingFeedback from "../../../components/utils/data/StudentTeachingFeedback";
-import StudentTeachingFeedbackForm from "../../../data/Forms/StudentTeachingFeedbackForm";
-import Footer from "../../../components/Footer";
+import FormInfo from "@/components/FormInfo";
+import Forms from "@/components/Forms";
+import StudentTeachingFeedback from "@/components/utils/data/StudentTeachingFeedback";
+import StudentTeachingFeedbackForm from "@/data/Forms/StudentTeachingFeedbackForm";
+import Footer from "@/components/Footer";
 import React from "react";
-import StudentTeachingFeedbackFormValidator from "../../../zod/Forms/StudentTeachingFeedbackForm";
-import Navbar from "../../../components/Navbar";
+import StudentTeachingFeedbackFormValidator from "@/zod/Forms/StudentTeachingFeedbackForm";
+import Navbar from "@/components/Navbar";
 
 export default function FeedbackTeachingST() {
     const headings = [

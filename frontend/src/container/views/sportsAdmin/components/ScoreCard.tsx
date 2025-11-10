@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Download, User, Building2, Award } from "lucide-react";
 import "react-loading-skeleton/dist/skeleton.css";
-import BarGraph, { type AvgScore } from "../../admin/components/BarGraph";
+import BarGraph, {
+    type AvgScore,
+} from "@/container/views/admin/components/BarGraph";
 import Logo from "/logo.png";
-import Axios from "../../../../axios";
+import Axios from "@/axios";
 import React from "react";
 import {
     ApplicationScoreHighlight,
@@ -13,6 +15,7 @@ import {
     FinalScoreHighlight,
     ScoreRow,
 } from "../../admin/components/ScoreCard";
+import { applicationHeader } from "@/backend/constants";
 
 export default function ScoreCard() {
     const cardRef = useRef(null);
@@ -49,7 +52,7 @@ export default function ScoreCard() {
                     "/admin/data/sports-coach/scorecard",
                     {
                         headers: {
-                            "x-application-id":
+                            [applicationHeader]:
                                 window.location.href.split("/scorecard/")[1],
                         },
                     }

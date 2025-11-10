@@ -1,7 +1,7 @@
-import type { FormEntry } from "./types";
-import Axios from "../../axios";
-import { agreeList } from "../../zod";
-import { StudentNonTeachingFeedbackFormField as v } from "../../zod/Forms/StudentNonTeachingFeedbackForm";
+import type { FormEntry } from "@/data/Forms/types";
+import Axios from "@/axios";
+import { agreeList, instituteHeader } from "@/backend/constants";
+import { StudentNonTeachingFeedbackFormField as v } from "@/zod/Forms/StudentNonTeachingFeedbackForm";
 
 const StudentNonTeachingFeedbackForm: FormEntry[] = [
     {
@@ -123,7 +123,7 @@ async function fetchNominatedNames() {
         // const response = await  Axios.get('http://localhost:5001/ieac/data/nominated-staff-names',{
         const response = await Axios.get("/ieac/data/nominated-staff-names", {
             headers: {
-                "x-institute-name": localStorage.getItem("institution"),
+                [instituteHeader]: localStorage.getItem("institution"),
             },
         });
 
@@ -131,9 +131,17 @@ async function fetchNominatedNames() {
         const nominatedNames = response.data.data;
 
         // Update the options for "nominee_name"
-        StudentNonTeachingFeedbackForm.find(
-            (field) => field._name === "employee_name"
-        ).options = nominatedNames;
+        //@ts-expect-error ERR
+        const opt: (FormEntry & { options: string[] }) | undefined =
+            StudentNonTeachingFeedbackForm.find(
+                (field) =>
+                    field.name === "employee_name" &&
+                    field.type === "dropdown" &&
+                    field.dropOpt === "multiple" &&
+                    field.options
+            );
+
+        if (opt && opt.options) opt.options = nominatedNames;
     } catch (error) {
         console.error(error);
     }

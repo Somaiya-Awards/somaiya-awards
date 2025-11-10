@@ -3,7 +3,7 @@ import SideBar from "./ieacComponents/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import Tile from "./ieacComponents/Tile";
+import Tile from "@/container/views/ieac/ieacComponents/Tile";
 
 export default function Ieac() {
     const navigate = useNavigate();

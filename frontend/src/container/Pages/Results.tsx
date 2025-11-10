@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import * as XLSX from "xlsx";
-import Axios from "../../axios";
+import Axios from "@/axios";
 import React from "react";
 
 export default function Results() {
-    const [jsonData, setJsonData] = useState([]);
+    const [jsonData, setJsonData] = useState<string[]>([]);
 
     useEffect(() => {
         Axios.get("/admin/data/results", {})
@@ -20,7 +20,7 @@ export default function Results() {
                     const worksheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[worksheetName];
                     const jsonDataRaw = XLSX.utils.sheet_to_json(worksheet);
-                    setJsonData(jsonDataRaw);
+                    setJsonData(jsonDataRaw as string[]);
                 });
             })
             .catch((err) => {

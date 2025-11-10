@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../ieacComponents/Sidebar";
+import SideBar from "@/container/views/ieac/ieacComponents/Sidebar";
 import { useLocation } from "react-router-dom";
 import { DataGrid, type GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
     columns01,
     columns04,
     columns05,
-} from "../../../../data/AnalysisData/IEAC/structure";
+} from "@/data/AnalysisData/IEAC/structure";
 import Swal from "sweetalert2";
-import Axios from "../../../../axios";
+import Axios from "@/axios";
 import React from "react";
 
 export default function Review() {
     const [title, setTitle] = useState("");
     const [columns, setColumns] = useState<GridColDef[]>([]);
-    const [rows, setRows] = useState<{ieacApprovedFile: File}[]>([]);
+    const [rows, setRows] = useState<{ ieacApprovedFile: File }[]>([]);
     const location = useLocation();
     const navigate = useNavigate();
     const pathLabel = location.pathname.split("/review/")[1];

@@ -1,5 +1,5 @@
-import SideBar from "../../../components/hoi_components/SideBar";
-import FormCards from "../../Pages/View Pages/FormCards";
+import SideBar from "@/components/hoi_components/SideBar";
+import FormCards from "@/container/Pages/View Pages/FormCards";
 import React from "react";
 
 export default function Hoi() {

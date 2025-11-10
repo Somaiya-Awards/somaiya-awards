@@ -4,13 +4,9 @@ import {
     phoneNumber,
     somaiyaMail,
     validString,
-} from "../../../../backend/zod";
-import { agreeList, clientTextArea, ratingList } from "..";
-
-export const feedTeacherCategory = [
-    "Promising Teacher",
-    "Excellence in Teaching",
-] as const;
+} from "@/backend/zod";
+import { agreeList, feedTeacherCategory, ratingList } from "@/backend/constants";
+import { clientTextArea } from "@/zod";
 
 export const FeedbackTeachingPeerField = {
     rater_name: validString,

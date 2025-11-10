@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../../components/SideBar";
-import Box from "../../../components/status components/Box";
-import LineGraph from "../../../components/status components/LineGraph";
-import Datagrid from "../../../components/status components/Datagrid";
-import Piechart from "../../../components/status components/Piechart";
+import SideBar from "@/components/SideBar";
+import Box from "@/components/status components/Box";
+import LineGraph from "@/components/status components/LineGraph";
+import Datagrid from "@/components/status components/Datagrid";
+import Piechart from "@/components/status components/Piechart";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Swal from "sweetalert2";
-import Axios, { URL } from "../../../axios";
+import Axios, { URL } from "@/axios";
 import React from "react";
 
 const Admin = () => {

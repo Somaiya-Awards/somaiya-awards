@@ -8,19 +8,8 @@ import {
     somaiyaMail,
     validFile,
     validString,
-} from "../../../../backend/zod";
-import { options } from "..";
-
-export const NonTeachingAwardList = [
-    "Outstanding Employee - Institute (More than 3 years of Service)",
-    "Promising Employee - Institute (2 to 3 years of Service)",
-    "Outstanding Employee - Somaiya Trust",
-    "Outstanding Employee - Somaiya Vidyavihar University",
-    "Promising Employee - Somaiya Trust",
-    "Promising Employee - Somaiya Vidyavihar University",
-    "Outstanding Employee - K. J. Somaiya Hospital",
-    "Promising Employee - K. J. Somaiya Hospital",
-] as const;
+} from "@/backend/zod";
+import { NonTeachingAwardList, options } from "@/backend/constants";
 
 export const NonTeachingField = {
     email_id: email,

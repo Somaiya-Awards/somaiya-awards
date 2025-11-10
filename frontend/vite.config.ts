@@ -11,6 +11,13 @@ export default defineConfig({
         target: "es2021",
     },
 
+    resolve: {
+        alias: {
+            "@/backend": path.resolve(__dirname, "../backend"),
+            "@": path.resolve(__dirname, "./src"),
+        },
+    },
+
     plugins: [
         react(),
         babel({

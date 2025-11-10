@@ -1,5 +1,5 @@
 import React from "react";
-import type { StagesType } from "./utils/data/types";
+import type { StagesType } from "@/components/utils/data/types";
 
 function ReturnSteps({
     value,
