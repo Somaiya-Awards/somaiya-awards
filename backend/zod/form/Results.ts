@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { validString } from "..";
+import { validString } from "../../zod";
 
 export const ResultsForm = z.object({
     result: validString,

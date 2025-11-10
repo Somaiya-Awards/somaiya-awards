@@ -1,17 +1,17 @@
-import UserInit from "./User";
-import FeedbackOneInit from "./FeedbackOne";
-import FeedbackTwoInit from "./FeedbackTwo";
-import FeedbackThreeInit from "./FeedbackThree";
-import FeedbackFourInit from "./FeedbackFour";
-import FeedbackFiveInit from "./FeedbackFive";
-import NonTeachingInit from "./NonTeaching";
-import OutstandingInstitutionInit from "./OutstandingInstitution";
-import ResearchInit from "./Research";
-import ResultsInit from "./Results";
-import SportsInit from "./Sports";
-import StudentsInit from "./Students";
-import TeachingInit from "./Teaching";
-import HouseInit from "./House";
+import UserInit from "../../models/tables/User";
+import FeedbackOneInit from "../../models/tables/FeedbackOne";
+import FeedbackTwoInit from "../../models/tables/FeedbackTwo";
+import FeedbackThreeInit from "../../models/tables/FeedbackThree";
+import FeedbackFourInit from "../../models/tables/FeedbackFour";
+import FeedbackFiveInit from "../../models/tables/FeedbackFive";
+import NonTeachingInit from "../../models/tables/NonTeaching";
+import OutstandingInstitutionInit from "../../models/tables/OutstandingInstitution";
+import ResearchInit from "../../models/tables/Research";
+import ResultsInit from "../../models/tables/Results";
+import SportsInit from "../../models/tables/Sports";
+import StudentsInit from "../../models/tables/Students";
+import TeachingInit from "../../models/tables/Teaching";
+import HouseInit from "../../models/tables/House";
 import { Sequelize } from "sequelize";
 
 export default function InitDB(sequelize: Sequelize) {

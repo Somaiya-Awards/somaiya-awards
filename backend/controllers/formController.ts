@@ -21,7 +21,7 @@ import {
 import asyncHandler from "express-async-handler";
 import { formLogger } from "../middleware/logger";
 import { FileRequest } from "../types/request";
-import { checkFiles, checkObject } from ".";
+import { checkFiles, checkObject } from "../controllers";
 import { ResearchForm, ResearchType } from "../zod/form/Research";
 import { SportsForm, SportsType } from "../zod/form/Sports";
 import { sequelize } from "../models";

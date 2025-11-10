@@ -5,9 +5,8 @@ import {
     somaiyaMail,
     serverTextArea,
     validString,
-} from "..";
-import { feedTeacherCategory } from "../../../frontend/src/zod/Forms/FeedbackTeachingPeerForm";
-import { agreeList, ratingList } from "../../../frontend/src/zod";
+} from "../../zod";
+import { agreeList, feedTeacherCategory, ratingList } from "../../constants";
 
 export const FeedbackTwoForm = z.object({
     rater_name: validString,

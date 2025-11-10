@@ -9,7 +9,7 @@ import { RefreshCookie } from "../constants";
 import { Register, RegisterType } from "../zod/auth/register";
 import z from "zod";
 import { resetPassword } from "../zod/auth/password";
-import { checkObject } from ".";
+import { checkObject } from "../controllers";
 import { email } from "../zod";
 import { getJwtToken, setJwtToken } from "../middleware/jwt";
 import {

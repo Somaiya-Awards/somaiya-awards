@@ -10,9 +10,8 @@ import {
     validNumber,
     validString,
     validYear,
-} from "..";
-import { Institutes } from "../../constants";
-import { OutstandingInstList } from "../../../frontend/src/zod/Forms/OutstandingInstForm";
+} from "../../zod";
+import { OutstandingInstList, Institutes } from "../../constants";
 
 export const OutstandingInstitutionForm = z.object({
     email_id: email,

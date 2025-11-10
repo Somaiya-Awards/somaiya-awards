@@ -1,13 +1,13 @@
 import express from "express";
 const router = express.Router();
 import {
-  institutionDataHandler,
-  researchDataHandler,
-  sportsDataHandler,
-  teachingDataHandler,
-  nonTeachingDataHandler,
-  studentsDataHandler,
-  houseDataHandler,
+    institutionDataHandler,
+    researchDataHandler,
+    sportsDataHandler,
+    teachingDataHandler,
+    nonTeachingDataHandler,
+    studentsDataHandler,
+    houseDataHandler,
 } from "../controllers/hoiController";
 
 // all hoi accessible routes;

@@ -9,9 +9,9 @@ import {
     validBoolean,
     validNumber,
     validString,
-} from "..";
+} from "../../zod";
 
-import { NonTeachingAwardList } from "../../../frontend/src/zod/Forms/NonTeachingForm";
+import { NonTeachingAwardList } from "../../constants";
 
 export const NonTeachingForm = z.object({
     email_id: email,

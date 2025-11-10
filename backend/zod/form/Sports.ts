@@ -5,7 +5,7 @@ import {
     validBoolean,
     validNumber,
     validString,
-} from "..";
+} from "../../zod";
 
 export const SportsForm = z.object({
     email_id: email,

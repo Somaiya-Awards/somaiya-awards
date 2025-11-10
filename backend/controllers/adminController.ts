@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { FileRequest } from "../types/request";
 import asyncHandler from "express-async-handler";
 import {
@@ -1684,11 +1684,21 @@ export const getTeachingJurySummaryData = asyncHandler(
             let validPeersFeedbacks = [];
 
             for (let feedback of StudentsFeedbacks) {
-                validStudentsFeedbacks.push(feedback);
+                if (
+                    entry.faculty_name.trim().toLowerCase() ===
+                    feedback.teacher_name.trim().toLowerCase()
+                ) {
+                    validStudentsFeedbacks.push(feedback);
+                }
             }
 
             for (let feedback of PeersFeedbacks) {
-                validPeersFeedbacks.push(feedback);
+                if (
+                    entry.faculty_name.trim().toLowerCase() ===
+                    feedback.teacher_name.trim().toLowerCase()
+                ) {
+                    validPeersFeedbacks.push(feedback);
+                }
             }
 
             // calucate avg of students feedback

@@ -6,8 +6,8 @@ import {
     validNumber,
     validString,
     validYear,
-} from "..";
-import { good } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
+} from "../../zod";
+import { good } from "../../constants";
 
 export const FeedbackOneForm = z.object({
     email_id: email,

@@ -1,8 +1,6 @@
 import z from "zod";
-import { arrayChoice, validFile, validNumber } from "../../zod";
+import { validBoolean, validString, arrayChoice, validNumber } from "../../zod";
 import { Houses } from "../../constants";
-import { validBoolean, validString } from "..";
-
 
 const HouseForm = z.object({
     house_name: arrayChoice(Houses),
@@ -45,4 +43,3 @@ const HouseForm = z.object({
 export default HouseForm;
 
 export type HouseType = z.infer<typeof HouseForm>;
-

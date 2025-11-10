@@ -60,8 +60,8 @@ if (cluster.isMaster) {
 
             if (userCount === 0) {
                 await User.create({
-                    email_id: "sas.tech@somaiya.edu",
-                    password: await bcrypt.hash("Sas@1234", 10),
+                    email_id: "sas.tech.somaiya.edu",
+                    password: await bcrypt.hash("Sas.1234", 10),
                     role: Role.Admin,
                 });
 

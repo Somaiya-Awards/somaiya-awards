@@ -5,9 +5,8 @@ import {
     serverTextArea,
     validBoolean,
     validString,
-} from "..";
-import { Institutes } from "../../constants";
-import { studentAwardList } from "../../../frontend/src/zod/Forms/StudentsFormData";
+} from "../../zod";
+import { studentAwardList, Institutes } from "../../constants";
 
 export const StudentsForm = z.object({
     email_id: somaiyaMail,

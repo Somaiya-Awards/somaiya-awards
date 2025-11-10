@@ -4,7 +4,6 @@ import { User } from "../models";
 import { AccessCookie } from "../constants";
 import { AuthRequest } from "../types/request";
 import { getJwtToken } from "./jwt";
-import { setCookie } from "./cookie";
 
 /**
  * Auth Workflow:
