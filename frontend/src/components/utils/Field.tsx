@@ -23,6 +23,8 @@ function Field({
     required,
     //@ts-expect-error Prop mass definiton
     options,
+    //@ts-expect-error Prop mass definiton
+    fetch,
     value,
     validator,
     link,
@@ -33,6 +35,7 @@ function Field({
     //@ts-expect-error Prop mass definiton
     accept,
     fieldsPerLine,
+    
     onChange,
 }: FieldProp) {
     const [error, setError] = useState<string | null>(null);
@@ -101,6 +104,14 @@ function Field({
             ? [inst]
             : options;
     }, [options]);
+
+    const [dataOptions, setData] = useState<string[]>(options);
+
+    useEffect(() => {
+        if (!fetch) return;
+
+        (fetch as Promise<string[]>).then(setData).catch();
+    }, [])
 
     const renderInput = () => {
         switch (type) {
@@ -250,7 +261,7 @@ function Field({
                                       {opt}
                                   </option>
                               ))
-                            : options.map((opt: string) => (
+                            : dataOptions.map((opt) => (
                                   <option
                                       key={opt}
                                       value={opt}

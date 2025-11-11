@@ -1,13 +1,15 @@
 import type { FormEntry } from "@/data/Forms/types";
-import Axios from "@/axios";
+import { URL } from "@/axios";
 import { PeerNonTeachingFeedbackFormField as v } from "@/zod/Forms/PeerNonTeachingFeedbackForm";
 import {
     agreeList,
-    instituteHeader,
+    Institutes,
     PeerNonTeachingFeedbackList,
     ratingList,
 } from "@/backend/constants";
+import fetchOptions from "@/data/Forms";
 
+/** add __*nominee_name*__ at runtime */
 const PeerNonTeachingFeedbackForm: FormEntry[] = [
     {
         title: "Name of the Rater",
@@ -25,6 +27,7 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         dropOpt: "single",
         required: true,
         dropdownHiddenItem: "Select your institute",
+        options: Institutes,
         validator: v.institution_name,
         page: 1,
         fieldsPerLine: 2,
@@ -73,7 +76,8 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         dropdownHiddenItem: "Select Name of the Nominee",
         required: true,
         validator: v.nominee_name,
-        options: [] as string[],
+        options: [],
+        fetch: fetchOptions(URL.IEAC.NOMINATED_STAFF),
         page: 1,
         fieldsPerLine: 2,
     },
@@ -177,33 +181,5 @@ const PeerNonTeachingFeedbackForm: FormEntry[] = [
         fieldsPerLine: 1,
     },
 ];
-
-async function fetchNominatedNames() {
-    try {
-        const response = await Axios.get("/ieac/data/nominated-staff-names", {
-            headers: {
-                [instituteHeader]: localStorage.getItem("institution"),
-            },
-        });
-
-        const nominatedNames = response.data.data;
-
-        //@ts-expect-error ERR
-        const opt: (FormEntry & { options: string[] }) | undefined =
-            PeerNonTeachingFeedbackForm.find(
-                (field) =>
-                    field.name === "nominee_name" &&
-                    field.type === "dropdown" &&
-                    field.dropOpt === "multiple" &&
-                    field.options
-            );
-
-        if (opt && opt.options) opt.options = nominatedNames;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-fetchNominatedNames();
 
 export default PeerNonTeachingFeedbackForm;

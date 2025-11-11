@@ -24,12 +24,14 @@ export type FormEntry =
                     type: "dropdown";
                     dropOpt: "single";
                     dropdownHiddenItem: string;
+                    options: readonly string[];
                 }
               | {
                     type: "dropdown";
                     dropOpt: "multiple";
                     options: readonly string[];
                     dropdownHiddenItem: string;
+                    fetch?: Promise<string[]>;
                 }
           ))
     | (BaseFormEntry & { type: "textarea" })

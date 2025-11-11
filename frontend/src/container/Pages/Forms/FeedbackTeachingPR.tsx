@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 import React, { useEffect, useMemo, useState } from "react";
 import FeedbackTeachingPeerValidator from "@/zod/Forms/FeedbackTeachingPeerForm";
 import Navbar from "@/components/Navbar";
-import Axios from "@/axios";
+import Axios, { URL } from "@/axios";
+import { instituteHeader } from "@/backend/constants";
 
 export default function FeedbackTeachingPR() {
     const headings = ["Basic Information", "Nominee Ratings", "Review"];
@@ -14,32 +15,6 @@ export default function FeedbackTeachingPR() {
     const aboutForm =
         "The peers' feedback form for teaching enables colleagues to provide valuable insights on teaching effectiveness. This form fosters collaboration, encourages professional growth, and promotes a culture of continuous improvement. By collecting feedback from peers, teaching staff gain valuable perspectives to refine their teaching approaches and enhance the learning experience for students.";
 
-    const [data, setData] = useState<string[]>([]);
-
-    useEffect(() => {
-        Axios.get("/ieac/data/nominated-faculty-names", {
-            headers: {
-                [instituteHeader]: localStorage.getItem(
-                    "institution"
-                ) as string,
-            },
-        }).then((response) => {
-            setData(response.data.data || []);
-        });
-    }, []);
-
-    const nominatee = useMemo(() => {
-        const list = [...FeedbackTeachingPeerForm];
-        const a = list.findIndex((field) => field.name === "teacher_name");
-
-        //@ts-expect-error Index that
-        if (a > 0 && list[a].options) {
-            //@ts-expect-error Index this
-            list[a].options = data;
-        }
-
-        return list;
-    }, [data]);
 
     return (
         <div>
@@ -53,7 +28,7 @@ export default function FeedbackTeachingPR() {
                 <Forms
                     pageHeadings={headings}
                     pageCount={limit}
-                    data={nominatee}
+                    data={FeedbackTeachingPeerForm}
                     validator={FeedbackTeachingPeerValidator}
                     stages={FeedbackPeerTeaching}
                 />

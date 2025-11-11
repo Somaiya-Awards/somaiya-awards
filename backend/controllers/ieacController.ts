@@ -367,10 +367,12 @@ export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
 
 export const getNominatedStaffNames = asyncHandler(async (req, res) => {
     let names = [];
+    const institute_name = req.headers[instituteHeader] || "";
 
     const result = await NonTeaching.findAll({
         where: {
             [Op.and]: [
+                { institution_name: institute_name },
                 { ieacApproved: true },
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],

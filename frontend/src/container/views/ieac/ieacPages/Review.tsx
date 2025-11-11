@@ -45,7 +45,9 @@ export default function Review() {
         Axios.get(url)
             .then((res) => {
                 if (res.data) {
-                    setRows(res.data.data);
+                    const inst = localStorage.getItem("institution")
+
+                    if ((inst) && (inst !== "K. J. Somaiya Institute of Technology")) { setRows(res.data.data); }
                 }
             })
             .catch((err) => {

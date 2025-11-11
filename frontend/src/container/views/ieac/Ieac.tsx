@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "@/container/views/ieac/ieacComponents/Tile";
+import Axios, { URL } from "@/axios";
 
 export default function Ieac() {
     const navigate = useNavigate();
@@ -15,9 +16,8 @@ export default function Ieac() {
     const handleLogout = () => {
         // remove token from local storage
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
-
+        Axios.post(URL.AUTH.LOGOUT);
+        
         Swal.fire({
             title: "Successfully Logged Out",
             icon: "success",
@@ -63,13 +63,13 @@ export default function Ieac() {
                         <div className="p-2 ml-[2rem] mt-3">
                             <div>
                                 <Tile
-                                    title="1. Navigate to Recommended / Not Recommeded Columns"
-                                    info="In each form responses there is a column name recommended to recommend a nominee to futher rounds. In case some category of awards there is a not recommeded column which is mandatory for marking the nominees"
+                                    title="1. Navigate to Recommended / Not Recommended Columns"
+                                    info="In each form responses there is a column name recommended to recommend a nominee to further rounds. In case some category of awards there is a not recommended column which is mandatory for marking the nominees"
                                     image={"/inst1.png"}
                                 />
 
                                 <Tile
-                                    title="2. Click on checkbox to Recommned"
+                                    title="2. Click on checkbox to Recommend"
                                     info="Click on the checkbox in front of the nominee to Recommend him/her"
                                     image={"/inst2.png"}
                                 />
@@ -82,13 +82,13 @@ export default function Ieac() {
 
                                 <Tile
                                     title="3b. Enter your score and confirm"
-                                    info="In case of teaching and non- teaching category of awards IAEC Member are required to enter their score of each nominee wheter he/she is recommended or not  and confirm "
+                                    info="In case of teaching and non- teaching category of awards IAEC Member are required to enter their score of each nominee whether he/she is recommended or not  and confirm "
                                     image={"/inst4.png"}
                                 />
 
                                 <Tile
                                     title="4. Upload Recommendation File"
-                                    info="At last after confirming all the decision and marking recommeded and not recommended ones upload the recommendation file and confirm it "
+                                    info="At last after confirming all the decision and marking recommended and not recommended ones upload the recommendation file and confirm it "
                                     image={"/inst5.png"}
                                 />
                             </div>

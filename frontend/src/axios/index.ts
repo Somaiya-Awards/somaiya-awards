@@ -13,7 +13,7 @@ if (LOCAL_DEVELOPMENT) {
 
 export const BASE_URL = url;
 
-export const DATA_URL = `${BASE_URL}/data`;
+export const DATA_URL = `${BASE_URL}/data` as const;
 
 interface Config extends AxiosRequestConfig {
     retry?: boolean;
@@ -21,110 +21,110 @@ interface Config extends AxiosRequestConfig {
 
 export const URL = {
     AUTH: {
-        LOGIN: `${BASE_URL}/auth/login`,
-        LOGOUT: `${BASE_URL}/auth/logout`,
-        FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
-        REFRESH: `${BASE_URL}/auth/refresh`,
+        LOGIN: `${BASE_URL}/auth/login` as const,
+        LOGOUT: `${BASE_URL}/auth/logout` as const,
+        FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password` as const,
+        REFRESH: `${BASE_URL}/auth/refresh` as const,
         OTP_RESET: (id: string, token: string) => {
             const validId = anyString.parse(id);
             const validToken = anyString.parse(token);
-            return `${BASE_URL}/auth/${validId}/${validToken}`;
+            return `${BASE_URL}/auth/${validId}/${validToken}` as const;
         },
-        VALIDATE: `${BASE_URL}/auth/validate`,
-        REGISTER: `${BASE_URL}/auth/register`,
-        BULK_CREATE: `${BASE_URL}/auth/bulk-create`,
+        VALIDATE: `${BASE_URL}/auth/validate` as const,
+        REGISTER: `${BASE_URL}/auth/register` as const,
+        BULK_CREATE: `${BASE_URL}/auth/bulk-create` as const,
     },
 
     ADMIN: {
         COUNT: {
-            ALL: `${BASE_URL}/admin/data/count/all`,
-            LAST_15: `${BASE_URL}/admin/data/count/15`,
-            INSTITUTION_WISE: `${BASE_URL}/admin/data/count/institution-wise`,
-            GROUPS: `${BASE_URL}/admin/data/count/group`,
+            ALL: `${BASE_URL}/admin/data/count/all` as const,
+            LAST_15: `${BASE_URL}/admin/data/count/15` as const,
+            INSTITUTION_WISE: `${BASE_URL}/admin/data/count/institution-wise` as const,
+            GROUPS: `${BASE_URL}/admin/data/count/group` as const,
         },
-        USERS_LIST: `${BASE_URL}/admin/data/users`,
+        USERS_LIST: `${BASE_URL}/admin/data/users` as const,
         FORMS: {
-            SPORTS_COACH: `${BASE_URL}/admin/data/forms/sports-coach`,
-            STUDENTS: `${BASE_URL}/admin/data/forms/students`,
-            SPORTS_GIRL: `${BASE_URL}/admin/data/forms/sports-girl`,
-            SPORTS_BOY: `${BASE_URL}/admin/data/forms/sports-boy`,
-            NON_TEACHING: `${BASE_URL}/admin/data/forms/non-teaching`,
-            OUTSTANDING_INSTITUTION: `${BASE_URL}/admin/data/forms/outstanding-institution`,
-            FEEDBACK_01: `${BASE_URL}/admin/data/forms/feedback-01`,
-            RESEARCH: `${BASE_URL}/admin/data/forms/research`,
-            TEACHING: `${BASE_URL}/admin/data/forms/teaching`,
-            FEEDBACK_02: `${BASE_URL}/admin/data/forms/feedback-02`,
-            FEEDBACK_03: `${BASE_URL}/admin/data/forms/feedback-03`,
-            FEEDBACK_04: `${BASE_URL}/admin/data/forms/feedback-04`,
+            SPORTS_COACH: `${BASE_URL}/admin/data/forms/sports-coach` as const,
+            STUDENTS: `${BASE_URL}/admin/data/forms/students` as const,
+            SPORTS_GIRL: `${BASE_URL}/admin/data/forms/sports-girl` as const,
+            SPORTS_BOY: `${BASE_URL}/admin/data/forms/sports-boy` as const,
+            NON_TEACHING: `${BASE_URL}/admin/data/forms/non-teaching` as const,
+            OUTSTANDING_INSTITUTION: `${BASE_URL}/admin/data/forms/outstanding-institution` as const,
+            FEEDBACK_01: `${BASE_URL}/admin/data/forms/feedback-01` as const,
+            RESEARCH: `${BASE_URL}/admin/data/forms/research` as const,
+            TEACHING: `${BASE_URL}/admin/data/forms/teaching` as const,
+            FEEDBACK_02: `${BASE_URL}/admin/data/forms/feedback-02` as const,
+            FEEDBACK_03: `${BASE_URL}/admin/data/forms/feedback-03` as const,
+            FEEDBACK_04: `${BASE_URL}/admin/data/forms/feedback-04` as const,
         },
-        RESULTS_HANDLER: `${BASE_URL}/admin/data/announce-results`,
+        RESULTS_HANDLER: `${BASE_URL}/admin/data/announce-results` as const,
         FORM_PREVIEW: (formType: string) => {
             const validForm = validString.parse(formType);
-            return `${BASE_URL}/admin/data/${validForm}/preview`;
+            return `${BASE_URL}/admin/data/${validForm}/preview` as const;
         },
         JURY_SUMMARY: {
-            TEACHING: `${BASE_URL}/admin/data/jury-summary/teaching`,
-            NON_TEACHING: `${BASE_URL}/admin/data/jury-summary/non-teaching`,
+            TEACHING: `${BASE_URL}/admin/data/jury-summary/teaching` as const,
+            NON_TEACHING: `${BASE_URL}/admin/data/jury-summary/non-teaching` as const,
         },
         SCORECARD: {
-            TEACHING: `${BASE_URL}/admin/data/teaching/scorecard`,
-            NON_TEACHING: `${BASE_URL}/admin/data/non-teaching/scorecard`,
+            TEACHING: `${BASE_URL}/admin/data/teaching/scorecard` as const,
+            NON_TEACHING: `${BASE_URL}/admin/data/non-teaching/scorecard` as const,
         },
-        RESULTS: `${BASE_URL}/admin/data/results`,
-        DELETE_USER: `${BASE_URL}/admin/data/delete-user`,
+        RESULTS: `${BASE_URL}/admin/data/results` as const,
+        DELETE_USER: `${BASE_URL}/admin/data/delete-user` as const,
     },
 
     FORMS: {
-        SPORTS: `${BASE_URL}/forms/sports`,
-        TEACHING: `${BASE_URL}/forms/teaching`,
-        STUDENTS: `${BASE_URL}/forms/students`,
-        RESEARCH: `${BASE_URL}/forms/research`,
-        NON_TEACHING: `${BASE_URL}/forms/non-teaching`,
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/forms/outstanding-institution`,
-        FEEDBACK_01: `${BASE_URL}/forms/feedback-01`,
-        FEEDBACK_02: `${BASE_URL}/forms/feedback-02`,
-        FEEDBACK_03: `${BASE_URL}/forms/feedback-03`,
-        FEEDBACK_04: `${BASE_URL}/forms/feedback-04`,
-        FEEDBACK_05: `${BASE_URL}/forms/feedback-05`,
+        SPORTS: `${BASE_URL}/forms/sports` as const,
+        TEACHING: `${BASE_URL}/forms/teaching` as const,
+        STUDENTS: `${BASE_URL}/forms/students` as const,
+        RESEARCH: `${BASE_URL}/forms/research` as const,
+        NON_TEACHING: `${BASE_URL}/forms/non-teaching` as const,
+        OUTSTANDING_INSTITUTION: `${BASE_URL}/forms/outstanding-institution` as const,
+        FEEDBACK_01: `${BASE_URL}/forms/feedback-01` as const,
+        FEEDBACK_02: `${BASE_URL}/forms/feedback-02` as const,
+        FEEDBACK_03: `${BASE_URL}/forms/feedback-03` as const,
+        FEEDBACK_04: `${BASE_URL}/forms/feedback-04` as const,
+        FEEDBACK_05: `${BASE_URL}/forms/feedback-05` as const,
     },
 
     HOI: {
-        STUDENTS: `${BASE_URL}/hoi/data/students`,
-        NON_TEACHING: `${BASE_URL}/hoi/data/non-teaching`,
-        SPORTS: `${BASE_URL}/hoi/data/sports`,
-        TEACHING: `${BASE_URL}/hoi/data/teaching`,
-        RESEARCH: `${BASE_URL}/hoi/data/research`,
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/hoi/data/outstanding-institution`,
+        STUDENTS: `${BASE_URL}/hoi/data/students` as const,
+        NON_TEACHING: `${BASE_URL}/hoi/data/non-teaching` as const,
+        SPORTS: `${BASE_URL}/hoi/data/sports` as const,
+        TEACHING: `${BASE_URL}/hoi/data/teaching` as const,
+        RESEARCH: `${BASE_URL}/hoi/data/research` as const,
+        OUTSTANDING_INSTITUTION: `${BASE_URL}/hoi/data/outstanding-institution` as const,
     },
 
     IEAC: {
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/ieac/data/outstanding-institution`,
-        NOMINATED_STAFF: `${BASE_URL}/ieac/data/nominated-staff-names`,
-        TEACHING: `${BASE_URL}/ieac/data/teaching`,
-        NON_TEACHING: `${BASE_URL}/ieac/data/non-teaching`,
-        NOMINATED_FACULTY: `${BASE_URL}/ieac/data/nominated-faculty-names`,
+        OUTSTANDING_INSTITUTION: `${BASE_URL}/ieac/data/outstanding-institution` as const,
+        NOMINATED_STAFF: `${BASE_URL}/ieac/data/nominated-staff-names` as const,
+        TEACHING: `${BASE_URL}/ieac/data/teaching` as const,
+        NON_TEACHING: `${BASE_URL}/ieac/data/non-teaching` as const,
+        NOMINATED_FACULTY: `${BASE_URL}/ieac/data/nominated-faculty-names` as const,
     },
 
     RESEARCH_ADMIN: {
-        UPDATE: `${BASE_URL}/research-data/data/update`,
-        RESEARCH: `${BASE_URL}/research-data/data/research`,
+        UPDATE: `${BASE_URL}/research-data/data/update` as const,
+        RESEARCH: `${BASE_URL}/research-data/data/research` as const,
     },
 
     SPORTS_ADMIN: {
-        INSPIRING_COACH: `${BASE_URL}/sports-admin/data/inspiring-coach`,
-        NOMINATED_COACH: `${BASE_URL}/sports-admin/data/nominated-coach-names`,
-        SPORTS_STAR_BOY: `${BASE_URL}/sports-admin/data/sports-star-boy`,
-        SPORTS_STAR_GIRL: `${BASE_URL}/sports-admin/data/sports-star-girl`,
-        UPDATE: `${BASE_URL}/sports-admin/data/update`,
+        INSPIRING_COACH: `${BASE_URL}/sports-admin/data/inspiring-coach` as const,
+        NOMINATED_COACH: `${BASE_URL}/sports-admin/data/nominated-coach-names` as const,
+        SPORTS_STAR_BOY: `${BASE_URL}/sports-admin/data/sports-star-boy` as const,
+        SPORTS_STAR_GIRL: `${BASE_URL}/sports-admin/data/sports-star-girl` as const,
+        UPDATE: `${BASE_URL}/sports-admin/data/update` as const,
     },
 
     STUDENTS_ADMIN: {
-        STAR_CITIZEN: `${BASE_URL}/students-admin/data/somaiya-star-citizen`,
-        GREEN_STAR: `${BASE_URL}/students-admin/data/somaiya-green-star`,
-        STAR_INNOVATOR: `${BASE_URL}/students-admin/data/somaiya-star-innovator`,
-        UPDATE: `${BASE_URL}/students-admin/data/update`,
-        STAR_BOY: `${BASE_URL}/students-admin/data/somaiya-star-boy`,
-        STAR_GIRL: `${BASE_URL}/students-admin/data/somaiya-star-girl`,
+        STAR_CITIZEN: `${BASE_URL}/students-admin/data/somaiya-star-citizen` as const,
+        GREEN_STAR: `${BASE_URL}/students-admin/data/somaiya-green-star` as const,
+        STAR_INNOVATOR: `${BASE_URL}/students-admin/data/somaiya-star-innovator` as const,
+        UPDATE: `${BASE_URL}/students-admin/data/update` as const,
+        STAR_BOY: `${BASE_URL}/students-admin/data/somaiya-star-boy` as const,
+        STAR_GIRL: `${BASE_URL}/students-admin/data/somaiya-star-girl` as const,
     },
 };
 

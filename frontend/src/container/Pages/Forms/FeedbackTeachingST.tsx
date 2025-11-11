@@ -3,9 +3,11 @@ import Forms from "@/components/Forms";
 import StudentTeachingFeedback from "@/components/utils/data/StudentTeachingFeedback";
 import StudentTeachingFeedbackForm from "@/data/Forms/StudentTeachingFeedbackForm";
 import Footer from "@/components/Footer";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import StudentTeachingFeedbackFormValidator from "@/zod/Forms/StudentTeachingFeedbackForm";
 import Navbar from "@/components/Navbar";
+import Axios, { URL } from "@/axios";
+import { instituteHeader } from "@/backend/constants";
 
 export default function FeedbackTeachingST() {
     const headings = [
@@ -19,6 +21,8 @@ export default function FeedbackTeachingST() {
         "In Feedback Section of Teaching Staff 1 represents lowest marks and 5 is considered as highest";
     const aboutForm =
         "The feedback form is essential for students to share their thoughts and suggestions, allowing the teaching staff to continuously improve their performance. By providing feedback, students help the teaching staff understand their needs better, fostering a collaborative and supportive learning environment. This form promotes open communication and enables the teaching staff to assess their teaching methods, ensuring high-quality education for students.";
+
+    
     return (
         <div>
             <Navbar />

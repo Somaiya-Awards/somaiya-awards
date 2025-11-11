@@ -1,8 +1,10 @@
 import type { FormEntry } from "@/data/Forms/types";
-import Axios from "@/axios";
+import { URL } from "@/axios";
 import { FeedbackSportsCoachField as v } from "@/zod/Forms/FeedbackSportsCoach";
-import { instituteHeader, Institutes, options } from "@/backend/constants";
+import { Institutes, options } from "@/backend/constants";
+import fetchOptions from "@/data/Forms";
 
+/** add __*nominee_name*__ at runtime */
 const FeedbackSportsCoach: FormEntry[] = [
     {
         title: "Name of the Rater",
@@ -43,6 +45,7 @@ const FeedbackSportsCoach: FormEntry[] = [
         required: true,
         validator: v.nominee_name,
         options: [],
+        fetch: fetchOptions(URL.SPORTS_ADMIN.NOMINATED_COACH),
         page: 1,
         fieldsPerLine: 2,
     },
@@ -262,37 +265,5 @@ const FeedbackSportsCoach: FormEntry[] = [
         fieldsPerLine: 1,
     },
 ];
-
-async function fetchNominatedNames() {
-    try {
-        // Make an HTTP request to fetch the data from your backend
-        const response = await Axios.get(
-            "/sports-admin/data/nominated-coach-names",
-            {
-                headers: {
-                    [instituteHeader]: localStorage.getItem(
-                        "institution"
-                    ) as string,
-                },
-            }
-        );
-
-        // Assuming the backend returns an array of nominated names
-        const nominatedNames = response.data.data as string[];
-
-        // Update the options for "nominee_name"
-        //@ts-expect-error ERR
-        const opt: (FormEntry & { options: string[], }) | undefined = FeedbackSportsCoach.find(
-            (field) => (field.name === "nominee_name" && field.type === "dropdown" && field.dropOpt === "multiple" && field.options)
-        );
-
-        if (opt && opt.options) opt.options = nominatedNames;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// Call the function to fetch and update the options
-fetchNominatedNames();
 
 export default FeedbackSportsCoach;

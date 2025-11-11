@@ -1,8 +1,10 @@
 import type { FormEntry } from "@/data/Forms/types";
-import Axios from "@/axios";
 import { FeedbackTeachingPeerField as v } from "@/zod/Forms/FeedbackTeachingPeerForm";
-import { agreeList, instituteHeader, Institutes, peerTeachingOption, ratingList } from "@/backend/constants";
+import { agreeList, Institutes, peerTeachingOption, ratingList } from "@/backend/constants";
+import fetchOptions from "@/data/Forms";
+import { URL } from "@/axios";
 
+/** add __*teacher_name*__ at runtime */
 const FeedbackTeachingPeerForm: FormEntry[] = [
     {
         title: "Name of the Rater",
@@ -14,13 +16,14 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         fieldsPerLine: 2,
     },
     {
-        title: "Name of the Institute:",
+        title: "Name of the Institute",
         name: "institution_name",
+        type: "dropdown",
         dropdownHiddenItem: "Select your institute",
-        dropOpt: "single",
         required: true,
-        validator: v.institution_name,
+        dropOpt: "single",
         options: Institutes,
+        validator: v.institution_name,
         page: 1,
         fieldsPerLine: 2,
     },
@@ -69,6 +72,7 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         required: true,
         validator: v.teacher_name,
         options: [],
+        fetch: fetchOptions(URL.IEAC.NOMINATED_FACULTY),
         page: 1,
         fieldsPerLine: 2,
     },
@@ -182,42 +186,5 @@ const FeedbackTeachingPeerForm: FormEntry[] = [
         fieldsPerLine: 1,
     },
 ];
-
-export async function fetchNominatedNames() {
-
-        try {
-            // Make an HTTP request to fetch the data from your backend
-            const response = await Axios.get(
-                "/ieac/data/nominated-faculty-names",
-                {
-                    headers: {
-                        [instituteHeader]: localStorage.getItem(
-                            "institution"
-                        ) as string,
-                    },
-                }
-            );
-
-            // Assuming the backend returns an array of nominated names
-            const nominatedNames = response.data.data as string[];
-
-            // Update the options for "nominee_name"
-            //@ts-expect-error ERR
-            const opt: (FormEntry & { options: string[] }) | undefined =
-                FeedbackTeachingPeerForm.find(
-                    (field) =>
-                        field.name === "nominee_name" &&
-                        field.type === "dropdown" &&
-                        field.dropOpt === "multiple" &&
-                        field.options
-                );
-
-            if (opt && opt.options) opt.options = nominatedNames;
-        } catch (error) {
-            console.error(error);
-        }
-}
-
-fetchNominatedNames();
 
 export default FeedbackTeachingPeerForm;
