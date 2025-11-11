@@ -272,7 +272,7 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => {
     }
 
     res.status(200).json({
-        message: "Sucessfully Updated",
+        message: "Successfully Updated",
     });
 });
 
@@ -285,7 +285,10 @@ export const getNominatedNames = asyncHandler(async (req, res) => {
 
     const result = await Sports.findAll({
         where: {
-            [Op.and]: [sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())")],
+            [Op.and]: [
+                { isApprovedCoach: true },
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+            ],
         },
     });
 

@@ -33,7 +33,7 @@ const TableData = {
     ],
     Group3: [
         "Higher and Technical Education (UG and PG)",
-        "K. J. Somaiya Institute Information Technology",
+        "K. J. Somaiya Institute of Technology",
         "K. J. Somaiya School of Engineering",
         "K. J. Somaiya Institute of Management",
         "K. J. Somaiya Polytechnic",
