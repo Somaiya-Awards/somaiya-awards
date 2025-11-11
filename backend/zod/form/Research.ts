@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { arrayChoice, validBoolean, validNumber, validString } from "..";
+import { arrayChoice, validBoolean, validNumber, validString } from "../../zod";
 import { Institutes } from "../../constants";
 
 export const ResearchForm = z.object({

@@ -1,6 +1,5 @@
 import * as z from "zod";
 import { Role } from "../types/role";
-import fs from "node:fs";
 import { Institutes } from "../constants";
 
 export const email = z.email({ error: "Invalid email address" });

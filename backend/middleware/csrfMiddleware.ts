@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { CSRF, CSRF_SIZE, CsrfName } from "../constants";
-import { setCookie } from "./cookie";
+import { setCookie } from "../middleware/cookie";
 import { Request, Response } from "express";
 
 export function randomString(size: number = CSRF_SIZE) {

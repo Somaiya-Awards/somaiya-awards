@@ -2,11 +2,11 @@ import asyncHandler from "express-async-handler";
 import { AuthRequest } from "../types/request";
 import { House, NonTeaching, sequelize } from "../models";
 import {
-  OutstandingInstitution,
-  Research,
-  Sports,
-  Students,
-  Teaching,
+    OutstandingInstitution,
+    Research,
+    Sports,
+    Students,
+    Teaching,
 } from "../models";
 
 //@desc get data of institution forms to hoi
@@ -14,21 +14,21 @@ import {
 //@access private
 
 export const institutionDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await OutstandingInstitution.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await OutstandingInstitution.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of research forms to hoi
@@ -36,21 +36,21 @@ export const institutionDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const researchDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await Research.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await Research.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of sports forms to hoi
@@ -58,21 +58,21 @@ export const researchDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const sportsDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await Sports.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await Sports.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of teaching forms to hoi
@@ -80,21 +80,21 @@ export const sportsDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const teachingDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await Teaching.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await Teaching.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of non-teaching forms to hoi
@@ -102,21 +102,21 @@ export const teachingDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await NonTeaching.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await NonTeaching.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of students to HOI
@@ -124,21 +124,21 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const studentsDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await Students.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await Students.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of students to HOI
@@ -146,19 +146,19 @@ export const studentsDataHandler = asyncHandler(async (req, res) => {
 //@access private
 
 export const houseDataHandler = asyncHandler(async (req, res) => {
-  const user_institution = (req as AuthRequest).user.institution;
+    const user_institution = (req as AuthRequest).user.institution;
 
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await House.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
-      { institution_name: user_institution }
-    ),
-  });
+    const data = await House.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`), // match current Year
+            { institution_name: user_institution }
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });

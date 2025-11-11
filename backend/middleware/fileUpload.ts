@@ -9,9 +9,8 @@ import path from "path";
  * SECTION FORM FILE UPLOAD HANDLER
  */
 
-// file upload for outstanding institution form
-
-const destinations = [
+/** All possible file uploads or static folder */
+export const destinations = [
     "institution",
     "research",
     "sports",
@@ -23,13 +22,14 @@ const destinations = [
     "approvals/IEAC/support",
     "students",
     "results",
+    "template",
 ] as const;
 
-type FileName = (typeof destinations)[number];
+type FolderName = (typeof destinations)[number];
 
 const ALLOWED_FILES = ["application/pdf", "image/jpeg"];
 
-function multerDiskStorageFactory(folderName: FileName): DiskStorageOptions {
+function multerDiskStorageFactory(folderName: FolderName): DiskStorageOptions {
     return {
         destination: (req, file, cb) => {
             cb(null, `data/${folderName}`);
@@ -40,11 +40,9 @@ function multerDiskStorageFactory(folderName: FileName): DiskStorageOptions {
     };
 }
 
-function multerFactory(idx: number) {
+function multerFactory(folder: FolderName) {
     return multer({
-        storage: multer.diskStorage(
-            multerDiskStorageFactory(destinations[idx - 1]) // Oops
-        ),
+        storage: multer.diskStorage(multerDiskStorageFactory(folder)),
         fileFilter: (req, file, cb) => {
             if (ALLOWED_FILES.includes(file.mimetype)) {
                 cb(null, true);
@@ -212,14 +210,14 @@ function multerFactory(idx: number) {
 //
 // TODO: Rename these now
 
-export const upload01 = multerFactory(1);
-export const upload02 = multerFactory(2);
-export const upload03 = multerFactory(3);
-export const upload04 = multerFactory(4);
-export const upload05 = multerFactory(5);
-export const upload06 = multerFactory(6);
-export const upload07 = multerFactory(7);
-export const upload08 = multerFactory(8);
-export const upload09 = multerFactory(9);
-export const upload10 = multerFactory(10);
-export const upload11 = multerFactory(11);
+export const upload01 = multerFactory("institution");
+export const upload02 = multerFactory("research");
+export const upload03 = multerFactory("sports");
+export const upload04 = multerFactory("faculty");
+export const upload05 = multerFactory("support");
+export const upload06 = multerFactory("approvals/IEAC/research");
+export const upload07 = multerFactory("approvals/IEAC/sports");
+export const upload08 = multerFactory("approvals/IEAC/teaching");
+export const upload09 = multerFactory("approvals/IEAC/support");
+export const upload10 = multerFactory("students");
+export const upload11 = multerFactory("results");

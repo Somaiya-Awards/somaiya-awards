@@ -86,3 +86,72 @@ export const Houses = [
     "Kanha Tigers",
     "Gir Lions",
 ] as const;
+
+export const options = ["1", "2", "3", "4", "5"] as const;
+
+export const agreeList = [
+    "Strongly Agree",
+    "Agree",
+    "Sometimes",
+    "Disagree",
+    "Strongly Disagree",
+] as const;
+
+export const ratingList = [
+    "Outstanding",
+    "Excellent",
+    "Good",
+    "Average",
+    "Poor",
+] as const;
+
+export const feedTeacherCategory = [
+    "Promising Teacher",
+    "Excellence in Teaching",
+] as const;
+
+export const NonTeachingAwardList = [
+    "Outstanding Employee - Institute (More than 3 years of Service)",
+    "Promising Employee - Institute (2 to 3 years of Service)",
+    "Outstanding Employee - Somaiya Trust",
+    "Outstanding Employee - Somaiya Vidyavihar University",
+    "Promising Employee - Somaiya Trust",
+    "Promising Employee - Somaiya Vidyavihar University",
+    "Outstanding Employee - K. J. Somaiya Hospital",
+    "Promising Employee - K. J. Somaiya Hospital",
+] as const;
+
+export const OutstandingInstList = [
+    "Outstanding School",
+    "Outstanding College",
+] as const;
+
+export const PeerNonTeachingFeedbackList = [
+    "Outstanding Employee Educational Institute",
+    "Promising Employee Educational Institute (≤ 3 years of service)",
+    "Outstanding Administrator Somaiya Trust/GVPM",
+    "Outstanding Employee K. J. Somaiya Hospital & Research Centre",
+] as const;
+
+export const studentAwardList = [
+    "Somaiya Star -Girl",
+    "Somaiya Star -Boy",
+    "Somaiya Star Citizen",
+    "Somaiya Green Star/ Green Force",
+    "Somaiya Star Innovator",
+] as const;
+
+export const good = [
+    "Outstanding",
+    "Very Good",
+    "Good",
+    "Average",
+    "Poor",
+] as const;
+
+export const awards = [
+    "Excellence in Teaching (more than 3 years of service)",
+    "Promising Teacher of the year (2 to 3 years of service)",
+] as const;
+
+export const peerTeachingOption = ["Promising Teacher", "Excellence in Teaching"] as const;

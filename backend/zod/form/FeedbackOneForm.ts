@@ -1,7 +1,12 @@
 import * as z from "zod";
-import { email, validYear, validString, arrayChoice, serverTextArea } from "..";
-import { good } from "../../../frontend/src/zod/Forms/StudentTeachingFeedbackForm";
-import { options } from "../../../frontend/src/zod";
+import {
+    email,
+    validYear,
+    validString,
+    arrayChoice,
+    serverTextArea,
+} from "../../zod";
+import { good, options } from "../../constants";
 
 export const FeedbackOneForm = z.object({
     email_id: email,

@@ -21,7 +21,7 @@ import {
 import asyncHandler from "express-async-handler";
 import { formLogger } from "../middleware/logger";
 import { FileRequest } from "../types/request";
-import { checkFiles, checkObject } from ".";
+import { checkFiles, checkObject } from "../controllers";
 import { ResearchForm, ResearchType } from "../zod/form/Research";
 import { SportsForm, SportsType } from "../zod/form/Sports";
 import { sequelize } from "../models";
@@ -43,7 +43,7 @@ import { HouseType } from "../zod/form/House";
 //@route POST /forms/outstanding-institution
 //@access private
 export const submitForm_01 = asyncHandler(async (req, res) => {
-    const supportings = (req as FileRequest).file.path;
+    const supportings = (req as FileRequest).file?.path;
     const response = checkObject<OutstandingInstitutionType>(
         {
             ...req.body,
@@ -127,15 +127,16 @@ export const submitForm_02 = asyncHandler(async (req, res) => {
 export const submitForm_03 = asyncHandler(async (req, res) => {
     const files = checkFiles(req, res);
 
-    const nominee_coach_photo = files.nominee_coach_photo[0].path;
-    const nominee_coach_supportings = files.nominee_coach_supportings[0].path;
+    const nominee_coach_photo = files.nominee_coach_photo[0]?.path;
+    const nominee_coach_supportings = files.nominee_coach_supportings[0]?.path;
 
-    const nominee_ss_girl_photo = files.nominee_ss_girl_photo[0].path;
+    const nominee_ss_girl_photo = files.nominee_ss_girl_photo[0]?.path;
     const nominee_ss_girl_supportings =
-        files.nominee_ss_girl_supportings[0].path;
+        files.nominee_ss_girl_supportings[0]?.path;
 
-    const nominee_ss_boy_photo = files.nominee_ss_boy_photo[0].path;
-    const nominee_ss_boy_supportings = files.nominee_ss_boy_supportings[0].path;
+    const nominee_ss_boy_photo = files.nominee_ss_boy_photo[0]?.path;
+    const nominee_ss_boy_supportings =
+        files.nominee_ss_boy_supportings[0]?.path;
 
     const response = checkObject<SportsType>(
         {
@@ -212,8 +213,8 @@ export const submitForm_04 = asyncHandler(async (req, res) => {
 
     const files = checkFiles(req, res);
 
-    const data_evidence = files.data_evidence[0].path;
-    const profile_photograph = files.profile_photograph[0].path;
+    const data_evidence = files.data_evidence[0]?.path;
+    const profile_photograph = files.profile_photograph[0]?.path;
 
     const response = checkObject<TeachingType>(
         { ...req.body, data_evidence, profile_photograph },
@@ -282,8 +283,8 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
 
     const files = checkFiles(req, res);
 
-    const proof_docs = files.proof_docs[0].path;
-    const nominee_photograph = files.nominee_photograph[0].path;
+    const proof_docs = files.proof_docs[0]?.path;
+    const nominee_photograph = files.nominee_photograph[0]?.path;
 
     const response = checkObject<NonTeachingType>(
         { ...req.body, proof_docs, nominee_photograph },
@@ -291,6 +292,7 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
         res
     );
 
+    throw new Error("NO");
     var result: unknown;
     try {
         result = await NonTeaching.create(response);
@@ -320,7 +322,7 @@ export const submitForm_05 = asyncHandler(async (req, res) => {
 //@access private
 
 export const submitForm_10 = asyncHandler(async (req, res) => {
-    const supportings = (req as FileRequest).file.path;
+    const supportings = (req as FileRequest).file?.path;
     const response = checkObject<StudentsType>(
         { ...req.body, supportings },
         StudentsForm,
@@ -562,7 +564,7 @@ export const submitForm_06 = asyncHandler(async (req, res) => {
 
     const files = checkFiles(req, res);
 
-    const proof_docs = files.proof_docs[0].path;
+    const proof_docs = files.proof_docs[0]?.path;
 
     const response = checkObject<HouseType>(
         { ...req.body, proof_docs },

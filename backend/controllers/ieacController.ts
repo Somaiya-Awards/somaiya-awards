@@ -10,18 +10,18 @@ import { instituteHeader } from "../constants";
 //@access private
 
 export const institutionDataHandler = asyncHandler(async (req, res) => {
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await OutstandingInstitution.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
-    ),
-  });
+    const data = await OutstandingInstitution.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of research forms to ieac
@@ -52,7 +52,7 @@ export const institutionDataHandler = asyncHandler(async (req, res) => {
 //@route GET /ieac/data/sports
 //@access private
 /**@deprecated : Shifted Permanently to Sports Admin */
-const sportsDataHandler = asyncHandler(async (req, res) => { });
+const sportsDataHandler = asyncHandler(async (req, res) => {});
 //     const user_institution = (req as AuthRequest).user.institution;
 //
 //     const currentYear = new Date().getFullYear();
@@ -74,36 +74,36 @@ const sportsDataHandler = asyncHandler(async (req, res) => { });
 //@route GET /ieac/data/teaching
 //@access private
 export const teachingDataHandler = asyncHandler(async (req, res) => {
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await Teaching.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
-    ),
-  });
+    const data = await Teaching.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc get data of non-teaching forms to ieac
 //@route GET /ieac/data/non-teaching
 //@access private
 export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
-  const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
-  const data = await NonTeaching.findAll({
-    where: sequelize.and(
-      // raw SQL query using and operator
-      sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
-    ),
-  });
+    const data = await NonTeaching.findAll({
+        where: sequelize.and(
+            // raw SQL query using and operator
+            sequelize.literal(`YEAR(createdAt) = ${currentYear}`) // match current Year
+        ),
+    });
 
-  res.status(200).json({
-    data: data,
-  });
+    res.status(200).json({
+        data: data,
+    });
 });
 
 //@desc update institution form
@@ -146,7 +146,7 @@ export const nonTeachingDataHandler = asyncHandler(async (req, res) => {
 //@route PUT /ieac/data/sports
 //@access private
 /**@deprecated : No need For IAEC Approval */
-export const sportsDataUpdater = asyncHandler(async (req, res) => { });
+export const sportsDataUpdater = asyncHandler(async (req, res) => {});
 //     const { applicationID } = req.body;
 //
 //     const applicationForm = await Sports.findOne({
@@ -169,25 +169,25 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => { });
 //@access private
 // TODO: add zod for this
 export const teachingDataUpdater = asyncHandler(async (req, res) => {
-  const { scoreA, scoreB, scoreC, recommended, applicationID } = req.body;
+    const { scoreA, scoreB, scoreC, recommended, applicationID } = req.body;
 
-  const applicationForm = await Teaching.findOne({
-    where: { id: applicationID },
-  });
-  if (!applicationForm) {
-    res.status(404);
-    throw new Error("Application not found");
-  }
-  await applicationForm.update({
-    ieac_scoreA: scoreA,
-    ieac_scoreB: scoreB,
-    ieac_scoreC: scoreC,
-    ieacApproved: recommended,
-  });
+    const applicationForm = await Teaching.findOne({
+        where: { id: applicationID },
+    });
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
+    await applicationForm.update({
+        ieac_scoreA: scoreA,
+        ieac_scoreB: scoreB,
+        ieac_scoreC: scoreC,
+        ieacApproved: recommended,
+    });
 
-  res.status(200).json({
-    message: "Update Successful",
-  });
+    res.status(200).json({
+        message: "Update Successful",
+    });
 });
 
 //@desc update non-teaching forms
@@ -195,25 +195,25 @@ export const teachingDataUpdater = asyncHandler(async (req, res) => {
 //@access private
 
 export const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
-  const { scoreA, scoreB, recommended, applicationID } = req.body;
+    const { scoreA, scoreB, recommended, applicationID } = req.body;
 
-  const applicationForm = await NonTeaching.findOne({
-    where: { id: applicationID },
-  });
-  if (!applicationForm) {
-    res.status(404);
-    throw new Error("Application not found");
-  }
+    const applicationForm = await NonTeaching.findOne({
+        where: { id: applicationID },
+    });
+    if (!applicationForm) {
+        res.status(404);
+        throw new Error("Application not found");
+    }
 
-  await applicationForm.update({
-    ieac_scoreA: scoreA,
-    ieac_scoreB: scoreB,
-    ieacApproved: recommended,
-  });
+    await applicationForm.update({
+        ieac_scoreA: scoreA,
+        ieac_scoreB: scoreB,
+        ieacApproved: recommended,
+    });
 
-  res.status(200).json({
-    message: "Update Successful",
-  });
+    res.status(200).json({
+        message: "Update Successful",
+    });
 });
 
 /**
@@ -250,7 +250,7 @@ export const nonTeachingDataUpdater = asyncHandler(async (req, res) => {
 // });
 
 /**@deprecated : No Need for IAEC to approve */
-const sportsRecFileHandler = asyncHandler(async (req, res) => { });
+const sportsRecFileHandler = asyncHandler(async (req, res) => {});
 //
 //     const ieacApprovedFile = (req as FileRequest).file.path;
 //
@@ -281,55 +281,55 @@ const sportsRecFileHandler = asyncHandler(async (req, res) => { });
 // });
 
 export const teachingRecFileHandler = asyncHandler(async (req, res) => {
-  const ieacApprovedFile = (req as FileRequest).file.path;
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
-  await Teaching.update(
-    {
-      ieacApprovedFile: ieacApprovedFile,
-    },
-    {
-      where: {
-        [Op.and]: [
-          {
-            institution_name: (req as AuthRequest).user
-              .institution as string,
-          },
-          sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-        ],
-      },
-    }
-  );
+    await Teaching.update(
+        {
+            ieacApprovedFile: ieacApprovedFile,
+        },
+        {
+            where: {
+                [Op.and]: [
+                    {
+                        institution_name: (req as AuthRequest).user
+                            .institution as string,
+                    },
+                    sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                ],
+            },
+        }
+    );
 
-  res.status(200).json({
-    file: ieacApprovedFile,
-    message: "File uploaded successfully!",
-  });
+    res.status(200).json({
+        file: ieacApprovedFile,
+        message: "File uploaded successfully!",
+    });
 });
 
 export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
-  const ieacApprovedFile = (req as FileRequest).file.path;
+    const ieacApprovedFile = (req as FileRequest).file.path;
 
-  await NonTeaching.update(
-    {
-      ieacApprovedFile: ieacApprovedFile,
-    },
-    {
-      where: {
-        [Op.and]: [
-          sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-          {
-            institution_name: (req as AuthRequest).user
-              .institution as string,
-          },
-        ],
-      },
-    }
-  );
+    await NonTeaching.update(
+        {
+            ieacApprovedFile: ieacApprovedFile,
+        },
+        {
+            where: {
+                [Op.and]: [
+                    sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+                    {
+                        institution_name: (req as AuthRequest).user
+                            .institution as string,
+                    },
+                ],
+            },
+        }
+    );
 
-  res.status(200).json({
-    file: ieacApprovedFile,
-    message: "File uploaded successfully!",
-  });
+    res.status(200).json({
+        file: ieacApprovedFile,
+        message: "File uploaded successfully!",
+    });
 });
 
 //@desc get nominated faculty names for particular college
@@ -337,28 +337,28 @@ export const nonTeachingRecFileHandler = asyncHandler(async (req, res) => {
 //@access PRIVATE
 
 export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
-  let names = [];
+    let names = [];
 
-  const institute_name = req.headers[instituteHeader] || "";
+    const institute_name = req.headers[instituteHeader] || "";
 
-  const result = await Teaching.findAll({
-    where: {
-      [Op.and]: [
-        { institution_name: institute_name },
-        { ieacApproved: true },
-        sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-      ],
-    },
-    attributes: ["faculty_name"],
-  });
+    const result = await Teaching.findAll({
+        where: {
+            [Op.and]: [
+                { institution_name: institute_name },
+                { ieacApproved: true },
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+            ],
+        },
+        attributes: ["faculty_name"],
+    });
 
-  for (const feedback of result) {
-    names.push(feedback.faculty_name);
-  }
+    for (const feedback of result) {
+        names.push(feedback.faculty_name);
+    }
 
-  res.status(200).json({
-    data: names,
-  });
+    res.status(200).json({
+        data: names,
+    });
 });
 
 //@desc get nominated faculty names for particular college
@@ -366,23 +366,25 @@ export const getNominatedTeacherNames = asyncHandler(async (req, res) => {
 //@access PRIVATE
 
 export const getNominatedStaffNames = asyncHandler(async (req, res) => {
-  let names = [];
+    let names = [];
+    const institute_name = req.headers[instituteHeader] || "";
 
-  const result = await NonTeaching.findAll({
-    where: {
-      [Op.and]: [
-        { ieacApproved: true },
-        sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
-      ],
-    },
-    attributes: ["staff_name"],
-  });
+    const result = await NonTeaching.findAll({
+        where: {
+            [Op.and]: [
+                { institution_name: institute_name },
+                { ieacApproved: true },
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+            ],
+        },
+        attributes: ["staff_name"],
+    });
 
-  for (const feedback of result) {
-    names.push(feedback.staff_name);
-  }
+    for (const feedback of result) {
+        names.push(feedback.staff_name);
+    }
 
-  res.status(200).json({
-    data: names,
-  });
+    res.status(200).json({
+        data: names,
+    });
 });
