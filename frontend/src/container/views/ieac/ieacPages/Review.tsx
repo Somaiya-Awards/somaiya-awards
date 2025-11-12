@@ -11,6 +11,7 @@ import {
 import Swal from "sweetalert2";
 import Axios from "@/axios";
 import React from "react";
+import { byPass } from "@/constants";
 
 export default function Review() {
     const [title, setTitle] = useState("");
@@ -45,9 +46,7 @@ export default function Review() {
         Axios.get(url)
             .then((res) => {
                 if (res.data) {
-                    const inst = localStorage.getItem("institution")
-
-                    if ((inst) && (inst !== "K. J. Somaiya Institute of Technology")) { setRows(res.data.data); }
+                    setRows(res.data.data);
                 }
             })
             .catch((err) => {
@@ -120,7 +119,8 @@ export default function Review() {
                             }}
                         />
                     </div>
-                    {rows[0] ? (
+                    {localStorage.getItem("institution") !==
+                        "K. J. Somaiya Institute of Technology" && rows[0] ? (
                         rows[0]?.ieacApprovedFile != null ? null : (
                             <div>
                                 <input
