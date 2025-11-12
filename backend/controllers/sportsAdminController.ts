@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { sequelize, FeedbackFive, Sports } from "../models";
 import { Op } from "sequelize";
+import { instituteHeader } from "../constants";
 
 //@desc get sports star girl form data of current Year
 //@route GET sports-admin/data/sports-star-girl
@@ -272,7 +273,7 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => {
     }
 
     res.status(200).json({
-        message: "Sucessfully Updated",
+        message: "Successfully Updated",
     });
 });
 
@@ -283,9 +284,13 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => {
 export const getNominatedNames = asyncHandler(async (req, res) => {
     let names = [];
 
+    const institute_name = req.headers[instituteHeader] || "";
     const result = await Sports.findAll({
         where: {
-            [Op.and]: [sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())")],
+            [Op.and]: [
+                { institution_name: institute_name },
+                sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
+            ],
         },
     });
 
