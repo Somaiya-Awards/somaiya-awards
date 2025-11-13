@@ -38,37 +38,31 @@ import { Op } from "sequelize";
 import { applicationHeader, Group, Groups, Institutes } from "../constants";
 
 function textToScore(text: string) {
-    let score = 0;
 
     switch (text) {
         case "Strongly Agree":
         case "Outstanding":
-            score = 5;
-            break;
+            return 5;
 
         case "Agree":
         case "Excellent":
         case "Very Good":
-            score = 4;
-            break;
+            return 4;
 
         case "Sometimes":
         case "Good":
-            score = 3;
-            break;
+            return 3;
 
         case "Disagree":
         case "Average":
-            score = 2;
-            break;
+            return 2;
 
         case "Poor":
         case "Strongly Disagree":
-            score = 1;
-            break;
+            return 1;
+        default:
+            return 0;
     }
-
-    return score;
 }
 /**
  * DASHBOARD SECTION
@@ -1248,11 +1242,11 @@ export const getNonTeachingScoreCardData = asyncHandler(
 
         // calculate student avg
 
-        let studentsfeedbackSum = 0;
+        let studentsFeedbackSum = 0;
 
         for (const feedback of studentValidFeedbacks) {
-            studentsfeedbackSum =
-                studentsfeedbackSum +
+            studentsFeedbackSum =
+                studentsFeedbackSum +
                 textToScore(feedback.q_01) +
                 textToScore(feedback.q_02) +
                 textToScore(feedback.q_03) +
@@ -1261,7 +1255,7 @@ export const getNonTeachingScoreCardData = asyncHandler(
         }
 
         const student_avg = Number(
-            (studentsfeedbackSum / (5 * studentValidFeedbacks.length)).toFixed(
+            (studentsFeedbackSum / (5 * studentValidFeedbacks.length)).toFixed(
                 2
             )
         );
@@ -1628,8 +1622,7 @@ export const getTeachingJurySummaryData = asyncHandler(
 
         // calculate scores and add data in respective arrays
 
-        for (let entry of applications) {
-            //@ts-ignore
+        for (const entry of applications) {
             const faculty: TeachingJuryScore = {};
             faculty.id = entry.id;
             faculty.faculty_name = entry.faculty_name;
@@ -1672,7 +1665,7 @@ export const getTeachingJurySummaryData = asyncHandler(
                 (faculty.applicationScore + ieacAverageScore / 2) / 2;
             faculty.applicationScore = 0.4 * faculty.applicationScore;
 
-            faculty.groups = Groups[entry.institution_name];
+            faculty.groups = Groups[entry.institution_name] || [];
             faculty.ieacApprovedFile = entry.ieacApprovedFile;
             faculty.feedbackScore = 0;
 
@@ -1680,33 +1673,32 @@ export const getTeachingJurySummaryData = asyncHandler(
 
             // segregate feedbacks
 
-            let validStudentsFeedbacks = [];
-            let validPeersFeedbacks = [];
+            const validStudentsFeedbacks = [];
+            const validPeersFeedbacks = [];
+            const name = entry.faculty_name.trim().toLowerCase()
 
-            for (let feedback of StudentsFeedbacks) {
+            for (const feedback of StudentsFeedbacks) {
                 if (
-                    entry.faculty_name.trim().toLowerCase() ===
-                    feedback.teacher_name.trim().toLowerCase()
+                    name === feedback.teacher_name.trim().toLowerCase()
                 ) {
                     validStudentsFeedbacks.push(feedback);
                 }
             }
 
-            for (let feedback of PeersFeedbacks) {
+            for (const feedback of PeersFeedbacks) {
                 if (
-                    entry.faculty_name.trim().toLowerCase() ===
-                    feedback.teacher_name.trim().toLowerCase()
+                    name === feedback.teacher_name.trim().toLowerCase()
                 ) {
                     validPeersFeedbacks.push(feedback);
                 }
             }
 
-            // calucate avg of students feedback
+            // calculate avg of students feedback
 
-            let studentFeedbackScoreSum = 0;
-            let peersFeedbackScoreSum = 0;
+            var studentFeedbackScoreSum = 0;
+            var peersFeedbackScoreSum = 0;
 
-            for (const feedback of StudentsFeedbacks) {
+            for (const feedback of validStudentsFeedbacks) {
                 studentFeedbackScoreSum +=
                     textToScore(feedback.q_01) +
                     textToScore(feedback.q_02) +
@@ -1833,13 +1825,12 @@ export const getNonTeachingJurySummaryData = asyncHandler(
         // calculate scores and add entry in respective category
 
         for (let entry of applications) {
-            //@ts-ignore
             let employee: NonTeachingJuryScore = {};
             employee.id = entry.id;
             employee.staff_name = entry.staff_name;
             employee.institution_name = entry.institution_name;
             employee.designation = entry.designation;
-            employee.groups = Groups[entry.institution_name];
+            employee.groups = Groups[entry.institution_name] || [];
             employee.ieacApprovedFile = entry.ieacApprovedFile;
             employee.applicationScore = Number(
                 (
@@ -1911,11 +1902,11 @@ export const getNonTeachingJurySummaryData = asyncHandler(
             }
 
             // calculate avg
-            let studentsfeedbackSum = 0;
+            let studentsFeedbackSum = 0;
 
             for (const feedback of studentsValidFeedbacks) {
-                studentsfeedbackSum =
-                    studentsfeedbackSum +
+                studentsFeedbackSum =
+                    studentsFeedbackSum +
                     textToScore(feedback.q_01) +
                     textToScore(feedback.q_02) +
                     textToScore(feedback.q_03) +
@@ -1940,7 +1931,7 @@ export const getNonTeachingJurySummaryData = asyncHandler(
 
             const student_avg = Number(
                 (
-                    studentsfeedbackSum /
+                    studentsFeedbackSum /
                     (5 * studentsValidFeedbacks.length)
                 ).toFixed(2)
             );

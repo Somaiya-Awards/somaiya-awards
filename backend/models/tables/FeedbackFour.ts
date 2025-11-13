@@ -76,7 +76,7 @@ export default function FeedbackFourInit(sequelize: Sequelize) {
             q_06: { type: DataTypes.STRING, allowNull: false },
             q_07: { type: DataTypes.STRING, allowNull: false },
             q_08: { type: DataTypes.STRING, allowNull: false },
-            nomination_reason: { type: DataTypes.STRING, allowNull: false },
+            nomination_reason: { type: DataTypes.TEXT, allowNull: false },
         },
         {
             sequelize,

@@ -54,6 +54,7 @@ if (cluster.isMaster) {
     initFolders();
 
     /** Do it once on Master Process, we have done this i think */
+    /** TODO: Please set it back to false, or else subsequent restarts could potentially corrupt the database */
     sequelize.sync({ alter: false }).then(async (req) => {
         try {
             const userCount = await User.count();
