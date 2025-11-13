@@ -275,3 +275,18 @@ export const NonTeachingScore = z.object({
     student_avg: validNumber,
     peers_avg: validNumber,
 });
+
+export type DataType = {
+    [K in
+        | "OEI_3"
+        | "PEI_23"
+        | "OEST"
+        | "OESVU"
+        | "PEST"
+        | "PESVU"
+        | "OESH"
+        | "PESH"]: {
+        OK: unknown[];
+        NO: unknown[];
+    };
+};

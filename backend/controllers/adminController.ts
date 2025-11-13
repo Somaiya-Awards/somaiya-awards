@@ -35,10 +35,15 @@ import {
     FeedbackFive,
 } from "../models";
 import { Op } from "sequelize";
-import { applicationHeader, Group, Groups, Institutes } from "../constants";
+import {
+    applicationHeader,
+    Group,
+    Groups,
+    Institutes,
+    NonTeachingAward,
+} from "../constants";
 
 function textToScore(text: string) {
-
     switch (text) {
         case "Strongly Agree":
         case "Outstanding":
@@ -1675,20 +1680,16 @@ export const getTeachingJurySummaryData = asyncHandler(
 
             const validStudentsFeedbacks = [];
             const validPeersFeedbacks = [];
-            const name = entry.faculty_name.trim().toLowerCase()
+            const name = entry.faculty_name.trim().toLowerCase();
 
             for (const feedback of StudentsFeedbacks) {
-                if (
-                    name === feedback.teacher_name.trim().toLowerCase()
-                ) {
+                if (name === feedback.teacher_name.trim().toLowerCase()) {
                     validStudentsFeedbacks.push(feedback);
                 }
             }
 
             for (const feedback of PeersFeedbacks) {
-                if (
-                    name === feedback.teacher_name.trim().toLowerCase()
-                ) {
+                if (name === feedback.teacher_name.trim().toLowerCase()) {
                     validPeersFeedbacks.push(feedback);
                 }
             }
@@ -1786,16 +1787,48 @@ export const getNonTeachingJurySummaryData = asyncHandler(
     async (req: Request, res: Response) => {
         // data
 
-        let array01 = []; //Employee of the Year (More than 3 years of service) : approved
-        let array001 = []; //Employee of the Year (More than 3 years of service) : not approved
-        let array02 = []; //Promising Employee Educational Institute (1 to 3 years of service) : approved
-        let array002 = []; //Promising Employee Educational Institute (1 to 3 years of service) : not approved
-        let array03 = []; //Promising Employee Somaiya Trust/GVPM (1 to 3 years of service) : approved
-        let array003 = []; //Promising Employee Somaiya Trust/GVPM (1 to 3 years of service): not approved
-        let array04 = []; //Outstanding Employee Somaiya Trust/GVPM : approved
-        let array004 = []; //Outstanding Employee Somaiya Trust/GVPM : not approved
-        let array05 = []; //Outstanding Employee K. J. Somaiya Hospital & Research Centre : approved
-        let array005 = []; //Outstanding Employee K. J. Somaiya Hospital & Research Centre : not approved
+        const data = {
+            /** Outstanding Employee - Institute (More than 3 years of Service) */
+            OEI_3: {
+                OK: [],
+                NO: [],
+            },
+            /** Promising Employee - Institute (2 to 3 years of Service) */
+            PEI_23: {
+                OK: [],
+                NO: [],
+            },
+            /** Outstanding Employee - Somaiya Trust */
+            OEST: {
+                OK: [],
+                NO: [],
+            },
+            /** Outstanding Employee - Somaiya Vidyavihar University */
+            OESVU: {
+                OK: [],
+                NO: [],
+            },
+            /** Promising Employee - Somaiya Trust */
+            PEST: {
+                OK: [],
+                NO: [],
+            },
+            /** Promising Employee - Somaiya Vidyavihar University */
+            PESVU: {
+                OK: [],
+                NO: [],
+            },
+            /** Outstanding Employee - K. J. Somaiya Hospital */
+            OESH: {
+                OK: [],
+                NO: [],
+            },
+            /** Promising Employee - K. J. Somaiya Hospital */
+            PESH: {
+                OK: [],
+                NO: [],
+            },
+        };
 
         const currentYear = new Date().getFullYear();
 
@@ -1945,66 +1978,83 @@ export const getNonTeachingJurySummaryData = asyncHandler(
             employee.totalScore =
                 employee.applicationScore + employee.feedbackScore;
 
-            if (
-                entry.award_category ===
-                "Employee of the Year (More than 3 years of service)"
-            ) {
-                if (entry.ieacApproved) {
-                    array01.push(employee);
-                } else {
-                    array001.push(employee);
-                }
-            } else if (
-                entry.award_category ===
-                "Promising Employee Educational Institute (1 to 3 years of service)"
-            ) {
-                if (entry.ieacApproved) {
-                    array02.push(employee);
-                } else {
-                    array002.push(employee);
-                }
-            } else if (
-                entry.award_category ===
-                "Promising Employee Somaiya Trust/GVPM (1 to 3 years of service)"
-            ) {
-                if (entry.ieacApproved) {
-                    array03.push(employee);
-                } else {
-                    array003.push(employee);
-                }
-            } else if (
-                entry.award_category ===
-                "Outstanding Employee Somaiya Trust/GVPM"
-            ) {
-                if (entry.ieacApproved) {
-                    array04.push(employee);
-                } else {
-                    array004.push(employee);
-                }
-            } else if (
-                entry.award_category ===
-                "Outstanding Employee K. J. Somaiya Hospital & Research Centre"
-            ) {
-                if (entry.ieacApproved) {
-                    array05.push(employee);
-                } else {
-                    array005.push(employee);
-                }
-            }
-        }
+            const award = entry.award_category as NonTeachingAward;
 
-        res.status(200).json({
-            array01: array01,
-            array001: array001,
-            array02: array02,
-            array002: array002,
-            array03: array03,
-            array003: array003,
-            array04: array04,
-            array004: array004,
-            array05: array05,
-            array005: array005,
-        });
+            switch (award) {
+                case "Outstanding Employee - Institute (More than 3 years of Service)":
+                    if (entry.ieacApproved) {
+                        data.OEI_3.OK.push(employee);
+                    } else {
+                        data.OEI_3.NO.push(employee);
+                    }
+
+                    break;
+                case "Promising Employee - Institute (2 to 3 years of Service)":
+                    if (entry.ieacApproved) {
+                        data.PEI_23.OK.push(employee);
+                    } else {
+                        data.PEI_23.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Outstanding Employee - Somaiya Trust":
+                    if (entry.ieacApproved) {
+                        data.OEST.OK.push(employee);
+                    } else {
+                        data.OEST.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Outstanding Employee - Somaiya Vidyavihar University":
+                    if (entry.ieacApproved) {
+                        data.OESVU.OK.push(employee);
+                    } else {
+                        data.OESVU.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Promising Employee - Somaiya Trust":
+                    if (entry.ieacApproved) {
+                        data.PEST.OK.push(employee);
+                    } else {
+                        data.PEST.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Promising Employee - Somaiya Vidyavihar University":
+                    if (entry.ieacApproved) {
+                        data.PESVU.OK.push(employee);
+                    } else {
+                        data.PESVU.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Outstanding Employee - K. J. Somaiya Hospital":
+                    if (entry.ieacApproved) {
+                        data.OESH.OK.push(employee);
+                    } else {
+                        data.OESH.NO.push(employee);
+                    }
+
+                    break;
+
+                case "Promising Employee - K. J. Somaiya Hospital":
+                    if (entry.ieacApproved) {
+                        data.PESH.OK.push(employee);
+                    } else {
+                        data.PESH.NO.push(employee);
+                    }
+
+                    break;
+            }
+
+            res.status(200).json(data);
+        }
     }
 );
 
