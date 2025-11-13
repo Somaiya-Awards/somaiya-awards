@@ -18,9 +18,98 @@ import {
     columns11,
     columns12,
 } from "@/data/AnalysisData/ADMIN/structure";
+import { type DataType } from "@/backend/types/controllers/admin";
 import xlsx from "json-as-xlsx";
-import Axios, { BASE_URL } from "@/axios";
+import Axios, { BASE_URL as backendUrl } from "@/axios";
 import React from "react";
+
+const xlsxColumnsTeaching = [
+    { label: "ID", value: "id" },
+    {
+        label: "Faculty Name",
+        value: "faculty_name",
+    },
+    {
+        label: "Institution",
+        value: "institute_name",
+    },
+    { label: "Designation", value: "designation" },
+    {
+        label: "Application Score (40%)",
+        value: "applicationScore",
+    },
+    {
+        label: "Feedback Score (60%)",
+        value: "feedbackScore",
+    },
+    {
+        label: "Total Score",
+        value: (row) =>
+            row.totalScore
+                ? Number(Number(row.totalScore).toFixed(2))
+                : Number(
+                      (
+                          Number(row.applicationScore) +
+                          Number(row.feedbackScore)
+                      ).toFixed(2)
+                  ),
+    },
+    {
+        label: "Group",
+        value: (row) => (row.groups ? row.groups[0] : "null"),
+    },
+    {
+        label: "File",
+        value: (row) =>
+            row.ieacApprovedFile
+                ? backendUrl + row.ieacApprovedFile.split("data")[1]
+                : null,
+    },
+];
+
+const xlsxColumnsNonTeaching = [
+    { label: "ID", value: "id" },
+    {
+        label: "Staff Name",
+        value: "staff_name",
+    },
+    {
+        label: "Institution",
+        value: "institution_name",
+    },
+    { label: "Designation", value: "designation" },
+    {
+        label: "Application Score (40%)",
+        value: "applicationScore",
+    },
+    {
+        label: "Feedback Score (60%)",
+        value: "feedbackScore",
+    },
+    {
+        label: "Total Score",
+        value: (row) =>
+            row.totalScore
+                ? Number(Number(row.totalScore).toFixed(2))
+                : Number(
+                      (
+                          Number(row.applicationScore) +
+                          Number(row.feedbackScore)
+                      ).toFixed(2)
+                  ),
+    },
+    {
+        label: "Group",
+        value: (row) => (row.groups ? row.groups[0] : "null"),
+    },
+    {
+        label: "File",
+        value: (row) =>
+            row.ieacApprovedFile
+                ? backendUrl + row.ieacApprovedFile.split("data")[1]
+                : null,
+    },
+];
 
 export default function Responses() {
     /**
@@ -114,7 +203,6 @@ export default function Responses() {
     // handle summary download
     const handleJuryReporyDownload = () => {
         const path = location.pathname.split("/responses/")[1];
-        const backendUrl = BASE_URL;
         Axios.get(`/admin/data/jury-summary/${path}`)
             .then((res) => {
                 // console.log(res.data)
@@ -122,230 +210,22 @@ export default function Responses() {
                     const data = [
                         {
                             sheet: "Excellence in Teaching",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                {
-                                    label: "Faculty Name",
-                                    value: "faculty_name",
-                                },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
+                            columns: xlsxColumnsTeaching,
                             content: res.data.excellence_approved,
                         },
                         {
                             sheet: "Excellence in Teaching - NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                {
-                                    label: "Faculty Name",
-                                    value: "faculty_name",
-                                },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
+                            columns: xlsxColumnsTeaching,
                             content: res.data.excellence_notApproved,
                         },
                         {
                             sheet: "Promising Teacher",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                {
-                                    label: "Faculty Name",
-                                    value: "faculty_name",
-                                },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
+                            columns: xlsxColumnsTeaching,
                             content: res.data.promising_approved,
                         },
                         {
                             sheet: "Promising Teacher - NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                {
-                                    label: "Faculty Name",
-                                    value: "faculty_name",
-                                },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
+                            columns: xlsxColumnsTeaching,
                             content: res.data.promising_notApproved,
                         },
                     ];
@@ -360,546 +240,87 @@ export default function Responses() {
 
                     xlsx(data, settings);
                 } else if (path === "non-teaching") {
+                    const content = res.data as DataType;
                     const data = [
                         {
-                            sheet: "Emp of Year",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array01,
+                            sheet: "Outstanding Emp Inst",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OEI_3.OK,
                         },
                         {
-                            sheet: "Emp of Year - NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array001,
+                            sheet: "Outstanding Emp Inst - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OEI_3.NO,
                         },
                         {
-                            sheet: "Promising Emp EI",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array02,
+                            sheet: "Promising Emp Inst",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PEI_23.OK,
                         },
                         {
-                            sheet: "Promising Emp EI- NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array002,
-                        },
-                        {
-                            sheet: "Promising Emp Trust",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array03,
-                        },
-                        {
-                            sheet: "Promising Emp Trust - NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array003,
+                            sheet: "Promising Emp Inst - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PEI_23.NO,
                         },
                         {
                             sheet: "Outstanding Emp Trust",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array04,
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OEST.OK,
                         },
                         {
-                            sheet: "Outstanding Emp Trust -NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array004,
+                            sheet: "Outstanding Emp Trust - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OEST.NO,
                         },
                         {
-                            sheet: "Outstanding Emp Medical",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array05,
+                            sheet: "Outstanding Emp SVU",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OESVU.OK,
                         },
                         {
-                            sheet: "Outstanding Emp Med -NA",
-                            columns: [
-                                { label: "ID", value: "id" },
-                                { label: "Faculty Name", value: "staff_name" },
-                                {
-                                    label: "Institution",
-                                    value: "institution_name",
-                                },
-                                { label: "Designation", value: "designation" },
-                                {
-                                    label: "Application Score (40%)",
-                                    value: "applicationScore",
-                                },
-                                {
-                                    label: "Feedback Score (60%)",
-                                    value: "feedbackScore",
-                                },
-                                {
-                                    label: "Total Score",
-                                    value: (row) =>
-                                        row.totalScore
-                                            ? Number(
-                                                Number(
-                                                    row.totalScore
-                                                ).toFixed(2)
-                                            )
-                                            : Number(
-                                                (
-                                                    Number(
-                                                        row.applicationScore
-                                                    ) +
-                                                    Number(row.feedbackScore)
-                                                ).toFixed(2)
-                                            ),
-                                },
-                                {
-                                    label: "Group",
-                                    value: (row) =>
-                                        row.groups ? row.groups[0] + 1 : "null",
-                                },
-                                {
-                                    label: "File",
-                                    value: (row) =>
-                                        row.ieacApprovedFile
-                                            ? backendUrl +
-                                            row.ieacApprovedFile.split(
-                                                "data"
-                                            )[1]
-                                            : null,
-                                },
-                            ],
-                            content: res.data.array005,
+                            sheet: "Outstanding Emp SVU - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OESVU.NO,
+                        },
+                        {
+                            sheet: "Promising Emp Trust",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PEST.OK,
+                        },
+                        {
+                            sheet: "Promising Emp Trust - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PEST.NO,
+                        },
+                        {
+                            sheet: "Promising Emp SVU",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PESVU.OK,
+                        },
+                        {
+                            sheet: "Promising Emp SVU - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PESVU.NO,
+                        },
+                        {
+                            sheet: "Outstanding Emp Hosp",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OESH.OK,
+                        },
+                        {
+                            sheet: "Outstanding Emp Hosp - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.OESH.NO,
+                        },
+                        {
+                            sheet: "Promising Emp Hosp",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PESH.OK,
+                        },
+                        {
+                            sheet: "Promising Emp Hosp - NA",
+                            columns: xlsxColumnsNonTeaching,
+                            content: content.PESH.NO,
                         },
                     ];
 
@@ -910,7 +331,7 @@ export default function Responses() {
                         writeOptions: {},
                         RTL: false,
                     };
-
+                    //@ts-expect-error Me no like type
                     xlsx(data, settings);
                 }
             })
@@ -935,7 +356,7 @@ export default function Responses() {
                         </h2>
                         {location.pathname.split("/responses/")[1] ===
                             "teaching" ||
-                            location.pathname.split("/responses/")[1] ===
+                        location.pathname.split("/responses/")[1] ===
                             "non-teaching" ? (
                             <div className="">
                                 <button

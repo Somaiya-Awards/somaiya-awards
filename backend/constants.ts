@@ -121,6 +121,8 @@ export const NonTeachingAwardList = [
     "Promising Employee - K. J. Somaiya Hospital",
 ] as const;
 
+export type NonTeachingAward = (typeof NonTeachingAwardList)[number];
+
 export const OutstandingInstList = [
     "Outstanding School",
     "Outstanding College",
