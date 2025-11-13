@@ -3,11 +3,9 @@ import Forms from "@/components/Forms";
 import PeerNonTeachingFeedbackForm from "@/data/Forms/PeerNonTeachingFeedbackForm";
 import FeedbackPeerNonTeaching from "@/components/utils/data/FeebackPeerNonTeaching";
 import Footer from "@/components/Footer";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import PeerNonTeachingFeedbackFormValidator from "@/zod/Forms/PeerNonTeachingFeedbackForm";
 import Navbar from "@/components/Navbar";
-import { instituteHeader } from "@/backend/constants";
-import Axios, {URL} from "@/axios";
 
 export default function FeedbackNonTeachingPR() {
     const title = "Peers Feedback Form for Non Teaching";

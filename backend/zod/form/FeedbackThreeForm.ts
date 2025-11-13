@@ -1,7 +1,7 @@
 import * as z from "zod";
 import {
     email,
-    validDate,
+    validYear,
     validString,
     arrayChoice,
     serverTextArea,
@@ -10,7 +10,7 @@ import { agreeList } from "../../constants";
 
 export const FeedbackThreeForm = z.object({
     email_id: email,
-    student_batch_year: validDate,
+    student_batch_year: validYear,
     student_class_and_division: validString,
     employee_name: validString,
     employee_designation: validString,

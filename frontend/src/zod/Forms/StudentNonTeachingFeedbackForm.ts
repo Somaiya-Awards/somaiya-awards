@@ -1,12 +1,12 @@
 import z from "zod";
-import { arrayChoice, email, validDate, validString } from "@/backend/zod";
+import { arrayChoice, email, validYear, validString } from "@/backend/zod";
 import { agreeList } from "@/backend/constants";
 import { clientTextArea } from "@/zod";
 
 export const StudentNonTeachingFeedbackFormField = {
     email_id: email,
 
-    student_batch_year: validDate,
+    student_batch_year: validYear,
 
     student_class_and_division: validString,
 

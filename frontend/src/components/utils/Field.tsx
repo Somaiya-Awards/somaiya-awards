@@ -107,11 +107,13 @@ function Field({
 
     const [dataOptions, setData] = useState<string[]>(options);
 
+    
     useEffect(() => {
         if (!fetch) return;
 
         (fetch as Promise<string[]>).then(setData).catch();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); 
 
     const renderInput = () => {
         switch (type) {

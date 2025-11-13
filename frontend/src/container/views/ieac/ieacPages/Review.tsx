@@ -11,7 +11,6 @@ import {
 import Swal from "sweetalert2";
 import Axios from "@/axios";
 import React from "react";
-import { byPass } from "@/constants";
 
 export default function Review() {
     const [title, setTitle] = useState("");

@@ -4,10 +4,8 @@ import FeedbackSports from "@/components/utils/data/FeedbackPeerTeaching";
 import FeedbackSportsForm from "@/data/Forms/FeedbackSportsCoach";
 import Footer from "@/components/Footer";
 import FeedbackSportsCoachValidator from "@/zod/Forms/FeedbackSportsCoach";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
-import Axios, { URL } from "@/axios";
-import { instituteHeader } from "@/backend/constants";
 
 export default function FeedbackSportsInc() {
     const headings = [

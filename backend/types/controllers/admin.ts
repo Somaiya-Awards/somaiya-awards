@@ -80,27 +80,27 @@ export type lastDate = {
 };
 
 export type TeachingJuryScore = {
-    id: number;
-    faculty_name: string;
-    institution_name: string;
-    designation: string;
-    groups: number[];
-    applicationScore: number;
-    feedbackScore: number;
-    ieacApprovedFile: string | null;
-    totalScore: number;
+    id?: number;
+    faculty_name?: string;
+    institution_name?: string;
+    designation?: string;
+    groups?: number[];
+    applicationScore?: number;
+    feedbackScore?: number;
+    ieacApprovedFile?: string | null;
+    totalScore?: number;
 };
 
 export type NonTeachingJuryScore = {
-    id: number;
-    staff_name: string;
-    institution_name: string;
-    designation: string;
-    groups: number[];
-    applicationScore: number;
-    feedbackScore: number;
-    ieacApprovedFile: string | null;
-    totalScore: number;
+    id?: number;
+    staff_name?: string;
+    institution_name?: string;
+    designation?: string;
+    groups?: number[];
+    applicationScore?: number;
+    feedbackScore?: number;
+    ieacApprovedFile?: string | null;
+    totalScore?: number;
 };
 
 export type InstituteCount = {

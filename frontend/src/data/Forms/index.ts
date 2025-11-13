@@ -6,7 +6,7 @@ import z from "zod";
 const validator = z.object({ data: z.array(anyString) });
 
 export default async function fetchOptions(url: string) {
-    let response = await Axios.get(url, {
+    const response = await Axios.get(url, {
         headers: {
             [instituteHeader]: localStorage.getItem("institution") as string,
         },

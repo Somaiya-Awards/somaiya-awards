@@ -130,7 +130,7 @@ export default function Responses() {
                                 },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -187,7 +187,7 @@ export default function Responses() {
                                 },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -244,7 +244,7 @@ export default function Responses() {
                                 },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -301,7 +301,7 @@ export default function Responses() {
                                 },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -368,7 +368,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -422,7 +422,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -459,9 +459,12 @@ export default function Responses() {
                                 {
                                     label: "File",
                                     value: (row) =>
-                                        backendUrl +
-                                        "/data" +
-                                        row.ieacApprovedFile.split("data")[1],
+                                        row.ieacApprovedFile
+                                            ? backendUrl +
+                                            row.ieacApprovedFile.split(
+                                                "data"
+                                            )[1]
+                                            : null,
                                 },
                             ],
                             content: res.data.array001,
@@ -473,7 +476,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -527,7 +530,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -581,7 +584,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -635,7 +638,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -689,7 +692,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -743,7 +746,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -797,7 +800,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {
@@ -851,7 +854,7 @@ export default function Responses() {
                                 { label: "Faculty Name", value: "staff_name" },
                                 {
                                     label: "Institution",
-                                    value: "institute_name",
+                                    value: "institution_name",
                                 },
                                 { label: "Designation", value: "designation" },
                                 {

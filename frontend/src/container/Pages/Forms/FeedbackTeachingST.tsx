@@ -3,11 +3,10 @@ import Forms from "@/components/Forms";
 import StudentTeachingFeedback from "@/components/utils/data/StudentTeachingFeedback";
 import StudentTeachingFeedbackForm from "@/data/Forms/StudentTeachingFeedbackForm";
 import Footer from "@/components/Footer";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import StudentTeachingFeedbackFormValidator from "@/zod/Forms/StudentTeachingFeedbackForm";
 import Navbar from "@/components/Navbar";
-import Axios, { URL } from "@/axios";
-import { instituteHeader } from "@/backend/constants";
+
 
 export default function FeedbackTeachingST() {
     const headings = [

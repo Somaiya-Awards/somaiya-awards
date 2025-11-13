@@ -27,14 +27,14 @@ export const Groups = {
     "S. K. Somaiya Vinay Mandir High School, Mumbai": [0, 1],
     "Somaiya Vidyamandir, Sakarwadi": [0, 1],
     "Shri Sharda English Medium School,  Kopargaon": [0, 1],
-    "Somaiya Vidyamandir,  Laxmiwadi": [0],
+    "Somaiya Vidyamandir, Laxmiwadi": [0, 1],
+    "Somaiya Vidyamandir,  Laxmiwadi": [0, 1],
     "Somaiya Shishu Niketan Primary School, Sameerwadi": [0],
     "Somaiya Vinaymandir High School, Sameerwadi": [0, 1],
     "K. J. Somaiya English Medium School, Sameerwadi": [0, 1],
     "Nareshwadi Learning Centre, Dahanu": [0],
     "Somaiya Vinay Mandir, Rehti": [0],
     "S. K. Somaiya Vinaymandir Secondary & Junior College": [1],
-    "Somaiya Vidyamandir, Laxmiwadi": [1],
     "Smt. S. K. Somaiya Junior College of Education": [1],
     "K J Somaiya Madhyamik Vidyalaya, Nareshwadi Learning Centre, Dahanu": [1],
     "K. J. Somaiya Private Industrial Training Institute": [1],
@@ -154,4 +154,7 @@ export const awards = [
     "Promising Teacher of the year (2 to 3 years of service)",
 ] as const;
 
-export const peerTeachingOption = ["Promising Teacher", "Excellence in Teaching"] as const;
+export const peerTeachingOption = [
+    "Promising Teacher",
+    "Excellence in Teaching",
+] as const;

@@ -284,11 +284,39 @@ export const sportsDataUpdater = asyncHandler(async (req, res) => {
 export const getNominatedNames = asyncHandler(async (req, res) => {
     let names = [];
 
-    const institute_name = req.headers[instituteHeader] || "";
+    const institute_name = req.headers[instituteHeader];
+
+    if (!institute_name) {
+        res.status(400).json({
+            message: "Invalid Institute Header",
+        });
+        return;
+    }
+
+    if (Array.isArray(institute_name)) {
+        res.status(400).json({
+            error: "Received Multiple Headers",
+        });
+        return;
+    }
+
+    const conditions = {
+        [Op.or]: [{ institution_name: institute_name }],
+    };
+
+    const laxmiRegex = /Somaiya Vidyamandir,\s+Laxmiwadi/.test(institute_name);
+
+    if (laxmiRegex) {
+        conditions[Op.or] = [
+            { institution_name: "Somaiya Vidyamandir,  Laxmiwadi" },
+            { institution_name: "Somaiya Vidyamandir, Laxmiwadi" },
+        ];
+    }
+
     const result = await Sports.findAll({
         where: {
             [Op.and]: [
-                { institution_name: institute_name },
+                conditions,
                 sequelize.literal("YEAR(createdAt) = YEAR(CURDATE())"),
             ],
         },

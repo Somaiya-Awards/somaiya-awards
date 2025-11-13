@@ -4,10 +4,8 @@ import StudentNonTeachingFeedback from "@/components/utils/data/StudentNonTeachi
 import StudentNonTeachingFeedbackForm from "@/data/Forms/StudentNonTeachingFeedbackForm";
 import Footer from "@/components/Footer";
 import StudentNonTeachingFeedbackFormValidator from "@/zod/Forms/StudentNonTeachingFeedbackForm";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
-import { instituteHeader } from "@/backend/constants";
-import Axios, {URL} from "@/axios";
 
 export default function FeedbackNonTeachingST() {
     const headings = [

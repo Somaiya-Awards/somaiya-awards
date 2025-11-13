@@ -3,11 +3,10 @@ import Forms from "@/components/Forms";
 import FeedbackTeachingPeerForm from "@/data/Forms/FeedbackTeachingPeerForm";
 import FeedbackPeerTeaching from "@/components/utils/data/FeedbackPeerTeaching";
 import Footer from "@/components/Footer";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import FeedbackTeachingPeerValidator from "@/zod/Forms/FeedbackTeachingPeerForm";
 import Navbar from "@/components/Navbar";
-import Axios, { URL } from "@/axios";
-import { instituteHeader } from "@/backend/constants";
+
 
 export default function FeedbackTeachingPR() {
     const headings = ["Basic Information", "Nominee Ratings", "Review"];
