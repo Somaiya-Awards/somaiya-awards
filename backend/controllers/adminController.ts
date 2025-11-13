@@ -2052,9 +2052,9 @@ export const getNonTeachingJurySummaryData = asyncHandler(
 
                     break;
             }
-
-            res.status(200).json(data);
         }
+
+        res.status(200).json(data);
     }
 );
 
