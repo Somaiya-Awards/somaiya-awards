@@ -1657,14 +1657,15 @@ export const getTeachingJurySummaryData = asyncHandler(
                     entry.q_20) /
                 20;
 
-            const ieacAverageScore = Number(
-                (
-                    (Number(entry.ieac_scoreA) +
-                        Number(entry.ieac_scoreB) +
-                        Number(entry.ieac_scoreC)) /
-                    3
-                ).toFixed(2)
-            );
+            const ieacAverageScore =
+                Number(
+                    (
+                        (Number(entry.ieac_scoreA) +
+                            Number(entry.ieac_scoreB) +
+                            Number(entry.ieac_scoreC)) /
+                        3
+                    ).toFixed(2)
+                ) || 0;
 
             faculty.applicationScore =
                 (faculty.applicationScore + ieacAverageScore / 2) / 2;
@@ -1726,27 +1727,30 @@ export const getTeachingJurySummaryData = asyncHandler(
                     textToScore(feedback.q_09);
             }
 
-            const studentsFeedbackAverageScore = Number(
-                (
-                    studentFeedbackScoreSum /
-                    (10 * validStudentsFeedbacks.length)
-                ).toFixed(2)
-            );
-            const peersFeedbackAverageScore = Number(
-                (
-                    peersFeedbackScoreSum /
-                    (validPeersFeedbacks.length * 9)
-                ).toFixed(2)
-            );
+            const studentsFeedbackAverageScore =
+                Number(
+                    (
+                        studentFeedbackScoreSum /
+                        (10 * validStudentsFeedbacks.length)
+                    ).toFixed(2)
+                ) || 0;
+            const peersFeedbackAverageScore =
+                Number(
+                    (
+                        peersFeedbackScoreSum /
+                        ((validPeersFeedbacks.length || 1) * 9)
+                    ).toFixed(2)
+                ) || 0;
 
-            faculty.feedbackScore = Number(
-                (
-                    (0.6 *
-                        (studentsFeedbackAverageScore +
-                            peersFeedbackAverageScore)) /
-                    2
-                ).toFixed(2)
-            );
+            faculty.feedbackScore =
+                Number(
+                    (
+                        (0.6 *
+                            (studentsFeedbackAverageScore +
+                                peersFeedbackAverageScore)) /
+                        2
+                    ).toFixed(2)
+                ) || 0;
             faculty.totalScore =
                 faculty.applicationScore + faculty.feedbackScore;
 
@@ -1865,42 +1869,45 @@ export const getNonTeachingJurySummaryData = asyncHandler(
             employee.designation = entry.designation;
             employee.groups = Groups[entry.institution_name] || [];
             employee.ieacApprovedFile = entry.ieacApprovedFile;
-            employee.applicationScore = Number(
-                (
-                    (entry.q_01 +
-                        entry.q_02 +
-                        entry.q_03 +
-                        entry.q_04 +
-                        entry.q_05 +
-                        entry.q_06 +
-                        entry.q_07 +
-                        entry.q_08 +
-                        entry.q_09 +
-                        entry.q_10 +
-                        entry.q_11 +
-                        entry.q_12 +
-                        entry.q_13 +
-                        entry.q_14 +
-                        entry.q_15 +
-                        entry.q_16 +
-                        entry.q_17 +
-                        entry.q_18 +
-                        entry.q_19 +
-                        entry.q_20 +
-                        entry.q_21 +
-                        entry.q_22 +
-                        entry.q_23 +
-                        entry.q_24) /
-                    24
-                ).toFixed(2)
-            );
+            employee.applicationScore =
+                Number(
+                    (
+                        (entry.q_01 +
+                            entry.q_02 +
+                            entry.q_03 +
+                            entry.q_04 +
+                            entry.q_05 +
+                            entry.q_06 +
+                            entry.q_07 +
+                            entry.q_08 +
+                            entry.q_09 +
+                            entry.q_10 +
+                            entry.q_11 +
+                            entry.q_12 +
+                            entry.q_13 +
+                            entry.q_14 +
+                            entry.q_15 +
+                            entry.q_16 +
+                            entry.q_17 +
+                            entry.q_18 +
+                            entry.q_19 +
+                            entry.q_20 +
+                            entry.q_21 +
+                            entry.q_22 +
+                            entry.q_23 +
+                            entry.q_24) /
+                        24
+                    ).toFixed(2)
+                ) || 0;
 
-            const ieac_avg = Number(
-                (
-                    (Number(entry.ieac_scoreA) + Number(entry.ieac_scoreB)) /
-                    2
-                ).toFixed(2)
-            );
+            const ieac_avg =
+                Number(
+                    (
+                        (Number(entry.ieac_scoreA) +
+                            Number(entry.ieac_scoreB)) /
+                        2
+                    ).toFixed(2)
+                ) || 0;
 
             employee.applicationScore =
                 (employee.applicationScore + ieac_avg / 2) / 2;
@@ -1962,19 +1969,23 @@ export const getNonTeachingJurySummaryData = asyncHandler(
                     textToScore(feedback.q_08);
             }
 
-            const student_avg = Number(
-                (
-                    studentsFeedbackSum /
-                    (5 * studentsValidFeedbacks.length)
-                ).toFixed(2)
-            );
-            const peers_avg = Number(
-                (peerFeedbackSum / (8 * peersValidFeedbacks.length)).toFixed(2)
-            );
+            const student_avg =
+                Number(
+                    (
+                        studentsFeedbackSum /
+                        (5 * studentsValidFeedbacks.length)
+                    ).toFixed(2)
+                ) || 0;
+            const peers_avg =
+                Number(
+                    (
+                        peerFeedbackSum /
+                        (8 * peersValidFeedbacks.length)
+                    ).toFixed(2)
+                ) || 0;
 
-            employee.feedbackScore = Number(
-                (0.6 * ((student_avg + peers_avg) / 2)).toFixed(2)
-            );
+            employee.feedbackScore =
+                Number((0.6 * ((student_avg + peers_avg) / 2)).toFixed(2)) || 0;
             employee.totalScore =
                 employee.applicationScore + employee.feedbackScore;
 
