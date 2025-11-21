@@ -118,8 +118,7 @@ export default function Review() {
                             }}
                         />
                     </div>
-                    {localStorage.getItem("institution") !==
-                        "K. J. Somaiya Institute of Technology" && rows[0] ? (
+                    {!window["SECRET_FLAG"] && rows[0] ? (
                         rows[0]?.ieacApprovedFile != null ? null : (
                             <div>
                                 <input

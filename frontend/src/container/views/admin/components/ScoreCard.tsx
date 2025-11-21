@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Download, User, Building2, Award } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, { type AvgScore } from "./BarGraph";
+//@ts-expect-error Sometime this breaks
 import Logo from "/logo.png";
 import Axios from "@/axios";
 import React from "react";
@@ -80,23 +81,23 @@ export default function ScoreCard() {
         fetchData();
     }, []);
 
-    const calculateFeedbackScore = () => {
+    const calculateApplicationScore = useMemo(() => {
+        const hoi_avg = apiData && apiData.hoi_avg ? apiData.hoi_avg : 0;
+        const ieac_avg = apiData && apiData.ieac_avg ? apiData.ieac_avg / 2 : 0;
+
+        return Math.round(0.4 * ((hoi_avg + ieac_avg) / 2) * 100) / 100;
+    }, [apiData]);
+
+    const calculateFeedbackScore = useMemo(() => {
         const student_avg =
             apiData && apiData.student_avg ? apiData.student_avg : 0;
         const peers_avg = apiData && apiData.peers_avg ? apiData.peers_avg : 0;
 
-        return ((student_avg + peers_avg) / 2) * 0.6;
-    };
+        return Math.round(0.6 * ((student_avg + peers_avg) / 2) * 100) / 100;
+    }, [apiData]);
 
-    const calculateFinalScore = () => {
-        const hoi_avg = apiData && apiData.hoi_avg ? apiData.hoi_avg : 0;
-        const ieac_avg = apiData && apiData.ieac_avg ? apiData.ieac_avg : 0;
-
-        const applicationScore =
-            Math.round(0.4 * ((hoi_avg + ieac_avg / 2) / 2) * 100) / 100;
-        const feedbackScore = calculateFeedbackScore();
-        return applicationScore + feedbackScore;
-    };
+    const calculateFinalScore =
+        calculateFeedbackScore + calculateApplicationScore;
 
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-Poppins">
@@ -174,18 +175,7 @@ export default function ScoreCard() {
                                 />
                                 <ApplicationScoreHighlight
                                     label="Application Score (40% of A + B)"
-                                    value={
-                                        apiData
-                                            ? Math.round(
-                                                0.4 *
-                                                ((apiData.hoi_avg +
-                                                    apiData.ieac_avg /
-                                                    2) /
-                                                    2) *
-                                                100
-                                            ) / 100
-                                            : 0
-                                    }
+                                    value={calculateApplicationScore}
                                     loading={loading}
                                 />
                                 <ScoreRow
@@ -200,14 +190,12 @@ export default function ScoreCard() {
                                 />
                                 <FeedbackScoreHighlight
                                     label="360 degree Feedback Score (60% of C + D)"
-                                    value={
-                                        loading ? 0 : calculateFeedbackScore()
-                                    }
+                                    value={calculateFeedbackScore}
                                     loading={loading}
                                 />
                                 <FinalScoreHighlight
                                     label="Final Score (Application Score + Feedback Score)"
-                                    value={loading ? 0 : calculateFinalScore()}
+                                    value={calculateFinalScore}
                                     loading={loading}
                                 />
                             </div>
@@ -253,7 +241,7 @@ export function DetailRow({
 
 export type NumberScore = {
     label: string;
-    value: number;
+    value?: number;
     loading: boolean;
 };
 

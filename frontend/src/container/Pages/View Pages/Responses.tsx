@@ -31,7 +31,7 @@ const xlsxColumnsTeaching = [
     },
     {
         label: "Institution",
-        value: "institute_name",
+        value: "institution_name",
     },
     { label: "Designation", value: "designation" },
     {
@@ -56,7 +56,7 @@ const xlsxColumnsTeaching = [
     },
     {
         label: "Group",
-        value: (row) => (row.groups ? row.groups[0] : "null"),
+        value: (row) => (row.groups ? row.groups[0] + 1 : "null"),
     },
     {
         label: "File",
@@ -100,7 +100,7 @@ const xlsxColumnsNonTeaching = [
     },
     {
         label: "Group",
-        value: (row) => (row.groups ? row.groups[0] : "null"),
+        value: (row) => (row.groups ? row.groups[0] + 1 : "null"),
     },
     {
         label: "File",

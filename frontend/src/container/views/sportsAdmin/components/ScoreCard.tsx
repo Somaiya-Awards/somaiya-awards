@@ -5,6 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import BarGraph, {
     type AvgScore,
 } from "@/container/views/admin/components/BarGraph";
+//@ts-expect-error Sometime this breaks
 import Logo from "/logo.png";
 import Axios from "@/axios";
 import React from "react";
