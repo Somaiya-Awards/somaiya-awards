@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SideBar from "@/components/SideBar";
 import Box from "@/components/status components/Box";
 import LineGraph from "@/components/status components/LineGraph";
 import Datagrid from "@/components/status components/Datagrid";
 import Piechart from "@/components/status components/Piechart";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import Swal from "sweetalert2";
-import Axios, { URL } from "@/axios";
+import Axios from "@/axios";
 import React from "react";
+import HandleLogout from "@/container/Pages/Logout";
 
 const Admin = () => {
+    const logout = HandleLogout();
+
     const [pastData, setPastData] = useState<[]>([]);
     const [rows, setRows] = useState<
         {
@@ -19,8 +20,6 @@ const Admin = () => {
     >([]);
     const [pieData, setPieData] = useState<[]>([]);
     const [counts, setCounts] = useState<{ [key: string]: number }>({});
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         // first load all data
@@ -50,23 +49,6 @@ const Admin = () => {
         });
     };
 
-    /**
-     * Logout Feature
-     */
-
-    const handleLogout = () => {
-        // remove token from local storage
-        Axios.post(URL.AUTH.LOGOUT);
-
-        Swal.fire({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-        // navigate to login page
-        navigate("/auth/login");
-    };
-
     return (
         <div className="adminPage">
             <div className="flex h-screen text-white font-Poppins">
@@ -83,7 +65,7 @@ const Admin = () => {
                         </div>
                         <div className="text-black">
                             <div
-                                onClick={handleLogout}
+                                onClick={logout}
                                 className="flex flex-col cursor-pointer text-center justify-center"
                             >
                                 <div>

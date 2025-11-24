@@ -49,19 +49,29 @@ import FeedbackSportsInc from "@/container/Pages/Forms/FeedbackSportsInc";
 import Tutorial from "@/components/Tutorial";
 import React, { useEffect } from "react";
 import { unauthorizedSwal } from "@/components/utils/swal";
+import { LoginCookie } from "@/backend/constants";
 
-const noAuthNeeded = ["/results", "/groups", "/guidelines", "/about", "/auth"];
+const noAuthNeeded = [
+    "/results",
+    "/groups",
+    "/guidelines",
+    "/about",
+    "/auth",
+] as const;
 
 function isLogged() {
-    return true; // /x-login=\w{128}/.test(document.cookie);
+    return new RegExp(`${LoginCookie}=\\w{128}`).test(document.cookie);
 }
 
 function authRoute(path: string) {
+    if (path === "/") return false;
+
     for (const url of noAuthNeeded) {
-        if (path.startsWith(url) || path === "/") {
+        if (path.startsWith(url)) {
             return false;
         }
     }
+
     return true;
 }
 
@@ -77,7 +87,7 @@ function RouteWatcher() {
             navigate("/auth/login");
             unauthorizedSwal();
         }
-    }, [location.pathname, navigate]);
+    }, [location, navigate]);
 
     return <></>;
 }

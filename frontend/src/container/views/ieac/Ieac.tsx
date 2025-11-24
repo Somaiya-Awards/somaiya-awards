@@ -1,37 +1,11 @@
 import React from "react";
-import SideBar from "./ieacComponents/Sidebar";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import SideBar from "@/container/views/ieac/ieacComponents/Sidebar";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Tile from "@/container/views/ieac/ieacComponents/Tile";
-import Axios, { URL } from "@/axios";
+import HandleLogout from "@/container/Pages/Logout";
 
 export default function Ieac() {
-    const navigate = useNavigate();
-
-    /**
-     * Logout
-     */
-
-    const handleLogout = () => {
-        // remove token from local storage
-
-        Axios.post(URL.AUTH.LOGOUT);
-        
-        Swal.fire({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-
-        // navigate to login page
-        navigate("/auth/login");
-    };
-
-    /**
-     * Authorization
-     */
-
+    const logout = HandleLogout();
     return (
         <div className="h-screen w-full">
             <div className="flex">
@@ -48,7 +22,7 @@ export default function Ieac() {
                         </div>
 
                         <div
-                            onClick={handleLogout}
+                            onClick={logout}
                             className="p-5 mr-[2rem] hover:cursor-pointer flex flex-col items-center"
                         >
                             <div>

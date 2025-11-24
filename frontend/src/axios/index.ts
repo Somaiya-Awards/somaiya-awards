@@ -39,7 +39,8 @@ export const URL = {
         COUNT: {
             ALL: `${BASE_URL}/admin/data/count/all` as const,
             LAST_15: `${BASE_URL}/admin/data/count/15` as const,
-            INSTITUTION_WISE: `${BASE_URL}/admin/data/count/institution-wise` as const,
+            INSTITUTION_WISE:
+                `${BASE_URL}/admin/data/count/institution-wise` as const,
             GROUPS: `${BASE_URL}/admin/data/count/group` as const,
         },
         USERS_LIST: `${BASE_URL}/admin/data/users` as const,
@@ -49,7 +50,8 @@ export const URL = {
             SPORTS_GIRL: `${BASE_URL}/admin/data/forms/sports-girl` as const,
             SPORTS_BOY: `${BASE_URL}/admin/data/forms/sports-boy` as const,
             NON_TEACHING: `${BASE_URL}/admin/data/forms/non-teaching` as const,
-            OUTSTANDING_INSTITUTION: `${BASE_URL}/admin/data/forms/outstanding-institution` as const,
+            OUTSTANDING_INSTITUTION:
+                `${BASE_URL}/admin/data/forms/outstanding-institution` as const,
             FEEDBACK_01: `${BASE_URL}/admin/data/forms/feedback-01` as const,
             RESEARCH: `${BASE_URL}/admin/data/forms/research` as const,
             TEACHING: `${BASE_URL}/admin/data/forms/teaching` as const,
@@ -64,11 +66,13 @@ export const URL = {
         },
         JURY_SUMMARY: {
             TEACHING: `${BASE_URL}/admin/data/jury-summary/teaching` as const,
-            NON_TEACHING: `${BASE_URL}/admin/data/jury-summary/non-teaching` as const,
+            NON_TEACHING:
+                `${BASE_URL}/admin/data/jury-summary/non-teaching` as const,
         },
         SCORECARD: {
             TEACHING: `${BASE_URL}/admin/data/teaching/scorecard` as const,
-            NON_TEACHING: `${BASE_URL}/admin/data/non-teaching/scorecard` as const,
+            NON_TEACHING:
+                `${BASE_URL}/admin/data/non-teaching/scorecard` as const,
         },
         RESULTS: `${BASE_URL}/admin/data/results` as const,
         DELETE_USER: `${BASE_URL}/admin/data/delete-user` as const,
@@ -80,7 +84,8 @@ export const URL = {
         STUDENTS: `${BASE_URL}/forms/students` as const,
         RESEARCH: `${BASE_URL}/forms/research` as const,
         NON_TEACHING: `${BASE_URL}/forms/non-teaching` as const,
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/forms/outstanding-institution` as const,
+        OUTSTANDING_INSTITUTION:
+            `${BASE_URL}/forms/outstanding-institution` as const,
         FEEDBACK_01: `${BASE_URL}/forms/feedback-01` as const,
         FEEDBACK_02: `${BASE_URL}/forms/feedback-02` as const,
         FEEDBACK_03: `${BASE_URL}/forms/feedback-03` as const,
@@ -94,15 +99,18 @@ export const URL = {
         SPORTS: `${BASE_URL}/hoi/data/sports` as const,
         TEACHING: `${BASE_URL}/hoi/data/teaching` as const,
         RESEARCH: `${BASE_URL}/hoi/data/research` as const,
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/hoi/data/outstanding-institution` as const,
+        OUTSTANDING_INSTITUTION:
+            `${BASE_URL}/hoi/data/outstanding-institution` as const,
     },
 
     IEAC: {
-        OUTSTANDING_INSTITUTION: `${BASE_URL}/ieac/data/outstanding-institution` as const,
+        OUTSTANDING_INSTITUTION:
+            `${BASE_URL}/ieac/data/outstanding-institution` as const,
         NOMINATED_STAFF: `${BASE_URL}/ieac/data/nominated-staff-names` as const,
         TEACHING: `${BASE_URL}/ieac/data/teaching` as const,
         NON_TEACHING: `${BASE_URL}/ieac/data/non-teaching` as const,
-        NOMINATED_FACULTY: `${BASE_URL}/ieac/data/nominated-faculty-names` as const,
+        NOMINATED_FACULTY:
+            `${BASE_URL}/ieac/data/nominated-faculty-names` as const,
     },
 
     RESEARCH_ADMIN: {
@@ -111,17 +119,24 @@ export const URL = {
     },
 
     SPORTS_ADMIN: {
-        INSPIRING_COACH: `${BASE_URL}/sports-admin/data/inspiring-coach` as const,
-        NOMINATED_COACH: `${BASE_URL}/sports-admin/data/nominated-coach-names` as const,
-        SPORTS_STAR_BOY: `${BASE_URL}/sports-admin/data/sports-star-boy` as const,
-        SPORTS_STAR_GIRL: `${BASE_URL}/sports-admin/data/sports-star-girl` as const,
+        INSPIRING_COACH:
+            `${BASE_URL}/sports-admin/data/inspiring-coach` as const,
+        NOMINATED_COACH:
+            `${BASE_URL}/sports-admin/data/nominated-coach-names` as const,
+        SPORTS_STAR_BOY:
+            `${BASE_URL}/sports-admin/data/sports-star-boy` as const,
+        SPORTS_STAR_GIRL:
+            `${BASE_URL}/sports-admin/data/sports-star-girl` as const,
         UPDATE: `${BASE_URL}/sports-admin/data/update` as const,
     },
 
     STUDENTS_ADMIN: {
-        STAR_CITIZEN: `${BASE_URL}/students-admin/data/somaiya-star-citizen` as const,
-        GREEN_STAR: `${BASE_URL}/students-admin/data/somaiya-green-star` as const,
-        STAR_INNOVATOR: `${BASE_URL}/students-admin/data/somaiya-star-innovator` as const,
+        STAR_CITIZEN:
+            `${BASE_URL}/students-admin/data/somaiya-star-citizen` as const,
+        GREEN_STAR:
+            `${BASE_URL}/students-admin/data/somaiya-green-star` as const,
+        STAR_INNOVATOR:
+            `${BASE_URL}/students-admin/data/somaiya-star-innovator` as const,
         UPDATE: `${BASE_URL}/students-admin/data/update` as const,
         STAR_BOY: `${BASE_URL}/students-admin/data/somaiya-star-boy` as const,
         STAR_GIRL: `${BASE_URL}/students-admin/data/somaiya-star-girl` as const,
@@ -185,5 +200,14 @@ Axios.interceptors.response.use(
         }
     }
 );
+
+function strip(value: string) {
+    const regex = new RegExp(/^[/]+|[/]+$/, "g");
+    return value.replace(regex, "");
+}
+
+export function generatePdfLink(value: string | null | undefined) {
+    return value ? `${BASE_URL}/${strip(value)}` : undefined;
+}
 
 export default Axios;

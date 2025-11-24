@@ -18,7 +18,7 @@ import { type GridColDef } from "@mui/x-data-grid";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
-import Axios, { DATA_URL as baseURL } from "@/axios";
+import Axios, { generatePdfLink } from "@/axios";
 import React from "react";
 
 /**
@@ -510,9 +510,7 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -686,11 +684,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value != null
-                            ? params.value.split("data")[1]
-                            : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -706,11 +700,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value != null
-                            ? params.value.split("data")[1]
-                            : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -749,9 +739,7 @@ const columns02: GridColDef[] = [
                 ) : (
                     <a
                         className="p-2 bg-red-700 rounded-xl shadow-red-100 text-white"
-                        href={`/${
-                            params.row["ieacApprovedFile"].split("data")[1]
-                        }`}
+                        href={generatePdfLink(params.value)}
                     >
                         Download
                     </a>
@@ -820,9 +808,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -838,9 +824,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -893,9 +877,7 @@ const columns04: GridColDef[] = [
             } else {
                 return (
                     <a
-                        href={`${baseURL}${
-                            params.value ? params.value.split("data")[1] : null
-                        }`}
+                        href={generatePdfLink(params.value)}
                         className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                         download
                     >
@@ -973,9 +955,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -991,9 +971,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1048,9 +1026,7 @@ const columns05: GridColDef[] = [
             } else {
                 return (
                     <a
-                        href={`${baseURL}${
-                            params.value ? params.value.split("data")[1] : null
-                        }`}
+                        href={generatePdfLink(params.value)}
                         className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                         download
                     >

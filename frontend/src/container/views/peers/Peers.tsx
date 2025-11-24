@@ -2,30 +2,13 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import FormCard from "@/components/utils/FormCard";
 import Teaching from "/teaching.jpeg";
 import NonTeaching from "/non-teaching.jpeg";
-import Axios, { URL } from "@/axios";
+import HandleLogout from "@/container/Pages/Logout";
 
 export default function Student() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        // remove token from local storage
-        Axios.post(URL.AUTH.LOGOUT);
-
-        Swal.fire({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-
-        // navigate to login page
-        navigate("/auth/login");
-    };
-
+    const logout = HandleLogout();
     return (
         <div>
             <Navbar />
@@ -40,7 +23,7 @@ export default function Student() {
                     </p>
                 </div>
                 <div>
-                    <div className="p-2 cursor-pointer" onClick={handleLogout}>
+                    <div className="p-2 cursor-pointer" onClick={logout}>
                         <LogoutRoundedIcon />
                     </div>
                 </div>

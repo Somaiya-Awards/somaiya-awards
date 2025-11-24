@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PageNotFound() {
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        navigate("/");
+    };
+
     return (
         <div className="w-full h-screen  bg-[#fcfcff]">
             <div className="w-full h-[50%] flex items-center justify-center">
@@ -17,11 +23,12 @@ export default function PageNotFound() {
                     Looks like you choose the wrong path . Go back Home
                 </p>
                 <div className="p-3 m-3  flex justify-center items-center">
-                    <Link to="/">
-                        <div className="rounded-lg cursor-pointer p-3 text-lg text-white font-Poppins hover:bg-red-600 bg-red-500 ">
-                            Back Home
-                        </div>
-                    </Link>
+                    <div
+                        className="rounded-lg cursor-pointer p-3 text-lg text-white font-Poppins hover:bg-red-600 bg-red-500"
+                        onClick={redirect}
+                    >
+                        Back Home
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,28 +1,11 @@
 import SideBar from "@/container/views/studentsAdmin/components/Sidebar";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import Tile from "./components/Tile";
 import React from "react";
-import Axios, { URL } from "@/axios";
+import HandleLogout from "@/container/Pages/Logout";
 
 export default function StudentsAdmin() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        // remove token from local storage
-
-        Axios.post(URL.AUTH.LOGOUT);
-
-        Swal.fire({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-
-        // navigate to login page
-        navigate("/auth/login");
-    };
+    const logout = HandleLogout();
 
     return (
         <div className="flex">
@@ -39,7 +22,7 @@ export default function StudentsAdmin() {
                         <div>
                             <div
                                 className="p-2 flex flex-col justify-center items-center cursor-pointer"
-                                onClick={handleLogout}
+                                onClick={logout}
                             >
                                 <div>
                                     <LogoutRoundedIcon />

@@ -1,26 +1,10 @@
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import FormCard from "@/components/utils/FormCard";
-import swalAlert from "@/components/utils/swal";
-import { useNavigate } from "react-router-dom";
-import Axios, { URL } from "@/axios";
+import HandleLogout from "@/container/Pages/Logout";
 import React from "react";
 
 export default function FormCards() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        Axios.post(URL.AUTH.LOGOUT, {});
-
-        swalAlert({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-
-        // navigate to login page
-        navigate("/auth/login");
-    };
-
+    const logout = HandleLogout();
     return (
         <div className="p-5 w-full h-screen ">
             {/* Headers  */}
@@ -37,7 +21,7 @@ export default function FormCards() {
                     </div>
                 </div>
                 <div className="flex flex-col text-center">
-                    <div onClick={handleLogout} className="p-3 cursor-pointer ">
+                    <div onClick={logout} className="p-3 cursor-pointer ">
                         <LogoutRoundedIcon />
                     </div>
                     <div className="text-md font-Poppins">Logout</div>

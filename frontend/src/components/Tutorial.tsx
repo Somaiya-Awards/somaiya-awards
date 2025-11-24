@@ -52,24 +52,23 @@ const Tutorial = () => {
     }, []);
 
     return (
-        <div>
-            <div className="flex h-screen">
-                {/* <sidebar/> */}
-                {role === "ADMIN" ? (
-                    <SideBar1 />
-                ) : role === "HOI" ? (
-                    <SideBar2 />
-                ) : role === "IEAC" ? (
-                    <SideBar3 />
-                ) : role === "RESEARCH ADMIN" ? (
-                    <SideBar4 />
-                ) : role === "SPORTS ADMIN" ? (
-                    <SideBar5 />
-                ) : role === "STUDENTS ADMIN" ? (
-                    <SideBar6 />
-                ) : null}
-                <iframe className="w-full h-full mx-2 " src={ytlink} />
-            </div>
+        <div className="flex h-screen">
+            {/* <sidebar/> */}
+            {role === "ADMIN" ? (
+                <SideBar1 />
+            ) : role === "HOI" ? (
+                <SideBar2 />
+            ) : role === "IEAC" ? (
+                <SideBar3 />
+            ) : role === "RESEARCH ADMIN" ? (
+                <SideBar4 />
+            ) : role === "SPORTS ADMIN" ? (
+                <SideBar5 />
+            ) : role === "STUDENTS ADMIN" ? (
+                <SideBar6 />
+            ) : null}
+            {/** Self referencing iframe */}
+            <iframe className="w-full h-full mx-2 " src={ytlink} />
         </div>
     );
 };

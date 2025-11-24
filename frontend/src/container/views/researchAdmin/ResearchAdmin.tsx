@@ -1,49 +1,14 @@
 import SideBar from "@/container/views/researchAdmin/components/Sidebar";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import Tile from "../studentsAdmin/components/Tile";
-import Axios, { URL } from "@/axios";
+import HandleLogout from "@/container/Pages/Logout";
 import React from "react";
 
 export default function ResearchAdmin() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        // remove token from local storage
-
-        Axios.post(URL.AUTH.LOGOUT);
-        Swal.fire({
-            title: "Successfully Logged Out",
-            icon: "success",
-            confirmButtonColor: "rgb(185,28,28)",
-        });
-
-        // navigate to login page
-        navigate("/auth/login");
-    };
-
+    const logout = HandleLogout();
     return (
         <div className="flex">
             <SideBar />
-
-            {/* <div className='flex-col flex w-full h-screen overflow-y-scroll'>
-                <div className='flex justify-between font-Poppins p-10'>
-                  <div>
-
-                    <h2 className='text-xl text-red-800 font-semibold '>
-                      Welcome Research Admin
-                    </h2>
-
-                  </div>
-                  <div>
-                    <div className='p-2 cursor-pointer' onClick={handleLogout}>
-                      <LogoutRoundedIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
- */}
 
             <div className="flex flex-col h-screen w-full overflow-y-scroll">
                 <div className="font-Poppins p-5">
@@ -56,7 +21,7 @@ export default function ResearchAdmin() {
                         <div>
                             <div
                                 className="p-2 flex flex-col justify-center items-center cursor-pointer"
-                                onClick={handleLogout}
+                                onClick={logout}
                             >
                                 <div>
                                     <LogoutRoundedIcon />

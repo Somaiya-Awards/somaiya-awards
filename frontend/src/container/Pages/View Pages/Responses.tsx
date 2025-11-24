@@ -20,7 +20,7 @@ import {
 } from "@/data/AnalysisData/ADMIN/structure";
 import { type DataType } from "@/backend/types/controllers/admin";
 import xlsx from "json-as-xlsx";
-import Axios, { BASE_URL as backendUrl } from "@/axios";
+import Axios, { BASE_URL as backendUrl, generatePdfLink } from "@/axios";
 import React from "react";
 
 const xlsxColumnsTeaching = [
@@ -60,10 +60,7 @@ const xlsxColumnsTeaching = [
     },
     {
         label: "File",
-        value: (row) =>
-            row.ieacApprovedFile
-                ? backendUrl + row.ieacApprovedFile.split("data")[1]
-                : null,
+        value: (row) => generatePdfLink(row.ieacApprovedFile),
     },
 ];
 
@@ -104,10 +101,7 @@ const xlsxColumnsNonTeaching = [
     },
     {
         label: "File",
-        value: (row) =>
-            row.ieacApprovedFile
-                ? backendUrl + row.ieacApprovedFile.split("data")[1]
-                : null,
+        value: (row) => generatePdfLink(row.ieacApprovedFile),
     },
 ];
 

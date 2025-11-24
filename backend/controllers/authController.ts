@@ -395,18 +395,10 @@ export const bulkCreateOrUpdateUsers = asyncHandler(async (req, res) => {
 //@route POST /auth/logout
 //@access public
 export const userLogout = asyncHandler(async (req, res) => {
-    const user = (req as AuthRequest).user;
-
     removeRefreshCookie(res);
     removeAccessCookie(res);
     removeCsrfCookie(res);
     removeLoginCookie(res);
-
-    if (!user) {
-        res.status(301).json({
-            message: "Already logged out",
-        });
-    }
 
     res.status(200).json({
         message: "Successfully logged out",

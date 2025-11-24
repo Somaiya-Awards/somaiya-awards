@@ -1,15 +1,23 @@
 import { CookieOptions, Response } from "express";
-import { AccessCookie, RefreshCookie } from "../constants";
+import { AccessCookie, LoginCookie, RefreshCookie } from "../constants";
 import { JwtTimeout } from "../middleware/jwt";
 import { randomString } from "../middleware/csrfMiddleware";
 
-function setCookieOption(
-    timeout: JwtTimeout | "0s",
-    path: string | null = null,
-    httpOnly: boolean = true
-): CookieOptions {
+export type setCookieType = {
+    timeout: JwtTimeout | "0s";
+    path?: string | null;
+    httpOnly?: boolean;
+    domain?: string | null;
+};
+
+function setCookieOption({
+    timeout,
+    path = null,
+    httpOnly = true,
+    domain = null,
+}: setCookieType): CookieOptions {
     let maxAge = 0;
-    let prod = process.env.PROD === "1";
+    const prod = process.env.PROD === "1";
 
     switch (timeout) {
         case "1h":
@@ -36,44 +44,59 @@ function setCookieOption(
         config.path = path;
     }
 
+    if (domain) {
+        config.domain = prod ? domain : "localhost";
+    }
+
     return config;
+}
+
+const accessCookieOption: setCookieType = { timeout: "1h" } as const;
+
+const refreshCookieOption: setCookieType = {
+    timeout: "1d",
+    path: "/auth/refresh",
+} as const;
+
+const loginCookieOption: setCookieType = {
+    timeout: "1h",
+    httpOnly: false,
+    domain: ".somaiya.edu",
+} as const;
+
+export function removeCookieOption(option: setCookieType): setCookieType {
+    return { ...option, timeout: "0s" };
 }
 
 export function setCookie(
     res: Response,
     cookieName: string,
     cookieValue: string,
-    timeout: JwtTimeout | "0s",
-    path: string | null = null,
-    httpOnly: boolean = false
+    option: setCookieType
 ) {
-    res.cookie(
-        cookieName,
-        cookieValue,
-        setCookieOption(timeout, path, httpOnly)
-    );
+    res.cookie(cookieName, cookieValue, setCookieOption(option));
 }
 
 export function setAccessCookie(res: Response, cookie: string) {
-    setCookie(res, AccessCookie, cookie, "1h", null, true);
+    setCookie(res, AccessCookie, cookie, accessCookieOption);
 }
 
 export function setRefreshCookie(res: Response, cookie: string) {
-    setCookie(res, RefreshCookie, cookie, "1d", "/auth/refresh", true);
-}
-
-export function removeAccessCookie(res: Response) {
-    setCookie(res, AccessCookie, "", "0s", null, true);
-}
-
-export function removeRefreshCookie(res: Response) {
-    setCookie(res, RefreshCookie, "", "0s", "/auth/refresh", true);
+    setCookie(res, RefreshCookie, cookie, refreshCookieOption);
 }
 
 export function setLoginCookie(res: Response) {
-    setCookie(res, "x-login", randomString(128), "1h", null, false);
+    setCookie(res, LoginCookie, randomString(128), loginCookieOption);
+}
+
+export function removeAccessCookie(res: Response) {
+    setCookie(res, AccessCookie, "", removeCookieOption(accessCookieOption));
+}
+
+export function removeRefreshCookie(res: Response) {
+    setCookie(res, RefreshCookie, "", removeCookieOption(refreshCookieOption));
 }
 
 export function removeLoginCookie(res: Response) {
-    setCookie(res, "x-login", "", "0s", null, false);
+    setCookie(res, LoginCookie, "", removeCookieOption(loginCookieOption));
 }

@@ -1,7 +1,7 @@
 import { type GridColDef } from "@mui/x-data-grid";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Swal from "sweetalert2";
-import Axios, { DATA_URL as baseURL } from "@/axios";
+import Axios, { generatePdfLink } from "@/axios";
 import React from "react";
 
 const handleStudentsChange = (params, event) => {
@@ -83,9 +83,7 @@ const columns01: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={`${baseURL}${
-                        params.value ? params.value.split("data")[1] : null
-                    }`}
+                    href={generatePdfLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >

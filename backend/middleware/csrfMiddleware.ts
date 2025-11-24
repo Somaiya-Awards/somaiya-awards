@@ -1,6 +1,10 @@
 import asyncHandler from "express-async-handler";
 import { CSRF, CSRF_SIZE, CsrfName } from "../constants";
-import { setCookie } from "../middleware/cookie";
+import {
+    removeCookieOption,
+    setCookie,
+    setCookieType,
+} from "../middleware/cookie";
 import { Request, Response } from "express";
 
 export function randomString(size: number = CSRF_SIZE) {
@@ -48,6 +52,10 @@ function unmaskSecret(token: string) {
     return secret;
 }
 
+const csrfCookieOption: setCookieType = {
+    timeout: "1h",
+};
+
 export function setCsrfCookie(
     req: Request,
     res: Response,
@@ -57,7 +65,7 @@ export function setCsrfCookie(
 
     if (!req.cookies[CsrfName] || force) {
         cookie = randomString();
-        setCookie(res, CsrfName, cookie, "1h", null, true);
+        setCookie(res, CsrfName, cookie, csrfCookieOption);
     } else {
         cookie = req.cookies[CsrfName];
     }
@@ -68,7 +76,7 @@ export function setCsrfCookie(
 }
 
 export function removeCsrfCookie(res: Response) {
-    setCookie(res, CsrfName, "", "0s", null, true);
+    setCookie(res, CsrfName, "", removeCookieOption(csrfCookieOption));
 }
 
 /**
