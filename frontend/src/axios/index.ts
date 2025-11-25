@@ -206,7 +206,7 @@ function strip(value: string) {
     return value.replace(regex, "");
 }
 
-export function generatePdfLink(value: string | null | undefined) {
+export function generateLink(value: string | null | undefined) {
     return value ? `${BASE_URL}/${strip(value)}` : undefined;
 }
 

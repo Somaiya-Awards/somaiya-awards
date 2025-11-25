@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SideBar from "@/container/views/sportsAdmin/components/Sidebar";
+import xlsx from "json-as-xlsx";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import {
     columns01,
@@ -9,6 +10,17 @@ import {
 } from "@/data/AnalysisData/SPORTS ADMIN/structure";
 import Axios from "@/axios";
 import React from "react";
+import {
+    xlsxSportsBoy,
+    xlsxSportsCoach,
+    xlsxSportsGirl,
+} from "@/container/Pages/View Pages/xlsxColumns";
+import {
+    BoyData,
+    CoachData,
+    GirlData,
+    SportsExcelType,
+} from "@/backend/types/controllers/sports";
 
 export default function SportsResponses() {
     const [rows, setRows] = useState([]);
@@ -51,6 +63,92 @@ export default function SportsResponses() {
         setTitle(name);
     }, [name, navigate, path]);
 
+    const handleReportDownload = () => {
+        const path = location.pathname.split("/responses/")[1];
+        /** Well well how the turn tables */
+        Axios.get(`/sports-admin/data/sportsexcel/${path}`)
+            .then((res) => {
+                if (path === "sports-star-girl") {
+                    const content: SportsExcelType<GirlData> = res.data;
+                    const data = [
+                        {
+                            sheet: "Approved Sports Star Girl",
+                            columns: xlsxSportsGirl,
+                            content: content.OK,
+                        },
+                        {
+                            sheet: "Not Approved Sports Star Girl",
+                            columns: xlsxSportsGirl,
+                            content: content.NO,
+                        },
+                    ];
+
+                    const settings = {
+                        fileName: "Sports Star Girl Summary",
+                        extraLength: 3,
+                        writeMode: "writeFile",
+                        writeOptions: {},
+                        RTL: false,
+                    };
+
+                    //@ts-expect-error Can break
+                    xlsx(data, settings);
+                } else if (path === "sports-star-boy") {
+                    const content: SportsExcelType<BoyData> = res.data;
+                    const data = [
+                        {
+                            sheet: "Approved Sports Star Boy",
+                            columns: xlsxSportsBoy,
+                            content: content.OK,
+                        },
+                        {
+                            sheet: "Not Approved Sports Star Boy",
+                            columns: xlsxSportsBoy,
+                            content: content.NO,
+                        },
+                    ];
+
+                    const settings = {
+                        fileName: "Sports Star Boy Summary",
+                        extraLength: 3,
+                        writeMode: "writeFile",
+                        writeOptions: {},
+                        RTL: false,
+                    };
+
+                    //@ts-expect-error Can break
+                    xlsx(data, settings);
+                } else if (path === "inspiring-coach") {
+                    const content: SportsExcelType<CoachData> = res.data;
+                    const data = [
+                        {
+                            sheet: "Approved Inspiring Coach",
+                            columns: xlsxSportsCoach,
+                            content: content.OK,
+                        },
+                        {
+                            sheet: "Not Approved Inspiring Coach",
+                            columns: xlsxSportsCoach,
+                            content: content.NO,
+                        },
+                    ];
+
+                    const settings = {
+                        fileName: "Sports Star Coach Summary",
+                        extraLength: 3,
+                        writeMode: "writeFile",
+                        writeOptions: {},
+                        RTL: false,
+                    };
+
+                    //@ts-expect-error Can break
+                    xlsx(data, settings);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
     return (
         <div className="flex">
             <SideBar />
@@ -61,6 +159,22 @@ export default function SportsResponses() {
                             {title}
                         </h2>
                     </div>
+                    {[
+                        "inspiring-coach",
+                        "sports-star-boy",
+                        "sports-star-girl",
+                    ].includes(
+                        location.pathname.split("/responses/")[1] || ""
+                    ) ? (
+                        <div className="">
+                            <button
+                                onClick={handleReportDownload}
+                                className="px-3 py-2 bg-red-800 text-white font-Poppins my-5 rounded-full"
+                            >
+                                Download Summary
+                            </button>
+                        </div>
+                    ) : null}
 
                     <div className="my-5">
                         <DataGrid

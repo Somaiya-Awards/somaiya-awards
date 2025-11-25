@@ -19,7 +19,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { Link } from "react-router-dom";
 import React from "react";
-import { BASE_URL as baseURL, generatePdfLink } from "@/axios";
+import { generateLink } from "@/axios";
 
 const columns01: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
@@ -280,7 +280,7 @@ const columns01: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     target="_blank"
                     download
@@ -447,7 +447,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -463,7 +463,7 @@ const columns02: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -546,7 +546,7 @@ const columns03: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -715,7 +715,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -731,7 +731,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -778,7 +778,7 @@ const columns04: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -947,7 +947,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -963,7 +963,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1010,7 +1010,7 @@ const columns05: GridColDef[] = [
         renderCell: (params) => {
             return (
                 <a
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1231,7 +1231,7 @@ const columns10: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1248,7 +1248,7 @@ const columns10: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1346,7 +1346,7 @@ const columns11: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1363,7 +1363,7 @@ const columns11: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1416,102 +1416,102 @@ const columns12: GridColDef[] = [
     },
     {
         field: "Skill to demonstrate competency in motor skills and movement patterns needed to perform a variety of physical activities.",
-        headerName: "Q_01",
+        headerName: "q_01",
         width: 100,
     },
     {
         field: "Skill in analysis of the training and competition preparation required by athletes (the team) to perform at the top level (International/National/State)",
-        headerName: "Q_02",
+        headerName: "q_02",
         width: 100,
     },
     {
         field: "Skill in analysis of the strategies, tactics and psychological preparation required by athletes (the team) to perform at the top level",
-        headerName: "Q_03",
+        headerName: "q_03",
         width: 100,
     },
     {
         field: "Skill to exhibit responsible personal and social behavior that respects self and others in physical activity settings.",
-        headerName: "Q_04",
+        headerName: "q_04",
         width: 100,
     },
     {
         field: "Skill to value physical activity for health, enjoyment, challenge, self-expression, and/or social interaction.",
-        headerName: "Q_05",
+        headerName: "q_05",
         width: 100,
     },
     {
         field: "Ability to explain the factors that contribute to high performance to Athletes and others.",
-        headerName: "Q_06",
+        headerName: "q_06",
         width: 100,
     },
     {
         field: "Delivery of training sessions aligned to short- and long-term performance goals and appropriate to the athletes involved.",
-        headerName: "Q_07",
+        headerName: "q_07",
         width: 100,
     },
     {
         field: "Organization of training sessions that are time-effective and maximize value of available equipment and facilities.",
-        headerName: "Q_08",
+        headerName: "q_08",
         width: 100,
     },
     {
         field: "Analysis of athlete`s or team`s performance and determination of necessary changes in training and preparation",
-        headerName: "Q_09",
+        headerName: "q_09",
         width: 100,
     },
     {
         field: "Setting of appropriate level goals for athletes (the team) for the year and long-term",
-        headerName: "Q_10",
+        headerName: "q_10",
         width: 100,
     },
     {
         field: "Demonstrated ability to set progression of goals to achieve long-range (International medal) goals",
-        headerName: "Q_11",
+        headerName: "q_11",
         width: 100,
     },
     {
         field: "Ability to have athletes (the team) peak at appropriate times of the season / academic year",
-        headerName: "Q_12",
+        headerName: "q_12",
         width: 100,
     },
     {
         field: "Effective monitoring of student-athletes for over-training, injuries, or illness (on own or through use of experts) and appropriate response",
-        headerName: "Q_13",
+        headerName: "q_13",
         width: 100,
     },
     {
         field: "Effective feedback to athletes (the team) related to training and performance results",
-        headerName: "Q_14",
+        headerName: "q_14",
         width: 100,
     },
     {
         field: "Ensuring that elements surrounding competition (for example, nutrition, and transport to and from sites, accommodation, training venues, and so on) support the athletes’ (team’s) ability to perform well",
-        headerName: "Q_15",
+        headerName: "q_15",
         width: 100,
     },
     {
         field: "Work within assigned budget and effectively manage program resources",
-        headerName: "Q_16",
+        headerName: "q_16",
         width: 100,
     },
     {
         field: "Manage the logistics of team projects, including travel, team meetings, technical meetings and practice matches, and discipline",
-        headerName: "Q_17",
+        headerName: "q_17",
         width: 100,
     },
     {
         field: "Ability to learn from each competition cycle and apply lessons to future planning and decision making",
-        headerName: "Q_18",
+        headerName: "q_18",
         width: 100,
     },
     {
         field: "Ability to define and communicate a clear vision for athletes (team)",
-        headerName: "Q_19",
+        headerName: "q_19",
         width: 100,
     },
     {
         field: "Act consistently and instill in athletes (team) belief in their ability to perform at a national/ world level",
-        headerName: "Q_20",
+        headerName: "q_20",
 
         width: 100,
     },
@@ -1541,7 +1541,7 @@ const columns12: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >
@@ -1558,7 +1558,7 @@ const columns12: GridColDef[] = [
             return (
                 <a
                     target="_blank"
-                    href={generatePdfLink(params.value)}
+                    href={generateLink(params.value)}
                     className="p-2 rounded-2xl cursor-pointer bg-red-700 text-white font-Poppins"
                     download
                 >

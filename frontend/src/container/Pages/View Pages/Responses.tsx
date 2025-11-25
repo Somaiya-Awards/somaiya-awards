@@ -20,90 +20,12 @@ import {
 } from "@/data/AnalysisData/ADMIN/structure";
 import { type DataType } from "@/backend/types/controllers/admin";
 import xlsx from "json-as-xlsx";
-import Axios, { BASE_URL as backendUrl, generatePdfLink } from "@/axios";
+import Axios from "@/axios";
 import React from "react";
-
-const xlsxColumnsTeaching = [
-    { label: "ID", value: "id" },
-    {
-        label: "Faculty Name",
-        value: "faculty_name",
-    },
-    {
-        label: "Institution",
-        value: "institution_name",
-    },
-    { label: "Designation", value: "designation" },
-    {
-        label: "Application Score (40%)",
-        value: "applicationScore",
-    },
-    {
-        label: "Feedback Score (60%)",
-        value: "feedbackScore",
-    },
-    {
-        label: "Total Score",
-        value: (row) =>
-            row.totalScore
-                ? Number(Number(row.totalScore).toFixed(2))
-                : Number(
-                      (
-                          Number(row.applicationScore) +
-                          Number(row.feedbackScore)
-                      ).toFixed(2)
-                  ),
-    },
-    {
-        label: "Group",
-        value: (row) => (row.groups ? row.groups[0] + 1 : "null"),
-    },
-    {
-        label: "File",
-        value: (row) => generatePdfLink(row.ieacApprovedFile),
-    },
-];
-
-const xlsxColumnsNonTeaching = [
-    { label: "ID", value: "id" },
-    {
-        label: "Staff Name",
-        value: "staff_name",
-    },
-    {
-        label: "Institution",
-        value: "institution_name",
-    },
-    { label: "Designation", value: "designation" },
-    {
-        label: "Application Score (40%)",
-        value: "applicationScore",
-    },
-    {
-        label: "Feedback Score (60%)",
-        value: "feedbackScore",
-    },
-    {
-        label: "Total Score",
-        value: (row) =>
-            row.totalScore
-                ? Number(Number(row.totalScore).toFixed(2))
-                : Number(
-                      (
-                          Number(row.applicationScore) +
-                          Number(row.feedbackScore)
-                      ).toFixed(2)
-                  ),
-    },
-    {
-        label: "Group",
-        value: (row) => (row.groups ? row.groups[0] + 1 : "null"),
-    },
-    {
-        label: "File",
-        value: (row) => generatePdfLink(row.ieacApprovedFile),
-    },
-];
+import {
+    xlsxColumnsTeaching,
+    xlsxColumnsNonTeaching,
+} from "@/container/Pages/View Pages/xlsxColumns";
 
 export default function Responses() {
     /**
@@ -199,7 +121,6 @@ export default function Responses() {
         const path = location.pathname.split("/responses/")[1];
         Axios.get(`/admin/data/jury-summary/${path}`)
             .then((res) => {
-                // console.log(res.data)
                 if (path === "teaching") {
                     const data = [
                         {
@@ -232,6 +153,7 @@ export default function Responses() {
                         RTL: false,
                     };
 
+                    //@ts-expect-error Can break
                     xlsx(data, settings);
                 } else if (path === "non-teaching") {
                     const content = res.data as DataType;
