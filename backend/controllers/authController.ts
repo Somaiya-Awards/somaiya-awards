@@ -20,7 +20,6 @@ import {
     setLoginCookie,
     setRefreshCookie,
 } from "../middleware/cookie";
-import { AuthRequest } from "../types/request";
 import { removeCsrfCookie, setCsrfCookie } from "../middleware/csrfMiddleware";
 
 //@desc handle login

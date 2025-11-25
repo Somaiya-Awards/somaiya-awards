@@ -60,7 +60,15 @@ const noAuthNeeded = [
 ] as const;
 
 function isLogged() {
-    return new RegExp(`${LoginCookie}=\\w{128}`).test(document.cookie);
+    const regex = new RegExp(`${LoginCookie}=\\w{128}`);
+    const isLogged = regex.test(document.cookie);
+
+    if (window["DEBUG"]) {
+        console.log(isLogged, regex.exec(document.cookie));
+        return isLogged;
+    }
+
+    return true;
 }
 
 function authRoute(path: string) {
