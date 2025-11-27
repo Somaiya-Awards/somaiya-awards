@@ -12,6 +12,8 @@ export const RefreshCookie = "x-refresh";
 
 export const CsrfName = "x-csrf";
 
+export const LoginCookie = "x-login";
+
 export const instituteHeader = "x-institute-name";
 
 export const applicationHeader = "x-application-id";

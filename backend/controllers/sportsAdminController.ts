@@ -2,6 +2,12 @@ import asyncHandler from "express-async-handler";
 import { sequelize, FeedbackFive, Sports } from "../models";
 import { Op } from "sequelize";
 import { instituteHeader } from "../constants";
+import {
+    BoyData,
+    CoachData,
+    GirlData,
+    SportsExcelType,
+} from "../types/controllers/sports";
 
 //@desc get sports star girl form data of current Year
 //@route GET sports-admin/data/sports-star-girl
@@ -329,4 +335,171 @@ export const getNominatedNames = asyncHandler(async (req, res) => {
     res.status(200).json({
         data: names,
     });
+});
+
+export const getSportsCoachExcelData = asyncHandler(async (req, res) => {
+    const currentYear = new Date().getFullYear();
+    const data: SportsExcelType<CoachData> = {
+        OK: [],
+        NO: [],
+    };
+
+    const sportsData = await Sports.findAll({
+        where: sequelize.where(
+            sequelize.fn("YEAR", sequelize.col("createdAt")),
+            currentYear
+        ),
+    });
+
+    for (const response of sportsData) {
+        const coach = {
+            id: response.id,
+            email_id: response.email_id,
+            institute_name: response.institution_name,
+            nominee_inspiring_coach: response.nominee_inspiring_coach,
+            nominee_coach_comments: response.nominee_coach_comments,
+            nominee_coach_photo: response.nominee_coach_photo,
+            nominee_coach_supportings: response.nominee_coach_supportings,
+            isApprovedCoach: response.isApprovedCoach,
+            q_01: response.q_01,
+            q_02: response.q_02,
+            q_03: response.q_03,
+            q_04: response.q_04,
+            q_05: response.q_05,
+            q_06: response.q_06,
+            q_07: response.q_07,
+            q_08: response.q_08,
+            q_09: response.q_09,
+            q_10: response.q_10,
+            q_11: response.q_11,
+            q_12: response.q_12,
+            q_13: response.q_13,
+            q_14: response.q_14,
+            q_15: response.q_15,
+            q_16: response.q_16,
+            q_17: response.q_17,
+            q_18: response.q_18,
+            q_19: response.q_19,
+            q_20: response.q_20,
+            final_score:
+                response.q_01 +
+                response.q_02 +
+                response.q_03 +
+                response.q_04 +
+                response.q_05 +
+                response.q_06 +
+                response.q_07 +
+                response.q_08 +
+                response.q_09 +
+                response.q_10 +
+                response.q_11 +
+                response.q_12 +
+                response.q_13 +
+                response.q_14 +
+                response.q_15 +
+                response.q_16 +
+                response.q_17 +
+                response.q_18 +
+                response.q_19 +
+                response.q_20,
+        };
+
+        if (coach.isApprovedCoach) {
+            data.OK.push(coach);
+        } else {
+            data.NO.push(coach);
+        }
+    }
+
+    res.status(200).json(data);
+});
+
+export const getSportsGirlExcelData = asyncHandler(async (req, res) => {
+    const currentYear = new Date().getFullYear();
+    const data: SportsExcelType<GirlData> = {
+        OK: [],
+        NO: [],
+    };
+
+    const sportsData = await Sports.findAll({
+        where: sequelize.where(
+            sequelize.fn("YEAR", sequelize.col("createdAt")),
+            currentYear
+        ),
+    });
+
+    for (const response of sportsData) {
+        const girl = {
+            id: response.id,
+            email_id: response.email_id,
+            institute_name: response.institution_name,
+            nominee_ss_girl: response.nominee_ss_girl,
+            nominee_ss_girl_sport: response.nominee_ss_girl_sport,
+            nominee_ss_girl_photo: response.nominee_ss_girl_photo,
+            nominee_ss_girl_supportings: response.nominee_ss_girl_supportings,
+            isApprovedSportsGirl: response.isApprovedSportsGirl,
+            q_21: response.q_21,
+            q_22: response.q_22,
+            q_23: response.q_23,
+            q_24: response.q_24,
+            final_score:
+                response.q_21 * 0.4 +
+                response.q_23 * 0.3 +
+                response.q_23 * 0.2 +
+                response.q_24 * 0.1,
+        };
+
+        if (girl.isApprovedSportsGirl) {
+            data.OK.push(girl);
+        } else {
+            data.NO.push(girl);
+        }
+    }
+
+    res.status(200).json(data);
+});
+
+export const getSportsBoyExcelData = asyncHandler(async (req, res) => {
+    const currentYear = new Date().getFullYear();
+    const data: SportsExcelType<BoyData> = {
+        OK: [],
+        NO: [],
+    };
+
+    const sportsData = await Sports.findAll({
+        where: sequelize.where(
+            sequelize.fn("YEAR", sequelize.col("createdAt")),
+            currentYear
+        ),
+    });
+
+    for (const response of sportsData) {
+        const boy = {
+            id: response.id,
+            email_id: response.email_id,
+            institute_name: response.institution_name,
+            nominee_ss_boy: response.nominee_ss_boy,
+            nominee_ss_boy_sport: response.nominee_ss_boy_sport,
+            nominee_ss_boy_photo: response.nominee_ss_boy_photo,
+            nominee_ss_boy_supportings: response.nominee_ss_boy_supportings,
+            isApprovedSportsBoy: response.isApprovedSportsBoy,
+            q_25: response.q_25,
+            q_26: response.q_26,
+            q_27: response.q_27,
+            q_28: response.q_28,
+            final_score:
+                response.q_25 * 0.4 +
+                response.q_26 * 0.3 +
+                response.q_27 * 0.2 +
+                response.q_28 * 0.1,
+        };
+
+        if (boy.isApprovedSportsBoy) {
+            data.OK.push(boy);
+        } else {
+            data.NO.push(boy);
+        }
+    }
+
+    res.status(200).json(data);
 });
